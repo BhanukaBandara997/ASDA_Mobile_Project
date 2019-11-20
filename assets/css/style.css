@@ -88,15 +88,6 @@
         span#sign-in-text {
             margin-left: 2px !important;
         }
-        div#buttons-layout {
-            top: 68% !important;
-        }
-        a#continue-button {
-            top: 6%;
-        }
-        a#create-button {
-            top: 14%;
-        }
     }
     /* iPhone X Landscape */
     
@@ -110,15 +101,6 @@
         }
         span#sign-in-text {
             margin-left: 2px !important;
-        }
-        div#buttons-layout {
-            top: 60% !important;
-        }
-        a#continue-button {
-            top: 6%;
-        }
-        a#create-button {
-            top: 18%;
         }
     }
     /* iPad Pro Portrait */
@@ -151,15 +133,6 @@
         span#sign-in-text {
             margin-left: 8px !important;
         }
-        div#buttons-layout {
-            top: 65% !important;
-        }
-        a#continue-button {
-            top: 6%;
-        }
-        a#create-button {
-            top: 15%;
-        }
         img#welcome-img {
             height: 1025px !important;
             width: 1000px !important;
@@ -167,20 +140,11 @@
     }
     
     .welcome-buttons {
-        position: absolute;
-        width: 70%;
-        height: 4%;
-        align-items: center !important;
-        display: flex !important;
-        justify-content: center !important;
-        border-radius: 10px !important;
         font-style: normal !important;
         font-weight: 550 !important;
         line-height: 18px !important;
         text-align: center !important;
         letter-spacing: -0.165px !important;
-        background-image: linear-gradient(#F46B45, #EEA849) !important;
-        text-transform: none !important;
     }
     
     #welcome-text {
@@ -195,23 +159,25 @@
         justify-content: center !important;
     }
     
-    #buttons-layout {
+    .buttons-layout {
         background: #FFFFFF;
         border-radius: 40px 40px 0px 0px;
         display: flex !important;
         justify-content: center !important;
-        bottom: 0;
+        bottom: 0px;
         height: 100%;
     }
     
-    #background-image-layout,
-    #buttons-layout {
+    .background-image-layout,
+    .buttons-layout {
         position: fixed;
-        left: 0;
-        right: 0;
+        left: 0px;
+        right: 0px;
     }
     
-    #background-image-layout {
-        top: 0;
+    .background-image-layout {
+        display: flex !important;
+        justify-content: center !important;
+        top: 0px;
         height: 75%;
     }
