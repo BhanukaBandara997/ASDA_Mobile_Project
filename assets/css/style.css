@@ -1,0 +1,217 @@
+    .ui-header .ui-title,
+    .ui-footer .ui-title {
+        /* margin-right: 0 !important;
+    margin-left: 0 !important; */
+    }
+    
+    .marker {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    
+    .tab-content {
+        display: none;
+    }
+    
+    .tab-content:first-child {
+        display: block;
+    }
+    
+    .ui-body-c {
+        border: 1px solid #aaa!important;
+    }
+    
+    caption {
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+    
+    .ui-li .ui-btn-inner a.ui-link-inherit,
+    .ui-li-static.ui-li {
+        display: block !important;
+        padding: 0.9em 75px 0.9em 15px !important;
+    }
+    
+    .node {
+        cursor: pointer;
+    }
+    
+    .overlay {
+        background-color: #EEE;
+    }
+    
+    .node circle {
+        fill: #fff;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+    }
+    
+    .node text {
+        font-size: 10px;
+        font-family: "sans-serif";
+    }
+    
+    .link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 1.5px;
+    }
+    
+    .templink {
+        fill: none;
+        stroke: red;
+        stroke-width: 3px;
+    }
+    
+    .ghostCircle.show {
+        display: block;
+    }
+    
+    .ghostCircle,
+    .activeDrag .ghostCircle {
+        display: none;
+    }
+    
+    .open-sans-font {
+        font-family: 'Open Sans', sans-serif;
+    }
+    /* iPhone X Portrait */
+    
+    @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
+        a#welcome-buttons {
+            font-size: 15px !important;
+        }
+        p#welcome-text {
+            font-size: 13px !important;
+            top: 22%;
+        }
+        span#sign-in-text {
+            margin-left: 2px !important;
+        }
+        div#buttons-layout {
+            top: 68% !important;
+        }
+        a#continue-button {
+            top: 6%;
+        }
+        a#create-button {
+            top: 14%;
+        }
+    }
+    /* iPhone X Landscape */
+    
+    @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
+        a.welcome-buttons {
+            font-size: 15px !important;
+        }
+        p#welcome-text {
+            font-size: 13px !important;
+            top: 27%;
+        }
+        span#sign-in-text {
+            margin-left: 2px !important;
+        }
+        div#buttons-layout {
+            top: 60% !important;
+        }
+        a#continue-button {
+            top: 6%;
+        }
+        a#create-button {
+            top: 18%;
+        }
+    }
+    /* iPad Pro Portrait */
+    
+    @media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
+        a.welcome-buttons {
+            font-size: 24px !important;
+        }
+        p#welcome-text {
+            font-size: 22px !important;
+        }
+        span#sign-in-text {
+            margin-left: 8px !important;
+        }
+        img#welcome-img {
+            width: 1025px !important;
+            height: 1000px !important;
+        }
+    }
+    /* iPad Pro Landscape */
+    
+    @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
+        a.welcome-buttons {
+            font-size: 24px !important;
+        }
+        p#welcome-text {
+            font-size: 22px !important;
+            top: 23% !important;
+        }
+        span#sign-in-text {
+            margin-left: 8px !important;
+        }
+        div#buttons-layout {
+            top: 65% !important;
+        }
+        a#continue-button {
+            top: 6%;
+        }
+        a#create-button {
+            top: 15%;
+        }
+        img#welcome-img {
+            height: 1025px !important;
+            width: 1000px !important;
+        }
+    }
+    
+    .welcome-buttons {
+        position: absolute;
+        width: 70%;
+        height: 4%;
+        align-items: center !important;
+        display: flex !important;
+        justify-content: center !important;
+        border-radius: 10px !important;
+        font-style: normal !important;
+        font-weight: 550 !important;
+        line-height: 18px !important;
+        text-align: center !important;
+        letter-spacing: -0.165px !important;
+        background-image: linear-gradient(#F46B45, #EEA849) !important;
+        text-transform: none !important;
+    }
+    
+    #welcome-text {
+        position: absolute;
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: 550;
+        line-height: 18px;
+        text-align: center;
+        letter-spacing: -0.165px;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    
+    #buttons-layout {
+        background: #FFFFFF;
+        border-radius: 40px 40px 0px 0px;
+        display: flex !important;
+        justify-content: center !important;
+        bottom: 0;
+        height: 100%;
+    }
+    
+    #background-image-layout,
+    #buttons-layout {
+        position: fixed;
+        left: 0;
+        right: 0;
+    }
+    
+    #background-image-layout {
+        top: 0;
+        height: 75%;
+    }
