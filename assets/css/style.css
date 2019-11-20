@@ -1,3 +1,5 @@
+@import url("font-style.css");
+
     .ui-header .ui-title,
     .ui-footer .ui-title {
         /* margin-right: 0 !important;
@@ -109,7 +111,7 @@
             top: 27%;
         }
         span#sign-in-text {
-            margin-left: 2px !important;
+            margin-left: 2px !important;      
         }
         div#buttons-layout {
             top: 60% !important;
@@ -132,6 +134,7 @@
         }
         span#sign-in-text {
             margin-left: 8px !important;
+            font-size: 22px !important;
         }
         img#welcome-img {
             width: 1025px !important;
@@ -150,6 +153,7 @@
         }
         span#sign-in-text {
             margin-left: 8px !important;
+            font-size: 22px !important;
         }
         div#buttons-layout {
             top: 65% !important;
@@ -170,30 +174,9 @@
         position: absolute;
         width: 70%;
         height: 4%;
-        align-items: center !important;
-        display: flex !important;
-        justify-content: center !important;
-        border-radius: 10px !important;
-        font-style: normal !important;
-        font-weight: 550 !important;
-        line-height: 18px !important;
-        text-align: center !important;
-        letter-spacing: -0.165px !important;
         background-image: linear-gradient(#F46B45, #EEA849) !important;
-        text-transform: none !important;
     }
     
-    #welcome-text {
-        position: absolute;
-        font-family: Open Sans;
-        font-style: normal;
-        font-weight: 550;
-        line-height: 18px;
-        text-align: center;
-        letter-spacing: -0.165px;
-        display: flex !important;
-        justify-content: center !important;
-    }
     
     #buttons-layout {
         background: #FFFFFF;
