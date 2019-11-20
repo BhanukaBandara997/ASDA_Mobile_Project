@@ -1,0 +1,31 @@
+/* iPhone X */
+.iphone-smallest-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2px !important;
+}
+
+.iphone-medium-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px !important;
+}
+
+.iphone-large-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px !important;
+}
+
+/* iPad Pro */
+.ipad-smallest-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 8px !important;
+}
+
+.ipad-medium-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 22px !important;
+}
+
+.ipad-large-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px !important;
+}
