@@ -1,0 +1,56 @@
+/* iPhone X */
+.iphone-smallest-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px !important;
+    position: absolute;
+    font-style: normal;
+    text-align: center;
+    letter-spacing: -0.165px;
+    display: flex !important;
+    justify-content: center !important;
+    text-transform: none !important;
+}
+
+.iphone-medium-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px !important;
+    position: absolute;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 18px;
+    letter-spacing: -0.165px;
+    text-align: center;
+    display: flex !important;
+    justify-content: center !important;
+    text-transform: none !important;
+}
+
+.iphone-large-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px !important;
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    font-style: normal !important;
+    font-weight: 550 !important;
+    line-height: 18px !important;
+    text-align: center !important;
+    letter-spacing: -0.165px !important;
+    text-transform: none !important;
+}
+
+/* iPad Pro */
+.ipad-smallest-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 8px !important;
+}
+
+.ipad-medium-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 22px !important;
+}
+
+.ipad-large-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px !important;
+}

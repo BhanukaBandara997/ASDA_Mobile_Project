@@ -1,177 +1,175 @@
-    .marker {
-        max-width: 100%;
-        max-height: 100%;
+.marker {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content:first-child {
+    display: block;
+}
+
+.ui-body-c {
+    border: 1px solid #aaa!important;
+}
+
+caption {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.ui-li .ui-btn-inner a.ui-link-inherit,
+.ui-li-static.ui-li {
+    display: block !important;
+    padding: 0.9em 75px 0.9em 15px !important;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.overlay {
+    background-color: #EEE;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.node text {
+    font-size: 10px;
+    font-family: "sans-serif";
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+
+.templink {
+    fill: none;
+    stroke: red;
+    stroke-width: 3px;
+}
+
+.ghostCircle.show {
+    display: block;
+}
+
+.ghostCircle,
+.activeDrag .ghostCircle {
+    display: none;
+}
+
+.open-sans-font {
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+/* iPhone X Portrait */
+
+@media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
+    a#welcome-buttons {
+        font-size: 15px !important;
     }
-    
-    .tab-content {
-        display: none;
+    p#welcome-text {
+        font-size: 13px !important;
+        top: 21%;
     }
-    
-    .tab-content:first-child {
-        display: block;
+    span#sign-in-text {
+        margin-left: 2px !important;
     }
-    
-    .ui-body-c {
-        border: 1px solid #aaa!important;
+}
+
+
+/* iPhone X Landscape */
+
+@media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
+    a.welcome-buttons {
+        font-size: 15px !important;
     }
-    
-    caption {
-        font-weight: bold;
-        font-size: 1.1em;
+    p#welcome-text {
+        font-size: 13px !important;
+        top: 27%;
     }
-    
-    .ui-li .ui-btn-inner a.ui-link-inherit,
-    .ui-li-static.ui-li {
-        display: block !important;
-        padding: 0.9em 75px 0.9em 15px !important;
+    span#sign-in-text {
+        margin-left: 2px !important;
     }
-    
-    .node {
-        cursor: pointer;
+}
+
+
+/* iPad Pro Portrait */
+
+@media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
+    a.welcome-buttons {
+        font-size: 24px !important;
     }
-    
-    .overlay {
-        background-color: #EEE;
+    p#welcome-text {
+        font-size: 22px !important;
     }
-    
-    .node circle {
-        fill: #fff;
-        stroke: steelblue;
-        stroke-width: 1.5px;
+    span#sign-in-text {
+        margin-left: 8px !important;
+        font-size: 22px !important;
     }
-    
-    .node text {
-        font-size: 10px;
-        font-family: "sans-serif";
+    img#welcome-img {
+        width: 1025px !important;
+        height: 1000px !important;
     }
-    
-    .link {
-        fill: none;
-        stroke: #ccc;
-        stroke-width: 1.5px;
+}
+
+
+/* iPad Pro Landscape */
+
+@media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
+    a.welcome-buttons {
+        font-size: 24px !important;
     }
-    
-    .templink {
-        fill: none;
-        stroke: red;
-        stroke-width: 3px;
+    p#welcome-text {
+        font-size: 22px !important;
+        top: 23% !important;
     }
-    
-    .ghostCircle.show {
-        display: block;
+    span#sign-in-text {
+        margin-left: 8px !important;
+        font-size: 22px !important;
     }
-    
-    .ghostCircle,
-    .activeDrag .ghostCircle {
-        display: none;
+    img#welcome-img {
+        height: 1025px !important;
+        width: 1000px !important;
     }
-    
-    .open-sans-font {
-        font-family: 'Open Sans', sans-serif;
-    }
-    /* iPhone X Portrait */
-    
-    @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
-        a#welcome-buttons {
-            font-size: 15px !important;
-        }
-        p#welcome-text {
-            font-size: 13px !important;
-            top: 21%;
-        }
-        span#sign-in-text {
-            margin-left: 2px !important;
-        }
-    }
-    /* iPhone X Landscape */
-    
-    @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
-        a.welcome-buttons {
-            font-size: 15px !important;
-        }
-        p#welcome-text {
-            font-size: 13px !important;
-            top: 27%;
-        }
-        span#sign-in-text {
-            margin-left: 2px !important;
-        }
-    }
-    /* iPad Pro Portrait */
-    
-    @media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
-        a.welcome-buttons {
-            font-size: 24px !important;
-        }
-        p#welcome-text {
-            font-size: 22px !important;
-        }
-        span#sign-in-text {
-            margin-left: 8px !important;
-        }
-        img#welcome-img {
-            width: 1025px !important;
-            height: 1000px !important;
-        }
-    }
-    /* iPad Pro Landscape */
-    
-    @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
-        a.welcome-buttons {
-            font-size: 24px !important;
-        }
-        p#welcome-text {
-            font-size: 22px !important;
-            top: 23% !important;
-        }
-        span#sign-in-text {
-            margin-left: 8px !important;
-        }
-        img#welcome-img {
-            height: 1025px !important;
-            width: 1000px !important;
-        }
-    }
-    
-    .welcome-buttons {
-        font-style: normal !important;
-        font-weight: 550 !important;
-        line-height: 18px !important;
-        text-align: center !important;
-        letter-spacing: -0.165px !important;
-    }
-    
-    #welcome-text {
-        position: absolute;
-        font-family: Open Sans;
-        font-style: normal;
-        font-weight: 550;
-        line-height: 18px;
-        text-align: center;
-        letter-spacing: -0.165px;
-        display: flex !important;
-        justify-content: center !important;
-    }
-    
-    .buttons-layout {
-        background: #FFFFFF;
-        border-radius: 40px 40px 0px 0px;
-        display: flex !important;
-        justify-content: center !important;
-        bottom: 0px;
-        height: 100%;
-    }
-    
-    .background-image-layout,
-    .buttons-layout {
-        position: fixed;
-        left: 0px;
-        right: 0px;
-    }
-    
-    .background-image-layout {
-        display: flex !important;
-        justify-content: center !important;
-        top: 0px;
-        height: 75%;
-    }
+}
+
+.welcome-buttons {
+    font-style: normal !important;
+    font-weight: 550 !important;
+    line-height: 18px !important;
+    text-align: center !important;
+    letter-spacing: -0.165px !important;
+}
+
+.buttons-layout {
+    background: #FFFFFF;
+    border-radius: 40px 40px 0px 0px;
+    display: flex !important;
+    justify-content: center !important;
+    bottom: 0px;
+    height: 100%;
+}
+
+.background-image-layout,
+.buttons-layout {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+}
+
+.background-image-layout {
+    display: flex !important;
+    justify-content: center !important;
+    top: 0px;
+    height: 75%;
+}
