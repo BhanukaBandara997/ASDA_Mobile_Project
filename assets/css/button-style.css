@@ -1,1 +1,107 @@
-safsaf
+/* Startup screen button style */
+
+.startup-buttons {
+    position: absolute;
+    width: 70%;
+    height: 3%;
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    text-align: center !important;
+    background-image: linear-gradient(#F46B45, #EEA849) !important;
+    text-transform: none !important;
+}
+
+.form-buttons {
+    height: 4% !important;
+    background-image: linear-gradient(#F46B45, #EEA849) !important;
+    text-transform: none !important;
+}
+
+#continue-button {
+    top: 6%;
+}
+
+
+/* iPhone X Portrait */
+
+@media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
+    /* Welcome Page Buttons Layout */
+    div#welcome-pg-buttons-layout {
+        top: 70% !important;
+    }
+    /* Create Account Page Buttons Layout */
+    div#create-acc-pg-buttons-layout {
+        top: 50% !important;
+    }
+    /* Sign In Page Buttons Layout */
+    div#sign-in-pg-buttons-layout {
+        top: 55% !important;
+    }
+    /* Forget Password Buttons Layout */
+    div#forget-password-pg-buttons-layout {
+        top: 70% !important;
+    }
+    /* Welcome Page Create Account Button */
+    a#create-button {
+        top: 14% !important;
+    }
+    .startup-buttons {
+        border-radius: 10px !important;
+    }
+    .form-buttons {
+        border-radius: 10px !important;
+    }
+}
+
+
+/* iPhone X Landscape */
+
+@media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
+    /* Welcome Page Buttons Layout */
+    div#welcome-pg-buttons-layout {
+        top: 60% !important;
+    }
+    /* Welcome Page Create Account Button */
+    a#create-button {
+        top: 18% !important;
+    }
+    .startup-buttons {
+        border-radius: 10px !important;
+    }
+    .form-buttons {
+        border-radius: 10px !important;
+    }
+}
+
+
+/* iPad Pro Portrait */
+
+@media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
+    .startup-buttons {
+        border-radius: 20px !important;
+    }
+    .form-buttons {
+        border-radius: 20px !important;
+    }
+}
+
+
+/* iPad Pro Landscape */
+
+@media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
+    /* Welcome Page Buttons Layout */
+    div#welcome-pg-buttons-layout {
+        top: 65% !important;
+    }
+    /* Welcome Page Create Account Button */
+    a#create-button {
+        top: 15% !important;
+    }
+    .startup-buttons {
+        border-radius: 20px !important;
+    }
+    .form-buttons {
+        border-radius: 20px !important;
+    }
+}

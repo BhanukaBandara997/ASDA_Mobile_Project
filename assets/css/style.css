@@ -1,150 +1,175 @@
+.marker {
+    max-width: 100%;
+    max-height: 100%;
+}
 
-    .ui-header .ui-title,
-    .ui-footer .ui-title {
-        /* margin-right: 0 !important;
-    margin-left: 0 !important; */
+.tab-content {
+    display: none;
+}
+
+.tab-content:first-child {
+    display: block;
+}
+
+.ui-body-c {
+    border: 1px solid #aaa!important;
+}
+
+caption {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.ui-li .ui-btn-inner a.ui-link-inherit,
+.ui-li-static.ui-li {
+    display: block !important;
+    padding: 0.9em 75px 0.9em 15px !important;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.overlay {
+    background-color: #EEE;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.node text {
+    font-size: 10px;
+    font-family: "sans-serif";
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+
+.templink {
+    fill: none;
+    stroke: red;
+    stroke-width: 3px;
+}
+
+.ghostCircle.show {
+    display: block;
+}
+
+.ghostCircle,
+.activeDrag .ghostCircle {
+    display: none;
+}
+
+.open-sans-font {
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+/* iPhone X Portrait */
+
+@media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
+    a#welcome-buttons {
+        font-size: 15px !important;
     }
-    
-    .marker {
-        max-width: 100%;
-        max-height: 100%;
+    p#welcome-text {
+        font-size: 13px !important;
+        top: 21%;
     }
-    
-    .tab-content {
-        display: none;
+    span#sign-in-text {
+        margin-left: 2px !important;
     }
-    
-    .tab-content:first-child {
-        display: block;
+}
+
+
+/* iPhone X Landscape */
+
+@media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
+    a.welcome-buttons {
+        font-size: 15px !important;
     }
-    
-    .ui-body-c {
-        border: 1px solid #aaa!important;
+    p#welcome-text {
+        font-size: 13px !important;
+        top: 27%;
     }
-    
-    caption {
-        font-weight: bold;
-        font-size: 1.1em;
+    span#sign-in-text {
+        margin-left: 2px !important;
     }
-    
-    .ui-li .ui-btn-inner a.ui-link-inherit,
-    .ui-li-static.ui-li {
-        display: block !important;
-        padding: 0.9em 75px 0.9em 15px !important;
+}
+
+
+/* iPad Pro Portrait */
+
+@media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
+    a.welcome-buttons {
+        font-size: 24px !important;
     }
-    
-    .node {
-        cursor: pointer;
+    p#welcome-text {
+        font-size: 22px !important;
     }
-    
-    .overlay {
-        background-color: #EEE;
+    span#sign-in-text {
+        margin-left: 8px !important;
+        font-size: 22px !important;
     }
-    
-    .node circle {
-        fill: #fff;
-        stroke: steelblue;
-        stroke-width: 1.5px;
+    img#welcome-img {
+        width: 1025px !important;
+        height: 1000px !important;
     }
-    
-    .node text {
-        font-size: 10px;
-        font-family: "sans-serif";
+}
+
+
+/* iPad Pro Landscape */
+
+@media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
+    a.welcome-buttons {
+        font-size: 24px !important;
     }
-    
-    .link {
-        fill: none;
-        stroke: #ccc;
-        stroke-width: 1.5px;
+    p#welcome-text {
+        font-size: 22px !important;
+        top: 23% !important;
     }
-    
-    .templink {
-        fill: none;
-        stroke: red;
-        stroke-width: 3px;
+    span#sign-in-text {
+        margin-left: 8px !important;
+        font-size: 22px !important;
     }
-    
-    .ghostCircle.show {
-        display: block;
+    img#welcome-img {
+        height: 1025px !important;
+        width: 1000px !important;
     }
-    
-    .ghostCircle,
-    .activeDrag .ghostCircle {
-        display: none;
-    }
-    
-    .open-sans-font {
-        font-family: 'Open Sans', sans-serif;
-    }
-    /* iPhone X Portrait */
-    
-    @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
-        div#buttons-layout {
-            top: 68% !important;
-        }
-        a#continue-button {
-            top: 6%;
-        }
-        a#create-button {
-            top: 14%;
-        }
-    }
-    /* iPhone X Landscape */
-    
-    @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
-        div#buttons-layout {
-            top: 60% !important;
-        }
-        a#continue-button {
-            top: 6%;
-        }
-        a#create-button {
-            top: 18%;
-        }
-    }
-    /* iPad Pro Portrait */
-    
-    @media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
-    }
-    /* iPad Pro Landscape */
-    
-    @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
-        div#buttons-layout {
-            top: 65% !important;
-        }
-        a#continue-button {
-            top: 6%;
-        }
-        a#create-button {
-            top: 15%;
-        }
-    }
-    
-    .welcome-buttons {
-        position: absolute;
-        width: 70%;
-        height: 4%;
-        background-image: linear-gradient(#F46B45, #EEA849) !important;
-    }
-    
-    
-    #buttons-layout {
-        background: #FFFFFF;
-        border-radius: 40px 40px 0px 0px;
-        display: flex !important;
-        justify-content: center !important;
-        bottom: 0;
-        height: 100%;
-    }
-    
-    #background-image-layout,
-    #buttons-layout {
-        position: fixed;
-        left: 0;
-        right: 0;
-    }
-    
-    #background-image-layout {
-        top: 0;
-        height: 75%;
-    }
+}
+
+.welcome-buttons {
+    font-style: normal !important;
+    font-weight: 550 !important;
+    line-height: 18px !important;
+    text-align: center !important;
+    letter-spacing: -0.165px !important;
+}
+
+.buttons-layout {
+    background: #FFFFFF;
+    border-radius: 40px 40px 0px 0px;
+    display: flex !important;
+    justify-content: center !important;
+    bottom: 0px;
+    height: 100%;
+}
+
+.background-image-layout,
+.buttons-layout {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+}
+
+.background-image-layout {
+    display: flex !important;
+    justify-content: center !important;
+    top: 0px;
+    height: 75%;
+}
