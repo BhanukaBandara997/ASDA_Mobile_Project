@@ -3,7 +3,6 @@
 .iphone-smallest-font {
     font-family: 'Open Sans', sans-serif;
     font-size: 12px !important;
-    position: absolute;
     font-style: normal;
     text-align: center;
     letter-spacing: -0.165px;
@@ -13,7 +12,6 @@
 .iphone-medium-font {
     font-family: 'Open Sans', sans-serif;
     font-size: 13px !important;
-    position: absolute;
     font-style: normal;
     font-weight: 550;
     line-height: 18px;
@@ -24,7 +22,6 @@
 
 .iphone-large-font {
     font-family: 'Open Sans', sans-serif;
-    position: absolute;
     font-size: 15px !important;
     align-items: center !important;
     font-style: normal !important;
@@ -53,22 +50,22 @@
     font-size: 24px !important;
 }
 
+
 /* iPhone X Portrait */
 
 @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
     a#welcome-buttons {
         font-size: 15px !important;
     }
-
     p#welcome-text {
         font-size: 13px !important;
         top: 21%;
     }
-
     span#sign-in-text {
         margin-left: 2px !important;
     }
 }
+
 
 /* iPhone X Landscape */
 
@@ -76,16 +73,15 @@
     a.welcome-buttons {
         font-size: 15px !important;
     }
-
     p#welcome-text {
         font-size: 13px !important;
         top: 27%;
     }
-
     span#sign-in-text {
         margin-left: 2px !important;
     }
 }
+
 
 /* iPad Pro Portrait */
 
@@ -93,16 +89,15 @@
     a.welcome-buttons {
         font-size: 24px !important;
     }
-
     p#welcome-text {
         font-size: 22px !important;
     }
-
     span#sign-in-text {
         margin-left: 8px !important;
         font-size: 22px !important;
     }
 }
+
 
 /* iPad Pro Landscape */
 
@@ -110,12 +105,10 @@
     a.welcome-buttons {
         font-size: 24px !important;
     }
-
     p#welcome-text {
         font-size: 22px !important;
         top: 23% !important;
     }
-
     span#sign-in-text {
         margin-left: 8px !important;
         font-size: 22px !important;

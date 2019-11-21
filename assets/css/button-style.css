@@ -38,6 +38,10 @@
     div#create-acc-pg-buttons-layout {
         top: 50% !important;
     }
+    /* Create Account Page Buttons Layout */
+    div#account-creation-success-pg-buttons-layout {
+        top: 69% !important;
+    }
     /* Sign In Page Buttons Layout */
     div#sign-in-pg-buttons-layout {
         top: 55% !important;
@@ -45,6 +49,14 @@
     /* Forget Password Buttons Layout */
     div#forget-password-pg-buttons-layout {
         top: 70% !important;
+    }
+    /* Reset Password Buttons Layout */
+    div#reset-password-pg-buttons-layout {
+        top: 50% !important;
+    }
+    /* Reset Password Success Buttons Layout */
+    div#reset-password-success-pg-buttons-layout {
+        top: 75% !important;
     }
     .startup-buttons {
         border-radius: 10px !important;

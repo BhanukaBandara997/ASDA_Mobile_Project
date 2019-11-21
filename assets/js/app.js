@@ -1,15 +1,39 @@
 $(function() {
     // define the application
-    var MyProjects = {};
+    var ASDA_Project = {};
     var pgtransition = 'slide';
     (function(app) {
 
+        app.init = function() {
+
+        };
+
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
 
-        $('#pgCreateAcc').on('click', function(e) {
+        // Back Buttons For Welcome Pages
+        $('#logInBackBtn,#resetPasswordSuccessBackBtn,#createAccountBackBtn,#accountCreationSuccessBackBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgSignIn', { transition: pgtransition });
+            $.mobile.changePage('#pgWelcome', { transition: pgtransition });
+        });
+
+        $('#forgetPasswordBackBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
+        });
+
+        $('#resetPasswordBackBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgForgetPassword', { transition: pgtransition });
+        });
+
+        ////////////////////////////////////////////////////////////////////////////
+        $('#pgAccountCreationSuccessBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
         });
 
         $('#forgetPasswordBtn').on('click', function(e) {
@@ -18,11 +42,301 @@ $(function() {
             $.mobile.changePage('#pgForgetPassword', { transition: pgtransition });
         });
 
-        $('#signInText').on('click', function(e) {
+        $('#signInBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgSignIn', { transition: pgtransition });
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
         });
+
+        $('#pgResetPasswordSuccessBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
+        });
+
+        ///////////////////////  Sign Up Account  ////////////////////////////////////////////////////////////////
+
+        $('#pgCreateAccForm').submit(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            // save the User
+            var userRecObj;
+            //check password matching
+            var passwordMatched = checkPasswordMatch($('#pgSignUpPassword').val().trim(), $('#pgSignUpConfirmPassword').val().trim());
+            if (passwordMatched) {
+                //get form contents into an object
+                userRecObj = pgAddUserDetailsToObj();
+                //save object to JSON and return saved status
+                var userAddedSucce = app.addUser(userRecObj);
+
+                if (userAddedSucce) {
+                    $.mobile.changePage('#pgAccountCreationSuccess', { transition: pgtransition });
+                } else {
+                    toastr.error('User record not saved properly. Please try again.');
+                }
+            }
+
+        });
+
+        // ***** Add Page *****
+        // get the contents of the add screen controls and store them in an object.
+        //get the record to be saved and put it in a record array
+        //read contents of each form input
+        function pgAddUserDetailsToObj() {
+            //define the new record
+            var userRecObj
+            userRecObj = {};
+            var userName = $('#pgSignUpEmail').val().trim();
+            userName = userName.split('@')[0];
+            userRecObj.Name = userName;
+            userRecObj.Email = $('#pgSignUpEmail').val().trim();
+            userRecObj.Password = $('#pgSignUpPassword').val().trim();
+            userRecObj.Password = sjcl.encrypt('MashJQMShow', userRecObj.Password);
+            userRecObj.ConfirmPassword = $('#pgSignUpConfirmPassword').val().trim();
+            userRecObj.ConfirmPassword = sjcl.encrypt('MashJQMShow', userRecObj.ConfirmPassword);
+            userRecObj.FourDigitCode = "0000";
+            return userRecObj;
+        }
+
+        // add a new record to server storage.
+        app.addUser = function(userRecObj) {
+            //convert record to json to write to server
+            var recordJSON = JSON.stringify(userRecObj);
+            // save the data to a server file, use the post method as it has 8MB minimum data limitation
+            var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+            if (req.status == 200) {
+                if (req.status == 200) {
+                    // clear the edit page form fields
+                    pgSignUpInClear();
+                    return true;
+                } else {
+                    //show a toast message that the record has not been saved
+                    toastr.error('User Record Not Saved. Please Try Again.');
+                }
+            };
+
+        };
+
+        //clear the forms for new data entry
+        function pgSignUpInClear() {
+            $('#pgSignUpEmail').val('');
+            $('#pgSignUpPassword').val('');
+            $('#pgSignUpConfirmPassword').val('');
+        }
+
+        function checkPasswordMatch(password, confirmPassword) {
+
+            if (password != confirmPassword) {
+                toastr.error('Passwords do not match!');
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        ///////////////////////  Sign In Account  ////////////////////////////////////////////////////////////////
+
+        // bind the login in click event
+        $('#pgLoginInForm').submit(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            // verify the user details
+            app.SignInUser($('#pgLoginInEmail').val().trim(), $('#pgLoginInPassword').val().trim());
+        });
+
+
+        app.SignInUser = function(Email, Password) {
+            // get users
+            $('#pgLoginIn').data('success', 'true');
+            var userName = Email.trim();
+            userName = userName.split('@')[0];
+            userName += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                // parse string to json object
+                try {
+                    var userRec = JSON.parse(req.responseText);
+                    // verify password and status of account
+                    var pwd = userRec.Password;
+                    // decript the password
+                    pwd = sjcl.decrypt('MashJQMShow', pwd);
+                    if (Password != pwd) {
+                        $('#pgLoginIn').data('success', 'false');
+                        toastr.error('The password specified is incorrect!');
+                    }
+                } catch (e) {
+                    //user file is not found
+                    $('#pgLoginIn').data('success', 'false');
+                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                }
+            }
+            //find if status is successful or not
+            var succ = $('#pgLoginIn').data('success');
+            if (succ == 'true') {
+                pgSignInClear();
+                // show the page to display after sign in
+                toastr.success('Login Success.', 'ASDA_Project');
+                $.mobile.changePage('#pgMenu', { transition: pgtransition });
+            }
+        };
+
+        //clear the forms for new data entry
+        function pgSignInClear() {
+            $('#pgLoginInEmail').val('');
+            $('#pgLoginInPassword').val('');
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        ///////////////////////  Forget Password  ////////////////////////////////////////////////////////////////
+        // TODO - Send Mail Function Can Be Added
+        // bind the login in click event
+        $('#pgForgetPasswordForm').submit(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            // verify the user details
+            app.ForgetPassword($('#pgForgetPasswordEmail').val().trim());
+        });
+
+
+        app.ForgetPassword = function(Email) {
+            // get users
+            $('#pgForgetPassword').data('success', 'true');
+            var userName = Email.trim();
+            userName = userName.split('@')[0];
+            userName += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                // parse string to json object
+                try {
+                    var userRec = JSON.parse(req.responseText);
+                    if (Email != userRec.Email) {
+                        $('#pgForgetPassword').data('success', 'false');
+                        toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                    }
+                } catch (e) {
+                    //user file is not found
+                    $('#pgForgetPassword').data('success', 'false');
+                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                }
+            }
+            //find if status is successful or not
+            var succ = $('#pgForgetPassword').data('success');
+            if (succ == 'true') {
+                pgForgetPasswordClear();
+                // show the page to display after forget password
+                localStorage.setItem("currentLoggedInUser", Email);
+                $.mobile.changePage('#pgResetPassword', { transition: pgtransition });
+            }
+        };
+
+        //clear the forms for new data entry
+        function pgForgetPasswordClear() {
+            $('#pgForgetPasswordEmail').val('');
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /////////////////////// Password Reset  ////////////////////////////////////////////////////////////////
+
+        $('#pgResetPasswordForm').submit(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var passwordMatched = checkPasswordMatch($('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
+            if (passwordMatched) {
+                app.PasswordReset($('#fourDigitCode').val().trim(), $('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
+            } else {
+                toastr.error('Password mismatch. Re-enter the correct password again!');
+            }
+        });
+
+        app.PasswordReset = function(fourDigitCode, newPassword, newConfirmPassword) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            $('#pgResetPassword').data('success', 'true');
+            var userName = Email.trim();
+            userName = userName.split('@')[0];
+            userName += '.json';
+            if (fourDigitCode == 0000) {
+                var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+                if (req.status == 200) {
+                    try {
+                        var userRec = JSON.parse(req.responseText);
+                        var decryptedPassword = sjcl.decrypt('MashJQMShow', userRec.Password);
+                        userRec.Password = sjcl.encrypt('MashJQMShow', newPassword);
+                        var decryptedConfirmPassword = sjcl.decrypt('MashJQMShow', userRec.ConfirmPassword);
+                        userRec.ConfirmPassword = sjcl.encrypt('MashJQMShow', newConfirmPassword);
+                        var recordJSON = JSON.stringify(userRec);
+                        var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                        if (req.status == 200) {
+                            try {
+                                var succ = $('#pgResetPassword').data('success');
+                                if (succ == 'true') {
+                                    pgResetPasswordClear();
+                                    // show the page to display after forget password
+                                    $.mobile.changePage('#pgResetPasswordSuccess', { transition: pgtransition });
+                                }
+                            } catch (e) {
+                                //user file is not found
+                                $('#pgResetPassword').data('success', 'false');
+                                toastr.error('Updating Password Error Occured!');
+                            }
+                        }
+                        if (Email != userRec.Email) {
+                            $('#pgResetPassword').data('success', 'false');
+                            toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                        }
+                    } catch (e) {
+                        //user file is not found
+                        $('#pgResetPassword').data('success', 'false');
+                        toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                    }
+                }
+            } else {
+                toastr.error('The Code You Entered is Invalid. Please Try Again');
+            }
+
+        };
+
+        function pgForgetPasswordClear() {
+            $('#fourDigitCode').val('');
+            $('#pgResetPasswordInput').val('');
+            $('#pgResetConfirmPassword').val('');
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // delete record from JSON
+        //delete a record from JSON using record key
+        app.deleteUser = function(Email) {
+            Email = Email.replace(/ /g, '-');
+            var req = Ajax("ajaxDeleteUser.php/?Email=" + Email);
+            if (req.status == 200) {
+                toastr.success('User record deleted.', 'ASDA_Project');
+            } else {
+                toastr.error('User record not deleted.', 'ASDA_Project');
+            }
+            // show the page to display after a record is deleted, this case listing page
+            $.mobile.changePage('#pgUser', { transition: pgtransition });
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // variable definitions go here
         var UserLi = '<li ><a href="#pgEditUser?Email=Z2"><h2>Z1</h2><p>DESCRIPTION</p></a></li>';
@@ -44,7 +358,7 @@ $(function() {
             app.UserBindings();
             app.ProjectBindings();
             app.PersonBindings();
-            app.SignInBindings();
+            // app.SignInBindings();
             $('#msgboxyes').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
@@ -81,112 +395,16 @@ $(function() {
             if (p1.value != p2.value ||
                 p1.value == "" ||
                 p2.value == "") {
-                p2.setCustomValidity(
-                    "The Password is Incorrect");
+                return false;
             } else {
-                p2.setCustomValidity("");
+                return true;
             }
         }
 
         function passwordsMatch(password, passwordConfirm) {
             return password === passwordConfirm;
         };
-        app.SignInBindings = function() {
-            // when the back button is clicked
-            $('#pgSignInBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // move to the back page specified
-                $.mobile.changePage('#', { transition: pgtransition });
-            });
-            // bind the sign in click event
-            $('#pgSignInIn').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // verify the user details
-                app.SignInUser(
-                    $('#pgSignInEmail').val().trim(),
-                    $('#pgSignInPassword').val().trim()
-                );
-            });
-            $('#pgAddUserUp').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // move to the sign up page
-                // this will ensure that we come back to sign in when user is registerd
-                $('#pgAddUser').data('from', 'pgSignIn');
-                // change the header to Sign Up
-                $('#pgAddUserheader h1').text('MyProjects > Sign Up');
-                $('#pgAddUserBack').data('from', 'pgSignIn');
-                // hide the active and user type elements
-                $('#pgAddUserUserType').hide();
-                $('#pgAddUserActive').hide();
-                $('#pgAddUserMenu').hide();
-                $.mobile.changePage('#pgAddUser', { transition: pgtransition });
-            });
-        };
-        //clear the forms for new data entry
-        function pgSignInClear() {
-            $('#pgSignInEmail').val('');
-            $('#pgSignInPassword').val('');
-        }
-        app.SignInUser = function(Email, Password) {
-            // get users
-            $('#pgSignIn').data('success', 'true');
-            var uname = Email;
-            Email = Email.replace(/ /g, '-');
-            Email += '.json';
-            var req = Ajax("ajaxGetUser.php?file=" + encodeURIComponent(Email));
-            if (req.status == 200) {
-                // parse string to json object
-                var userRec = JSON.parse(req.responseText);
-                // verify password and status of account
-                var pwd = userRec.Password;
-                // decript the password
-                pwd = sjcl.decrypt('MashJQMShow', pwd);
-                var atv = userRec.Active;
-                if (Password != pwd) {
-                    $('#pgSignIn').data('success', 'false');
-                    uname = uname.replace(/-/g, ' ');
-                    $('#alertboxheader h1').text('Password Error');
-                    $('#alertboxtitle').text(uname);
-                    $('#alertboxprompt').text('The password specified is incorrect!');
-                    $('#alertboxok').data('topage', 'pgSignIn');
-                    uname = uname.replace(/ /g, '-');
-                    $('#alertboxok').data('id', uname);
-                    $.mobile.changePage('#alertbox', { transition: 'pop' });
-                }
-                if (atv == false) {
-                    $('#pgSignIn').data('success', 'false');
-                    uname = uname.replace(/-/g, ' ');
-                    $('#alertboxheader h1').text('Account Error');
-                    $('#alertboxtitle').text(uname);
-                    $('#alertboxprompt').text('This account is no longer active. Contact your System Administrator!');
-                    $('#alertboxok').data('topage', 'pgSignIn');
-                    uname = uname.replace(/ /g, '-');
-                    $('#alertboxok').data('id', uname);
-                    $.mobile.changePage('#alertbox', { transition: 'pop' });
-                }
-            } else {
-                //user file is not found
-                $('#pgSignIn').data('success', 'false');
-                uname = uname.replace(/-/g, ' ');
-                $('#alertboxheader h1').text('User Error');
-                $('#alertboxtitle').text(uname);
-                $('#alertboxprompt').text('This user is NOT registered in this App!');
-                $('#alertboxok').data('topage', 'pgSignIn');
-                uname = uname.replace(/ /g, '-');
-                $('#alertboxok').data('id', uname);
-                $.mobile.changePage('#alertbox', { transition: 'pop' });
-            }
-            //find if status is successful or not
-            var succ = $('#pgSignIn').data('success');
-            if (succ == 'true') {
-                pgSignInClear();
-                // show the page to display after sign in
-                $.mobile.changePage('#pgMenu', { transition: pgtransition });
-            }
-        };
+
         // define events to be fired during app execution.
         app.UserBindings = function() {
             // code to run before showing the page that lists the records.
@@ -287,7 +505,7 @@ $(function() {
                 //we are accessing a new record from records listing
                 $('#pgAddUser').data('from', 'pgUser');
                 // show the active and user type elements
-                $('#pgAddUserheader h1').text('MyProjects > Add User');
+                $('#pgAddUserheader h1').text('ASDA_Project > Add User');
                 $('#pgAddUserUserType').show();
                 $('#pgAddUserActive').show();
                 $('#pgAddUserMenu').show();
@@ -368,7 +586,7 @@ $(function() {
                 //we are accessing a new record from records report
                 $('#pgAddUser').data('from', 'pgRptUser');
                 // show the active and user type elements
-                $('#pgAddUserheader h1').text('MyProjects > Add User');
+                $('#pgAddUserheader h1').text('ASDA_Project > Add User');
                 // move to the add page screen
                 $.mobile.changePage('#pgAddUser', { transition: pgtransition });
             }); //***** Report Page - End *****
@@ -446,73 +664,6 @@ $(function() {
             $('#RptUser').append(newrows);
             // refresh the table with new details
             $('#RptUser').table('refresh');
-        };
-        // save the defined Add page object to JSON
-        // add a new record to server storage.
-        app.addUser = function(UserRec) {
-            // define a record object to store the current details
-            var Email = UserRec.Email;
-            // cleanse the record key of spaces.
-            Email = Email.replace(/ /g, '-');
-            UserRec.Email = Email;
-            //convert record to json to write to server
-            var recordJSON = JSON.stringify(UserRec);
-            // save the data to a server file, use the post method as it has 8MB minimum data limitation
-            var req = Ajax("ajaxSaveUser.php", "POST", recordJSON);
-            if (req.status == 200) {
-                //show a toast message that the record has been saved
-                toastr.success('User record saved.', 'MyProjects');
-                //find which page are we coming from, if from sign in go back to it
-                var pgFrom = $('#pgAddUser').data('from');
-                switch (pgFrom) {
-                    case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
-                        break;
-                    default:
-                        // clear the edit page form fields
-                        pgAddUserClear();
-                        //stay in the same page to add more records
-                }
-            } else {
-                //show a toast message that the record has not been saved
-                toastr.error('User record not saved. Please try again.', 'MyProjects');
-            }
-        };
-        // save the defined Edit page object to JSON
-        // update an existing record and save to server.
-        app.updateUser = function(UserRec) {
-            // define a record object to store the current details
-            var Email = UserRec.Email;
-            // cleanse the record key of spaces.
-            Email = Email.replace(/ /g, '-');
-            UserRec.Email = Email;
-            //convert record to json to write to server
-            var recordJSON = JSON.stringify(UserRec);
-            var req = Ajax("ajaxSaveUser.php", "POST", recordJSON);
-            if (req.status == 200) {
-                //show a toast message that the record has been saved
-                toastr.success('User record updated.', 'MyProjects');
-                // clear the edit page form fields
-                pgEditUserClear();
-                // show the records listing page.
-                $.mobile.changePage('#pgUser', { transition: pgtransition });
-            } else {
-                //show a toast message that the record has not been saved
-                toastr.error('User record not updated. Please try again.', 'MyProjects');
-            }
-        };
-        // delete record from JSON
-        //delete a record from JSON using record key
-        app.deleteUser = function(Email) {
-            Email = Email.replace(/ /g, '-');
-            var req = Ajax("ajaxDeleteUser.php/?Email=" + Email);
-            if (req.status == 200) {
-                toastr.success('User record deleted.', 'MyProjects');
-            } else {
-                toastr.error('User record not deleted.', 'MyProjects');
-            }
-            // show the page to display after a record is deleted, this case listing page
-            $.mobile.changePage('#pgUser', { transition: pgtransition });
         };
         // display existing records in listview of Records listing.
         //***** List Page *****
@@ -755,7 +906,7 @@ $(function() {
                 //we are accessing a new record from records listing
                 $('#pgAddProject').data('from', 'pgProject');
                 // show the active and user type elements
-                $('#pgAddProjectheader h1').text('MyProjects > Add Project');
+                $('#pgAddProjectheader h1').text('ASDA_Project > Add Project');
                 $('#pgAddProjectMenu').show();
                 // move to the add page screen
                 $.mobile.changePage('#pgAddProject', { transition: pgtransition });
@@ -834,7 +985,7 @@ $(function() {
                 //we are accessing a new record from records report
                 $('#pgAddProject').data('from', 'pgRptProject');
                 // show the active and user type elements
-                $('#pgAddProjectheader h1').text('MyProjects > Add Project');
+                $('#pgAddProjectheader h1').text('ASDA_Project > Add Project');
                 // move to the add page screen
                 $.mobile.changePage('#pgAddProject', { transition: pgtransition });
             }); //***** Report Page - End *****
@@ -928,7 +1079,7 @@ $(function() {
             var req = Ajax("ajaxSaveProject.php", "POST", recordJSON);
             if (req.status == 200) {
                 //show a toast message that the record has been saved
-                toastr.success('Project record saved.', 'MyProjects');
+                toastr.success('Project record saved.', 'ASDA_Project');
                 //find which page are we coming from, if from sign in go back to it
                 var pgFrom = $('#pgAddProject').data('from');
                 switch (pgFrom) {
@@ -942,7 +1093,7 @@ $(function() {
                 }
             } else {
                 //show a toast message that the record has not been saved
-                toastr.error('Project record not saved. Please try again.', 'MyProjects');
+                toastr.error('Project record not saved. Please try again.', 'ASDA_Project');
             }
         };
         // save the defined Edit page object to JSON
@@ -958,14 +1109,14 @@ $(function() {
             var req = Ajax("ajaxSaveProject.php", "POST", recordJSON);
             if (req.status == 200) {
                 //show a toast message that the record has been saved
-                toastr.success('Project record updated.', 'MyProjects');
+                toastr.success('Project record updated.', 'ASDA_Project');
                 // clear the edit page form fields
                 pgEditProjectClear();
                 // show the records listing page.
                 $.mobile.changePage('#pgProject', { transition: pgtransition });
             } else {
                 //show a toast message that the record has not been saved
-                toastr.error('Project record not updated. Please try again.', 'MyProjects');
+                toastr.error('Project record not updated. Please try again.', 'ASDA_Project');
             }
         };
         // delete record from JSON
@@ -974,9 +1125,9 @@ $(function() {
             ProjectName = ProjectName.replace(/ /g, '-');
             var req = Ajax("ajaxDeleteProject.php/?ProjectName=" + ProjectName);
             if (req.status == 200) {
-                toastr.success('Project record deleted.', 'MyProjects');
+                toastr.success('Project record deleted.', 'ASDA_Project');
             } else {
-                toastr.error('Project record not deleted.', 'MyProjects');
+                toastr.error('Project record not deleted.', 'ASDA_Project');
             }
             // show the page to display after a record is deleted, this case listing page
             $.mobile.changePage('#pgProject', { transition: pgtransition });
@@ -1315,7 +1466,7 @@ $(function() {
                 //we are accessing a new record from records listing
                 $('#pgAddPerson').data('from', 'pgPerson');
                 // show the active and user type elements
-                $('#pgAddPersonheader h1').text('MyProjects > Add Person');
+                $('#pgAddPersonheader h1').text('ASDA_Project > Add Person');
                 $('#pgAddPersonMenu').show();
                 // move to the add page screen
                 $.mobile.changePage('#pgAddPerson', { transition: pgtransition });
@@ -1394,7 +1545,7 @@ $(function() {
                 //we are accessing a new record from records report
                 $('#pgAddPerson').data('from', 'pgRptPerson');
                 // show the active and user type elements
-                $('#pgAddPersonheader h1').text('MyProjects > Add Person');
+                $('#pgAddPersonheader h1').text('ASDA_Project > Add Person');
                 // move to the add page screen
                 $.mobile.changePage('#pgAddPerson', { transition: pgtransition });
             }); //***** Report Page - End *****
@@ -1558,7 +1709,7 @@ $(function() {
             var req = Ajax("ajaxSavePerson.php", "POST", recordJSON);
             if (req.status == 200) {
                 //show a toast message that the record has been saved
-                toastr.success('Person record saved.', 'MyProjects');
+                toastr.success('Person record saved.', 'ASDA_Project');
                 //find which page are we coming from, if from sign in go back to it
                 var pgFrom = $('#pgAddPerson').data('from');
                 switch (pgFrom) {
@@ -1572,7 +1723,7 @@ $(function() {
                 }
             } else {
                 //show a toast message that the record has not been saved
-                toastr.error('Person record not saved. Please try again.', 'MyProjects');
+                toastr.error('Person record not saved. Please try again.', 'ASDA_Project');
             }
         };
         // save the defined Edit page object to JSON
@@ -1588,14 +1739,14 @@ $(function() {
             var req = Ajax("ajaxSavePerson.php", "POST", recordJSON);
             if (req.status == 200) {
                 //show a toast message that the record has been saved
-                toastr.success('Person record updated.', 'MyProjects');
+                toastr.success('Person record updated.', 'ASDA_Project');
                 // clear the edit page form fields
                 pgEditPersonClear();
                 // show the records listing page.
                 $.mobile.changePage('#pgPerson', { transition: pgtransition });
             } else {
                 //show a toast message that the record has not been saved
-                toastr.error('Person record not updated. Please try again.', 'MyProjects');
+                toastr.error('Person record not updated. Please try again.', 'ASDA_Project');
             }
         };
         // delete record from JSON
@@ -1604,9 +1755,9 @@ $(function() {
             FullName = FullName.replace(/ /g, '-');
             var req = Ajax("ajaxDeletePerson.php/?FullName=" + FullName);
             if (req.status == 200) {
-                toastr.success('Person record deleted.', 'MyProjects');
+                toastr.success('Person record deleted.', 'ASDA_Project');
             } else {
-                toastr.error('Person record not deleted.', 'MyProjects');
+                toastr.error('Person record not deleted.', 'ASDA_Project');
             }
             // show the page to display after a record is deleted, this case listing page
             $.mobile.changePage('#pgPerson', { transition: pgtransition });
@@ -1779,5 +1930,5 @@ $(function() {
         };
 
         app.init();
-    })(MyProjects);
+    })(ASDA_Project);
 });
