@@ -52,3 +52,72 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 24px !important;
 }
+
+/* iPhone X Portrait */
+
+@media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
+    a#welcome-buttons {
+        font-size: 15px !important;
+    }
+
+    p#welcome-text {
+        font-size: 13px !important;
+        top: 21%;
+    }
+
+    span#sign-in-text {
+        margin-left: 2px !important;
+    }
+}
+
+/* iPhone X Landscape */
+
+@media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
+    a.welcome-buttons {
+        font-size: 15px !important;
+    }
+
+    p#welcome-text {
+        font-size: 13px !important;
+        top: 27%;
+    }
+
+    span#sign-in-text {
+        margin-left: 2px !important;
+    }
+}
+
+/* iPad Pro Portrait */
+
+@media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
+    a.welcome-buttons {
+        font-size: 24px !important;
+    }
+
+    p#welcome-text {
+        font-size: 22px !important;
+    }
+
+    span#sign-in-text {
+        margin-left: 8px !important;
+        font-size: 22px !important;
+    }
+}
+
+/* iPad Pro Landscape */
+
+@media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
+    a.welcome-buttons {
+        font-size: 24px !important;
+    }
+
+    p#welcome-text {
+        font-size: 22px !important;
+        top: 23% !important;
+    }
+
+    span#sign-in-text {
+        margin-left: 8px !important;
+        font-size: 22px !important;
+    }
+}

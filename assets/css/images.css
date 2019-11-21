@@ -36,6 +36,7 @@
 
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
     img#welcome-img {
+<<<<<<< HEAD
         background-image: url("../img/welcome_bg.png");
         background-repeat: no-repeat;
         background-size: cover;
@@ -51,6 +52,10 @@
         top: 0px;
         width: 600px;
         height: 500px;
+=======
+        width: 812px !important;
+        height: 375px !important;
+>>>>>>> 30659db9d16c1fbbfe16d2770377ce578bf280ed
     }
 }
 
@@ -59,6 +64,7 @@
 
 @media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
     img#welcome-img {
+<<<<<<< HEAD
         background-image: url("../img/welcome_bg_iPad.png");
         background-repeat: no-repeat;
         background-size: cover;
@@ -74,6 +80,10 @@
         top: 0px;
         width: 1030px;
         height: 930px;
+=======
+        width: 1025px !important;
+        height: 1000px !important;
+>>>>>>> 30659db9d16c1fbbfe16d2770377ce578bf280ed
     }
 }
 
@@ -82,6 +92,7 @@
 
 @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
     img#welcome-img {
+<<<<<<< HEAD
         background-image: url("../img/welcome_bg_iPad.png");
         background-repeat: no-repeat;
         background-size: cover;
@@ -98,5 +109,9 @@
         top: 0px;
         width: 1030px;
         height: 930px;
+=======
+        height: 1025px !important;
+        width: 1000px !important;
+>>>>>>> 30659db9d16c1fbbfe16d2770377ce578bf280ed
     }
 }
