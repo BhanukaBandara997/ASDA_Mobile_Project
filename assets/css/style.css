@@ -1,4 +1,3 @@
-@import url("font-style.css");
 
     .ui-header .ui-title,
     .ui-footer .ui-title {
@@ -80,16 +79,6 @@
     /* iPhone X Portrait */
     
     @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
-        a#welcome-buttons {
-            font-size: 15px !important;
-        }
-        p#welcome-text {
-            font-size: 13px !important;
-            top: 21%;
-        }
-        span#sign-in-text {
-            margin-left: 2px !important;
-        }
         div#buttons-layout {
             top: 68% !important;
         }
@@ -103,16 +92,6 @@
     /* iPhone X Landscape */
     
     @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
-        a.welcome-buttons {
-            font-size: 15px !important;
-        }
-        p#welcome-text {
-            font-size: 13px !important;
-            top: 27%;
-        }
-        span#sign-in-text {
-            margin-left: 2px !important;      
-        }
         div#buttons-layout {
             top: 60% !important;
         }
@@ -126,35 +105,10 @@
     /* iPad Pro Portrait */
     
     @media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
-        a.welcome-buttons {
-            font-size: 24px !important;
-        }
-        p#welcome-text {
-            font-size: 22px !important;
-        }
-        span#sign-in-text {
-            margin-left: 8px !important;
-            font-size: 22px !important;
-        }
-        img#welcome-img {
-            width: 1025px !important;
-            height: 1000px !important;
-        }
     }
     /* iPad Pro Landscape */
     
     @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
-        a.welcome-buttons {
-            font-size: 24px !important;
-        }
-        p#welcome-text {
-            font-size: 22px !important;
-            top: 23% !important;
-        }
-        span#sign-in-text {
-            margin-left: 8px !important;
-            font-size: 22px !important;
-        }
         div#buttons-layout {
             top: 65% !important;
         }
@@ -163,10 +117,6 @@
         }
         a#create-button {
             top: 15%;
-        }
-        img#welcome-img {
-            height: 1025px !important;
-            width: 1000px !important;
         }
     }
     

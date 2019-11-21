@@ -10,17 +10,26 @@ images
 /* iPhone X Landscape */
 
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
-
+    img#welcome-img {
+        width: 812px !important;
+        height: 375px !important;
+    }
 }
 
 /* iPad Pro Portrait */
 
 @media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
-
+    img#welcome-img {
+        width: 1025px !important;
+        height: 1000px !important;
+    }
 }
 
 /* iPad Pro Landscape */
 
 @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
-
+    img#welcome-img {
+        height: 1025px !important;
+        width: 1000px !important;
+    }
 }
