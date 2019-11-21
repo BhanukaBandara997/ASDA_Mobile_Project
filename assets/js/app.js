@@ -18,6 +18,12 @@ $(function() {
             $.mobile.changePage('#pgForgetPassword', { transition: pgtransition });
         });
 
+        $('#signInText').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgSignIn', { transition: pgtransition });
+        });
+
         // variable definitions go here
         var UserLi = '<li ><a href="#pgEditUser?Email=Z2"><h2>Z1</h2><p>DESCRIPTION</p></a></li>';
         var UserHdr = '<li data-role="list-divider">Your Users</li>';
