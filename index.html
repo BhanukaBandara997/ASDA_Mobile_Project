@@ -47,18 +47,48 @@
 
 <body>
 
-    <!-- Welcome Page  -->
+<!-- Forget Password -->
+
+<div data-theme="a" id="pgForgetPassword" data-role="page">
+    <div id="pgForgetPasswordContent" data-role="main">
+        <div id="forget-password-pg-background-image-layout" class="ui-content background-image-layout">
+            <img id="forgetPassword-img" src="./assets/img/16011.jpg" title="ForgetPasswordScreen"
+                 style="position: absolute; top: 0px; width: 700px; height: 600px;">
+        </div>
+        <div id="forget-password-pg-buttons-layout" class="ui-content buttons-layout">
+            <form action="#" method="post" id="pgSignInForm" name="pgSignInForm" style="width: 80%;">
+                <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Forget Password</h3>
+                <div data-role="fieldcontain">
+                    <input class="open-sans-font" required title="Email" type="email" name="pgSignInEmail"
+                           id="pgSignInEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
+                </div>
+                <div>
+                    <button type="submit" id="pgForgetPasswordContinue"
+                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Continue
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Welcome Page  -->
 
     <div data-theme="a" id="pgWelcome" data-role="page">
         <div id="pgWelcomeContent" data-role="main">
             <div id="welcome-pg-background-image-layout" class="ui-content background-image-layout">
-                <img id="welcome-img" src="./assets/img/welcome_bg.png" title="WelcomeScreen" style="position: absolute; left: 0px; top: 0px;width: 375px; height: 590px;">
+                <img id="welcome-img" src="./assets/img/welcome_bg.png" title="WelcomeScreen"
+                     style="position: absolute; left: 0px; top: 0px;width: 375px; height: 590px;">
             </div>
             <div id="welcome-pg-buttons-layout" class="ui-content buttons-layout">
 
-                <a href="#homePage" id="continue-button" class="welcome-buttons startup-buttons open-sans-font ui-btn ui-btn-raised clr-primary" data-role="button">Continue As Guest</a>
+                <a href="#homePage" id="continue-button"
+                   class="welcome-buttons startup-buttons open-sans-font ui-btn ui-btn-raised clr-primary"
+                   data-role="button">Continue As Guest</a>
 
-                <a href="#pgCreateAccount" id="create-button" class="welcome-buttons startup-buttons open-sans-font ui-btn ui-btn-raised clr-primary" data-role="button">Create Account</a>
+                <a href="#pgCreateAccount" id="create-button"
+                   class="welcome-buttons startup-buttons open-sans-font ui-btn ui-btn-raised clr-primary"
+                   data-role="button">Create Account</a>
 
                 <p id="welcome-text">
                     <span class="open-sans-font" style="color: #777373;">Already a member?</span>
@@ -70,109 +100,115 @@
     </div>
 
 
-    <!-- Create Account Page -->
+<!-- Create Account Page -->
 
-    <div data-theme="a" id="pgCreateAccount" data-role="page">
-        <div id="pgCreateAccountContent" data-role="main">
-            <div id="create-acc-pg-background-image-layout" class="ui-content background-image-layout">
-                <img id="CreateAcc-img" src="./assets/img/16009.jpg" title="CreateAccountScreen" style="position: absolute; top: 0px; width: 600px; height: 500px;">
-            </div>
+<div data-theme="a" id="pgCreateAccount" data-role="page">
+    <div id="pgCreateAccountContent" data-role="main">
+        <div id="create-acc-pg-background-image-layout" class="ui-content background-image-layout">
+            <img id="CreateAcc-img" src="./assets/img/16009.jpg" title="CreateAccountScreen"
+                 style="position: absolute; top: 0px; width: 600px; height: 500px;">
+        </div>
             <div id="create-acc-pg-buttons-layout" class="ui-content buttons-layout">
                 <form action="#" method="post" id="pgCreateAccForm" name="pgCreateAccForm" style="width: 80%;">
                     <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Create Account</h3>
                     <div data-role="fieldcontain" style="margin-top: -10px;">
-                        <input class="open-sans-font" required title="Email" type="email" name="pgSignInEmail" id="pgSignInEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required title="Email" type="email" name="pgSignInEmail"
+                               id="pgSignInEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password" name="pgSignInPassword" id="pgSignInPassword" placeholder="Password" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password"
+                               name="pgSignInPassword" id="pgSignInPassword" placeholder="Password"
+                               data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password" type="password" name="pgSignInPassword" id="pgSignInPassword" placeholder="Confirm Password" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password"
+                               type="password"
+                               name="pgSignInPassword" id="pgSignInPassword" placeholder="Confirm Password"
+                               data-clear-btn="true"></input>
                     </div>
                     <div style="margin-top: -20px !important; margin-bottom: 20px !important;">
-                        <p style="font-size:12px">
-                            <span class="open-sans-font" style="color: #504F4F;">By clicking creating an account, you agree to our </span>
-                            <span class="open-sans-font" style="color: #222222; font-weight:550;">Privacy Policy</span>
-                            <span class="open-sans-font" style="color: #504F4F;">and</span>
-                            <span class="open-sans-font" style="color: #222222; font-weight:550;">Terms + Conditions</span>
-                        </p>
-                    </div>
-                    <div><button type="submit" id="pgCreateAcc" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Sign In</button>
-                    </div>
+                        <div style="margin-top: -20px !important; margin-bottom: 20px !important;">
+                            <div style="margin-top: -20px !important; margin-bottom: 20px !important;">
+
                 </form>
+                <p style="font-size:12px">
+                    <span class="open-sans-font" style="color: #504F4F;">By clicking creating an account, you agree to our </span>
+                    <span class="open-sans-font" style="color: #222222; font-weight:550;">Privacy Policy</span>
+                    <span class="open-sans-font" style="color: #504F4F;">and</span>
+                    <span class="open-sans-font" style="color: #222222; font-weight:550;">Terms + Conditions</span>
+                </p>
             </div>
+        <div>
+            <button type="submit" id="pgCreateAcc" href="#pgSignIn"
+                    class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Sign In
+            </button>
         </div>
+        </form>
     </div>
+</div>
+</div>
 
 
-    <!-- Sign In Page -->
+<!-- Sign In Page -->
 
-    <div data-theme="a" id="pgSignIn" data-role="page">
-        <div id="pgSignInContent" data-role="main">
-            <div id="sign-in-pg-background-image-layout" class="ui-content background-image-layout">
-                <img id="SignIn-img" src="./assets/img/1232.jpg" title="SignInScreen" style="position: absolute; top: 0px;width: 600px;
+<div data-theme="a" id="pgSignIn" data-role="page">
+    <div id="pgSignInContent" data-role="main">
+        <div id="sign-in-pg-background-image-layout" class="ui-content background-image-layout">
+            <img id="SignIn-img" src="./assets/img/1232.jpg" title="SignInScreen" style="position: absolute; top: 0px;width: 600px;
                 height: 480px;">
+        </div>
+        <div id="sign-in-pg-buttons-layout" class="ui-content buttons-layout">
+            <form action="#" method="post" id="pgSignInForm" name="pgSignInForm" style="width: 80%;">
+                <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Welcome</h3>
+                <p style="font-size:14px; text-align: center; ">
+                    <span class="open-sans-font" style="color: #504F4F;">Login to cotinue</span>
+                </p>
+                <div data-role="fieldcontain">
+                    <input class="open-sans-font" required title="Email" type="email" name="pgSignInEmail"
+                           id="pgSignInEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
+                </div>
+                <div data-role="fieldcontain">
+                    <input class="open-sans-font" required autocomplete="off" title="Password" type="password"
+                           name="pgSignInPassword" id="pgSignInPassword" placeholder="Password"
+                           data-clear-btn="true"></input>
+                </div>
+                <p style="font-size:11px; text-align: right;margin-top: -10px; margin-bottom: 20px;">
+                    <span id="forgetPasswordBtn" class="open-sans-font" style="color: #504F4F;">Forget Password?</span>
+                </p>
+                <div>
+                    <button type="submit" id="pgSignIn"
+                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Shop - Category View -->
+
+<div data-theme="a" id="pgShop" data-role="page">
+    <div id="pgShopContent" data-role="main">
+        <div id="forget-password-pg-buttons-layout">
+            <div id="asda-bar-with-shopping-cart" class="asda-bar">
+                <p id="asda-logo">
+                    <i id="shoping-cart" class="cart-icon" src="./assets/img/crown.png"></i>
+                    <span id="asda-logo-text" class="open-sans-font asda-logo-style">ASDA</span>
+                </p>
             </div>
-            <div id="sign-in-pg-buttons-layout" class="ui-content buttons-layout">
-                <form action="#" method="post" id="pgSignInForm" name="pgSignInForm" style="width: 80%;">
-                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Welcome</h3>
-                    <p style="font-size:14px; text-align: center; ">
-                        <span class="open-sans-font" style="color: #504F4F;">Login to cotinue</span>
-                    </p>
-                    <div data-role="fieldcontain">
-                        <input class="open-sans-font" required title="Email" type="email" name="pgSignInEmail" id="pgSignInEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
-                    </div>
-                    <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password" name="pgSignInPassword" id="pgSignInPassword" placeholder="Password" data-clear-btn="true"></input>
-                    </div>
-                    <p style="font-size:11px; text-align: right;margin-top: -10px; margin-bottom: 20px;">
-                        <span id="forgetPasswordBtn" class="open-sans-font" style="color: #504F4F;">Forget Password?</span>
-                    </p>
-                    <div><button type="submit" id="pgSignIn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
-                    </div>
-                </form>
+            <div id="back-bar" class="back-bar-content">
+                <div id="fresh-food-and-bakery" class="category-box"></div>
+
             </div>
+        </div>
         </div>
     </div>
 
 
-    <!-- Forget Password -->
-
-    <div data-theme="a" id="pgForgetPassword" data-role="page">
-        <div id="pgForgetPasswordContent" data-role="main">
-            <div id="forget-password-pg-background-image-layout" class="ui-content background-image-layout">
-                <img id="forgetPassword-img" src="./assets/img/16011.jpg" title="ForgetPasswordScreen" style="position: absolute; top: 0px; width: 700px; height: 600px;">
-            </div>
-            <div id="forget-password-pg-buttons-layout" class="ui-content buttons-layout">
-                <form action="#" method="post" id="pgSignInForm" name="pgSignInForm" style="width: 80%;">
-                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Forget Password</h3>
-                    <div data-role="fieldcontain">
-                        <input class="open-sans-font" required title="Email" type="email" name="pgSignInEmail" id="pgSignInEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
-                    </div>
-                    <div><button type="submit" id="pgForgetPasswordContinue" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Continue</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div data-theme="a" style="background-position:center center;background-repeat:no-repeat;background-size:cover;background-size: 100% 100%;" id="pgMenu" data-role="page">
+<div data-theme="a"
+     style="background-position:center center;background-repeat:no-repeat;background-size:cover;background-size: 100% 100%;"
+     id="pgMenu" data-role="page">
 
         <header id="pgMenuHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>

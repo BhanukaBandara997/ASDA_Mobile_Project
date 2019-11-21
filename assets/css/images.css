@@ -10,7 +10,20 @@ images
 /* iPhone X Landscape */
 
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
+    /* Welcome Page image */
     img#welcome-img {
+        width: 812px !important;
+        height: 375px !important;
+    }
+
+    /* Create Account Page Buttons Layout */
+    img#CreateAcc-img {
+        width: 812px !important;
+        height: 375px !important;
+    }
+
+    /* Frget Password Page Buttons Layout */
+    img#forgetPassword-img {
         width: 812px !important;
         height: 375px !important;
     }
@@ -23,12 +36,22 @@ images
         width: 1025px !important;
         height: 1000px !important;
     }
+
+    img#CreateAcc-img {
+        width: 1025px !important;
+        height: 1000px !important;
+    }
 }
 
 /* iPad Pro Landscape */
 
 @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
     img#welcome-img {
+        height: 1025px !important;
+        width: 1000px !important;
+    }
+
+    img#CreateAcc-img {
         height: 1025px !important;
         width: 1000px !important;
     }
