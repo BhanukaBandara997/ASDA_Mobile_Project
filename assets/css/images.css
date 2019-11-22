@@ -1,19 +1,57 @@
-
-images
-
 /* iPhone X Portrait */
 
 @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
-
+    img#welcome-img {
+        background-image: url("../img/welcome_bg.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 620px;
+    }
+    img#createAcc-img {
+        position: absolute;
+        top: 0px;
+        width: 600px;
+        height: 500px;
+    }
+    img#signIn-img {
+        position: absolute;
+        top: 0px;
+        width: 600px;
+        height: 480px;
+    }
+    img#forgetPassword-img {
+        position: absolute;
+        top: 0px;
+        width: 700px;
+        height: 600px;
+    }
 }
+
 
 /* iPhone X Landscape */
 
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
     /* Welcome Page image */
     img#welcome-img {
-        width: 812px !important;
-        height: 375px !important;
+        background-image: url("../img/welcome_bg.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 620px;
+    }
+    img#createAcc-img {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 600px;
+        height: 500px;
     }
 
     /* Create Account Page Buttons Layout */
@@ -29,12 +67,26 @@ images
     }
 }
 
+
 /* iPad Pro Portrait */
 
 @media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
     img#welcome-img {
-        width: 1025px !important;
-        height: 1000px !important;
+        background-image: url("../img/welcome_bg_iPad.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 1020px;
+    }
+    img#createAcc-img {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 1030px;
+        height: 930px;
     }
 
     img#CreateAcc-img {
@@ -43,12 +95,26 @@ images
     }
 }
 
+
 /* iPad Pro Landscape */
 
 @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
     img#welcome-img {
-        height: 1025px !important;
-        width: 1000px !important;
+        background-image: url("../img/welcome_bg_iPad.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 620px;
+    }
+    img#createAcc-img {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 1030px;
+        height: 930px;
     }
 
     img#CreateAcc-img {

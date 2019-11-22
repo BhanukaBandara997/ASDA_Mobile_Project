@@ -22,6 +22,7 @@
     top: 6%;
 }
 
+
 /* iPhone X Portrait */
 
 @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
@@ -29,17 +30,14 @@
     div#welcome-pg-buttons-layout {
         top: 70% !important;
     }
-
     /* Create Account Page Buttons Layout */
     div#create-acc-pg-buttons-layout {
         top: 50% !important;
     }
-
     /* Sign In Page Buttons Layout */
     div#sign-in-pg-buttons-layout {
         top: 55% !important;
     }
-
     /* Forget Password Buttons Layout */
     div#forget-password-pg-buttons-layout {
         top: 70% !important;
@@ -53,73 +51,31 @@
     .startup-buttons {
         border-radius: 10px !important;
     }
-
     .form-buttons {
         border-radius: 10px !important;
     }
 }
+
 
 /* iPhone X Landscape */
 
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
     /* Welcome Page Buttons Layout */
     div#welcome-pg-buttons-layout {
-        position: absolute;
-        width: 359px;
-        height: 203px;
-        left: 226px;
-        top: 172px;
-    }
-
-    /* Create Account Page Buttons Layout */
-    div#create-acc-pg-buttons-layout {
-        top: 10% !important;
-        bottom: 5% !important;
-        align-content: center;
-        position: absolute;
-        width: 359px;
-        height: 306px;
-        left: 223px;
-        top: 69px;
-    }
-
-    /* Forget Password Page Buttons Layout */
-    div#forget-password-pg-buttons-layout {
-        top: 10% !important;
-        bottom: 5% !important;
-        align-content: center;
-        position: absolute;
-        width: 359px;
-        height: 306px;
-        left: 223px;
-        top: 69px;
+        top: 60% !important;
     }
     /* Welcome Page Create Account Button */
-    a#continue-button {
-        top: 17% !important;
-        width: 250px;
-        height: 15px;
-    }
-
     a#create-button {
-        top: 40% !important;
-        width: 250px;
-        height: 15px;
+        top: 18% !important;
     }
-
     .startup-buttons {
         border-radius: 10px !important;
     }
-
     .form-buttons {
         border-radius: 10px !important;
     }
-
-    #pgCreateAcc {
-        width: 250px;
-        height: 15px;
-    }
 }
+
 
 /* iPad Pro Portrait */
 
@@ -127,11 +83,11 @@
     .startup-buttons {
         border-radius: 20px !important;
     }
-
     .form-buttons {
         border-radius: 20px !important;
     }
 }
+
 
 /* iPad Pro Landscape */
 
@@ -140,16 +96,13 @@
     div#welcome-pg-buttons-layout {
         top: 65% !important;
     }
-
     /* Welcome Page Create Account Button */
     a#create-button {
         top: 15% !important;
     }
-
     .startup-buttons {
         border-radius: 20px !important;
     }
-
     .form-buttons {
         border-radius: 20px !important;
     }
