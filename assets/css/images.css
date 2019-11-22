@@ -11,18 +11,21 @@
         width: 100%;
         height: 620px;
     }
+
     img#createAcc-img {
         position: absolute;
         top: 0px;
         width: 600px;
         height: 500px;
     }
+
     img#signIn-img {
         position: absolute;
         top: 0px;
         width: 600px;
         height: 480px;
     }
+
     img#forgetPassword-img {
         position: absolute;
         top: 0px;
@@ -46,6 +49,7 @@
         width: 100%;
         height: 620px;
     }
+
     img#createAcc-img {
         position: absolute;
         left: 0px;
@@ -81,6 +85,7 @@
         width: 100%;
         height: 1020px;
     }
+
     img#createAcc-img {
         position: absolute;
         left: 0px;
@@ -95,7 +100,6 @@
     }
 }
 
-
 /* iPad Pro Landscape */
 
 @media screen and (min-width: 1366px) and (min-height: 1024px) and (orientation: landscape) {
@@ -109,6 +113,7 @@
         width: 100%;
         height: 620px;
     }
+
     img#createAcc-img {
         position: absolute;
         left: 0px;

@@ -18,10 +18,10 @@ $(function () {
             $.mobile.changePage('#pgForgetPassword', {transition: pgtransition});
         });
 
-        $('#signInText').on('click', function(e) {
+        $('#signInText').on('click', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgSignIn', { transition: pgtransition });
+            $.mobile.changePage('#pgSignIn', {transition: pgtransition});
         });
 
         // variable definitions go here
