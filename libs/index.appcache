@@ -29,7 +29,6 @@ password.js
 d3.min.js
 d3tree.js
 remoteserver.js
-app.js
 
 #These files require network connection
 NETWORK

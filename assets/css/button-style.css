@@ -26,13 +26,21 @@
 /* iPhone X Portrait */
 
 @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
-    /* Welcome Page Buttons Layout */
+    /* Welcome Page Button Layout */
     div#welcome-pg-buttons-layout {
-        top: 70% !important;
+        top: 72% !important;
+    }
+    /* Welcome Page Create Account Button */
+    a#create-button {
+        top: 14% !important;
     }
     /* Create Account Page Buttons Layout */
     div#create-acc-pg-buttons-layout {
         top: 50% !important;
+    }
+    /* Create Account Page Buttons Layout */
+    div#account-creation-success-pg-buttons-layout {
+        top: 69% !important;
     }
     /* Sign In Page Buttons Layout */
     div#sign-in-pg-buttons-layout {
@@ -42,12 +50,14 @@
     div#forget-password-pg-buttons-layout {
         top: 70% !important;
     }
-
-    /* Welcome Page Create Account Button */
-    a#create-button {
-        top: 14% !important;
+    /* Reset Password Buttons Layout */
+    div#reset-password-pg-buttons-layout {
+        top: 50% !important;
     }
-
+    /* Reset Password Success Buttons Layout */
+    div#reset-password-success-pg-buttons-layout {
+        top: 75% !important;
+    }
     .startup-buttons {
         border-radius: 10px !important;
     }
@@ -69,7 +79,7 @@
         top: 18% !important;
     }
     .startup-buttons {
-        border-radius: 10px !important;
+        border-radius: 5px !important;
     }
     .form-buttons {
         border-radius: 10px !important;
@@ -81,12 +91,13 @@
 
 @media screen and (min-height: 1366px) and (min-height: 1024px) and (orientation: portrait) {
     .startup-buttons {
-        border-radius: 20px !important;
+        border-radius: 10px !important;
     }
     .form-buttons {
-        border-radius: 20px !important;
+        border-radius: 10px !important;
     }
 }
+
 
 /* iPad Pro Landscape */
 
@@ -100,9 +111,9 @@
         top: 15% !important;
     }
     .startup-buttons {
-        border-radius: 20px !important;
+        border-radius: 10px !important;
     }
     .form-buttons {
-        border-radius: 20px !important;
+        border-radius: 10px !important;
     }
 }

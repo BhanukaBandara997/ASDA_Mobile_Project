@@ -164,3 +164,26 @@ caption {
     top: 0px;
     height: 75%;
 }
+
+.container {
+    position: relative;
+    top: -16px;
+}
+
+.btn {
+    background-image: url(../img/back.png);
+    background-repeat: no-repeat;
+    background-size: 20px;
+}
+
+.btn_grey {
+    background-image: url(../img/back_grey.png);
+    background-repeat: no-repeat;
+    background-size: 20px;
+}
+
+.container .btn {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border: none;
+}
