@@ -16,8 +16,17 @@
     <link rel="stylesheet" href="./libs/jqm-datebox.css">
     <link rel="stylesheet" href="./libs/animate.css">
     <link rel="stylesheet" href="./libs/nativeDroid2-master/css/nativedroid2.css">
+    <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/docs/assets/owlcarousel/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/docs/assets/owlcarousel/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/dist/assets/animate.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
     <script src="./libs/jquery.min.js" type="text/javascript"></script>
+    <script src="./libs/OwlCarousel2-2.3.4/dist/owl.carousel.min.js" type="text/javascript"></script>
+    <script src="./libs/OwlCarousel2-2.3.4/src/js/owl.animate.js" type="text/javascript"></script>
+    <script src="./libs/OwlCarousel2-2.3.4/docs/assets/vendors/highlight.js" type="text/javascript"></script>
+    <script src="./libs/OwlCarousel2-2.3.4/docs/assets/js/app.js" type="text/javascript"></script>
     <script src="./assets/js/navbar.js" type="text/javascript"></script>
     <script src="./libs/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
     <script src="./libs/nativeDroid2-master/js/nativedroid2.js" type="text/javascript"></script>
@@ -236,6 +245,81 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Home Page -->
+
+    <div data-theme="a" id="pgHome" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgHomeContent" data-role="main">
+            <div class="fadeOut owl-carousel owl-theme owl-loaded owl-drag" style="text-align: center;">
+                <div class="owl-stage-outer">
+                    <div class="owl-stage" style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
+                        <div class="owl-item" style="width: 345.2px; margin-right: 10px;">
+                            <div class="item carousel-item-margin">
+                                <img class="carousel-img" src="./assets/img/carousel_img1.png" style="border: 3px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="owl-item" style="width: 345.2px; margin-right: 10px;">
+                            <div class="item carousel-item-margin">
+                                <img class="carousel-img" src="./assets/img/carousel_img2.png">
+                            </div>
+                        </div>
+                        <div class="owl-item" style="width: 345.2px; margin-right: 10px;">
+                            <div class="item carousel-item-margin">
+                                <img class="carousel-img" src="./assets/img/carousel_img3.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="homeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home_selected.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font selected-Text">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="search">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- /navbar -->
+        </div>
+    </div>
+
 
 
 

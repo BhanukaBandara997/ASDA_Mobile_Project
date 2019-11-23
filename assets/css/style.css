@@ -115,6 +115,21 @@ caption {
         margin-left: 8px !important;
         font-size: 22px !important;
     }
+    #header-title {
+        position: absolute !important;
+        left: 42% !important;
+        top: -36% !important;
+    }
+    .header-cart-navbar {
+        left: 92% !important;
+        position: absolute !important;
+        top: 30% !important;
+    }
+    .header-navbar {
+        display: flex !important;
+        height: 60px !important;
+        padding: 5px !important;
+    }
 }
 
 
@@ -131,6 +146,21 @@ caption {
     span#signInText {
         margin-left: 8px !important;
         font-size: 22px !important;
+    }
+    #header-title {
+        position: absolute !important;
+        left: 42% !important;
+        top: -36% !important;
+    }
+    .header-cart-navbar {
+        left: 92% !important;
+        position: absolute !important;
+        top: 30% !important;
+    }
+    .header-navbar {
+        display: flex !important;
+        height: 60px !important;
+        padding: 5px !important;
     }
 }
 
@@ -178,4 +208,44 @@ caption {
     position: absolute;
     transform: translate(-50%, -50%);
     border: none;
+}
+
+.carousel-item-margin {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.navbar-align {
+    display: inline-block;
+    text-align: center;
+}
+
+.ui-footer-fixed {
+    padding-bottom: 5px !important;
+}
+
+.selected-Text {
+    background: -webkit-linear-gradient(#F46B45, #EEA849) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.header-navbar {
+    display: flex;
+    height: 40px;
+    padding: 5px;
+}
+
+
+/* .header-title-navbar {
+    position: absolute;
+    left: 35%;
+    top: -20%;
+} */
+
+.header-cart-navbar {
+    left: 88%;
+    position: absolute;
+    top: 30%;
 }

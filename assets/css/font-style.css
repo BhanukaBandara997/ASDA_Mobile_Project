@@ -1,5 +1,16 @@
 /* iPhone X */
 
+.iphone-bottom-navbar-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px !important;
+    text-align: center;
+    text-transform: none !important;
+    font-style: normal;
+    color: #7D7B7D;
+    font-weight: 600;
+    line-height: 14px;
+}
+
 .iphone-smallest-font {
     font-family: 'Open Sans', sans-serif;
     font-size: 12px !important;
@@ -50,6 +61,21 @@
     font-size: 24px !important;
 }
 
+#header-title {
+    position: absolute;
+    left: 35%;
+    top: -20%;
+    font-size: 30px;
+}
+
+.header-title-color {
+    font-weight: 600;
+    color: black;
+    background: -webkit-linear-gradient(#F46B45, #EEA849) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
 
 /* iPhone X Portrait */
 
@@ -96,6 +122,9 @@
         margin-left: 8px !important;
         font-size: 22px !important;
     }
+    #header-title {
+        font-size: 50px !important;
+    }
 }
 
 
@@ -112,5 +141,8 @@
     span#sign-in-text {
         margin-left: 8px !important;
         font-size: 22px !important;
+    }
+    #header-title {
+        font-size: 50px !important;
     }
 }

@@ -54,6 +54,38 @@ $(function() {
             $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
         });
 
+        $('#homeBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            //$('#picture').attr('src', 'http://profile.ak.fbcdn.net/hprofile-ak-ash3/41811_170099283015889_1174445894_q.jpg');
+            $.mobile.changePage('#pgHome', { transition: pgtransition });
+        });
+
+        $('#shoppingBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $('#home-text').removeClass("selected-Text");
+            $.mobile.changePage('#pgShopping', { transition: pgtransition });
+        });
+
+        $('#searchBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgSearch', { transition: pgtransition });
+        });
+
+        $('#favouritesBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgFavourites', { transition: pgtransition });
+        });
+
+        $('#accountBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAccount', { transition: pgtransition });
+        });
+
         ///////////////////////  Sign Up Account  ////////////////////////////////////////////////////////////////
 
         $('#pgCreateAccForm').submit(function(e) {
@@ -181,7 +213,7 @@ $(function() {
                 pgSignInClear();
                 // show the page to display after sign in
                 toastr.success('Login Success.', 'ASDA_Project');
-                $.mobile.changePage('#pgMenu', { transition: pgtransition });
+                $.mobile.changePage('#pgHome', { transition: pgtransition });
             }
         };
 
@@ -310,6 +342,33 @@ $(function() {
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+        jQuery(document).ready(function($) {
+            $('.fadeOut').owlCarousel({
+                items: 1,
+                animateOut: 'fadeOut',
+                loop: true,
+                margin: 10,
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // delete record from JSON
         //delete a record from JSON using record key

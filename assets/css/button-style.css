@@ -2,8 +2,8 @@
 
 .startup-buttons {
     position: absolute;
-    width: 70%;
-    height: 3%;
+    width: 70% !important;
+    height: 3% !important;
     align-items: center !important;
     display: flex !important;
     justify-content: center !important;
@@ -19,7 +19,19 @@
 }
 
 #continue-button {
-    top: 6%;
+    top: 6% !important;
+}
+
+.icon {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-header-nav {
+    display: inline-block;
+    height: 22px;
+    width: 22px;
 }
 
 
@@ -64,6 +76,13 @@
     .form-buttons {
         border-radius: 10px !important;
     }
+    .owl-theme .owl-dots .owl-dot span {
+        width: 15px !important;
+        height: 2px !important;
+    }
+    .owl-theme .owl-nav.disabled+.owl-dots {
+        margin-top: 0px !important;
+    }
 }
 
 
@@ -84,6 +103,13 @@
     .form-buttons {
         border-radius: 10px !important;
     }
+    .owl-theme .owl-dots .owl-dot span {
+        width: 15px !important;
+        height: 2px !important;
+    }
+    .owl-theme .owl-nav.disabled+.owl-dots {
+        margin-top: 0px !important;
+    }
 }
 
 
@@ -95,6 +121,23 @@
     }
     .form-buttons {
         border-radius: 10px !important;
+    }
+    .owl-theme .owl-dots .owl-dot span {
+        width: 25px !important;
+        height: 4px !important;
+    }
+    .owl-theme .owl-nav.disabled+.owl-dots {
+        margin-top: 0px !important;
+    }
+    .carousel-item-margin {
+        margin-left: 30px !important;
+        margin-right: 30px !important;
+        margin-top: 30px !important;
+    }
+    .icon-header-nav {
+        display: inline-block !important;
+        height: 35px !important;
+        width: 35px !important;
     }
 }
 
@@ -115,5 +158,22 @@
     }
     .form-buttons {
         border-radius: 10px !important;
+    }
+    .owl-theme .owl-dots .owl-dot span {
+        width: 25px !important;
+        height: 4px !important;
+    }
+    .owl-theme .owl-nav.disabled+.owl-dots {
+        margin-top: 0px !important;
+    }
+    .carousel-item-margin {
+        margin-left: 30px !important;
+        margin-right: 30px !important;
+        margin-top: 30px !important;
+    }
+    .icon-header-nav {
+        display: inline-block !important;
+        height: 35px !important;
+        width: 35px !important;
     }
 }
