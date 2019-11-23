@@ -36,6 +36,7 @@
 /* iPhone X Landscape */
 
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
+    /* Welcome Page image */
     img#welcome-img {
         background-image: url("../img/welcome_bg.png") !important;
         background-repeat: no-repeat !important;
@@ -47,6 +48,7 @@
         height: 620px !important;
     }
     img#createAcc-img {
+        position: absolute;
         left: 0px;
         top: 0px;
         width: 600px;
@@ -73,6 +75,7 @@
         height: 1020px;
     }
     img#createAcc-img {
+        position: absolute;
         left: 0px;
         width: 1030px !important;
         height: 930px !important;
@@ -107,6 +110,7 @@
         height: 620px;
     }
     img#createAcc-img {
+        position: absolute;
         left: 0px;
         top: 0px;
         width: 1030px;

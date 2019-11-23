@@ -43,7 +43,6 @@
     text-transform: none !important;
 }
 
-
 /* iPad Pro */
 
 .ipad-smallest-font {
@@ -101,7 +100,8 @@
     }
     p#welcome-text {
         font-size: 13px !important;
-        top: 27%;
+        top: 60%;
+        position: absolute;
     }
     span#sign-in-text {
         margin-left: 2px !important;
