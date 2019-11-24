@@ -4,9 +4,13 @@ $(function() {
     var pgtransition = 'slide';
     (function(app) {
 
-        app.init = function() {
+        // $(document).ready(function($) {
 
-        };
+        // });
+
+        // $(document).ready(function($) {
+
+        // });
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
 
@@ -54,36 +58,70 @@ $(function() {
             $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
         });
 
-        $('#homeBtn').on('click', function(e) {
+        $('#newProductsBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            //$('#picture').attr('src', 'http://profile.ak.fbcdn.net/hprofile-ak-ash3/41811_170099283015889_1174445894_q.jpg');
-            $.mobile.changePage('#pgHome', { transition: pgtransition });
+            $.mobile.changePage('#pgNewProducts');
         });
 
-        $('#shoppingBtn').on('click', function(e) {
+        $('#playAndWinBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $('#home-text').removeClass("selected-Text");
-            $.mobile.changePage('#pgShopping', { transition: pgtransition });
+            $.mobile.changePage('#pgPlayAndWin');
         });
 
-        $('#searchBtn').on('click', function(e) {
+        $('#findStoresBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgSearch', { transition: pgtransition });
+            $.mobile.changePage('#pgFindStores');
         });
 
-        $('#favouritesBtn').on('click', function(e) {
+        $('#topSelectionBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgFavourites', { transition: pgtransition });
+            $.mobile.changePage('#pgTopSelection');
         });
 
-        $('#accountBtn').on('click', function(e) {
+        $('#flashDealtsBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgAccount', { transition: pgtransition });
+            $.mobile.changePage('#pgFlashDeals');
+        });
+
+        $('#newProductsBackBtn, #flashDealsBackBtn, #topSelectionBackBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgHome');
+        });
+
+        $('#homeHomeBtn, #shopHomeBtn, #searchHomeBtn, #favHomeBtn, #accHomeBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgHome');
+        });
+
+        $('#homeShoppingBtn, #shopShoppingBtn, #searchShoppingBtn, #favShoppingBtn, #accShoppingBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgShopping');
+        });
+
+        $('#homeSearch, #shopSearch, #searchSearch, #favSearch, #accSearch').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgSearch');
+        });
+
+        $('#homeFavouritesBtn, #shopFavouritesBtn, #searchFavouritesBtn, #favFavouritesBtn, #accFavouritesBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgFavourites');
+        });
+
+        $('#homeAccountBtn, #shopAccountBtn, #searchAccountBtn, #favAccountBtn, #accAccountBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAccount');
         });
 
         ///////////////////////  Sign Up Account  ////////////////////////////////////////////////////////////////
@@ -344,28 +382,94 @@ $(function() {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        $(document).delegate('.ui-page', 'pageshow', function() {
 
-
-        jQuery(document).ready(function($) {
             $('.fadeOut').owlCarousel({
                 items: 1,
                 animateOut: 'fadeOut',
                 loop: true,
                 margin: 10,
             });
+
+            $('.home-carousel').owlCarousel({
+                items: 2.5,
+                loop: true,
+                margin: 0,
+            });
+
+            app.GetFlashDealsItems();
         });
 
+        app.GetFlashDealsItems = function() {
+            var fileName = "FlashDealItemList";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetFlashDealItems.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var flashDealItemsList = JSON.parse(req.responseText);
+                    $.each(flashDealItemsList.FlashDealsList, function() {
+                        appendFlashDealItems($('#owl-item-parent-div'), this);
+                    });
+                } catch (e) {}
+            }
 
+        };
 
+        function appendFlashDealItems(parent, dataObj) {
 
+            var parentDiv = $('<div>', {
+                'class': 'owl-item',
+                'style': 'width: 148px; margin-right: 10px;'
+            });
 
+            var carouselItem = $('<div>', {
+                'class': 'item carousel-item-margin'
+            });
 
+            var carouselDiv = $('<div>', {
+                'style': 'background: #FFFFFF; height: 80px !important; display: flex; border-radius: 20px;'
+            });
 
+            var flashDealItem = $('<img>', {
+                'src': dataObj.Path,
+                'style': 'width: 55px !important; height: 55px !important; margin-top: 15px; margin-left: 7px;'
+            });
 
+            var flashDealDetailsDiv = $('<div>', {
+                'style': 'display: grid; margin-left: 4px;'
+            });
 
+            var flashDealPercentageImg = $('<img>', {
+                'src': dataObj.Flash_Deal_Image,
+                'style': 'width: 56px !important; height: 32px !important; margin-top: 5px; margin-left: 2px;'
+            });
 
+            var previousPriceSpan = $('<span>', {
+                'style': 'font-size: 11px; font-weight: 600;'
+            });
 
+            previousPriceSpan.text("Was : " + dataObj.Price);
 
+            var nowPriceSpan = $('<span>', {
+                'style': 'font-size: 11px; font-weight: 600; margin-top: -5px;'
+            });
+
+            nowPriceSpan.text("Now : " + dataObj.Discount_Price);
+
+            flashDealDetailsDiv.append(flashDealPercentageImg);
+            flashDealDetailsDiv.append(previousPriceSpan);
+            flashDealDetailsDiv.append(nowPriceSpan);
+
+            carouselDiv.append(flashDealItem);
+            carouselDiv.append(flashDealDetailsDiv);
+
+            carouselItem.append(carouselDiv);
+
+            parentDiv.append(carouselItem);
+
+            jQuery("#home-carousel-div").trigger('add.owl.carousel', parentDiv).trigger('refresh.owl.carousel');
+
+        }
 
 
 

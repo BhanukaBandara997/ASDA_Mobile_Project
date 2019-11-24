@@ -43,6 +43,7 @@
     text-transform: none !important;
 }
 
+
 /* iPad Pro */
 
 .ipad-smallest-font {
@@ -75,6 +76,18 @@
     -webkit-text-fill-color: transparent !important;
 }
 
+.flash-deals-header-title-color {
+    font-weight: 600;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal !important;
+    font-weight: 550 !important;
+    text-transform: none !important;
+    background: white !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
 
 /* iPhone X Portrait */
 
@@ -88,6 +101,19 @@
     }
     span#sign-in-text {
         margin-left: 2px !important;
+    }
+    span.flash-deals-text {
+        margin-left: 10px;
+        margin-top: 12px;
+        font-size: 17px;
+        color: white;
+        font-weight: 550;
+    }
+    #flash-deals-header-title {
+        position: absolute;
+        left: 33%;
+        top: 12%;
+        font-size: 23px;
     }
 }
 
@@ -105,6 +131,19 @@
     }
     span#sign-in-text {
         margin-left: 2px !important;
+    }
+    span.flash-deals-text {
+        margin-left: 10px;
+        margin-top: 12px;
+        font-size: 17px;
+        color: white;
+        font-weight: 550;
+    }
+    #flash-deals-header-title {
+        position: absolute;
+        left: 33%;
+        top: 12%;
+        font-size: 23px;
     }
 }
 
@@ -125,6 +164,19 @@
     #header-title {
         font-size: 50px !important;
     }
+    span.flash-deals-text {
+        margin-left: 13px;
+        margin-top: 12px;
+        font-size: 24px;
+        color: white;
+        font-weight: 550;
+    }
+    #flash-deals-header-title {
+        position: absolute;
+        left: 33%;
+        top: 12%;
+        font-size: 23px;
+    }
 }
 
 
@@ -144,5 +196,18 @@
     }
     #header-title {
         font-size: 50px !important;
+    }
+    span.flash-deals-text {
+        margin-left: 13px;
+        margin-top: 12px;
+        font-size: 24px;
+        color: white;
+        font-weight: 550;
+    }
+    #flash-deals-header-title {
+        position: absolute;
+        left: 33%;
+        top: 12%;
+        font-size: 23px;
     }
 }

@@ -1,0 +1,51 @@
+{
+  "Fresh Food & Bakery": {
+  "TopCategoryName": "Fresh Food & Bakery",
+  "Path": "../img/Fresh-Food-Backery.png"
+  },
+  
+  "Food Cupboard": {
+  "TopCategoryName": "Food Cupboard",
+  "Path": "../img/Food-Cupboard.jpg" 
+  },
+  
+  "Chilled Food": {
+  "TopCategoryName": "Chilled Food",
+  "Path": "../img/Chilled-Food.jpg"
+  },
+  
+  "Frozen Food": {
+  "TopCategoryName": "Frozen Food",
+  "Path": "../img/Frozen-Food.jpg"
+  },
+  
+  "Drinks": {
+  "TopCategoryName": "Drinks",
+  "Path": "../img/Drinks.jpg"
+  },
+  
+  "Health & Beauty": {
+  "TopCategoryName": "Health & Beauty",
+  "Path": "../img/Health-And-Beauty.jpg"
+  },
+  
+  "Loundry & Household": {
+  "TopCategoryName": "Loundry & Household",
+  "Path": "../img/Loundry-And-Household.jpg"
+  },
+  
+  "Baby, Toddler & Kids": {
+  "TopCategoryName": "Baby, Toddler & Kids",
+  "Path": "../img/Baby-Toddler-And-Kids.jpg"
+  },
+  
+  "Stationery": {
+  "TopCategoryName": "Stationery",
+  "Path": "../img/Stationery.jpg"
+  },
+  
+  "Hardware": {
+  "TopCategoryName": "Hardware",
+  "Path": "../img/Hardware.png"
+  }
+}

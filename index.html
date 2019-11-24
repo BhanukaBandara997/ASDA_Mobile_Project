@@ -280,52 +280,473 @@
                     </div>
                 </div>
             </div>
+            <div class="home-flash-deals-div">
+                <div style="display:flex">
+                    <div class="flash-deal-div">
+                        <img src="./assets/img/flash.png" class="flash-deal-img">
+                    </div>
+                    <span id="flashDealtsBtn" class="flash-deals-text">Flash Deals</span>
+                </div>
+                <div id="home-carousel" style="margin-left: 5px;">
+                    <div id="home-carousel-div" class="owl-carousel owl-theme owl-loaded owl-drag home-carousel" style="text-align: center;">
+                        <div class="owl-stage-outer">
+                            <div id="owl-item-parent-div" class="owl-stage" style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 6px; background: #EDE762; height: 373px; width: 100%;">
+                <div style="display: flex; width: 100%; height: 46%; margin-bottom: 15px;">
+                    <div id="newProductsBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/New_Products.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    </div>
+                    <div id="playAndWinBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Play_and_Win.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    </div>
+                </div>
+                <div style="display: flex; width: 100%; height: 46%;">
+                    <div id="findStoresBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Find_Stores.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    </div>
+                    <div id="topSelectionBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Top_Selection.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    </div>
+                </div>
+            </div>
         </div>
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" data-grid="d">
                 <ul>
                     <li class="navbar-align">
-                        <div id="homeBtn">
+                        <div id="homeHomeBtn">
                             <img id="home-img" src="./assets/img/Navbar_Images/home_selected.png" class="icon icon-home">
                             <div id="home-text" class="iphone-bottom-navbar-font selected-Text">Home</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="shoppingBtn">
+                        <div id="homeShoppingBtn">
                             <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
                             <div class="iphone-bottom-navbar-font">Shop</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="search">
+                        <div id="homeSearch">
                             <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
                             <div class="iphone-bottom-navbar-font">Search</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favouritesBtn">
+                        <div id="homeFavouritesBtn">
                             <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
                             <div class="iphone-bottom-navbar-font">Favourites</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="accountBtn">
+                        <div id="homeAccountBtn">
                             <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
                             <div class="iphone-bottom-navbar-font">Account</div>
                         </div>
                     </li>
                 </ul>
             </div>
-            <!-- /navbar -->
+        </div>
+    </div>
+
+
+    <!-- Category Page -->
+
+    <div data-theme="a" id="pgShopping" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="shopHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shopShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop_selected.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font selected-Text">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shopSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shopFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shopAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Search Page -->
+
+    <div data-theme="a" id="pgSearch" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="searchHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="searchShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="searchSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search_selected.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font selected-Text">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="searchFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="searchAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
 
 
+    <!-- Favourites Page -->
+
+    <div data-theme="a" id="pgFavourites" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="favHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png" class="icon">
+                            <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Page -->
+
+    <div data-theme="a" id="pgAccount" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="accHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account_selected.png" class="icon">
+                            <div class="iphone-bottom-navbar-font selected-Text">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flash Deals Page -->
+
+    <div data-theme="a" id="pgFlashDeals" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
+            <div style="display: flex;">
+                <img id="flashDealsBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title">Flash Deals</h1>
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="accHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- New Products Page -->
+
+    <div data-theme="a" id="pgNewProducts" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
+            <div style="display: flex;">
+                <img id="newProductsBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title" style="left: 30% !important;">New Products</h1>
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="accHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- Top Selection Page -->
+
+    <div data-theme="a" id="pgTopSelection" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
+            <div style="display: flex;">
+                <img id="topSelectionBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title" style="left: 30% !important;">Top Selection</h1>
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="accHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Find Stores Page -->
+
+    <div data-theme="a" id="pgFindStores" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+    </div>
+
+    <!-- Play and Win Page -->
+
+    <div data-theme="a" id="pgPlayAndWin" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+    </div>
 
 
 
