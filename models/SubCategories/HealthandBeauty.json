@@ -1,0 +1,19 @@
+﻿{
+  "subCategories": [
+    {
+      "TopCategoryName": "Bath, Shower & Soap",
+      "Path": "./assets/img/SubCategory/Bath-Shower-Soap.jpg",
+      "categoryID": 20
+    },
+    {
+      "TopCategoryName": "Pharmacy",
+      "Path": "./assets/img/SubCategory/Pharmacy.jpg",
+      "categoryID": 21
+    },
+    {
+      "TopCategoryName": "Skin Care",
+      "Path": "./assets/img/SubCategory/Skin-Care.jpg",
+      "categoryID": 22
+    }
+  ]
+}

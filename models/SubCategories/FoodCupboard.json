@@ -1,0 +1,34 @@
+﻿{
+  "subCategories": [
+    {
+      "TopCategoryName": "Rice, Pasra & Noodles",
+      "Path": "./assets/img/SubCategory/Rice-Pasra-Noodles.jpg",
+      "categoryID": 5
+    },
+    {
+      "TopCategoryName": "Home Baking",
+      "Path": "./assets/img/SubCategory/Home-Baking.jpg",
+      "categoryID": 6
+    },
+    {
+      "TopCategoryName": "Condiments & Cooking Ingredients",
+      "Path": "./assets/img/SubCategory/Condiments-Cooking-Ingredients.jpg",
+      "categoryID": 7
+    },
+    {
+      "TopCategoryName": "Cofee & Tea",
+      "Path": "./assets/img/SubCategory/Cofee-Tea.jpg",
+      "categoryID": 8
+    },
+    {
+      "TopCategoryName": "Biscuts, Chocolate & Sweets",
+      "Path": "./assets/img/SubCategory/Biscuts-Chocolate-Sweets.jpg",
+      "categoryID": 9
+    },
+    {
+      "TopCategoryName": "Snacks",
+      "Path": "./assets/img/SubCategory/Snacks.jpg",
+      "categoryID": 10
+    }
+  ]
+}
