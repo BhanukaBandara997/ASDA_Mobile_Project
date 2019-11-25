@@ -343,3 +343,16 @@ caption {
 #home-carousel-div>div.owl-dots {
     display: none;
 }
+
+.flashDealsRow {
+    content: "";
+    display: flex;
+    clear: both;
+}
+
+.flashDealsColomn {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 100px;
+}
