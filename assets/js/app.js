@@ -94,31 +94,31 @@ $(function() {
             $.mobile.changePage('#pgHome');
         });
 
-        $('#homeHomeBtn, #shopHomeBtn, #searchHomeBtn, #favHomeBtn, #accHomeBtn').on('click', function(e) {
+        $('#homeHomeBtn, #shopHomeBtn, #searchHomeBtn, #favHomeBtn, #accHomeBtn, #flashDealsHomeBtn, #newProductsHomeBtn, #topSelectionHomeBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             $.mobile.changePage('#pgHome');
         });
 
-        $('#homeShoppingBtn, #shopShoppingBtn, #searchShoppingBtn, #favShoppingBtn, #accShoppingBtn').on('click', function(e) {
+        $('#homeShoppingBtn, #shopShoppingBtn, #searchShoppingBtn, #favShoppingBtn, #accShoppingBtn, #flashDealsShoppingBtn, #newProductsShoppingBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             $.mobile.changePage('#pgShopping');
         });
 
-        $('#homeSearch, #shopSearch, #searchSearch, #favSearch, #accSearch').on('click', function(e) {
+        $('#homeSearch, #shopSearch, #searchSearch, #favSearch, #accSearch, #flashDealsSearch, #newProductsSearch, #topSelectionSearch').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             $.mobile.changePage('#pgSearch');
         });
 
-        $('#homeFavouritesBtn, #shopFavouritesBtn, #searchFavouritesBtn, #favFavouritesBtn, #accFavouritesBtn').on('click', function(e) {
+        $('#homeFavouritesBtn, #shopFavouritesBtn, #searchFavouritesBtn, #favFavouritesBtn, #accFavouritesBtn, #flashDealsFavouritesBtn, #newProductsFavouritesBtn, #topSelectionFavouritesBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             $.mobile.changePage('#pgFavourites');
         });
 
-        $('#homeAccountBtn, #shopAccountBtn, #searchAccountBtn, #favAccountBtn, #accAccountBtn').on('click', function(e) {
+        $('#homeAccountBtn, #shopAccountBtn, #searchAccountBtn, #favAccountBtn, #accAccountBtn, #flashDealsAccountBtn, #newProductsAccountBtn, #topSelectionAccountBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             $.mobile.changePage('#pgAccount');
@@ -423,7 +423,7 @@ $(function() {
             });
 
             var carouselItem = $('<div>', {
-                'class': 'item carousel-item-margin'
+                'class': 'item flash-deals-carousel-item-margin'
             });
 
             var carouselDiv = $('<div>', {
@@ -469,6 +469,38 @@ $(function() {
 
             jQuery("#home-carousel-div").trigger('add.owl.carousel', parentDiv).trigger('refresh.owl.carousel');
 
+        }
+
+
+        function appendFlashDealItemsToList(dataObj) {
+
+            var parentDiv = $('<div>', {
+                'id': dataObj.TopCategoryName + '-category',
+                'class': 'category-content'
+            });
+
+            var categoryImg = $('<img>', {
+                'style': 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
+                'src': dataObj.Path
+
+            });
+
+            var categoryName = $('<p>', {
+                'class': 'card-text-font-style',
+                'stye': 'left: 262px;'
+            });
+
+            categoryName.text(dataObj.TopCategoryName);
+
+            parentDiv.append(categoryImg);
+            parentDiv.append(categoryName);
+
+            parentDiv.on('click', function() {
+                subCategory(dataObj.TopCategoryName);
+                //    $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            });
+
+            return parentDiv;
         }
 
 
