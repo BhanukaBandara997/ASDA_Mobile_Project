@@ -1,0 +1,14 @@
+﻿{
+  "Stationery": [
+    {
+      "TopCategoryName": "Books",
+      "Path": "./assets/img/SubCategory/Books.jpg",
+      "categoryID": 30
+    },
+    {
+      "TopCategoryName": "Pens, Pencils & Accessories",
+      "Path": "./assets/img/SubCategory/Pens-Pencils-Accessories.jpg",
+      "categoryID": 31
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+﻿{
+  "subCategories": [
+    {
+      "TopCategoryName": "Ice Cream & Frozen Yogurt",
+      "Path": "./assets/img/SubCategory/Ice-Cream-Frozen-Yogurt.jpeg",
+      "categoryID": 14
+    },
+    {
+      "TopCategoryName": "Ready Meals",
+      "Path": "./assets/img/SubCategory/Ready-Meals.jpg",
+      "categoryID": 15
+    },
+    {
+      "TopCategoryName": "Sausage & Pre Cooked Meat",
+      "Path": "./assets/img/SubCategory/Sausage-and-Pre-Cooked Meat.jpg",
+      "categoryID": 16
+    }
+  ]
+}

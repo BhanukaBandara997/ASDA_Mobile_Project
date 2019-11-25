@@ -1,3 +1,39 @@
+.cart-icon{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 336px;
+    top: 4px;
+}
+
+.card-image{
+    position: absolute;
+    width: 158px;
+    height: 117px;
+    left: 203px;
+    top: 550px;
+}
+.card-image-style{
+    width: 170px;
+    height: 90px;
+    /* margin-top: 7px; */
+}
+
+.back-icon{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 15px;
+    top: 10px;
+}
+
+.account-crown-icon{
+    position: absolute;
+    width: 18px;
+    height: 20px;
+    left: 30px;
+    top: 38px;
+}
 /* iPhone X Portrait */
 
 @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
@@ -16,6 +52,7 @@
         width: 600px !important;
         height: 500px !important;
     }
+
     img#logIn-img {
         top: 0px !important;
         width: 600px !important;
@@ -42,6 +79,7 @@
         top: 30%;
         left: 4%;
     }
+
 }
 
 
@@ -60,7 +98,7 @@
         height: 620px !important;
     }
     img#createAcc-img {
-        position: absolute;
+        
         left: 0px;
         top: 0px;
         width: 600px;
@@ -104,6 +142,7 @@
         width: 1030px !important;
         height: 930px !important;
     }
+
     img#resetPasswordSuccess-img {
         width: 1500px !important;
         height: 1080px !important;
@@ -130,7 +169,6 @@
         left: 4%;
     }
 }
-
 
 /* iPad Pro Landscape */
 

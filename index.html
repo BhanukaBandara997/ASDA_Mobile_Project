@@ -56,7 +56,55 @@
 
 <body>
 
-    <!-- Welcome Page  -->
+<!-- Account Page -->
+
+<div data-theme="a" id="pgAccount" data-role="page">
+    <div id="pgAccountContent" data-role="main">
+        <div id="account-name-and-pic" class="account-top-group-layout">
+            <span id="user-name" class="user-name-layout"></span>
+            <img id="crown-membership" class="account-crown-icon" src="./assets/img/crown.png"></img>
+            <span id="member-type" class="member-type-layout">Gold Member</span>
+        </div>
+    </div>
+</div>
+
+<!-- Shop - Category View -->
+
+<div data-theme="a" id="pgShop" data-role="page">
+    <div id="pgShopContent" data-role="main">
+        <header>
+            <div id="asda-bar-with-shopping-cart" class="asda-bar">
+                <p id="asda-logo">
+                    <span id="asda-logo-text" class="open-sans-font asda-logo-style">ASDA</span>
+                    <img id="temp-shoping-cart" class="cart-icon" src="./assets/img/cart-color.png"></img>
+                </p>
+            </div>
+        </header>
+            <div id="shop-background" class="shop-background-content">
+            </div>
+    </div>
+</div>
+
+<!-- Sub Category View -->
+<div data-theme="a" id="pgSubCategory" data-role="page">
+    <div id="pgShopContent" data-role="main">
+        <header>
+            <div id="asda-bar-with-shopping-cart" class="asda-bar">
+                <p id="asda-logo">
+                    <span id="asda-logo-text" class="open-sans-font asda-logo-style">ASDA</span>
+                    <img id="temp-shoping-cart" class="cart-icon" src="./assets/img/cart-color.png"></img>
+                </p>
+            </div>
+            <div class="nav-bar">
+                <img id="back-icon-sub-category" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="sub-category-name-text" class="open-sans-font sub-category-style"></span>
+            </div>
+        </header>
+            <div id="sub-category-background" class="sub-category-background-content"></div>
+    </div>
+</div>
+
+<!-- Welcome Page  -->
 
     <div data-theme="a" id="pgWelcome" data-role="page">
         <div id="pgWelcomeContent" data-role="main">
@@ -65,9 +113,13 @@
             </div>
             <div id="welcome-pg-buttons-layout" class="ui-content buttons-layout">
 
-                <a href="#homePage" id="continue-button" class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Continue As Guest</a>
+                <a href="#homePage" id="continue-button"
+                   class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Continue
+                    As Guest</a>
 
-                <a href="#pgCreateAccount" id="create-button" class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Create Account</a>
+                <a href="#pgCreateAccount" id="create-button"
+                   class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Create
+                    Account</a>
 
                 <p id="welcome-text" class="iphone-smallest-font" style="position: absolute;">
                     <span style="color: #777373;">Already a member?</span>

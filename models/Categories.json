@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {
+      "TopCategoryName": "Fresh Food and Bakery",
+      "Path": "./assets/img/Fresh-Food-Backery.png"
+    },
+    {
+      "TopCategoryName": "Food Cupboard",
+      "Path": "./assets/img/Food-Cupboard.jpg"
+    },
+    {
+      "TopCategoryName": "Chilled Food",
+      "Path": "./assets/img/Chilled-Food.jpg"
+    },
+    {
+      "TopCategoryName": "Frozen Food",
+      "Path": "./assets/img/Frozen-Food.jpg"
+    },
+    {
+      "TopCategoryName": "Drinks",
+      "Path": "./assets/img/Drinks.jpg"
+    },
+    {
+      "TopCategoryName": "Health and Beauty",
+      "Path": "./assets/img/Health-And-Beauty.jpg"
+    },
+    {
+      "TopCategoryName": "Loundry and Household",
+      "Path": "./assets/img/Loundry-And-Household.jpg"
+    },
+    {
+      "TopCategoryName": "Baby Toddler and Kids",
+      "Path": "./assets/img/Baby-Toddler-And-Kids.jpg"
+    },
+    {
+      "TopCategoryName": "Stationery",
+      "Path": "./assets/img/Stationery.jpg"
+    },
+    {
+      "TopCategoryName": "Hardware",
+      "Path": "./assets/img/Hardware.png"
+    }
+  ]
+}

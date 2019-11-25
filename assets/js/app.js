@@ -251,7 +251,7 @@ $(function() {
                 pgSignInClear();
                 // show the page to display after sign in
                 toastr.success('Login Success.', 'ASDA_Project');
-                $.mobile.changePage('#pgHome', { transition: pgtransition });
+                $.mobile.changePage('#pgMenu', { transition: pgtransition });
             }
         };
 
@@ -380,6 +380,149 @@ $(function() {
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        $('#temp-shoping-cart').on('click', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.GetCategories();
+            //$.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+        });
+
+        $('#back-icon-sub-category').on('click', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgShop', {transition: pgtransition});
+        });
+
+        function PopulateCategories(categoryState, categoriesObj){
+                    var icnt;
+                    var count = 0;
+                    var previousCategoryObj = null;
+
+                if(categoryState == "parent"){
+                    $.each( categoriesObj.categories, function(){
+                        count += 1;
+                        var newCategoryObj = appendCategories(this);
+                        if(count == 1 && previousCategoryObj === null) {
+                            previousCategoryObj = newCategoryObj;
+                        }
+                        if(count == 2) {
+                             appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
+                             count = 0;
+                             previousCategoryObj = null;
+                        }
+                    });
+                }else{
+                    //var myEnum = {FrozenFood: "FrozenFood"};
+
+                    $.each(categoriesObj.subCategories, function(){
+                        count += 1;
+                        var newCategoryObj = appendCategories(this);
+                        if(count == 1 && previousCategoryObj === null) {
+                            previousCategoryObj = newCategoryObj;
+                        }
+                        if(count == 2) {
+                             appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
+                             count = 0;
+                             previousCategoryObj = null;
+                        }
+                    });
+                }
+        }
+
+        app.GetCategories = function () {
+            // get users
+            var fileName = "Categories"
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetCategories.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                // parse string to json object
+                try {
+                    var categoriesObj = JSON.parse(req.responseText);
+                    var categoryState = "parent";
+                    PopulateCategories(categoryState, categoriesObj);
+                } catch (e) {
+                    //user file is not found
+                    $('#pgLoginIn').data('success', 'false');
+                    // toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                }
+            }
+        }
+
+        function appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj) {
+
+            var parentDiv =  $('<div>', {
+                'style': 'display: flex; margin-bottom: 20px; margin-top: 10px;'
+            });
+            // toastr.error('Key - ' + key);
+
+            parentDiv.append(previousCategoryObj);
+            parentDiv.append(newCategoryObj);
+            if(categoryState == "parent"){
+                $('#shop-background').append(parentDiv);
+            }else{
+                $('#sub-category-background').append(parentDiv);
+            }
+        }
+
+        function appendCategories(dataObj) {
+
+            var parentDiv =  $('<div>', {
+                'id': dataObj.TopCategoryName + '-category',
+                'class': 'category-content'
+            });
+
+            var categoryImg = $('<img>',{
+                'style' : 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
+                'src': dataObj.Path
+
+            });
+
+            var categoryName = $('<p>', {
+                'class':'card-text-font-style' ,
+                'stye': 'left: 262px;'
+            });
+
+            categoryName.text(dataObj.TopCategoryName);
+
+            parentDiv.append(categoryImg);
+            parentDiv.append(categoryName);
+
+            parentDiv.on('click', function(){
+               subCategory(dataObj.TopCategoryName);
+            //    $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            });
+
+            return parentDiv;
+        }
+
+        function subCategory(parentCategoryName){
+
+            var newParentCategoryName = parentCategoryName.replace(/ /g,'');
+            // toastr.error('Selected Sub category ' +newParentCategoryName);
+
+            var fileName = newParentCategoryName;
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetSubCategories.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                // parse string to json object
+                try {
+                    var subCategoriesObj = JSON.parse(req.responseText);
+                    PopulateCategories(newParentCategoryName, subCategoriesObj);
+                } catch (e) {
+                    //user file is not found
+                    $('#pgLoginIn').data('success', 'false');
+                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                }
+            }
+            $("#sub-category-name-text").text(parentCategoryName);
+            $.mobile.changePage('#pgSubCategory', {transition: pgtransition});
+        }
+
+
+
 
 
         $(document).delegate('.ui-page', 'pageshow', function() {

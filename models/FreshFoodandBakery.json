@@ -1,0 +1,24 @@
+﻿{
+  "subCategories": [
+    {
+      "TopCategoryName": "Vegetables",
+      "Path": "./assets/img/SubCategory/Vegetables.jpg",
+      "categoryID": 1
+    },
+    {
+      "TopCategoryName": "Fruit",
+      "Path": "./assets/img/SubCategory/Fruit.jpg",
+      "categoryID": 2
+    },
+    {
+      "TopCategoryName": "Backery",
+      "Path": "./assets/img/SubCategory/Backery.jpg",
+      "categoryID": 3
+    },
+    {
+      "TopCategoryName": "Meat and Fish",
+      "Path": "./assets/img/SubCategory/Meat-Fish.jpg",
+      "categoryID": 4
+    }
+  ]
+}

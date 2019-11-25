@@ -1,0 +1,195 @@
+{
+  "Fresh Food & Bakery": {
+    "subCategorys": [
+      {
+        "subCategory": "Vegetables",
+        "path": "veg",
+        "categoryID": 1
+      },
+      {
+        "subCategory": "Fruit",
+        "path": "frt",
+        "categoryID": 2
+      },
+      {
+        "subCategory": "Backery",
+        "path": "bac",
+        "categoryID": 3
+      },
+      {
+        "subCategory": "Meat and Fish",
+        "path": "fsh",
+        "categoryID": 4
+      }
+    ]
+  },
+  "Food Cupboard": {
+    "subCategorys": [
+      {
+        "subCategory": "Rice, Pasra & Noodles",
+        "path": "ric",
+        "categoryID": 5
+      },
+      {
+        "subCategory": "Home Baking",
+        "path": "hb",
+        "categoryID": 6
+      },
+      {
+        "subCategory": "Condiments & Cooking Ingredients",
+        "path": "coo",
+        "categoryID": 7
+      },
+      {
+        "subCategory": "Cofee & Tea",
+        "path": "tea",
+        "categoryID": 8
+      },
+      {
+        "subCategory": "Biscuts, Chocolate & Sweets",
+        "path": "cho",
+        "categoryID": 9
+      },
+      {
+        "subCategory": "Snacks",
+        "path": "snk",
+        "categoryID": 10
+      }
+    ]
+  },
+  "Chilled Food": {
+    "subCategorys": [
+      {
+        "subCategory": "Butter, Milk & Eggs ",
+        "path": "btr",
+        "categoryID": 11
+      },
+      {
+        "subCategory": "Yogurt & Desserts",
+        "path": "ygt",
+        "categoryID": 12
+      },
+      {
+        "subCategory": "Cheese",
+        "path": "che",
+        "categoryID": 13
+      }
+    ]
+  },
+  "Frozen Food": {
+    "subCategorys": [
+      {
+        "subCategory": "Ice Cream & Frozen Yogurt",
+        "path": "ice",
+        "categoryID": 14
+      },
+      {
+        "subCategory": "Ready Meals",
+        "path": "rm",
+        "categoryID": 15
+      },
+      {
+        "subCategory": "Sausage & Pre Cooked Meat",
+        "path": "sau",
+        "categoryID": 16
+      }
+    ]
+  },
+  "Drinks": {
+    "subCategorys": [
+      {
+        "subCategory": "Soft Drinks",
+        "path": "sdr",
+        "categoryID": 17
+      },
+      {
+        "subCategory": "Juice & Water",
+        "path": "wat",
+        "categoryID": 18
+      },
+      {
+        "subCategory": "Liquor",
+        "path": "liq",
+        "categoryID": 19
+      }
+    ]
+  },
+  "Health & Beauty": {
+    "subCategorys": [
+      {
+        "subCategory": "Bath, Shower & Soap",
+        "path": "sop",
+        "categoryID": 20
+      },
+      {
+        "subCategory": "Pharmacy",
+        "path": "pha",
+        "categoryID": 21
+      },
+      {
+        "subCategory": "Skin Care",
+        "path": "skn",
+        "categoryID": 22
+      }
+    ]
+  },
+  "Loundry & Household": {
+    "subCategorys": [
+      {
+        "subCategory": "Loundry",
+        "path": "lon",
+        "categoryID": 23
+      },
+      {
+        "subCategory": "Car Care",
+        "path": "car",
+        "categoryID": 24
+      },
+      {
+        "subCategory": "Pet Food",
+        "path": "pet",
+        "categoryID": 25
+      },
+      {
+        "subCategory": "Household Cleaning",
+        "path": "hsc",
+        "categoryID": 26
+      }
+    ]
+  },
+  "Baby, Toddler & Kids": {
+    "subCategorys": [
+      {
+        "subCategory": "Baby Nappies",
+        "path": "nap",
+        "categoryID": 27
+      },
+      {
+        "subCategory": "Baby’s Milk & Food",
+        "path": "bby",
+        "categoryID": 28
+      },
+      {
+        "subCategory": "Toys & Entertainment",
+        "path": "toy",
+        "categoryID": 29
+      }
+    ]
+  },
+  "Stationery": {
+    "subCategorys": [
+      {
+        "subCategory": "Books",
+        "path": "bok",
+        "categoryID": 30
+      },
+      {
+        "subCategory": "Pens, Pencils & Accessories",
+        "path": "pen",
+        "categoryID": 31
+      }
+    ]
+  },
+  "Hardware": {}
+}
+

@@ -28,7 +28,6 @@ iscroll.js
 password.js
 d3.min.js
 d3tree.js
-remoteserver.js
 
 #These files require network connection
 NETWORK
