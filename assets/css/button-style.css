@@ -30,6 +30,7 @@
     div#welcome-pg-buttons-layout {
         top: 72% !important;
     }
+
     /* Welcome Page Create Account Button */
     a#create-button {
         top: 14% !important;
@@ -38,6 +39,7 @@
     div#create-acc-pg-buttons-layout {
         top: 50% !important;
     }
+
     /* Create Account Page Buttons Layout */
     div#account-creation-success-pg-buttons-layout {
         top: 69% !important;
@@ -50,10 +52,12 @@
     div#forget-password-pg-buttons-layout {
         top: 70% !important;
     }
+
     /* Reset Password Buttons Layout */
     div#reset-password-pg-buttons-layout {
         top: 50% !important;
     }
+
     /* Reset Password Success Buttons Layout */
     div#reset-password-success-pg-buttons-layout {
         top: 75% !important;
@@ -72,17 +76,59 @@
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
     /* Welcome Page Buttons Layout */
     div#welcome-pg-buttons-layout {
-        top: 60% !important;
+        position: absolute;
+        width: 359px;
+        height: 283px;
+        left: 226px;
+        top: 172px;
     }
     /* Welcome Page Create Account Button */
     a#create-button {
-        top: 18% !important;
+        top: 15% !important;
+        width: 250px;
+        height: 20px;
+    }
+    a#continue-button {
+        top: 32% !important;
+        width: 250px;
+        height: 20px;
     }
     .startup-buttons {
         border-radius: 5px !important;
     }
     .form-buttons {
         border-radius: 10px !important;
+    }
+    /* Create Account Page Buttons Layout */
+    div#create-acc-pg-buttons-layout {
+        position: absolute;
+        width: 359px;
+        height: 306px;
+        left: 223px;
+        top: 44px;
+        background: #FFFFFF;
+        border-radius: 40px 40px 0px 0px;
+    }
+    .pgCreateAccBtn{
+        width: 250px;
+        height: 10px;
+    }
+    div#sign-in-pg-buttons-layout{
+        position: absolute;
+        width: 359px;
+        height: 260px;
+        left: 223px;
+        top: 84px;
+        background: #FFFFFF;
+        border-radius: 40px 40px 0px 0px;
+    }
+    /* Forget Password */
+    div#forget-password-pg-buttons-layout{
+    position: absolute;
+    width: 359px;
+    height: 203px;
+    left: 220px;
+    top: 178px;
     }
 }
 

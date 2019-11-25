@@ -1,3 +1,43 @@
+.card-text-font-style{
+    text-align: center;
+    height: 14px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+.sub-category-style{
+    position: absolute;
+    width: 180px;
+    height: 20px;
+    left: 50px;
+    top: 10px;
+    
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 20px;
+    
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.member-type-layout{
+    width: 79px;
+    height: 14px;
+    left: 58px;
+    top: 44px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.9);
+}
 /* iPhone X */
 
 .iphone-smallest-font {
@@ -32,6 +72,22 @@
     text-transform: none !important;
 }
 
+.asda-logo-style{
+    position: absolute;
+    width: 116px;
+    height: 25px;
+    left: 158px;
+    top: -1px;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    background-image: linear-gradient(#F46B45, #EEA849) !important;
+    -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 /* iPad Pro */
 
 .ipad-smallest-font {
@@ -49,7 +105,6 @@
     font-size: 24px !important;
 }
 
-
 /* iPhone X Portrait */
 
 @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
@@ -65,7 +120,6 @@
     }
 }
 
-
 /* iPhone X Landscape */
 
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
@@ -74,14 +128,13 @@
     }
     p#welcome-text {
         font-size: 13px !important;
-        top: 60%;
+        top: 46%;
         position: absolute;
     }
     span#sign-in-text {
         margin-left: 2px !important;
     }
 }
-
 
 /* iPad Pro Portrait */
 
@@ -97,7 +150,6 @@
         font-size: 22px !important;
     }
 }
-
 
 /* iPad Pro Landscape */
 
