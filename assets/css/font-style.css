@@ -16,13 +16,13 @@
     height: 20px;
     left: 50px;
     top: 10px;
-    
+
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
     line-height: 20px;
-    
+
     color: rgba(0, 0, 0, 0.8);
 }
 
@@ -39,6 +39,17 @@
     color: rgba(0, 0, 0, 0.9);
 }
 /* iPhone X */
+
+.iphone-bottom-navbar-font {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px !important;
+    text-align: center;
+    text-transform: none !important;
+    font-style: normal;
+    color: #7D7B7D;
+    font-weight: 600;
+    line-height: 14px;
+}
 
 .iphone-smallest-font {
     font-family: 'Open Sans', sans-serif;
@@ -88,6 +99,7 @@
     -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 /* iPad Pro */
 
 .ipad-smallest-font {
@@ -105,6 +117,34 @@
     font-size: 24px !important;
 }
 
+#header-title {
+    position: absolute;
+    left: 35%;
+    top: -20%;
+    font-size: 30px;
+}
+
+.header-title-color {
+    font-weight: 600;
+    color: black;
+    background: -webkit-linear-gradient(#F46B45, #EEA849) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.flash-deals-header-title-color {
+    font-weight: 600;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal !important;
+    font-weight: 550 !important;
+    text-transform: none !important;
+    background: white !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+
 /* iPhone X Portrait */
 
 @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
@@ -117,6 +157,19 @@
     }
     span#sign-in-text {
         margin-left: 2px !important;
+    }
+    span.flash-deals-text {
+        margin-left: 10px;
+        margin-top: 12px;
+        font-size: 17px;
+        color: white;
+        font-weight: 550;
+    }
+    #flash-deals-header-title {
+        position: absolute;
+        left: 33%;
+        top: 12%;
+        font-size: 23px;
     }
 }
 
@@ -134,6 +187,19 @@
     span#sign-in-text {
         margin-left: 2px !important;
     }
+    span.flash-deals-text {
+        margin-left: 10px;
+        margin-top: 12px;
+        font-size: 17px;
+        color: white;
+        font-weight: 550;
+    }
+    #flash-deals-header-title {
+        position: absolute;
+        left: 33%;
+        top: 12%;
+        font-size: 23px;
+    }
 }
 
 /* iPad Pro Portrait */
@@ -148,6 +214,22 @@
     span#sign-in-text {
         margin-left: 8px !important;
         font-size: 22px !important;
+    }
+    #header-title {
+        font-size: 50px !important;
+    }
+    span.flash-deals-text {
+        margin-left: 13px;
+        margin-top: 12px;
+        font-size: 24px;
+        color: white;
+        font-weight: 550;
+    }
+    #flash-deals-header-title {
+        position: absolute;
+        left: 33%;
+        top: 12%;
+        font-size: 23px;
     }
 }
 
@@ -164,5 +246,21 @@
     span#sign-in-text {
         margin-left: 8px !important;
         font-size: 22px !important;
+    }
+    #header-title {
+        font-size: 50px !important;
+    }
+    span.flash-deals-text {
+        margin-left: 13px;
+        margin-top: 12px;
+        font-size: 24px;
+        color: white;
+        font-weight: 550;
+    }
+    #flash-deals-header-title {
+        position: absolute;
+        left: 33%;
+        top: 12%;
+        font-size: 23px;
     }
 }

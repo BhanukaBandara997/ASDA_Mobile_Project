@@ -16,8 +16,17 @@
     <link rel="stylesheet" href="./libs/jqm-datebox.css">
     <link rel="stylesheet" href="./libs/animate.css">
     <link rel="stylesheet" href="./libs/nativeDroid2-master/css/nativedroid2.css">
+    <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/docs/assets/owlcarousel/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/docs/assets/owlcarousel/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/dist/assets/animate.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
     <script src="./libs/jquery.min.js" type="text/javascript"></script>
+    <script src="./libs/OwlCarousel2-2.3.4/dist/owl.carousel.min.js" type="text/javascript"></script>
+    <script src="./libs/OwlCarousel2-2.3.4/src/js/owl.animate.js" type="text/javascript"></script>
+    <script src="./libs/OwlCarousel2-2.3.4/docs/assets/vendors/highlight.js" type="text/javascript"></script>
+    <script src="./libs/OwlCarousel2-2.3.4/docs/assets/js/app.js" type="text/javascript"></script>
     <script src="./assets/js/navbar.js" type="text/javascript"></script>
     <script src="./libs/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
     <script src="./libs/nativeDroid2-master/js/nativedroid2.js" type="text/javascript"></script>
@@ -53,8 +62,8 @@
     <div id="pgAccountContent" data-role="main">
         <div id="account-name-and-pic" class="account-top-group-layout">
             <span id="user-name" class="user-name-layout"></span>
-            <img id="crown-membership" class="account-crown-icon" src="./assets/img/crown.png"></img>    
-            <span id="member-type" class="member-type-layout">Gold Member</span>       
+            <img id="crown-membership" class="account-crown-icon" src="./assets/img/crown.png"></img>
+            <span id="member-type" class="member-type-layout">Gold Member</span>
         </div>
     </div>
 </div>
@@ -65,9 +74,9 @@
     <div id="pgShopContent" data-role="main">
         <header>
             <div id="asda-bar-with-shopping-cart" class="asda-bar">
-                <p id="asda-logo">  
+                <p id="asda-logo">
                     <span id="asda-logo-text" class="open-sans-font asda-logo-style">ASDA</span>
-                    <img id="temp-shoping-cart" class="cart-icon" src="./assets/img/cart-color.png"></img>           
+                    <img id="temp-shoping-cart" class="cart-icon" src="./assets/img/cart-color.png"></img>
                 </p>
             </div>
         </header>
@@ -81,9 +90,9 @@
     <div id="pgShopContent" data-role="main">
         <header>
             <div id="asda-bar-with-shopping-cart" class="asda-bar">
-                <p id="asda-logo">  
+                <p id="asda-logo">
                     <span id="asda-logo-text" class="open-sans-font asda-logo-style">ASDA</span>
-                    <img id="temp-shoping-cart" class="cart-icon" src="./assets/img/cart-color.png"></img>           
+                    <img id="temp-shoping-cart" class="cart-icon" src="./assets/img/cart-color.png"></img>
                 </p>
             </div>
             <div class="nav-bar">
@@ -122,31 +131,25 @@
     </div>
 
 
-<!-- Create Account Page -->
+    <!-- Create Account Page -->
 
-<div data-theme="a" id="pgCreateAccount" data-role="page">
-    <div id="pgCreateAccountContent" data-role="main">
-        <div id="create-acc-pg-background-image-layout" class="ui-content background-image-layout container">
-            <div id="createAccountBackBtn" class="btn"
-                 style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
-            <img id="createAcc-img" src="./assets/img/16009.jpg" title="CreateAccountScreen">
-        </div>
+    <div data-theme="a" id="pgCreateAccount" data-role="page">
+        <div id="pgCreateAccountContent" data-role="main">
+            <div id="create-acc-pg-background-image-layout" class="ui-content background-image-layout container">
+                <div id="createAccountBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
+                <img id="createAcc-img" src="./assets/img/16009.jpg" title="CreateAccountScreen">
+            </div>
             <div id="create-acc-pg-buttons-layout" class="ui-content buttons-layout">
                 <form action="#" method="post" id="pgCreateAccForm" name="pgCreateAccForm" style="width: 80%;">
-                    <h3 class="open-sans-font landscape-style" style="text-align: center; margin: 18px;">Create Account</h3>
+                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Create Account</h3>
                     <div data-role="fieldcontain" style="margin-top: -10px;">
-                        <input class="open-sans-font" style="line-height: 20px!important;" required
-                               title="Enter email address here." type="email" id="pgSignUpEmail" placeholder="Email"
-                               autocomplete="off" data-clear-btn="true"></input>
+                        <input class="open-sans-font" style="line-height: 20px!important;" required title="Enter email address here." type="email" id="pgSignUpEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password"
-                               id="pgSignUpPassword" placeholder="Password" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password" id="pgSignUpPassword" placeholder="Password" data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password"
-                               type="password" id="pgSignUpConfirmPassword" placeholder="Confirm-Password"
-                               data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password" type="password" id="pgSignUpConfirmPassword" placeholder="Confirm-Password" data-clear-btn="true"></input>
                     </div>
                     <div style="margin-top: -20px !important; margin-bottom: 20px !important;">
                         <p class="iphone-smallest-font">
@@ -156,192 +159,658 @@
                             <span style="color: #222222; font-weight:550;">Terms + Conditions</span>
                         </p>
                     </div>
-                    <div>
-                        <button type="submit" id="pgCreateAccBtn"
-                                class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Create
-                            Account
-                        </button>
+                    <div><button type="submit" id="pgCreateAccBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Create Account</button>
                     </div>
                 </form>
             </div>
-    </div>
-</div>
-
-
-<!-- Login Page -->
-
-<div data-theme="a" id="pgLoginIn" data-role="page">
-    <div id="pgLoginInContent" data-role="main">
-        <div id="sign-in-pg-background-image-layout" class="ui-content background-image-layout container">
-            <div id="logInBackBtn" class="btn_grey"
-                 style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
-            <img id="logIn-img" src="./assets/img/1232.jpg" title="LoginInScreen"
-                 style="top: 0px; width: 600px; height: 480px;">
-        </div>
-        <div id="sign-in-pg-buttons-layout" class="ui-content buttons-layout">
-            <form action="#" method="post" id="pgLoginInForm" name="pgLoginInForm" style="width: 80%;">
-                <h3 id="margin-editor" class="open-sans-font ">Welcome</h3>
-                <p style="font-size:14px; text-align: center; ">
-                    <span class="open-sans-font" style="color: #504F4F;">Login to cotinue</span>
-                </p>
-                <div data-role="fieldcontain">
-                    <input class="open-sans-font" style="line-height: 20px!important;" required
-                           title="Enter email address here." type="email" id="pgLoginInEmail" placeholder="Email"
-                           autocomplete="off" data-clear-btn="true"></input>
-                </div>
-                <div data-role="fieldcontain">
-                    <input class="open-sans-font" required autocomplete="off" title="Password" type="password"
-                           id="pgLoginInPassword" placeholder="Password" data-clear-btn="true"></input>
-                </div>
-                <p style="font-size:11px; text-align: right;margin-top: -10px; margin-bottom: 20px;">
-                    <span id="forgetPasswordBtn" class="open-sans-font" style="color: #504F4F;">Forget Password?</span>
-                </p>
-                <div>
-                    <button type="submit" id="pgLoginInBtn"
-                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
 
-<!-- Forget Password -->
+    <!-- Login Page -->
 
-<div data-theme="a" id="pgForgetPassword" data-role="page">
-    <div id="pgForgetPasswordContent" data-role="main">
-        <div id="forget-password-pg-background-image-layout" class="ui-content background-image-layout container">
-            <div id="forgetPasswordBackBtn" class="btn"
-                 style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
-            <img id="forgetPassword-img" src="./assets/img/16011.jpg" title="ForgetPasswordScreen"
-                 style="top: 0px; width: 700px; height: 600px;">
-        </div>
-        <div id="forget-password-pg-buttons-layout" class="ui-content buttons-layout">
-            <form action="#" method="post" id="pgForgetPasswordForm" name="pgForgetPasswordForm" style="width: 80%;">
-                <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Forget Password</h3>
-                <div data-role="fieldcontain">
-                    <input class="open-sans-font" required title="Enter email address here." type="email"
-                           name="pgForgetPasswordEmail" id="pgForgetPasswordEmail" placeholder="Email"
-                           autocomplete="off" data-clear-btn="true"></input>
-                </div>
-                <div>
-                    <button type="submit" id="pgForgetPasswordContinueBtn"
-                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Continue
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<!-- Reset Password -->
-
-<div data-theme="a" id="pgResetPassword" data-role="page">
-    <div id="pgResetPasswordContent" data-role="main">
-        <div id="reset-password-pg-background-image-layout" class="ui-content background-image-layout container">
-            <div id="resetPasswordBackBtn" class="btn"
-                 style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
-            <img id="resetPassword-img" src="./assets/img/17233.jpg" title="resetPasswordScreen"
-                 style="top: 0px; width: 530px; height: 470px;">
-        </div>
-        <div id="reset-password-pg-buttons-layout" class="ui-content buttons-layout">
-            <form method="post" id="pgResetPasswordForm" name="pgResetPasswordInForm" style="width: 80%;">
-                <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Reset Password</h3>
-                <p style="font-size:14px; text-align: center; ">
-                    <span class="open-sans-font"
-                          style="color: #504F4F;">We have sent a four digit code to your mail</span>
-                </p>
-                <div data-role="fieldcontain" style="margin-top: -10px;">
-                    <input class="open-sans-font" required title="FourDigitCode" type="number" name="fourDigitCode"
-                           id="fourDigitCode" placeholder="Four Digit Code" autocomplete="off"
-                           data-clear-btn="true"></input>
-                </div>
-                <div data-role="fieldcontain">
-                    <input class="open-sans-font" required autocomplete="off" title="Password" type="password"
-                           id="pgResetPasswordInput" placeholder="Password" data-clear-btn="true"></input>
-                </div>
-                <div data-role="fieldcontain">
-                    <input class="open-sans-font" required autocomplete="off" title="Confirm Password" type="password"
-                           name="pgResetConfirmPassword" id="pgResetConfirmPassword" placeholder="Confirm-Password"
-                           data-clear-btn="true"></input>
-                </div>
-                <div>
-                    <button type="submit" id="pgResetPasswordBtn"
-                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Reset Password
-                    </button>
-                </div>
-            </form>
+    <div data-theme="a" id="pgLoginIn" data-role="page">
+        <div id="pgLoginInContent" data-role="main">
+            <div id="sign-in-pg-background-image-layout" class="ui-content background-image-layout container">
+                <div id="logInBackBtn" class="btn_grey" style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
+                <img id="logIn-img" src="./assets/img/1232.jpg" title="LoginInScreen" style="top: 0px; width: 600px; height: 480px;">
+            </div>
+            <div id="sign-in-pg-buttons-layout" class="ui-content buttons-layout">
+                <form action="#" method="post" id="pgLoginInForm" name="pgLoginInForm" style="width: 80%;">
+                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Welcome</h3>
+                    <p style="font-size:14px; text-align: center; ">
+                        <span class="open-sans-font" style="color: #504F4F;">Login to cotinue</span>
+                    </p>
+                    <div data-role="fieldcontain">
+                        <input class="open-sans-font" style="line-height: 20px!important;" required title="Enter email address here." type="email" id="pgLoginInEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password" id="pgLoginInPassword" placeholder="Password" data-clear-btn="true"></input>
+                    </div>
+                    <p style="font-size:11px; text-align: right;margin-top: -10px; margin-bottom: 20px;">
+                        <span id="forgetPasswordBtn" class="open-sans-font" style="color: #504F4F;">Forget Password?</span>
+                    </p>
+                    <div><button type="submit" id="pgLoginInBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
-<!-- Reset Password Success -->
+    <!-- Forget Password -->
 
-<div data-theme="a" id="pgResetPasswordSuccess" data-role="page">
-    <div id="pgResetPasswordSuccessContent" data-role="main">
-        <div id="reset-password-success-pg-background-image-layout"
-             class="ui-content background-image-layout container">
-            <div id="resetPasswordSuccessBackBtn" class="btn"
-                 style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
-            <img id="resetPasswordSuccess-img" src="./assets/img/14294.jpg" title="resetPasswordSuccessScreen"
-                 style="top: 0px; width: 900px;height: 660px;">
-        </div>
-        <div id="reset-password-success-pg-buttons-layout" class="ui-content buttons-layout">
-            <form method="post" id="pgResetPasswordSuccessForm" name="pgResetPasswordSuccessInForm" style="width: 80%;">
-                <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Whoo Whoo!</h3>
-                <p style="font-size:14px; text-align: center; ">
-                    <span class="open-sans-font"
-                          style="color: #504F4F;">Your password has been reset succefully! </span>
-                    <span class="open-sans-font" style="color: #504F4F;">Now login with your new password </span>
-                </p>
-                <div>
-                    <button type="submit" id="pgResetPasswordSuccessBtn"
-                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login
-                    </button>
-                </div>
-            </form>
-        </div> 
-    </div>
-</div>
-
-
-<!-- Account Creation Successfully -->
-
-<div data-theme="a" id="pgAccountCreationSuccess" data-role="page">
-    <div id="pgAccountCreationSuccessContent" data-role="main">
-        <div id="account-creation-success-pg-background-image-layout"
-             class="ui-content background-image-layout container">
-            <div id="accountCreationSuccessBackBtn" class="btn_grey"
-                 style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
-            <img id="accountCreationSuccess-img" src="./assets/img/2986568.jpg" title="accountCreationSuccessScreen"
-                 style="top: 0px; width: 500px;height: 600px;">
-        </div>
-        <div id="account-creation-success-pg-buttons-layout" class="ui-content buttons-layout">
-            <form method="post" id="pgAccountCreationSuccessForm" name="pgAccountCreationSuccessForm"
-                  style="width: 84%;">
-                <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Your Account Has</h3>
-                <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Been Created!</h3>
-                <p style="font-size:14px; text-align: center; margin-bottom: 20px;">
-                    <span class="open-sans-font" style="color: #504F4F; font-weight: 550;">Congratulation,</span>
-                    <span class="open-sans-font" style="color: #504F4F;">now you are ready to shop</span>
-                </p>
-                <div>
-                    <button type="submit" id="pgAccountCreationSuccessBtn"
-                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login
-                    </button>
-                </div>
-            </form>
+    <div data-theme="a" id="pgForgetPassword" data-role="page">
+        <div id="pgForgetPasswordContent" data-role="main">
+            <div id="forget-password-pg-background-image-layout" class="ui-content background-image-layout container">
+                <div id="forgetPasswordBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
+                <img id="forgetPassword-img" src="./assets/img/16011.jpg" title="ForgetPasswordScreen" style="top: 0px; width: 700px; height: 600px;">
+            </div>
+            <div id="forget-password-pg-buttons-layout" class="ui-content buttons-layout">
+                <form action="#" method="post" id="pgForgetPasswordForm" name="pgForgetPasswordForm" style="width: 80%;">
+                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Forget Password</h3>
+                    <div data-role="fieldcontain">
+                        <input class="open-sans-font" required title="Enter email address here." type="email" name="pgForgetPasswordEmail" id="pgForgetPasswordEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
+                    </div>
+                    <div><button type="submit" id="pgForgetPasswordContinueBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Continue</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
-<div data-theme="a"
-     style="background-position:center center;background-repeat:no-repeat;background-size:cover;background-size: 100% 100%;"
-     id="pgMenu" data-role="page">
+    <!-- Reset Password -->
+
+    <div data-theme="a" id="pgResetPassword" data-role="page">
+        <div id="pgResetPasswordContent" data-role="main">
+            <div id="reset-password-pg-background-image-layout" class="ui-content background-image-layout container">
+                <div id="resetPasswordBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
+                <img id="resetPassword-img" src="./assets/img/17233.jpg" title="resetPasswordScreen" style="top: 0px; width: 530px; height: 470px;">
+            </div>
+            <div id="reset-password-pg-buttons-layout" class="ui-content buttons-layout">
+                <form method="post" id="pgResetPasswordForm" name="pgResetPasswordInForm" style="width: 80%;">
+                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Reset Password</h3>
+                    <p style="font-size:14px; text-align: center; ">
+                        <span class="open-sans-font" style="color: #504F4F;">We have sent a four digit code to your mail</span>
+                    </p>
+                    <div data-role="fieldcontain" style="margin-top: -10px;">
+                        <input class="open-sans-font" required title="FourDigitCode" type="number" name="fourDigitCode" id="fourDigitCode" placeholder="Four Digit Code" autocomplete="off" data-clear-btn="true"></input>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password" id="pgResetPasswordInput" placeholder="Password" data-clear-btn="true"></input>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password" type="password" name="pgResetConfirmPassword" id="pgResetConfirmPassword" placeholder="Confirm-Password" data-clear-btn="true"></input>
+                    </div>
+                    <div><button type="submit" id="pgResetPasswordBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Reset Password Success -->
+
+    <div data-theme="a" id="pgResetPasswordSuccess" data-role="page">
+        <div id="pgResetPasswordSuccessContent" data-role="main">
+            <div id="reset-password-success-pg-background-image-layout" class="ui-content background-image-layout container">
+                <div id="resetPasswordSuccessBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
+                <img id="resetPasswordSuccess-img" src="./assets/img/14294.jpg" title="resetPasswordSuccessScreen" style="top: 0px; width: 900px;height: 660px;">
+            </div>
+            <div id="reset-password-success-pg-buttons-layout" class="ui-content buttons-layout">
+                <form method="post" id="pgResetPasswordSuccessForm" name="pgResetPasswordSuccessInForm" style="width: 80%;">
+                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Whoo Whoo!</h3>
+                    <p style="font-size:14px; text-align: center; ">
+                        <span class="open-sans-font" style="color: #504F4F;">Your password has been reset succefully! </span>
+                        <span class="open-sans-font" style="color: #504F4F;">Now login with your new password </span>
+                    </p>
+                    <div><button type="submit" id="pgResetPasswordSuccessBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Account Creation Successfully -->
+
+    <div data-theme="a" id="pgAccountCreationSuccess" data-role="page">
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+            <div id="account-creation-success-pg-background-image-layout" class="ui-content background-image-layout container">
+                <div id="accountCreationSuccessBackBtn" class="btn_grey" style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
+                <img id="accountCreationSuccess-img" src="./assets/img/2986568.jpg" title="accountCreationSuccessScreen" style="top: 0px; width: 500px;height: 600px;">
+            </div>
+            <div id="account-creation-success-pg-buttons-layout" class="ui-content buttons-layout">
+                <form method="post" id="pgAccountCreationSuccessForm" name="pgAccountCreationSuccessForm" style="width: 84%;">
+                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Your Account Has</h3>
+                    <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Been Created!</h3>
+                    <p style="font-size:14px; text-align: center; margin-bottom: 20px;">
+                        <span class="open-sans-font" style="color: #504F4F; font-weight: 550;">Congratulation,</span>
+                        <span class="open-sans-font" style="color: #504F4F;">now you are ready to shop</span>
+                    </p>
+                    <div><button type="submit" id="pgAccountCreationSuccessBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Home Page -->
+
+    <div data-theme="a" id="pgHome" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgHomeContent" data-role="main">
+            <div class="fadeOut owl-carousel owl-theme owl-loaded owl-drag" style="text-align: center;">
+                <div class="owl-stage-outer">
+                    <div class="owl-stage" style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
+                        <div class="owl-item" style="width: 345.2px; margin-right: 10px;">
+                            <div class="item carousel-item-margin">
+                                <img class="carousel-img" src="./assets/img/carousel_img1.png" style="border: 3px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="owl-item" style="width: 345.2px; margin-right: 10px;">
+                            <div class="item carousel-item-margin">
+                                <img class="carousel-img" src="./assets/img/carousel_img2.png">
+                            </div>
+                        </div>
+                        <div class="owl-item" style="width: 345.2px; margin-right: 10px;">
+                            <div class="item carousel-item-margin">
+                                <img class="carousel-img" src="./assets/img/carousel_img3.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="home-flash-deals-div">
+                <div style="display:flex">
+                    <div class="flash-deal-div">
+                        <img src="./assets/img/flash.png" class="flash-deal-img">
+                    </div>
+                    <span id="flashDealtsBtn" class="flash-deals-text">Flash Deals</span>
+                </div>
+                <div id="home-carousel" style="margin-left: 5px;">
+                    <div id="home-carousel-div" class="owl-carousel owl-theme owl-loaded owl-drag home-carousel" style="text-align: center;">
+                        <div class="owl-stage-outer">
+                            <div id="owl-item-parent-div" class="owl-stage" style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 6px; background: #EDE762; height: 373px; width: 100%;">
+                <div style="display: flex; width: 100%; height: 46%; margin-bottom: 15px;">
+                    <div id="newProductsBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/New_Products.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    </div>
+                    <div id="playAndWinBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Play_and_Win.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    </div>
+                </div>
+                <div style="display: flex; width: 100%; height: 46%;">
+                    <div id="findStoresBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Find_Stores.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    </div>
+                    <div id="topSelectionBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Top_Selection.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="homeHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home_selected.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font selected-Text">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="homeShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="homeSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="homeFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="homeAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Category Page -->
+
+    <div data-theme="a" id="pgShopping" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="shopHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shopShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop_selected.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font selected-Text">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shopSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shopFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="shopAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Search Page -->
+
+    <div data-theme="a" id="pgSearch" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="searchHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="searchShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="searchSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search_selected.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font selected-Text">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="searchFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="searchAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Favourites Page -->
+
+    <div data-theme="a" id="pgFavourites" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="favHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png" class="icon">
+                            <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Page -->
+
+    <div data-theme="a" id="pgAccount" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="accHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="accAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account_selected.png" class="icon">
+                            <div class="iphone-bottom-navbar-font selected-Text">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flash Deals Page -->
+
+    <div data-theme="a" id="pgFlashDeals" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
+            <div style="display: flex;">
+                <img id="flashDealsBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title">Flash Deals</h1>
+            </div>
+        </div>
+        <div id="pgFlashDealsContent" data-role="main">
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="flashDealsHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="flashDealsShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="flashDealsSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="flashDealsFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="flashDealsAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- New Products Page -->
+
+    <div data-theme="a" id="pgNewProducts" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
+            <div style="display: flex;">
+                <img id="newProductsBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title" style="left: 30% !important;">New Products</h1>
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="newProductsHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="newProductsShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="newProductsSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="newProductsFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="newProductsAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Top Selection Page -->
+
+    <div data-theme="a" id="pgTopSelection" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
+            <div style="display: flex;">
+                <img id="topSelectionBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title" style="left: 30% !important;">Top Selection</h1>
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="topSelectionHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="topSelectionShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="topSelectionSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="topSelectionFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="topSelectionAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Find Stores Page -->
+
+    <div data-theme="a" id="pgFindStores" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+    </div>
+
+    <!-- Play and Win Page -->
+
+    <div data-theme="a" id="pgPlayAndWin" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div data-theme="a" style="background-position:center center;background-repeat:no-repeat;background-size:cover;background-size: 100% 100%;" id="pgMenu" data-role="page">
 
         <header id="pgMenuHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>

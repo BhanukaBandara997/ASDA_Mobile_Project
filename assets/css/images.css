@@ -38,32 +38,46 @@
 
 @media screen and (min-height: 812px) and (min-width: 375px) and (orientation: portrait) {
     img#welcome-img {
-        background-image: url("../img/welcome_bg.png");
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        height: 620px;
+        background-image: url("../img/welcome_bg.png") !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+        position: absolute !important;
+        left: 0px !important;
+        top: 0px !important;
+        width: 100% !important;
+        height: 620px !important;
     }
     img#createAcc-img {
-        position: absolute;
-        top: 0px;
-        width: 600px;
-        height: 500px;
+        top: 0px !important;
+        width: 600px !important;
+        height: 500px !important;
     }
 
     img#logIn-img {
-        top: 0px;
-        width: 600px;
-        height: 480px;
+        top: 0px !important;
+        width: 600px !important;
+        height: 480px !important;
     }
     img#forgetPassword-img {
+        top: 0px !important;
+        width: 700px !important;
+        height: 600px !important;
+    }
+    img.carousel-img {
+        height: 150px !important;
+        border-radius: 25px !important;
+    }
+    img.flash-deal-img {
+        margin-top: 5px !important;
+        height: 15px !important;
+        width: 15px !important;
+    }
+    img.flash-deals-back-btn {
+        width: 18px;
+        height: 18px;
         position: absolute;
-        top: 0px;
-        width: 700px;
-        height: 600px;
+        top: 30%;
+        left: 4%;
     }
 
 }
@@ -74,14 +88,14 @@
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
     /* Welcome Page image */
     img#welcome-img {
-        background-image: url("../img/welcome_bg.png");
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        height: 620px;
+        background-image: url("../img/welcome_bg.png") !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+        position: absolute !important;
+        left: 0px !important;
+        top: 0px !important;
+        width: 100% !important;
+        height: 620px !important;
     }
     img#createAcc-img {
         
@@ -90,17 +104,21 @@
         width: 600px;
         height: 500px;
     }
-
-    /* Create Account Page Buttons Layout */
-    img#CreateAcc-img {
-        width: 812px !important;
-        height: 375px !important;
+    img.carousel-img {
+        height: 150px !important;
+        border-radius: 25px;
     }
-
-    /* Frget Password Page Buttons Layout */
-    img#forgetPassword-img {
-        width: 812px !important;
-        height: 375px !important;
+    img.flash-deal-img {
+        margin-top: 5px !important;
+        height: 15px !important;
+        width: 15px !important;
+    }
+    img.flash-deals-back-btn {
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 30%;
+        left: 4%;
     }
 }
 
@@ -129,10 +147,26 @@
         width: 1500px !important;
         height: 1080px !important;
     }
-
-    img#CreateAcc-img {
-        width: 1025px !important;
-        height: 1000px !important;
+    img.carousel-img {
+        height: 300px !important;
+        border-radius: 60px !important;
+    }
+    .icon-header-nav {
+        display: inline-block;
+        height: 35px;
+        width: 35px;
+    }
+    img.flash-deal-img {
+        margin-top: 8px !important;
+        height: 25px !important;
+        width: 25px !important;
+    }
+    img.flash-deals-back-btn {
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 30%;
+        left: 4%;
     }
 }
 
@@ -156,9 +190,25 @@
         width: 1030px;
         height: 930px;
     }
-
-    img#CreateAcc-img {
-        height: 1025px !important;
-        width: 1000px !important;
+    img.carousel-img {
+        height: 350px !important;
+        border-radius: 60px !important;
+    }
+    .icon-header-nav {
+        display: inline-block;
+        height: 35px;
+        width: 35px;
+    }
+    img.flash-deal-img {
+        margin-top: 8px !important;
+        height: 25px !important;
+        width: 25px !important;
+    }
+    img.flash-deals-back-btn {
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 30%;
+        left: 4%;
     }
 }

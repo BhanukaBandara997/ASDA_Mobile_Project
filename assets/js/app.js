@@ -1,63 +1,132 @@
-$(function () {
+$(function() {
     // define the application
     var ASDA_Project = {};
     var pgtransition = 'slide';
+    (function(app) {
 
-    (function (app) {
+        // $(document).ready(function($) {
 
-        app.init = function () {
+        // });
 
-        };
+        // $(document).ready(function($) {
 
-        $(".ui-field-contain").css({'border-bottom-style': 'none'});
+        // });
+
+        $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
 
         // Back Buttons For Welcome Pages
-        $('#logInBackBtn,#resetPasswordSuccessBackBtn,#createAccountBackBtn,#accountCreationSuccessBackBtn').on('click', function (e) {
+        $('#logInBackBtn,#resetPasswordSuccessBackBtn,#createAccountBackBtn,#accountCreationSuccessBackBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgWelcome', {transition: pgtransition});
+            $.mobile.changePage('#pgWelcome', { transition: pgtransition });
         });
 
-        $('#forgetPasswordBackBtn').on('click', function (e) {
+        $('#forgetPasswordBackBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
         });
 
-        $('#resetPasswordBackBtn').on('click', function (e) {
+        $('#resetPasswordBackBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgForgetPassword', {transition: pgtransition});
+            $.mobile.changePage('#pgForgetPassword', { transition: pgtransition });
         });
 
         ////////////////////////////////////////////////////////////////////////////
-        $('#pgAccountCreationSuccessBtn').on('click', function (e) {
+        $('#pgAccountCreationSuccessBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
         });
 
-        $('#forgetPasswordBtn').on('click', function (e) {
+        $('#forgetPasswordBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgForgetPassword', {transition: pgtransition});
+            $.mobile.changePage('#pgForgetPassword', { transition: pgtransition });
         });
 
-        $('#signInBtn').on('click', function (e) {
+        $('#signInBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
         });
 
-        $('#pgResetPasswordSuccessBtn').on('click', function (e) {
+        $('#pgResetPasswordSuccessBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
+        });
+
+        $('#newProductsBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgNewProducts');
+        });
+
+        $('#playAndWinBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgPlayAndWin');
+        });
+
+        $('#findStoresBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgFindStores');
+        });
+
+        $('#topSelectionBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgTopSelection');
+        });
+
+        $('#flashDealtsBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgFlashDeals');
+        });
+
+        $('#newProductsBackBtn, #flashDealsBackBtn, #topSelectionBackBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgHome');
+        });
+
+        $('#homeHomeBtn, #shopHomeBtn, #searchHomeBtn, #favHomeBtn, #accHomeBtn, #flashDealsHomeBtn, #newProductsHomeBtn, #topSelectionHomeBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgHome');
+        });
+
+        $('#homeShoppingBtn, #shopShoppingBtn, #searchShoppingBtn, #favShoppingBtn, #accShoppingBtn, #flashDealsShoppingBtn, #newProductsShoppingBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgShopping');
+        });
+
+        $('#homeSearch, #shopSearch, #searchSearch, #favSearch, #accSearch, #flashDealsSearch, #newProductsSearch, #topSelectionSearch').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgSearch');
+        });
+
+        $('#homeFavouritesBtn, #shopFavouritesBtn, #searchFavouritesBtn, #favFavouritesBtn, #accFavouritesBtn, #flashDealsFavouritesBtn, #newProductsFavouritesBtn, #topSelectionFavouritesBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgFavourites');
+        });
+
+        $('#homeAccountBtn, #shopAccountBtn, #searchAccountBtn, #favAccountBtn, #accAccountBtn, #flashDealsAccountBtn, #newProductsAccountBtn, #topSelectionAccountBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAccount');
         });
 
         ///////////////////////  Sign Up Account  ////////////////////////////////////////////////////////////////
 
-        $('#pgCreateAccForm').submit(function (e) {
+        $('#pgCreateAccForm').submit(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             // save the User
@@ -71,7 +140,7 @@ $(function () {
                 var userAddedSucce = app.addUser(userRecObj);
 
                 if (userAddedSucce) {
-                    $.mobile.changePage('#pgAccountCreationSuccess', {transition: pgtransition});
+                    $.mobile.changePage('#pgAccountCreationSuccess', { transition: pgtransition });
                 } else {
                     toastr.error('User record not saved properly. Please try again.');
                 }
@@ -100,7 +169,7 @@ $(function () {
         }
 
         // add a new record to server storage.
-        app.addUser = function (userRecObj) {
+        app.addUser = function(userRecObj) {
             //convert record to json to write to server
             var recordJSON = JSON.stringify(userRecObj);
             // save the data to a server file, use the post method as it has 8MB minimum data limitation
@@ -114,8 +183,7 @@ $(function () {
                     //show a toast message that the record has not been saved
                     toastr.error('User Record Not Saved. Please Try Again.');
                 }
-            }
-            ;
+            };
 
         };
 
@@ -144,7 +212,7 @@ $(function () {
         ///////////////////////  Sign In Account  ////////////////////////////////////////////////////////////////
 
         // bind the login in click event
-        $('#pgLoginInForm').submit(function (e) {
+        $('#pgLoginInForm').submit(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             // verify the user details
@@ -152,7 +220,7 @@ $(function () {
         });
 
 
-        app.SignInUser = function (Email, Password) {
+        app.SignInUser = function(Email, Password) {
             // get users
             $('#pgLoginIn').data('success', 'true');
             var userName = Email.trim();
@@ -183,7 +251,7 @@ $(function () {
                 pgSignInClear();
                 // show the page to display after sign in
                 toastr.success('Login Success.', 'ASDA_Project');
-                $.mobile.changePage('#pgMenu', {transition: pgtransition});
+                $.mobile.changePage('#pgMenu', { transition: pgtransition });
             }
         };
 
@@ -199,7 +267,7 @@ $(function () {
         ///////////////////////  Forget Password  ////////////////////////////////////////////////////////////////
         // TODO - Send Mail Function Can Be Added
         // bind the login in click event
-        $('#pgForgetPasswordForm').submit(function (e) {
+        $('#pgForgetPasswordForm').submit(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             // verify the user details
@@ -207,7 +275,7 @@ $(function () {
         });
 
 
-        app.ForgetPassword = function (Email) {
+        app.ForgetPassword = function(Email) {
             // get users
             $('#pgForgetPassword').data('success', 'true');
             var userName = Email.trim();
@@ -234,7 +302,7 @@ $(function () {
                 pgForgetPasswordClear();
                 // show the page to display after forget password
                 localStorage.setItem("currentLoggedInUser", Email);
-                $.mobile.changePage('#pgResetPassword', {transition: pgtransition});
+                $.mobile.changePage('#pgResetPassword', { transition: pgtransition });
             }
         };
 
@@ -247,7 +315,7 @@ $(function () {
 
         /////////////////////// Password Reset  ////////////////////////////////////////////////////////////////
 
-        $('#pgResetPasswordForm').submit(function (e) {
+        $('#pgResetPasswordForm').submit(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             var passwordMatched = checkPasswordMatch($('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
@@ -258,7 +326,7 @@ $(function () {
             }
         });
 
-        app.PasswordReset = function (fourDigitCode, newPassword, newConfirmPassword) {
+        app.PasswordReset = function(fourDigitCode, newPassword, newConfirmPassword) {
             var Email = localStorage.getItem("currentLoggedInUser");
             $('#pgResetPassword').data('success', 'true');
             var userName = Email.trim();
@@ -281,7 +349,7 @@ $(function () {
                                 if (succ == 'true') {
                                     pgResetPasswordClear();
                                     // show the page to display after forget password
-                                    $.mobile.changePage('#pgResetPasswordSuccess', {transition: pgtransition});
+                                    $.mobile.changePage('#pgResetPasswordSuccess', { transition: pgtransition });
                                 }
                             } catch (e) {
                                 //user file is not found
@@ -312,8 +380,8 @@ $(function () {
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-       
+
+
 
         $('#temp-shoping-cart').on('click', function (e) {
             e.preventDefault();
@@ -332,7 +400,7 @@ $(function () {
                     var icnt;
                     var count = 0;
                     var previousCategoryObj = null;
-                    
+
                 if(categoryState == "parent"){
                     $.each( categoriesObj.categories, function(){
                         count += 1;
@@ -348,7 +416,7 @@ $(function () {
                     });
                 }else{
                     //var myEnum = {FrozenFood: "FrozenFood"};
-                    
+
                     $.each(categoriesObj.subCategories, function(){
                         count += 1;
                         var newCategoryObj = appendCategories(this);
@@ -363,7 +431,7 @@ $(function () {
                     });
                 }
         }
-        
+
         app.GetCategories = function () {
             // get users
             var fileName = "Categories"
@@ -371,10 +439,10 @@ $(function () {
             var req = Ajax("./controllers/ajaxGetCategories.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 // parse string to json object
-                try {  
-                    var categoriesObj = JSON.parse(req.responseText);     
-                    var categoryState = "parent"; 
-                    PopulateCategories(categoryState, categoriesObj);        
+                try {
+                    var categoriesObj = JSON.parse(req.responseText);
+                    var categoryState = "parent";
+                    PopulateCategories(categoryState, categoriesObj);
                 } catch (e) {
                     //user file is not found
                     $('#pgLoginIn').data('success', 'false');
@@ -409,7 +477,7 @@ $(function () {
             var categoryImg = $('<img>',{
                 'style' : 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
                 'src': dataObj.Path
-                
+
             });
 
             var categoryName = $('<p>', {
@@ -418,7 +486,7 @@ $(function () {
             });
 
             categoryName.text(dataObj.TopCategoryName);
-            
+
             parentDiv.append(categoryImg);
             parentDiv.append(categoryName);
 
@@ -431,7 +499,7 @@ $(function () {
         }
 
         function subCategory(parentCategoryName){
-           
+
             var newParentCategoryName = parentCategoryName.replace(/ /g,'');
             // toastr.error('Selected Sub category ' +newParentCategoryName);
 
@@ -440,9 +508,9 @@ $(function () {
             var req = Ajax("./controllers/ajaxGetSubCategories.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 // parse string to json object
-                try {   
-                    var subCategoriesObj = JSON.parse(req.responseText);     
-                    PopulateCategories(newParentCategoryName, subCategoriesObj);        
+                try {
+                    var subCategoriesObj = JSON.parse(req.responseText);
+                    PopulateCategories(newParentCategoryName, subCategoriesObj);
                 } catch (e) {
                     //user file is not found
                     $('#pgLoginIn').data('success', 'false');
@@ -456,9 +524,134 @@ $(function () {
 
 
 
+
+        $(document).delegate('.ui-page', 'pageshow', function() {
+
+            $('.fadeOut').owlCarousel({
+                items: 1,
+                animateOut: 'fadeOut',
+                loop: true,
+                margin: 10,
+            });
+
+            $('.home-carousel').owlCarousel({
+                items: 2.5,
+                loop: true,
+                margin: 0,
+            });
+
+            app.GetFlashDealsItems();
+        });
+
+        app.GetFlashDealsItems = function() {
+            var fileName = "FlashDealItemList";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetFlashDealItems.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var flashDealItemsList = JSON.parse(req.responseText);
+                    $.each(flashDealItemsList.FlashDealsList, function() {
+                        appendFlashDealItems($('#owl-item-parent-div'), this);
+                    });
+                } catch (e) {}
+            }
+
+        };
+
+        function appendFlashDealItems(parent, dataObj) {
+
+            var parentDiv = $('<div>', {
+                'class': 'owl-item',
+                'style': 'width: 148px; margin-right: 10px;'
+            });
+
+            var carouselItem = $('<div>', {
+                'class': 'item flash-deals-carousel-item-margin'
+            });
+
+            var carouselDiv = $('<div>', {
+                'style': 'background: #FFFFFF; height: 80px !important; display: flex; border-radius: 20px;'
+            });
+
+            var flashDealItem = $('<img>', {
+                'src': dataObj.Path,
+                'style': 'width: 55px !important; height: 55px !important; margin-top: 15px; margin-left: 7px;'
+            });
+
+            var flashDealDetailsDiv = $('<div>', {
+                'style': 'display: grid; margin-left: 4px;'
+            });
+
+            var flashDealPercentageImg = $('<img>', {
+                'src': dataObj.Flash_Deal_Image,
+                'style': 'width: 56px !important; height: 32px !important; margin-top: 5px; margin-left: 2px;'
+            });
+
+            var previousPriceSpan = $('<span>', {
+                'style': 'font-size: 11px; font-weight: 600;'
+            });
+
+            previousPriceSpan.text("Was : " + dataObj.Price);
+
+            var nowPriceSpan = $('<span>', {
+                'style': 'font-size: 11px; font-weight: 600; margin-top: -5px;'
+            });
+
+            nowPriceSpan.text("Now : " + dataObj.Discount_Price);
+
+            flashDealDetailsDiv.append(flashDealPercentageImg);
+            flashDealDetailsDiv.append(previousPriceSpan);
+            flashDealDetailsDiv.append(nowPriceSpan);
+
+            carouselDiv.append(flashDealItem);
+            carouselDiv.append(flashDealDetailsDiv);
+
+            carouselItem.append(carouselDiv);
+
+            parentDiv.append(carouselItem);
+
+            jQuery("#home-carousel-div").trigger('add.owl.carousel', parentDiv).trigger('refresh.owl.carousel');
+
+        }
+
+
+        function appendFlashDealItemsToList(dataObj) {
+
+            var parentDiv = $('<div>', {
+                'id': dataObj.TopCategoryName + '-category',
+                'class': 'category-content'
+            });
+
+            var categoryImg = $('<img>', {
+                'style': 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
+                'src': dataObj.Path
+
+            });
+
+            var categoryName = $('<p>', {
+                'class': 'card-text-font-style',
+                'stye': 'left: 262px;'
+            });
+
+            categoryName.text(dataObj.TopCategoryName);
+
+            parentDiv.append(categoryImg);
+            parentDiv.append(categoryName);
+
+            parentDiv.on('click', function() {
+                subCategory(dataObj.TopCategoryName);
+                //    $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            });
+
+            return parentDiv;
+        }
+
+
+
+
         // delete record from JSON
         //delete a record from JSON using record key
-        app.deleteUser = function (Email) {
+        app.deleteUser = function(Email) {
             Email = Email.replace(/ /g, '-');
             var req = Ajax("ajaxDeleteUser.php/?Email=" + Email);
             if (req.status == 200) {
@@ -467,28 +660,13 @@ $(function () {
                 toastr.error('User record not deleted.', 'ASDA_Project');
             }
             // show the page to display after a record is deleted, this case listing page
-            $.mobile.changePage('#pgUser', {transition: pgtransition});
-            
+            $.mobile.changePage('#pgUser', { transition: pgtransition });
         };
 
 
-        //Shop page
-        
 
 
 
-        // var shop_button = document.getElementById("temp-shoping-cart");
-        // shop_button.addEventListener("click" , function(){
-        //     fetch("./assets/js/Categories.json").then(function(resp){
-        //         return resp.json();
-        //     })
-        //     .then(function(data){
-        //         console.log(data);
-        //     })
-        // document.getElementById("shop-background").innerHTML = `
-        //     <h1> Categories</h2>
-        // `
-        // });
 
 
 
@@ -502,67 +680,52 @@ $(function () {
         var UserLi = '<li ><a href="#pgEditUser?Email=Z2"><h2>Z1</h2><p>DESCRIPTION</p></a></li>';
         var UserHdr = '<li data-role="list-divider">Your Users</li>';
         var noUser = '<li id="noUser">You have no users</li>';
-        var pgUserListScroller = new IScroll('#pgUserList', {
-            mouseWheel: true,
-            scrollbars: true,
-            bounce: true,
-            zoom: false
-        });
+        var pgUserListScroller = new IScroll('#pgUserList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
         // variable definitions go here
         var ProjectLi = '<li ><a href="#pgEditProject?ProjectName=Z2"><h2>Z1</h2><p>DESCRIPTION</p><span class="ui-li-count">COUNTBUBBLE</span></a></li>';
         var ProjectHdr = '<li data-role="list-divider">Your Projects</li>';
         var noProject = '<li id="noProject">You have no projects</li>';
-        var pgProjectListScroller = new IScroll('#pgProjectList', {
-            mouseWheel: true,
-            scrollbars: true,
-            bounce: true,
-            zoom: false
-        });
+        var pgProjectListScroller = new IScroll('#pgProjectList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
         // variable definitions go here
         var PersonLi = '<li ><a href="#pgEditPerson?FullName=Z2"><h2>Z1</h2><p>DESCRIPTION</p></a></li>';
         var PersonHdr = '<li data-role="list-divider">Your People</li>';
         var noPerson = '<li id="noPerson">You have no people</li>';
-        var pgPersonListScroller = new IScroll('#pgPersonList', {
-            mouseWheel: true,
-            scrollbars: true,
-            bounce: true,
-            zoom: false
-        });
-        app.init = function () {
+        var pgPersonListScroller = new IScroll('#pgPersonList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
+        app.init = function() {
             FastClick.attach(document.body);
             app.UserBindings();
             app.ProjectBindings();
             app.PersonBindings();
             // app.SignInBindings();
-            $('#msgboxyes').on('click', function (e) {
+            $('#msgboxyes').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 var yesmethod = $('#msgboxyes').data('method');
                 var yesid = $('#msgboxyes').data('id');
                 app[yesmethod](yesid);
             });
-            $('#msgboxno').on('click', function (e) {
+            $('#msgboxno').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 var nomethod = $('#msgboxno').data('method');
                 var noid = $('#msgboxno').data('id');
                 var toPage = $('#msgboxno').data('topage');
                 // show the page to display after a record is deleted
-                $.mobile.changePage('#' + toPage, {transition: pgtransition});
+                $.mobile.changePage('#' + toPage, { transition: pgtransition });
                 app[nomethod](noid);
             });
-            $('#alertboxok').on('click', function (e) {
+            $('#alertboxok').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 var toPage = $('#alertboxok').data('topage');
                 // show the page to display after ok is clicked
-                $.mobile.changePage('#' + toPage, {transition: pgtransition});
+                $.mobile.changePage('#' + toPage, { transition: pgtransition });
             });
-            $(document).on('click', '#sbItems a', function (e) {
+            $(document).on('click', '#sbItems a', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 var href = $(this).attr('href');
-                $.mobile.changePage(href, {transition: pgtransition});
+                $.mobile.changePage(href, { transition: pgtransition });
             });
         };
 
@@ -581,16 +744,15 @@ $(function () {
         };
 
         // define events to be fired during app execution.
-        app.UserBindings = function () {
+        app.UserBindings = function() {
             // code to run before showing the page that lists the records.
             //run after the page has been displayed
-            $(document).on('pagecontainershow', function (e, ui) {
+            $(document).on('pagecontainershow', function(e, ui) {
                 var pageId = $(':mobile-pagecontainer').pagecontainer('getActivePage').attr('id');
-                switch (pageId) {
-                }
+                switch (pageId) {}
             });
             //before records listing is shown, check for storage
-            $(document).on('pagebeforechange', function (e, data) {
+            $(document).on('pagebeforechange', function(e, data) {
                 //get page to go to
                 var toPage = data.toPage[0].id;
                 switch (toPage) {
@@ -623,23 +785,23 @@ $(function () {
             //***** Add Page *****
             // code to run when back button is clicked on the add record page.
             // Back click event from Add Page
-            $('#pgAddUserBack').on('click', function (e) {
+            $('#pgAddUserBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //which page are we coming from, if from sign in go back to it
                 var pgFrom = $('#pgAddUser').data('from');
                 switch (pgFrom) {
                     case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', {transition: pgtransition});
+                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
                         break;
                     default:
                         // go back to the records listing screen
-                        $.mobile.changePage('#pgUser', {transition: pgtransition});
+                        $.mobile.changePage('#pgUser', { transition: pgtransition });
                 }
             });
             // code to run when the Save button is clicked on Add page.
             // Save click event on Add page
-            $('#pgAddUserSave').on('click', function (e) {
+            $('#pgAddUserSave').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // save the User
@@ -654,28 +816,28 @@ $(function () {
             //***** Listing Page *****
             // code to run when a listview item is clicked.
             //listview item click eventt.
-            $(document).on('click', '#pgUserList a', function (e) {
+            $(document).on('click', '#pgUserList a', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //get href of selected listview item and cleanse it
                 var href = $(this)[0].href.match(/\?.*$/)[0];
                 var Email = href.replace(/^\?Email=/, '');
                 //change page to edit page.
-                $.mobile.changePage('#pgEditUser', {transition: pgtransition});
+                $.mobile.changePage('#pgEditUser', { transition: pgtransition });
                 //read record from JSON and update screen.
                 app.editUser(Email);
             });
             // code to run when back button of record listing is clicked.
             // bind the back button of the records listing
-            $('#pgUserBack').on('click', function (e) {
+            $('#pgUserBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // move to the defined previous page with the defined transition
-                $.mobile.changePage('#pgMenu', {transition: pgtransition});
+                $.mobile.changePage('#pgMenu', { transition: pgtransition });
             });
             // code to run when New button on records listing is clicked.
             // New button click on records listing page
-            $('#pgUserNew').on('click', function (e) {
+            $('#pgUserNew').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //we are accessing a new record from records listing
@@ -686,21 +848,21 @@ $(function () {
                 $('#pgAddUserActive').show();
                 $('#pgAddUserMenu').show();
                 // move to the add page screen
-                $.mobile.changePage('#pgAddUser', {transition: pgtransition});
+                $.mobile.changePage('#pgAddUser', { transition: pgtransition });
             });
             //***** Listing Page - End *****
             //***** Edit Page *****
             // code to run when the back button of the Edit Page is clicked.
             // Back click event on Edit page
-            $('#pgEditUserBack').on('click', function (e) {
+            $('#pgEditUserBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // go back to the listing screen
-                $.mobile.changePage('#pgUser', {transition: pgtransition});
+                $.mobile.changePage('#pgUser', { transition: pgtransition });
             });
             // code to run when the Update button is clicked in the Edit Page.
             // Update click event on Edit Page
-            $('#pgEditUserUpdate').on('click', function (e) {
+            $('#pgEditUserUpdate').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // save the User
@@ -712,7 +874,7 @@ $(function () {
             });
             // code to run when the Delete button is clicked in the Edit Page.
             // delete button on Edit Page
-            $('#pgEditUserDelete').on('click', function (e) {
+            $('#pgEditUserDelete').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //read the record key from form control
@@ -729,34 +891,34 @@ $(function () {
                 $('#msgboxno').data('id', Email);
                 $('#msgboxyes').data('topage', 'pgEditUser');
                 $('#msgboxno').data('topage', 'pgEditUser');
-                $.mobile.changePage('#msgbox', {transition: 'pop'});
+                $.mobile.changePage('#msgbox', { transition: 'pop' });
             });
             //***** Edit Page - End *****
             //***** Report Page *****
             //back button on Report page
             // Back click event on Report page
-            $('#pgRptUserBack').on('click', function (e) {
+            $('#pgRptUserBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 var pgFrom = $('#pgRptUserBack').data('from');
                 switch (pgFrom) {
                     case "pgAddUser":
-                        $.mobile.changePage('#pgUser', {transition: pgtransition});
+                        $.mobile.changePage('#pgUser', { transition: pgtransition });
                         break;
                     case "pgEditUser":
-                        $.mobile.changePage('#pgUser', {transition: pgtransition});
+                        $.mobile.changePage('#pgUser', { transition: pgtransition });
                         break;
                     case "pgUser":
-                        $.mobile.changePage('#pgUser', {transition: pgtransition});
+                        $.mobile.changePage('#pgUser', { transition: pgtransition });
                         break;
                     default:
                         // go back to the listing screen
-                        $.mobile.changePage('#pgReports', {transition: pgtransition});
+                        $.mobile.changePage('#pgReports', { transition: pgtransition });
                 }
             });
             //add new record from report page
             // New button click on records report page
-            $('#pgRptUserNew').on('click', function (e) {
+            $('#pgRptUserNew').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //we are accessing a new record from records report
@@ -764,14 +926,14 @@ $(function () {
                 // show the active and user type elements
                 $('#pgAddUserheader h1').text('ASDA_Project > Add User');
                 // move to the add page screen
-                $.mobile.changePage('#pgAddUser', {transition: pgtransition});
+                $.mobile.changePage('#pgAddUser', { transition: pgtransition });
             }); //***** Report Page - End *****
             //Our events are now fully defined.
         };
         // this defines methods/procedures accessed by our events.
         // get existing records from JSON
         //get all existing records from JSON
-        app.getUser = function () {
+        app.getUser = function() {
             // get User records
             var UserObj = {};
             var icnt, itot;
@@ -809,7 +971,7 @@ $(function () {
             }
         };
         //display records in table during runtime.
-        app.UserRpt = function () {
+        app.UserRpt = function() {
             //clear the table and leave the header
             $('#RptUser tbody tr').remove();
             // get User records.
@@ -844,7 +1006,7 @@ $(function () {
         // display existing records in listview of Records listing.
         //***** List Page *****
         //display records in listview during runtime.
-        app.displayUser = function (UserObj) {
+        app.displayUser = function(UserObj) {
             // create an empty string to contain html
             var html = '';
             // make sure your iterators are properly scoped
@@ -880,7 +1042,7 @@ $(function () {
         };
         // check JSON for Records. This initializes JSON if there are no records
         //display records if they exist or tell user no records exist.
-        app.checkForUserStorage = function () {
+        app.checkForUserStorage = function() {
             //get records from JSON.
             var UserObj = app.getUser();
             // are there existing User records?
@@ -925,7 +1087,7 @@ $(function () {
         }
         // display content of selected record on Edit Page
         //read record from JSON and display it on edit page.
-        app.editUser = function (Email) {
+        app.editUser = function(Email) {
             // get User records.
             var UserObj = app.getUser();
             // lookup specific User
@@ -981,16 +1143,15 @@ $(function () {
         }
 
         // define events to be fired during app execution.
-        app.ProjectBindings = function () {
+        app.ProjectBindings = function() {
             // code to run before showing the page that lists the records.
             //run after the page has been displayed
-            $(document).on('pagecontainershow', function (e, ui) {
+            $(document).on('pagecontainershow', function(e, ui) {
                 var pageId = $(':mobile-pagecontainer').pagecontainer('getActivePage').attr('id');
-                switch (pageId) {
-                }
+                switch (pageId) {}
             });
             //before records listing is shown, check for storage
-            $(document).on('pagebeforechange', function (e, data) {
+            $(document).on('pagebeforechange', function(e, data) {
                 //get page to go to
                 var toPage = data.toPage[0].id;
                 switch (toPage) {
@@ -1025,23 +1186,23 @@ $(function () {
             //***** Add Page *****
             // code to run when back button is clicked on the add record page.
             // Back click event from Add Page
-            $('#pgAddProjectBack').on('click', function (e) {
+            $('#pgAddProjectBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //which page are we coming from, if from sign in go back to it
                 var pgFrom = $('#pgAddProject').data('from');
                 switch (pgFrom) {
                     case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', {transition: pgtransition});
+                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
                         break;
                     default:
                         // go back to the records listing screen
-                        $.mobile.changePage('#pgProject', {transition: pgtransition});
+                        $.mobile.changePage('#pgProject', { transition: pgtransition });
                 }
             });
             // code to run when the Save button is clicked on Add page.
             // Save click event on Add page
-            $('#pgAddProjectSave').on('click', function (e) {
+            $('#pgAddProjectSave').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // save the Project
@@ -1056,28 +1217,28 @@ $(function () {
             //***** Listing Page *****
             // code to run when a listview item is clicked.
             //listview item click eventt.
-            $(document).on('click', '#pgProjectList a', function (e) {
+            $(document).on('click', '#pgProjectList a', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //get href of selected listview item and cleanse it
                 var href = $(this)[0].href.match(/\?.*$/)[0];
                 var ProjectName = href.replace(/^\?ProjectName=/, '');
                 //change page to edit page.
-                $.mobile.changePage('#pgEditProject', {transition: pgtransition});
+                $.mobile.changePage('#pgEditProject', { transition: pgtransition });
                 //read record from JSON and update screen.
                 app.editProject(ProjectName);
             });
             // code to run when back button of record listing is clicked.
             // bind the back button of the records listing
-            $('#pgProjectBack').on('click', function (e) {
+            $('#pgProjectBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // move to the defined previous page with the defined transition
-                $.mobile.changePage('#pgMenu', {transition: pgtransition});
+                $.mobile.changePage('#pgMenu', { transition: pgtransition });
             });
             // code to run when New button on records listing is clicked.
             // New button click on records listing page
-            $('#pgProjectNew').on('click', function (e) {
+            $('#pgProjectNew').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //we are accessing a new record from records listing
@@ -1086,21 +1247,21 @@ $(function () {
                 $('#pgAddProjectheader h1').text('ASDA_Project > Add Project');
                 $('#pgAddProjectMenu').show();
                 // move to the add page screen
-                $.mobile.changePage('#pgAddProject', {transition: pgtransition});
+                $.mobile.changePage('#pgAddProject', { transition: pgtransition });
             });
             //***** Listing Page - End *****
             //***** Edit Page *****
             // code to run when the back button of the Edit Page is clicked.
             // Back click event on Edit page
-            $('#pgEditProjectBack').on('click', function (e) {
+            $('#pgEditProjectBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // go back to the listing screen
-                $.mobile.changePage('#pgProject', {transition: pgtransition});
+                $.mobile.changePage('#pgProject', { transition: pgtransition });
             });
             // code to run when the Update button is clicked in the Edit Page.
             // Update click event on Edit Page
-            $('#pgEditProjectUpdate').on('click', function (e) {
+            $('#pgEditProjectUpdate').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // save the Project
@@ -1112,7 +1273,7 @@ $(function () {
             });
             // code to run when the Delete button is clicked in the Edit Page.
             // delete button on Edit Page
-            $('#pgEditProjectDelete').on('click', function (e) {
+            $('#pgEditProjectDelete').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //read the record key from form control
@@ -1129,34 +1290,34 @@ $(function () {
                 $('#msgboxno').data('id', ProjectName);
                 $('#msgboxyes').data('topage', 'pgEditProject');
                 $('#msgboxno').data('topage', 'pgEditProject');
-                $.mobile.changePage('#msgbox', {transition: 'pop'});
+                $.mobile.changePage('#msgbox', { transition: 'pop' });
             });
             //***** Edit Page - End *****
             //***** Report Page *****
             //back button on Report page
             // Back click event on Report page
-            $('#pgRptProjectBack').on('click', function (e) {
+            $('#pgRptProjectBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 var pgFrom = $('#pgRptProjectBack').data('from');
                 switch (pgFrom) {
                     case "pgAddProject":
-                        $.mobile.changePage('#pgProject', {transition: pgtransition});
+                        $.mobile.changePage('#pgProject', { transition: pgtransition });
                         break;
                     case "pgEditProject":
-                        $.mobile.changePage('#pgProject', {transition: pgtransition});
+                        $.mobile.changePage('#pgProject', { transition: pgtransition });
                         break;
                     case "pgProject":
-                        $.mobile.changePage('#pgProject', {transition: pgtransition});
+                        $.mobile.changePage('#pgProject', { transition: pgtransition });
                         break;
                     default:
                         // go back to the listing screen
-                        $.mobile.changePage('#pgReports', {transition: pgtransition});
+                        $.mobile.changePage('#pgReports', { transition: pgtransition });
                 }
             });
             //add new record from report page
             // New button click on records report page
-            $('#pgRptProjectNew').on('click', function (e) {
+            $('#pgRptProjectNew').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //we are accessing a new record from records report
@@ -1164,14 +1325,14 @@ $(function () {
                 // show the active and user type elements
                 $('#pgAddProjectheader h1').text('ASDA_Project > Add Project');
                 // move to the add page screen
-                $.mobile.changePage('#pgAddProject', {transition: pgtransition});
+                $.mobile.changePage('#pgAddProject', { transition: pgtransition });
             }); //***** Report Page - End *****
             //Our events are now fully defined.
         };
         // this defines methods/procedures accessed by our events.
         // get existing records from JSON
         //get all existing records from JSON
-        app.getProject = function () {
+        app.getProject = function() {
             // get Project records
             var ProjectObj = {};
             var icnt, itot;
@@ -1209,7 +1370,7 @@ $(function () {
             }
         };
         //display records in table during runtime.
-        app.ProjectRpt = function () {
+        app.ProjectRpt = function() {
             //clear the table and leave the header
             $('#RptProject tbody tr').remove();
             // get Project records.
@@ -1244,7 +1405,7 @@ $(function () {
         };
         // save the defined Add page object to JSON
         // add a new record to server storage.
-        app.addProject = function (ProjectRec) {
+        app.addProject = function(ProjectRec) {
             // define a record object to store the current details
             var ProjectName = ProjectRec.ProjectName;
             // cleanse the record key of spaces.
@@ -1261,12 +1422,12 @@ $(function () {
                 var pgFrom = $('#pgAddProject').data('from');
                 switch (pgFrom) {
                     case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', {transition: pgtransition});
+                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
                         break;
                     default:
                         // clear the edit page form fields
                         pgAddProjectClear();
-                    //stay in the same page to add more records
+                        //stay in the same page to add more records
                 }
             } else {
                 //show a toast message that the record has not been saved
@@ -1275,7 +1436,7 @@ $(function () {
         };
         // save the defined Edit page object to JSON
         // update an existing record and save to server.
-        app.updateProject = function (ProjectRec) {
+        app.updateProject = function(ProjectRec) {
             // define a record object to store the current details
             var ProjectName = ProjectRec.ProjectName;
             // cleanse the record key of spaces.
@@ -1290,7 +1451,7 @@ $(function () {
                 // clear the edit page form fields
                 pgEditProjectClear();
                 // show the records listing page.
-                $.mobile.changePage('#pgProject', {transition: pgtransition});
+                $.mobile.changePage('#pgProject', { transition: pgtransition });
             } else {
                 //show a toast message that the record has not been saved
                 toastr.error('Project record not updated. Please try again.', 'ASDA_Project');
@@ -1298,7 +1459,7 @@ $(function () {
         };
         // delete record from JSON
         //delete a record from JSON using record key
-        app.deleteProject = function (ProjectName) {
+        app.deleteProject = function(ProjectName) {
             ProjectName = ProjectName.replace(/ /g, '-');
             var req = Ajax("ajaxDeleteProject.php/?ProjectName=" + ProjectName);
             if (req.status == 200) {
@@ -1307,12 +1468,12 @@ $(function () {
                 toastr.error('Project record not deleted.', 'ASDA_Project');
             }
             // show the page to display after a record is deleted, this case listing page
-            $.mobile.changePage('#pgProject', {transition: pgtransition});
+            $.mobile.changePage('#pgProject', { transition: pgtransition });
         };
         // display existing records in listview of Records listing.
         //***** List Page *****
         //display records in listview during runtime.
-        app.displayProject = function (ProjectObj) {
+        app.displayProject = function(ProjectObj) {
             // create an empty string to contain html
             var html = '';
             // make sure your iterators are properly scoped
@@ -1354,7 +1515,7 @@ $(function () {
         };
         // check JSON for Records. This initializes JSON if there are no records
         //display records if they exist or tell user no records exist.
-        app.checkForProjectStorage = function () {
+        app.checkForProjectStorage = function() {
             //get records from JSON.
             var ProjectObj = app.getProject();
             // are there existing Project records?
@@ -1398,7 +1559,7 @@ $(function () {
         }
         // display content of selected record on Edit Page
         //read record from JSON and display it on edit page.
-        app.editProject = function (ProjectName) {
+        app.editProject = function(ProjectName) {
             // get Project records.
             var ProjectObj = app.getProject();
             // lookup specific Project
@@ -1456,7 +1617,7 @@ $(function () {
             $('#pgAddProjectNotes').val('');
         }
         //get all existing Person-FullName
-        app.getPersonFullName = function () {
+        app.getPersonFullName = function() {
             // get Project records
             var ProjectObj = app.getPerson();
             // loop through each record and get the fields we want
@@ -1472,7 +1633,7 @@ $(function () {
             return dsFields;
         };
         //load the field names for data sources to control 
-        app.pgAddProjectLoadOwner = function () {
+        app.pgAddProjectLoadOwner = function() {
             //read the data source data field combination array
             var ProjectObj = app.getPersonFullName();
             var dsdf;
@@ -1492,7 +1653,7 @@ $(function () {
             $('#pgAddProjectOwner').selectmenu('refresh');
         };
         //load the field names for data sources to control 
-        app.pgEditProjectLoadOwner = function () {
+        app.pgEditProjectLoadOwner = function() {
             //read the data source data field combination array
             var ProjectObj = app.getPersonFullName();
             var dsdf;
@@ -1512,10 +1673,10 @@ $(function () {
             $('#pgEditProjectOwner').selectmenu('refresh');
         };
         // define events to be fired during app execution.
-        app.PersonBindings = function () {
+        app.PersonBindings = function() {
             // code to run before showing the page that lists the records.
             //run after the page has been displayed
-            $(document).on('pagecontainershow', function (e, ui) {
+            $(document).on('pagecontainershow', function(e, ui) {
                 var pageId = $(':mobile-pagecontainer').pagecontainer('getActivePage').attr('id');
                 switch (pageId) {
                     case 'pgPersonMindReportsTo':
@@ -1524,7 +1685,7 @@ $(function () {
                 }
             });
             //before records listing is shown, check for storage
-            $(document).on('pagebeforechange', function (e, data) {
+            $(document).on('pagebeforechange', function(e, data) {
                 //get page to go to
                 var toPage = data.toPage[0].id;
                 switch (toPage) {
@@ -1559,23 +1720,23 @@ $(function () {
             //***** Add Page *****
             // code to run when back button is clicked on the add record page.
             // Back click event from Add Page
-            $('#pgAddPersonBack').on('click', function (e) {
+            $('#pgAddPersonBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //which page are we coming from, if from sign in go back to it
                 var pgFrom = $('#pgAddPerson').data('from');
                 switch (pgFrom) {
                     case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', {transition: pgtransition});
+                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
                         break;
                     default:
                         // go back to the records listing screen
-                        $.mobile.changePage('#pgPerson', {transition: pgtransition});
+                        $.mobile.changePage('#pgPerson', { transition: pgtransition });
                 }
             });
             // code to run when the Save button is clicked on Add page.
             // Save click event on Add page
-            $('#pgAddPersonSave').on('click', function (e) {
+            $('#pgAddPersonSave').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // save the Person
@@ -1588,7 +1749,7 @@ $(function () {
             // code to run when a get location button is clicked on the Add page.
             //***** Add Page - End *****
             // export button click on records mindmap page
-            $('#PersonMindExportReportsTo').on('click', function (e) {
+            $('#PersonMindExportReportsTo').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 d3.selectAll('svg').attr('version', '1.1');
@@ -1603,7 +1764,7 @@ $(function () {
                 var context = canvas.getContext('2d');
                 var image = new Image;
                 image.src = imgsrc;
-                image.onload = function () {
+                image.onload = function() {
                     context.drawImage(image, 0, 0);
                     var canvasdata = canvas.toDataURL('image/png');
                     var pngimg = '<img src=' + canvasdata + '>';
@@ -1616,28 +1777,28 @@ $(function () {
             //***** Listing Page *****
             // code to run when a listview item is clicked.
             //listview item click eventt.
-            $(document).on('click', '#pgPersonList a', function (e) {
+            $(document).on('click', '#pgPersonList a', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //get href of selected listview item and cleanse it
                 var href = $(this)[0].href.match(/\?.*$/)[0];
                 var FullName = href.replace(/^\?FullName=/, '');
                 //change page to edit page.
-                $.mobile.changePage('#pgEditPerson', {transition: pgtransition});
+                $.mobile.changePage('#pgEditPerson', { transition: pgtransition });
                 //read record from JSON and update screen.
                 app.editPerson(FullName);
             });
             // code to run when back button of record listing is clicked.
             // bind the back button of the records listing
-            $('#pgPersonBack').on('click', function (e) {
+            $('#pgPersonBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // move to the defined previous page with the defined transition
-                $.mobile.changePage('#pgMenu', {transition: pgtransition});
+                $.mobile.changePage('#pgMenu', { transition: pgtransition });
             });
             // code to run when New button on records listing is clicked.
             // New button click on records listing page
-            $('#pgPersonNew').on('click', function (e) {
+            $('#pgPersonNew').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //we are accessing a new record from records listing
@@ -1646,21 +1807,21 @@ $(function () {
                 $('#pgAddPersonheader h1').text('ASDA_Project > Add Person');
                 $('#pgAddPersonMenu').show();
                 // move to the add page screen
-                $.mobile.changePage('#pgAddPerson', {transition: pgtransition});
+                $.mobile.changePage('#pgAddPerson', { transition: pgtransition });
             });
             //***** Listing Page - End *****
             //***** Edit Page *****
             // code to run when the back button of the Edit Page is clicked.
             // Back click event on Edit page
-            $('#pgEditPersonBack').on('click', function (e) {
+            $('#pgEditPersonBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // go back to the listing screen
-                $.mobile.changePage('#pgPerson', {transition: pgtransition});
+                $.mobile.changePage('#pgPerson', { transition: pgtransition });
             });
             // code to run when the Update button is clicked in the Edit Page.
             // Update click event on Edit Page
-            $('#pgEditPersonUpdate').on('click', function (e) {
+            $('#pgEditPersonUpdate').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 // save the Person
@@ -1672,7 +1833,7 @@ $(function () {
             });
             // code to run when the Delete button is clicked in the Edit Page.
             // delete button on Edit Page
-            $('#pgEditPersonDelete').on('click', function (e) {
+            $('#pgEditPersonDelete').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //read the record key from form control
@@ -1689,34 +1850,34 @@ $(function () {
                 $('#msgboxno').data('id', FullName);
                 $('#msgboxyes').data('topage', 'pgEditPerson');
                 $('#msgboxno').data('topage', 'pgEditPerson');
-                $.mobile.changePage('#msgbox', {transition: 'pop'});
+                $.mobile.changePage('#msgbox', { transition: 'pop' });
             });
             //***** Edit Page - End *****
             //***** Report Page *****
             //back button on Report page
             // Back click event on Report page
-            $('#pgRptPersonBack').on('click', function (e) {
+            $('#pgRptPersonBack').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 var pgFrom = $('#pgRptPersonBack').data('from');
                 switch (pgFrom) {
                     case "pgAddPerson":
-                        $.mobile.changePage('#pgPerson', {transition: pgtransition});
+                        $.mobile.changePage('#pgPerson', { transition: pgtransition });
                         break;
                     case "pgEditPerson":
-                        $.mobile.changePage('#pgPerson', {transition: pgtransition});
+                        $.mobile.changePage('#pgPerson', { transition: pgtransition });
                         break;
                     case "pgPerson":
-                        $.mobile.changePage('#pgPerson', {transition: pgtransition});
+                        $.mobile.changePage('#pgPerson', { transition: pgtransition });
                         break;
                     default:
                         // go back to the listing screen
-                        $.mobile.changePage('#pgReports', {transition: pgtransition});
+                        $.mobile.changePage('#pgReports', { transition: pgtransition });
                 }
             });
             //add new record from report page
             // New button click on records report page
-            $('#pgRptPersonNew').on('click', function (e) {
+            $('#pgRptPersonNew').on('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
                 //we are accessing a new record from records report
@@ -1724,14 +1885,14 @@ $(function () {
                 // show the active and user type elements
                 $('#pgAddPersonheader h1').text('ASDA_Project > Add Person');
                 // move to the add page screen
-                $.mobile.changePage('#pgAddPerson', {transition: pgtransition});
+                $.mobile.changePage('#pgAddPerson', { transition: pgtransition });
             }); //***** Report Page - End *****
             //Our events are now fully defined.
         };
         // this defines methods/procedures accessed by our events.
         // get existing records from JSON
         //get all existing records from JSON
-        app.getPerson = function () {
+        app.getPerson = function() {
             // get Person records
             var PersonObj = {};
             var icnt, itot;
@@ -1769,7 +1930,7 @@ $(function () {
             }
         };
         //display records in table during runtime.
-        app.PersonRpt = function () {
+        app.PersonRpt = function() {
             //clear the table and leave the header
             $('#RptPerson tbody tr').remove();
             // get Person records.
@@ -1800,7 +1961,7 @@ $(function () {
             $('#RptPerson').table('refresh');
         };
         //display records in table during runtime.
-        app.PersonMindMapReportsTo = function () {
+        app.PersonMindMapReportsTo = function() {
             //create an array for flat records table with parent and child name
             var data = [],
                 rec, n;
@@ -1813,14 +1974,8 @@ $(function () {
                 var PersonRec = PersonObj[n];
                 var parentn = PersonRec.ReportsTo;
                 var childn = PersonRec.FullName;
-                if (parentn == 'null') {
-                    parentn = '#ReportsTo'
-                }
-                ;
-                if (parentn == 'undefined') {
-                    parentn = '#ReportsTo'
-                }
-                ;
+                if (parentn == 'null') { parentn = '#ReportsTo' };
+                if (parentn == 'undefined') { parentn = '#ReportsTo' };
                 //clean the contents
                 childn = childn.replace(/-/g, ' ');
                 parentn = parentn.replace(/-/g, ' ');
@@ -1834,8 +1989,7 @@ $(function () {
                 //build up all kids, we want to ensure that nothing gets missed
                 //we will compare parents to kids to establish linkages
                 kids.set(childn, parentn);
-            }
-            ;
+            };
             //now we compare parents to kids, any parent not on kids
             //will be added to the collection to ensure all bases are covered
             for (var key of parents.keys()) {
@@ -1857,20 +2011,20 @@ $(function () {
             rec.parent = null;
             data.push(rec);
             //create a name based map for the nodes
-            var dataMap = data.reduce(function (map, node) {
+            var dataMap = data.reduce(function(map, node) {
                 map[node.name] = node;
                 return map;
             }, {});
             //iteratively add each child to its parent
             var treeData = [];
-            data.forEach(function (node) {
+            data.forEach(function(node) {
                 // add to parent
                 var parent = dataMap[node.parent];
                 if (parent) {
                     // create child array if it doesn't exist
                     (parent.children || (parent.children = []))
                     // add node to child array
-                        .push(node);
+                    .push(node);
                 } else {
                     // parent is null or missing
                     treeData.push(node);
@@ -1881,7 +2035,7 @@ $(function () {
         };
         // save the defined Add page object to JSON
         // add a new record to server storage.
-        app.addPerson = function (PersonRec) {
+        app.addPerson = function(PersonRec) {
             // define a record object to store the current details
             var FullName = PersonRec.FullName;
             // cleanse the record key of spaces.
@@ -1898,12 +2052,12 @@ $(function () {
                 var pgFrom = $('#pgAddPerson').data('from');
                 switch (pgFrom) {
                     case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', {transition: pgtransition});
+                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
                         break;
                     default:
                         // clear the edit page form fields
                         pgAddPersonClear();
-                    //stay in the same page to add more records
+                        //stay in the same page to add more records
                 }
             } else {
                 //show a toast message that the record has not been saved
@@ -1912,7 +2066,7 @@ $(function () {
         };
         // save the defined Edit page object to JSON
         // update an existing record and save to server.
-        app.updatePerson = function (PersonRec) {
+        app.updatePerson = function(PersonRec) {
             // define a record object to store the current details
             var FullName = PersonRec.FullName;
             // cleanse the record key of spaces.
@@ -1927,7 +2081,7 @@ $(function () {
                 // clear the edit page form fields
                 pgEditPersonClear();
                 // show the records listing page.
-                $.mobile.changePage('#pgPerson', {transition: pgtransition});
+                $.mobile.changePage('#pgPerson', { transition: pgtransition });
             } else {
                 //show a toast message that the record has not been saved
                 toastr.error('Person record not updated. Please try again.', 'ASDA_Project');
@@ -1935,7 +2089,7 @@ $(function () {
         };
         // delete record from JSON
         //delete a record from JSON using record key
-        app.deletePerson = function (FullName) {
+        app.deletePerson = function(FullName) {
             FullName = FullName.replace(/ /g, '-');
             var req = Ajax("ajaxDeletePerson.php/?FullName=" + FullName);
             if (req.status == 200) {
@@ -1944,12 +2098,12 @@ $(function () {
                 toastr.error('Person record not deleted.', 'ASDA_Project');
             }
             // show the page to display after a record is deleted, this case listing page
-            $.mobile.changePage('#pgPerson', {transition: pgtransition});
+            $.mobile.changePage('#pgPerson', { transition: pgtransition });
         };
         // display existing records in listview of Records listing.
         //***** List Page *****
         //display records in listview during runtime.
-        app.displayPerson = function (PersonObj) {
+        app.displayPerson = function(PersonObj) {
             // create an empty string to contain html
             var html = '';
             // make sure your iterators are properly scoped
@@ -1984,7 +2138,7 @@ $(function () {
         };
         // check JSON for Records. This initializes JSON if there are no records
         //display records if they exist or tell user no records exist.
-        app.checkForPersonStorage = function () {
+        app.checkForPersonStorage = function() {
             //get records from JSON.
             var PersonObj = app.getPerson();
             // are there existing Person records?
@@ -2019,7 +2173,7 @@ $(function () {
         }
         // display content of selected record on Edit Page
         //read record from JSON and display it on edit page.
-        app.editPerson = function (FullName) {
+        app.editPerson = function(FullName) {
             // get Person records.
             var PersonObj = app.getPerson();
             // lookup specific Person
@@ -2057,7 +2211,7 @@ $(function () {
             $('#pgAddPersonReportsTo').selectmenu('refresh');
         }
         //get all existing Person-FullName
-        app.getPersonFullName = function () {
+        app.getPersonFullName = function() {
             // get Person records
             var PersonObj = app.getPerson();
             // loop through each record and get the fields we want
@@ -2073,7 +2227,7 @@ $(function () {
             return dsFields;
         };
         //load the field names for data sources to control 
-        app.pgAddPersonLoadReportsTo = function () {
+        app.pgAddPersonLoadReportsTo = function() {
             //read the data source data field combination array
             var PersonObj = app.getPersonFullName();
             var dsdf;
@@ -2093,7 +2247,7 @@ $(function () {
             $('#pgAddPersonReportsTo').selectmenu('refresh');
         };
         //load the field names for data sources to control 
-        app.pgEditPersonLoadReportsTo = function () {
+        app.pgEditPersonLoadReportsTo = function() {
             //read the data source data field combination array
             var PersonObj = app.getPersonFullName();
             var dsdf;
