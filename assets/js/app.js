@@ -4,14 +4,6 @@ $(function() {
     var pgtransition = 'slide';
     (function(app) {
 
-        // $(document).ready(function($) {
-
-        // });
-
-        // $(document).ready(function($) {
-
-        // });
-
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
 
         // Back Buttons For Welcome Pages
@@ -61,6 +53,7 @@ $(function() {
         $('#newProductsBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            app.GetTopSelectionOrNewProductsListItems("NewProducts");
             $.mobile.changePage('#pgNewProducts');
         });
 
@@ -79,12 +72,14 @@ $(function() {
         $('#topSelectionBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            app.GetTopSelectionOrNewProductsListItems("TopSelection");
             $.mobile.changePage('#pgTopSelection');
         });
 
         $('#flashDealtsBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            app.GetFlashDealsListItems();
             $.mobile.changePage('#pgFlashDeals');
         });
 
@@ -383,56 +378,56 @@ $(function() {
 
 
 
-        $('#temp-shoping-cart').on('click', function (e) {
+        $('#temp-shoping-cart').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             app.GetCategories();
             //$.mobile.changePage('#pgLoginIn', {transition: pgtransition});
         });
 
-        $('#back-icon-sub-category').on('click', function (e) {
+        $('#back-icon-sub-category').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgShop', {transition: pgtransition});
+            $.mobile.changePage('#pgShop', { transition: pgtransition });
         });
 
-        function PopulateCategories(categoryState, categoriesObj){
-                    var icnt;
-                    var count = 0;
-                    var previousCategoryObj = null;
+        function PopulateCategories(categoryState, categoriesObj) {
+            var icnt;
+            var count = 0;
+            var previousCategoryObj = null;
 
-                if(categoryState == "parent"){
-                    $.each( categoriesObj.categories, function(){
-                        count += 1;
-                        var newCategoryObj = appendCategories(this);
-                        if(count == 1 && previousCategoryObj === null) {
-                            previousCategoryObj = newCategoryObj;
-                        }
-                        if(count == 2) {
-                             appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
-                             count = 0;
-                             previousCategoryObj = null;
-                        }
-                    });
-                }else{
-                    //var myEnum = {FrozenFood: "FrozenFood"};
+            if (categoryState == "parent") {
+                $.each(categoriesObj.categories, function() {
+                    count += 1;
+                    var newCategoryObj = appendCategories(this);
+                    if (count == 1 && previousCategoryObj === null) {
+                        previousCategoryObj = newCategoryObj;
+                    }
+                    if (count == 2) {
+                        appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
+                        count = 0;
+                        previousCategoryObj = null;
+                    }
+                });
+            } else {
+                //var myEnum = {FrozenFood: "FrozenFood"};
 
-                    $.each(categoriesObj.subCategories, function(){
-                        count += 1;
-                        var newCategoryObj = appendCategories(this);
-                        if(count == 1 && previousCategoryObj === null) {
-                            previousCategoryObj = newCategoryObj;
-                        }
-                        if(count == 2) {
-                             appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
-                             count = 0;
-                             previousCategoryObj = null;
-                        }
-                    });
-                }
+                $.each(categoriesObj.subCategories, function() {
+                    count += 1;
+                    var newCategoryObj = appendCategories(this);
+                    if (count == 1 && previousCategoryObj === null) {
+                        previousCategoryObj = newCategoryObj;
+                    }
+                    if (count == 2) {
+                        appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
+                        count = 0;
+                        previousCategoryObj = null;
+                    }
+                });
+            }
         }
 
-        app.GetCategories = function () {
+        app.GetCategories = function() {
             // get users
             var fileName = "Categories"
             fileName += '.json';
@@ -453,35 +448,34 @@ $(function() {
 
         function appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj) {
 
-            var parentDiv =  $('<div>', {
+            var parentDiv = $('<div>', {
                 'style': 'display: flex; margin-bottom: 20px; margin-top: 10px;'
             });
-            // toastr.error('Key - ' + key);
 
             parentDiv.append(previousCategoryObj);
             parentDiv.append(newCategoryObj);
-            if(categoryState == "parent"){
+            if (categoryState == "parent") {
                 $('#shop-background').append(parentDiv);
-            }else{
+            } else {
                 $('#sub-category-background').append(parentDiv);
             }
         }
 
         function appendCategories(dataObj) {
 
-            var parentDiv =  $('<div>', {
+            var parentDiv = $('<div>', {
                 'id': dataObj.TopCategoryName + '-category',
                 'class': 'category-content'
             });
 
-            var categoryImg = $('<img>',{
-                'style' : 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
+            var categoryImg = $('<img>', {
+                'style': 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
                 'src': dataObj.Path
 
             });
 
             var categoryName = $('<p>', {
-                'class':'card-text-font-style' ,
+                'class': 'card-text-font-style',
                 'stye': 'left: 262px;'
             });
 
@@ -490,17 +484,17 @@ $(function() {
             parentDiv.append(categoryImg);
             parentDiv.append(categoryName);
 
-            parentDiv.on('click', function(){
-               subCategory(dataObj.TopCategoryName);
-            //    $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            parentDiv.on('click', function() {
+                subCategory(dataObj.TopCategoryName);
+                //    $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
             });
 
             return parentDiv;
         }
 
-        function subCategory(parentCategoryName){
+        function subCategory(parentCategoryName) {
 
-            var newParentCategoryName = parentCategoryName.replace(/ /g,'');
+            var newParentCategoryName = parentCategoryName.replace(/ /g, '');
             // toastr.error('Selected Sub category ' +newParentCategoryName);
 
             var fileName = newParentCategoryName;
@@ -518,12 +512,12 @@ $(function() {
                 }
             }
             $("#sub-category-name-text").text(parentCategoryName);
-            $.mobile.changePage('#pgSubCategory', {transition: pgtransition});
+            $.mobile.changePage('#pgSubCategory', { transition: pgtransition });
         }
 
 
 
-
+        ///////////////////////////// Flash Deals Carousel Item Appending /////////////////////////////////////////////////////
 
         $(document).delegate('.ui-page', 'pageshow', function() {
 
@@ -541,12 +535,13 @@ $(function() {
             });
 
             app.GetFlashDealsItems();
+
         });
 
         app.GetFlashDealsItems = function() {
             var fileName = "FlashDealItemList";
             fileName += '.json';
-            var req = Ajax("./controllers/ajaxGetFlashDealItems.php?file=" + encodeURIComponent(fileName));
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
                     var flashDealItemsList = JSON.parse(req.responseText);
@@ -615,39 +610,231 @@ $(function() {
         }
 
 
+        ///////////////////////////// Flash Deals List View Item Appending /////////////////////////////////////////////////////
+
+
+        app.GetFlashDealsListItems = function() {
+            var fileName = "FlashDealItemList";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var flashDealItemsList = JSON.parse(req.responseText);
+                    var count = 0;
+                    var previousFlashDealsColumnObj = null;
+                    $('#flashDealsParentDiv').empty();
+
+                    $.each(flashDealItemsList.FlashDealsList, function() {
+
+                        count += 1;
+                        var newFlashDealsColumnObj = appendFlashDealItemsToList(this);
+
+                        if (count == 1 && previousFlashDealsColumnObj === null) {
+                            previousFlashDealsColumnObj = newFlashDealsColumnObj;
+                        }
+
+                        if (count == 2) {
+                            appendFlashDealsColumnsParent($('#flashDealsParentDiv'), previousFlashDealsColumnObj, newFlashDealsColumnObj);
+                            count = 0;
+                            previousFlashDealsColumnObj = null;
+                        }
+
+                    });
+                } catch (e) {
+
+                }
+            }
+
+        };
+
+        function appendFlashDealsColumnsParent(parent, prevFlashDealsColumnObj, newFlashDealsColumnObj) {
+
+            var flashDealsRow = $('<div>', {
+                'class': 'flashDealsRow'
+            });
+
+            flashDealsRow.append(prevFlashDealsColumnObj);
+            flashDealsRow.append(newFlashDealsColumnObj);
+
+            parent.append(flashDealsRow);
+        }
+
         function appendFlashDealItemsToList(dataObj) {
 
-            var parentDiv = $('<div>', {
-                'id': dataObj.TopCategoryName + '-category',
-                'class': 'category-content'
+            var flashDealsColumn = $('<div>', {
+                'id': dataObj.Product_ID,
+                'class': 'flashDealsColomn'
             });
 
-            var categoryImg = $('<img>', {
-                'style': 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
+            var flashDealsItemImg = $('<img>', {
+                'style': 'height: 100px; width: 100px;',
                 'src': dataObj.Path
-
             });
 
-            var categoryName = $('<p>', {
-                'class': 'card-text-font-style',
-                'stye': 'left: 262px;'
+            var flashDealsItemDetailsDiv = $('<div>', {
+                'style': 'display: grid; padding: 5px;'
             });
 
-            categoryName.text(dataObj.TopCategoryName);
-
-            parentDiv.append(categoryImg);
-            parentDiv.append(categoryName);
-
-            parentDiv.on('click', function() {
-                subCategory(dataObj.TopCategoryName);
-                //    $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            var flashDealsItemName = $('<span>', {
+                'class': 'flash-deals-item-details'
             });
 
-            return parentDiv;
+            flashDealsItemName.text(dataObj.Product_Name);
+
+            var flashDealsItemDiscountPrice = $('<span>', {
+                'class': 'flash-deals-price'
+            });
+
+            flashDealsItemDiscountPrice.text(dataObj.Discount_Price);
+
+            var flashDealsItemPrice = $('<span>', {
+                'class': 'flash-deals-discount-price'
+            });
+
+            flashDealsItemPrice.text(dataObj.Price + " | " + dataObj.Discount_Percentage);
+
+            flashDealsItemDetailsDiv.append(flashDealsItemName);
+            flashDealsItemDetailsDiv.append(flashDealsItemDiscountPrice);
+            flashDealsItemDetailsDiv.append(flashDealsItemPrice);
+
+            flashDealsColumn.append(flashDealsItemImg);
+            flashDealsColumn.append(flashDealsItemDetailsDiv);
+
+            return flashDealsColumn;
+
+            flashDealsColumn.on('click', function() {
+
+            });
         }
 
 
+        ///////////////////////////// Top Selection and New Products List View Item Appending /////////////////////////////////////////////////////
 
+
+        app.GetTopSelectionOrNewProductsListItems = function(categoryType) {
+            var fileName, parent;
+            if (categoryType == "NewProducts") {
+                fileName = "NewProductsItemList";
+                parent = $('#newProductsParentDiv');
+            } else {
+                fileName = "TopSelectionItemList";
+                parent = $('#topSelectionParentDiv');
+            }
+
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var itemsList = JSON.parse(req.responseText);
+                    var count = 0;
+                    var previousColumnObj = null;
+                    parent.empty();
+                    if (categoryType == "NewProducts") {
+                        $.each(itemsList.NewProductsList, function() {
+
+                            count += 1;
+                            var newColumnObj = appendItemsToList(this);
+
+                            if (count == 1 && previousColumnObj === null) {
+                                previousColumnObj = newColumnObj;
+                            }
+
+                            if (count == 2) {
+                                appendItemsToColumnsParent(parent, previousColumnObj, newColumnObj);
+                                count = 0;
+                                previousColumnObj = null;
+                            }
+
+                        });
+                    } else if (categoryType == "TopSelection") {
+                        $.each(itemsList.TopSelectionList, function() {
+
+                            count += 1;
+                            var newColumnObj = appendItemsToList(this);
+
+                            if (count == 1 && previousColumnObj === null) {
+                                previousColumnObj = newColumnObj;
+                            }
+
+                            if (count == 2) {
+                                appendItemsToColumnsParent(parent, previousColumnObj, newColumnObj);
+                                count = 0;
+                                previousColumnObj = null;
+                            }
+
+                        });
+                    }
+                } catch (e) {
+
+                }
+            }
+
+        };
+
+        function appendItemsToColumnsParent(parent, prevColumnObj, newColumnObj) {
+
+            var itemsRow = $('<div>', {
+                'class': 'flashDealsRow'
+            });
+
+            itemsRow.append(prevColumnObj);
+            itemsRow.append(newColumnObj);
+
+            parent.append(itemsRow);
+        }
+
+        function appendItemsToList(dataObj) {
+
+            var itemListColumn = $('<div>', {
+                'id': dataObj.Product_ID,
+                'class': 'productTypesColomn'
+            });
+
+            var itemImageParentDiv = $('<div>', {
+                'style': 'display: flex; margin-left: 10%;'
+            });
+
+            var itemsImg = $('<img>', {
+                'style': 'height: 100px; width: 100px;',
+                'src': dataObj.Path
+            });
+
+            var itemProductTypeImg = $('<img>', {
+                'style': 'height: 35px; width: 35px; margin-left: -5px;margin-top: 5px;',
+                'src': dataObj.Product_Type_Image
+            });
+
+            itemImageParentDiv.append(itemsImg);
+            itemImageParentDiv.append(itemProductTypeImg);
+
+            var itemDetailsDiv = $('<div>', {
+                'style': 'display: grid; padding: 15px;'
+            });
+
+            var itemName = $('<span>', {
+                'class': 'flash-deals-item-details'
+            });
+
+            itemName.text(dataObj.Product_Name);
+
+            var itemPrice = $('<span>', {
+                'class': 'flash-deals-price'
+            });
+
+            itemPrice.text(dataObj.Price);
+
+            itemDetailsDiv.append(itemName);
+            itemDetailsDiv.append(itemPrice);
+
+            itemListColumn.append(itemImageParentDiv);
+            itemListColumn.append(itemDetailsDiv);
+
+            return itemListColumn;
+
+            flashDealsColumn.on('click', function() {
+
+            });
+        }
 
         // delete record from JSON
         //delete a record from JSON using record key

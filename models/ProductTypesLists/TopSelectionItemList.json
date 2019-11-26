@@ -1,0 +1,84 @@
+{
+    "TopSelectionList": {
+        "Product ID - P005": {
+            "Product_ID": "P005",
+            "Product_Name": "M&M'S Peanut Butter Chocolate Candy, Singles Size",
+            "Price": "$17.76",
+            "Product_Type": "TopSelection",
+            "Product_Rating": 5,
+            "Product_Type_Image": "./assets/img/Product_Types/Top_Selection.png",
+            "Path": "./assets/img/Item_Images/M&M-Peanut-Butter-Chocolate-Candy.jpg",
+            "Description": "Real peanut butter cream centers. Milk Chocolate inside colorful sugar shells. Made in USA "
+        },
+        "Product ID - P006": {
+            "Product_ID": "P006",
+            "Product_Name": "Kirkland Signature Milk Chocolate Roasted Almonds",
+            "Price": "$16.08",
+            "Product_Type": "TopSelection",
+            "Product_Rating": 4,
+            "Product_Type_Image": "./assets/img/Product_Types/Top_Selection.png",
+            "Path": "./assets/img/Item_Images/Kirkland-Signature-Milk-Chocolate-Roasted-Almonds.jpg",
+            "Description": "Real rosted almonds.Milk Chocolate covered. Made in UK "
+        },
+        "Product ID - P007": {
+            "Product_ID": "P007",
+            "Product_Name": "Hawaiian Host Alohamacs Milk Chocolate",
+            "Price": "$32.08",
+            "Product_Type": "TopSelection",
+            "Product_Rating": 5,
+            "Product_Type_Image": "./assets/img/Product_Types/Top_Selection.png",
+            "Path": "./assets/img/Item_Images/Hawaiian-Host-Alohamacs-Milk-Chocolate.jpg",
+            "Description": "INDULGE - Share one of the 6 - 7 oz. box of Alohamacs hand-crafted chocolates (12 pieces) are perfect for sharing, sending some heartfelt aloha to family and friends, or just to indulge yourself. DECADENCE - Alohamacs are the islands’ finest macadamias in our hand - crafted milk chocolate, it’ s a true Hawai’ i original that delivers real value.Alohamacs no ka oi!(…are the best!)TASTE SENSATION - From elegant to everyday Hawaiian Host has a chocolate you!Hawaiian Hosts confection is a perfect pairing of macadamia and chocolate giving your taste buds a sensational treat!"
+        },
+        "Product ID - P008": {
+            "Product_ID": "P008",
+            "Product_Name": "Russell Stover Sugar Free Peanut Butter Cups",
+            "Price": "$9.88",
+            "Product_Type": "TopSelection",
+            "Product_Rating": 5,
+            "Product_Type_Image": "./assets/img/Product_Types/Top_Selection.png",
+            "Path": "./assets/img/Item_Images/Russell-Stover.jpg",
+            "Description": "THE SWEET FREEDOM OF SUGAR-FREE: Whether you choose sugar-free treats because of diet restrictions or just want to avoid that sugar spike and inevitable crash, Russell Stover makes sure you can indulge in the comfort of delicious chocolate, with no sugar! THE PERFECT TREAT FOR ANY OCCASION: Russell Stover chocolates and candies are crafted in small batches unlike those bulk chocolates.Plate on a dinner party tray or take them along for a mid - day pick me up.Try our sugar - free options for guilt - free treats."
+        },
+        "Product ID - P001": {
+            "Product_ID": "P001",
+            "Product_Name": "Nature Cookies, Non-GMO Chewy Chocolate Chunk",
+            "Price": "$2.79",
+            "Product_Type": "TopSelection",
+            "Product_Rating": 4,
+            "Product_Type_Image": "./assets/img/Product_Types/Top_Selection.png",
+            "Path": "./assets/img/Item_Images/Nature-Cookies.jpg",
+            "Description": "Non-GMO Project Verified and Kosher. Enjoy chocolate chunk cookies that taste as if they just left the oven. Indulge in a chewy texture that will melt in your mouth. Simply crafted with ingredients including wheat flour and semisweet chocolate chunks.Thoughtfully made without high - fructose corn syrup or hydrogenated oils."
+        },
+        "Product ID - P002": {
+            "Product_ID": "P002",
+            "Product_Name": "Pepperidge Farm, Distinctive Golden Butter Crackers",
+            "Price": "$2.79",
+            "Product_Type": "TopSelection",
+            "Product_Rating": 5,
+            "Product_Type_Image": "./assets/img/Product_Types/Top_Selection.png",
+            "Path": "./assets/img/Item_Images/Golden-Butter-Crackers.jpg",
+            "Description": "Distinctive cookies Rich, velvety butter cookies Kosher "
+        },
+        "Product ID - P003": {
+            "Product_ID": "P003",
+            "Product_Name": "SNICKERS, M&M'S & TWIX Fun Size",
+            "Price": "$9.94",
+            "Product_Type": "TopSelection",
+            "Product_Rating": 4,
+            "Product_Type_Image": "./assets/img/Product_Types/Top_Selection.png",
+            "Path": "./assets/img/SNICKERS-M&M-TWIX-Fun-Size.jpg",
+            "Description": "Contains one (1) 33.9-ounce, 60-piece bag of Fun Size M&M'S Milk Chocolate Candy, Peanut M&M'S Candy, TWIX Candy and SNICKERS Chocolate Bars.Individually - wrapped Halloween candy is great for trick - or - treaters. Enjoy delicious variety with an assortment of chocolate candy. Share these MARS Chocolate favorites with friends,family or coworkers.Take MARS Chocolate Fun Size Favorites to Halloween parties for a quick and easy treat."
+        },
+        "Product ID - P004": {
+            "Product_ID": "P004",
+            "Product_Name": "Innofoods Organic Dark Chocolate Nuggets",
+            "Price": "$12.95",
+            "Product_Type": "TopSelection",
+            "Product_Rating": 4,
+            "Product_Type_Image": "./assets/img/Product_Types/Top_Selection.png",
+            "Path": "./assets/img/Item_Images/Innofoods-Organic_Dark-Chocolate-Nuggets.jpg",
+            "Description": "Innofoods Organic Dark Chocolate Nuggets with Coconut & Super Seeds,It all starts with a premium Belgium couverture dark chocolate. The difference? A quality,  flavor and texture that has no comparison.Free from the additional of emulsifiers(soy lecithin, vegetable oils),our chocolate is as pure as the smile that comes with it."
+        }
+    }
+}
