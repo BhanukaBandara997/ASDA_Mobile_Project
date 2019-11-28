@@ -70,6 +70,16 @@ caption {
     font-family: 'Open Sans', sans-serif;
 }
 
+span.select2 {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 14px !important;
+}
+
+#favSelect.select2 option {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 10px !important;
+}
+
 .asda-bar {
     position: absolute;
     width: 375px;

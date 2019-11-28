@@ -2,6 +2,8 @@ $(function() {
     // define the application
     var ASDA_Project = {};
     var pgtransition = 'slide';
+    var currentLoggedUser = null;
+    var favouritesSelectorValue = null;
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -110,6 +112,7 @@ $(function() {
         $('#homeFavouritesBtn, #shopFavouritesBtn, #searchFavouritesBtn, #favFavouritesBtn, #accFavouritesBtn, #flashDealsFavouritesBtn, #newProductsFavouritesBtn, #topSelectionFavouritesBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
             $.mobile.changePage('#pgFavourites');
         });
 
@@ -233,6 +236,7 @@ $(function() {
                     if (Password != pwd) {
                         $('#pgLoginIn').data('success', 'false');
                         toastr.error('The password specified is incorrect!');
+                        currentLoggedUser = null;
                     }
                 } catch (e) {
                     //user file is not found
@@ -244,6 +248,7 @@ $(function() {
             var succ = $('#pgLoginIn').data('success');
             if (succ == 'true') {
                 pgSignInClear();
+                currentLoggedUser = Email.split('@')[0];
                 // show the page to display after sign in
                 toastr.success('Login Success.', 'ASDA_Project');
                 $.mobile.changePage('#pgMenu', { transition: pgtransition });
@@ -663,7 +668,8 @@ $(function() {
 
             var flashDealsColumn = $('<div>', {
                 'id': dataObj.Product_ID,
-                'class': 'flashDealsColomn'
+                'class': 'flashDealsColomn',
+                'product-type': dataObj.Product_Type
             });
 
             var flashDealsItemImg = $('<img>', {
@@ -702,6 +708,7 @@ $(function() {
 
             return flashDealsColumn;
 
+            // ROUTE TO FLASH DEAL ITEM PAGE - TODO
             flashDealsColumn.on('click', function() {
 
             });
@@ -787,7 +794,8 @@ $(function() {
 
             var itemListColumn = $('<div>', {
                 'id': dataObj.Product_ID,
-                'class': 'productTypesColomn'
+                'class': 'productTypesColomn',
+                'product-type': dataObj.Product_Type
             });
 
             var itemImageParentDiv = $('<div>', {
@@ -831,10 +839,222 @@ $(function() {
 
             return itemListColumn;
 
-            flashDealsColumn.on('click', function() {
+            // ROUTE TO TOP SELECTION OR NEW PRODUCT ITEM PAGE - TODO
+            itemListColumn.on('click', function() {
 
             });
         }
+
+
+        ///////////// Favourite List Item Append //////////////////////////////////////////////////////////////
+
+        $('#favSelect').change(function() {
+            var selectedValue = null;
+            var selectedoptions = $(this).find('option:selected');
+            if (selectedoptions != undefined) {
+                selectedValue = selectedoptions.val();
+                favouritesSelectorValue = selectedoptions.val();
+                if (selectedValue == "REDUCED_PRICE_PRODUCTS") {
+                    $('#edit-btn').css('margin-left', '29%');
+                } else {
+                    $('#edit-btn').css('margin-left', '50.8%');
+                }
+            }
+        });
+
+
+        app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue) {
+
+            if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
+                favouritesSelectorValue = "defaultFavouriteList"
+            }
+            currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-" + favouritesSelectorValue;
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var favouriteItemsList = JSON.parse(req.responseText);
+                    $('#pgFavouritesContent').empty();
+
+                    $.each(favouriteItemsList.FavouriteItemList, function() {
+                        appendFavouriteItemsToList($('#pgFavouritesContent'), this);
+                    });
+                } catch (e) {}
+            }
+
+        };
+
+        function appendFavouriteItemsToList(parent, dataObj) {
+
+            var contextMenuParentDiv = $('<div>', {
+                'id': 'context-menu-items',
+                'class': 'context-menu-container'
+            });
+
+            var contextMenuUl = $('<ul>', {});
+
+            var contextMenuLi1 = $('<li>', {});
+            contextMenuUl.text('Move to');
+
+            var contextMenuLi2 = $('<li>', {});
+            contextMenuUl.text('Delete');
+
+            var contextMenuLi3 = $('<li>', {});
+            contextMenuUl.text('Share via E-mail');
+
+            contextMenuUl.append(contextMenuLi1);
+            contextMenuUl.append(contextMenuLi2);
+            contextMenuUl.append(contextMenuLi3);
+
+            contextMenuParentDiv.append(contextMenuUl);
+
+
+            var itemFavouriteListRow = $('<div>', {
+                'id': dataObj.Product_ID,
+                'border-bottom': '1px #C4C4C4 solid;',
+                'class': 'flashDealsRow',
+                'style': 'margin-bottom: 30px; margin-top: 30px;'
+            }).on('click', function() {
+                console.log(dataObj.Product_ID)
+            });
+
+            var itemFavouriteImageParentDiv = $('<div>', {
+                'style': 'display: flex; margin-left: 5%;'
+            });
+
+            var itemFavouriteImg = $('<img>', {
+                'style': 'height: 90px; width: 90px;',
+                'src': dataObj.Path
+            });
+
+            itemFavouriteImageParentDiv.append(itemFavouriteImg);
+
+            var itemFavouriteDetailsParentDiv = $('<div>', {
+                'style': 'display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px;'
+            });
+
+            var itemFavouriteName = $('<span>', {
+                'class': 'flash-deals-item-details'
+            });
+
+            itemFavouriteName.text(dataObj.Product_Name);
+
+            var itemFavouritePrice = $('<span>', {
+                'class': 'flash-deals-price'
+            });
+
+            itemFavouritePrice.text(dataObj.Price);
+
+            var itemFavouriteRatingParentDiv = $('<div>', {
+                'style': 'display: flex; margin-top: 7px; margin-left: 2px;'
+            });
+
+            var itemFavouriteRating = $('<span>', {
+                'class': 'favourites-rating'
+            });
+
+            itemFavouriteRating.text(dataObj.Product_Rating + ".0");
+
+            var itemFavouriteImgRating = $('<img>', {
+                'style': 'height: 15px; width: 15px; margin-left: 5px;',
+                'src': './assets/img/starRating.png'
+            });
+
+            itemFavouriteRatingParentDiv.append(itemFavouriteRating);
+            itemFavouriteRatingParentDiv.append(itemFavouriteImgRating);
+
+            var itemFavouriteContextMenu = $('<div>', {
+                'style': 'text-align: end; margin-top: -20px;',
+                'class': 'context-menu',
+                'data-container-id': 'context-menu-items'
+            });
+
+            var tableContextMenu = new ContextMenu("context-menu-items", menuItemClickListener);
+
+            itemFavouriteDetailsParentDiv.append(itemFavouriteName);
+            itemFavouriteDetailsParentDiv.append(itemFavouritePrice);
+            itemFavouriteDetailsParentDiv.append(itemFavouriteRatingParentDiv);
+            itemFavouriteDetailsParentDiv.append(itemFavouriteContextMenu);
+
+            itemFavouriteListRow.append(itemFavouriteImageParentDiv);
+            itemFavouriteListRow.append(itemFavouriteDetailsParentDiv);
+
+            parent.append(itemFavouriteListRow);
+        }
+
+        function menuItemClickListener(menu_item, parent) {
+            alert("Menu Item Clicked: " + menu_item.text() + "\nRecord ID: " + parent.attr("data-row-id"));
+        }
+
+        // <div class="flashDealsRow">
+        //         <div style="display: flex; margin-left: 5%;">
+        //             <img style="height: 100px; width: 100px;" src="./assets/img/Item_Images/M&amp;M-Peanut-Butter-Chocolate-Candy.jpg">
+        //         </div>
+        //         <div style="display: grid; padding: 15px;">
+        //             <span class="flash-deals-item-details">M&amp;M'S Peanut Butter Chocolate Candy, Singles Size</span>
+        //             <span class="flash-deals-price" style="margin-top: 15px;">$17.76</span>
+        //             <div style="display: flex; margin-top: 7px; margin-left: 2px;">
+        //                 <span class="favourites-rating">4.0</span>
+        //                 <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/starRating.png">
+        //             </div>
+        //             <div class="context-menu" data-container-id="context-menu-items" style="text-align: end; margin-top: -20px;"></div>
+        //         </div>
+        //     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // delete record from JSON
         //delete a record from JSON using record key
@@ -851,35 +1071,23 @@ $(function() {
         };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         // variable definitions go here
         var UserLi = '<li ><a href="#pgEditUser?Email=Z2"><h2>Z1</h2><p>DESCRIPTION</p></a></li>';
         var UserHdr = '<li data-role="list-divider">Your Users</li>';
         var noUser = '<li id="noUser">You have no users</li>';
-        var pgUserListScroller = new IScroll('#pgUserList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
+        //var pgUserListScroller = new IScroll('#pgUserList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
         // variable definitions go here
         var ProjectLi = '<li ><a href="#pgEditProject?ProjectName=Z2"><h2>Z1</h2><p>DESCRIPTION</p><span class="ui-li-count">COUNTBUBBLE</span></a></li>';
         var ProjectHdr = '<li data-role="list-divider">Your Projects</li>';
         var noProject = '<li id="noProject">You have no projects</li>';
-        var pgProjectListScroller = new IScroll('#pgProjectList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
+        //var pgProjectListScroller = new IScroll('#pgProjectList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
         // variable definitions go here
         var PersonLi = '<li ><a href="#pgEditPerson?FullName=Z2"><h2>Z1</h2><p>DESCRIPTION</p></a></li>';
         var PersonHdr = '<li data-role="list-divider">Your People</li>';
         var noPerson = '<li id="noPerson">You have no people</li>';
-        var pgPersonListScroller = new IScroll('#pgPersonList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
+        // var pgPersonListScroller = new IScroll('#pgPersonList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
         app.init = function() {
-            FastClick.attach(document.body);
+            //FastClick.attach(document.body);
             app.UserBindings();
             app.ProjectBindings();
             app.PersonBindings();

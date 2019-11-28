@@ -16,21 +16,25 @@
     <link rel="stylesheet" href="./libs/jqm-datebox.css">
     <link rel="stylesheet" href="./libs/animate.css">
     <link rel="stylesheet" href="./libs/nativeDroid2-master/css/nativedroid2.css">
+    <link rel="stylesheet" href="./libs/context-menu.css">
     <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css" />
     <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/docs/assets/owlcarousel/assets/owl.carousel.min.css" />
     <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/docs/assets/owlcarousel/assets/owl.theme.default.min.css" />
     <link rel="stylesheet" href="./libs/OwlCarousel2-2.3.4/dist/assets/animate.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="./libs/select2.min.css" />
 
     <script src="./libs/jquery.min.js" type="text/javascript"></script>
     <script src="./libs/OwlCarousel2-2.3.4/dist/owl.carousel.min.js" type="text/javascript"></script>
     <script src="./libs/OwlCarousel2-2.3.4/src/js/owl.animate.js" type="text/javascript"></script>
     <script src="./libs/OwlCarousel2-2.3.4/docs/assets/vendors/highlight.js" type="text/javascript"></script>
     <script src="./libs/OwlCarousel2-2.3.4/docs/assets/js/app.js" type="text/javascript"></script>
+    <script src="./libs/select2.min.js" type="text/javascript"></script>
     <script src="./assets/js/navbar.js" type="text/javascript"></script>
     <script src="./libs/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
     <script src="./libs/nativeDroid2-master/js/nativedroid2.js" type="text/javascript"></script>
     <script src="./libs/jqm-datebox.core.js" type="text/javascript"></script>
+    <script src="./libs/context-menu.js"></script>
     <script src="./libs/jqm-datebox.mode.slidebox.js" type="text/javascript"></script>
     <script src="./libs/jqm-datebox.mode.flipbox.js" type="text/javascript"></script>
     <script src="./libs/jqm-datebox.mode.datebox.js" type="text/javascript"></script>
@@ -38,10 +42,9 @@
     <script src="./libs/jqm-datebox.mode.custombox.js" type="text/javascript"></script>
     <script src="./libs/jqm-datebox.mode.calbox.js" type="text/javascript"></script>
     <script src="./libs/toastr.min.js" type="text/javascript"></script>
-    <script src="./libs/fastclick.js" type="text/javascript"></script>
     <script src="./libs/stanfordcryptolibrary.js" type="text/javascript"></script>
     <script src="./libs/excellentexport.min.js" type="text/javascript"></script>
-    <script src="./libs/iscroll.js" type="text/javascript"></script>
+    <script src="./libs/jquery.nicescroll.js" type="text/javascript"></script>
     <script src="./assets/js/password.js" type="text/javascript"></script>
     <script src="./libs/d3.min.js" type="text/javascript"></script>
     <script src="./libs/d3tree.js" type="text/javascript"></script>
@@ -512,18 +515,53 @@
 
 
     <!-- Favourites Page -->
-
     <div data-theme="a" id="pgFavourites" data-role="page" style="padding-top: 5px;">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
-            <div id="header-title">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF; height: 95px !important; box-shadow: none !important; border: none !important;">
+            <div id="header-title" style="top: -8% !important;">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
-            <div id="header-" class="header-cart-navbar">
+            <div id="header-" class="header-cart-navbar" style="top: 15% !important;">
                 <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
             </div>
+            <div style="position: absolute; width: 100%; margin-top: 51px; margin-left: -5px; border-bottom: 1px rgba(125, 101, 101, 0.34) solid;"></div>
+            <div class="nav-bar-fonts" style="width: 100%; height: 50px; border-bottom: 1px #C4C4C4 solid; position:fixed; top: 6.5%; margin-left: -2px;">
+                <form style="margin-top: -11px; -webkit-box-shadow: none !important; box-shadow: none ;" class="nav-bar-fonts">
+                    <div class="ui-field-contain" style=" display: flex; color: #333 !important; -webkit-box-shadow: none !important; box-shadow: none ;">
+                        <select id="favSelect" class="select2" style="width: 80%; padding: 10px; color: #333 !important; -webkit-box-shadow: none !important; box-shadow: none ;">
+                            <option value="ALL_PRODUCTS" style="color: #333 !important;">ALL PRODUCTS</option>
+                            <option value="REDUCED_PRICE_PRODUCTS" style="color: #333 !important;">REDUCED PRICE PRODUCTS</option>
+                        </select>
+                        <img id="edit-btn" src="./assets/img/Navbar_Images/edit-black.png" class="icon-header-nav" style="margin-top: 3.5%;
+                            margin-left: 51%; height: 20px !important; width: 20px !important;">
+                    </div>
+                </form>
+            </div>
         </div>
-        <div id="pgAccountCreationSuccessContent" data-role="main">
+        <div id="pgFavouritesContent" data-role="main" style="margin-top: 5px;">
 
+            <div class="context-menu-container" id="context-menu-items">
+                <ul>
+                    <li>Move to</li>
+                    <li>Delete</li>
+                    <li>Share via E-mail</li>
+                </ul>
+            </div>
+
+
+            <!-- <div class="flashDealsRow">
+                <div style="display: flex; margin-left: 5%;">
+                    <img style="height: 100px; width: 100px;" src="./assets/img/Item_Images/M&amp;M-Peanut-Butter-Chocolate-Candy.jpg">
+                </div>
+                <div style="display: grid; padding: 15px;">
+                    <span class="flash-deals-item-details">M&amp;M'S Peanut Butter Chocolate Candy, Singles Size</span>
+                    <span class="flash-deals-price" style="margin-top: 15px;">$17.76</span>
+                    <div style="display: flex; margin-top: 7px; margin-left: 2px;">
+                        <span class="favourites-rating">4.0</span>
+                        <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/starRating.png">
+                    </div>
+                    <div class="context-menu" data-container-id="context-menu-items" style="text-align: end; margin-top: -20px;"></div>
+                </div>
+            </div> -->
         </div>
         <div data-role="footer" data-position="fixed" style="padding-top: 7px;">
             <div data-role="navbar" data-grid="d">
