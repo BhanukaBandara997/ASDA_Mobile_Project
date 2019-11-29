@@ -103,6 +103,7 @@ $(function() {
         $('#homeShoppingBtn, #shopShoppingBtn, #searchShoppingBtn, #favShoppingBtn, #accShoppingBtn, #flashDealsShoppingBtn, #newProductsShoppingBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            app.GetCategories();
             $.mobile.changePage('#pgShopping');
         });
 
@@ -134,7 +135,7 @@ $(function() {
             //check password matching
             var passwordMatched = checkPasswordMatch($('#pgSignUpPassword').val().trim(), $('#pgSignUpConfirmPassword').val().trim());
             if (passwordMatched) {
-                //get form contents into an object
+                //get form  contents into an object
                 userRecObj = pgAddUserDetailsToObj();
                 //save object to JSON and return saved status
                 var userAddedSucce = app.addUser(userRecObj);
@@ -217,6 +218,7 @@ $(function() {
             e.stopImmediatePropagation();
             // verify the user details
             app.SignInUser($('#pgLoginInEmail').val().trim(), $('#pgLoginInPassword').val().trim());
+
         });
 
 
@@ -248,10 +250,12 @@ $(function() {
             //find if status is successful or not
             var succ = $('#pgLoginIn').data('success');
             if (succ == 'true') {
+                // set user name adress to account
+                setUserName(userName);
                 pgSignInClear();
                 // show the page to display after sign in
                 toastr.success('Login Success.', 'ASDA_Project');
-                $.mobile.changePage('#pgMenu', { transition: pgtransition });
+                $.mobile.changePage('#pgHome', { transition: pgtransition });
             }
         };
 
@@ -326,6 +330,14 @@ $(function() {
             }
         });
 
+        app.UpdateAddress = function(newAddress) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            $('#pgResetPassword').data('success', 'true');
+            var userName = Email.trim();
+            userName = userName.split('@')[0];
+            userName += '.json';
+        }
+
         app.PasswordReset = function(fourDigitCode, newPassword, newConfirmPassword) {
             var Email = localStorage.getItem("currentLoggedInUser");
             $('#pgResetPassword').data('success', 'true');
@@ -381,58 +393,116 @@ $(function() {
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-        $('#temp-shoping-cart').on('click', function (e) {
+        $('#back-icon-sub-category').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            app.GetCategories();
-            //$.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            $.mobile.changePage('#pgShopping', { transition: pgtransition });
         });
 
-        $('#back-icon-sub-category').on('click', function (e) {
+        $('#user-name, #profile-pic').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgShop', {transition: pgtransition});
+            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
         });
 
-        function PopulateCategories(categoryState, categoriesObj){
-                    var icnt;
-                    var count = 0;
-                    var previousCategoryObj = null;
+        $('#user-name, #profile-pic').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+        });
 
-                if(categoryState == "parent"){
-                    $.each( categoriesObj.categories, function(){
-                        count += 1;
-                        var newCategoryObj = appendCategories(this);
-                        if(count == 1 && previousCategoryObj === null) {
-                            previousCategoryObj = newCategoryObj;
-                        }
-                        if(count == 2) {
-                             appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
-                             count = 0;
-                             previousCategoryObj = null;
-                        }
-                    });
-                }else{
-                    //var myEnum = {FrozenFood: "FrozenFood"};
+        $('#about-us-icon, #about-us-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAboutUs', { transition: pgtransition });
+        });
 
-                    $.each(categoriesObj.subCategories, function(){
-                        count += 1;
-                        var newCategoryObj = appendCategories(this);
-                        if(count == 1 && previousCategoryObj === null) {
-                            previousCategoryObj = newCategoryObj;
-                        }
-                        if(count == 2) {
-                             appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
-                             count = 0;
-                             previousCategoryObj = null;
-                        }
-                    });
+        $('#back-icon-edit-profile, #back-icon-profile-text, #back-icon-about-us, #back-icon-about-us-text, #back-icon-contact-us, #back-icon-contact-us-text, #back-icon-shipping, #back-icon-shipping-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAccount', { transition: pgtransition });
+        });
+
+        $('#location-icon, #location-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+        });
+
+        $('#shipping-address-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.ShowPopUpDialogBox();
+        });
+
+        // $('#shipping-address-text').on('click', function(e) {
+        //     e.preventDefault();
+        //     e.stopImmediatePropagation();
+        //     $.mobile.changePage('#pgContactUs', { transition: pgtransition });
+        // });
+
+        app.ShowPopUpDialogBox = function() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            // When the user clicks anywhere outside of the modal, close it
+            $('#close-button').on('click', function(e) {
+                modal.style.display = "none";
+            });
+
+            $('#pgShippingAddress').on('click', function(e) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
                 }
+            });
+
+            $('#save-address-button').on('click', function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                app.AddNewAddressToUser();
+            });
         }
 
-        app.GetCategories = function () {
+        app.AddNewAddressToUser = function() {
+
+        }
+
+        function PopulateCategories(categoryState, categoriesObj) {
+            var icnt;
+            var count = 0;
+            var previousCategoryObj = null;
+
+            if (categoryState == "parent") {
+                $.each(categoriesObj.categories, function() {
+                    count += 1;
+                    var newCategoryObj = appendCategories(this);
+                    if (count == 1 && previousCategoryObj === null) {
+                        previousCategoryObj = newCategoryObj;
+                    }
+                    if (count == 2) {
+                        appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
+                        count = 0;
+                        previousCategoryObj = null;
+                    }
+                });
+            } else {
+                //var myEnum = {FrozenFood: "FrozenFood"};
+
+                $.each(categoriesObj.subCategories, function() {
+                    count += 1;
+                    var newCategoryObj = appendCategories(this);
+                    if (count == 1 && previousCategoryObj === null) {
+                        previousCategoryObj = newCategoryObj;
+                    }
+                    if (count == 2) {
+                        appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj);
+                        count = 0;
+                        previousCategoryObj = null;
+                    }
+                });
+            }
+        }
+
+        app.GetCategories = function() {
             // get users
             var fileName = "Categories"
             fileName += '.json';
@@ -453,35 +523,35 @@ $(function() {
 
         function appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj) {
 
-            var parentDiv =  $('<div>', {
+            var parentDiv = $('<div>', {
                 'style': 'display: flex; margin-bottom: 20px; margin-top: 10px;'
             });
             // toastr.error('Key - ' + key);
 
             parentDiv.append(previousCategoryObj);
             parentDiv.append(newCategoryObj);
-            if(categoryState == "parent"){
+            if (categoryState == "parent") {
                 $('#shop-background').append(parentDiv);
-            }else{
+            } else {
                 $('#sub-category-background').append(parentDiv);
             }
         }
 
         function appendCategories(dataObj) {
 
-            var parentDiv =  $('<div>', {
+            var parentDiv = $('<div>', {
                 'id': dataObj.TopCategoryName + '-category',
                 'class': 'category-content'
             });
 
-            var categoryImg = $('<img>',{
-                'style' : 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
+            var categoryImg = $('<img>', {
+                'style': 'width: 160px; height: 90px; margin-top: 7px; border-radius: 10px 10px 10px 10px; margin-left: 5px;',
                 'src': dataObj.Path
 
             });
 
             var categoryName = $('<p>', {
-                'class':'card-text-font-style' ,
+                'class': 'card-text-font-style',
                 'stye': 'left: 262px;'
             });
 
@@ -490,17 +560,17 @@ $(function() {
             parentDiv.append(categoryImg);
             parentDiv.append(categoryName);
 
-            parentDiv.on('click', function(){
-               subCategory(dataObj.TopCategoryName);
-            //    $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
+            parentDiv.on('click', function() {
+                subCategory(dataObj.TopCategoryName);
+                //    $.mobile.changePage('#pgLoginIn', {transition: pgtransition});
             });
 
             return parentDiv;
         }
 
-        function subCategory(parentCategoryName){
+        function subCategory(parentCategoryName) {
 
-            var newParentCategoryName = parentCategoryName.replace(/ /g,'');
+            var newParentCategoryName = parentCategoryName.replace(/ /g, '');
             // toastr.error('Selected Sub category ' +newParentCategoryName);
 
             var fileName = newParentCategoryName;
@@ -518,15 +588,16 @@ $(function() {
                 }
             }
             $("#sub-category-name-text").text(parentCategoryName);
-            $.mobile.changePage('#pgSubCategory', {transition: pgtransition});
+            $.mobile.changePage('#pgSubCategory', { transition: pgtransition });
+        }
+
+        function setUserName(userName) {
+            var newUserName = userName.substr(0, userName.indexOf('.'));
+            $("#user-name").text(newUserName);
         }
 
 
-
-
-
         $(document).delegate('.ui-page', 'pageshow', function() {
-
             $('.fadeOut').owlCarousel({
                 items: 1,
                 animateOut: 'fadeOut',
@@ -2227,6 +2298,14 @@ $(function() {
             return dsFields;
         };
         //load the field names for data sources to control 
+        //load the field names for data sources to control 
+        //load the field names for data sources to control 
+        //load the field names for data sources to control 
+        //load the field names for data sources to control 
+        //load the field names for data sources to control 
+        //load the field names for data sources to control 
+        //load the field names for data sources to control 
+        //load the field names for data sources to control 
         app.pgAddPersonLoadReportsTo = function() {
             //read the data source data field combination array
             var PersonObj = app.getPersonFullName();
@@ -2268,5 +2347,6 @@ $(function() {
         };
 
         app.init();
-    })(ASDA_Project);
+    })
+    (ASDA_Project);
 });

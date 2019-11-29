@@ -56,55 +56,7 @@
 
 <body>
 
-<!-- Account Page -->
-
-<div data-theme="a" id="pgAccount" data-role="page">
-    <div id="pgAccountContent" data-role="main">
-        <div id="account-name-and-pic" class="account-top-group-layout">
-            <span id="user-name" class="user-name-layout"></span>
-            <img id="crown-membership" class="account-crown-icon" src="./assets/img/crown.png"></img>
-            <span id="member-type" class="member-type-layout">Gold Member</span>
-        </div>
-    </div>
-</div>
-
-<!-- Shop - Category View -->
-
-<div data-theme="a" id="pgShop" data-role="page">
-    <div id="pgShopContent" data-role="main">
-        <header>
-            <div id="asda-bar-with-shopping-cart" class="asda-bar">
-                <p id="asda-logo">
-                    <span id="asda-logo-text" class="open-sans-font asda-logo-style">ASDA</span>
-                    <img id="temp-shoping-cart" class="cart-icon" src="./assets/img/cart-color.png"></img>
-                </p>
-            </div>
-        </header>
-            <div id="shop-background" class="shop-background-content">
-            </div>
-    </div>
-</div>
-
-<!-- Sub Category View -->
-<div data-theme="a" id="pgSubCategory" data-role="page">
-    <div id="pgShopContent" data-role="main">
-        <header>
-            <div id="asda-bar-with-shopping-cart" class="asda-bar">
-                <p id="asda-logo">
-                    <span id="asda-logo-text" class="open-sans-font asda-logo-style">ASDA</span>
-                    <img id="temp-shoping-cart" class="cart-icon" src="./assets/img/cart-color.png"></img>
-                </p>
-            </div>
-            <div class="nav-bar">
-                <img id="back-icon-sub-category" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="sub-category-name-text" class="open-sans-font sub-category-style"></span>
-            </div>
-        </header>
-            <div id="sub-category-background" class="sub-category-background-content"></div>
-    </div>
-</div>
-
-<!-- Welcome Page  -->
+    <!-- Welcome Page  -->
 
     <div data-theme="a" id="pgWelcome" data-role="page">
         <div id="pgWelcomeContent" data-role="main">
@@ -114,11 +66,12 @@
             <div id="welcome-pg-buttons-layout" class="ui-content buttons-layout">
 
                 <a href="#homePage" id="continue-button"
-                   class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Continue
+                    class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary"
+                    data-role="button">Continue
                     As Guest</a>
 
                 <a href="#pgCreateAccount" id="create-button"
-                   class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Create
+                    class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Create
                     Account</a>
 
                 <p id="welcome-text" class="iphone-smallest-font" style="position: absolute;">
@@ -136,20 +89,26 @@
     <div data-theme="a" id="pgCreateAccount" data-role="page">
         <div id="pgCreateAccountContent" data-role="main">
             <div id="create-acc-pg-background-image-layout" class="ui-content background-image-layout container">
-                <div id="createAccountBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
+                <div id="createAccountBackBtn" class="btn"
+                    style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
                 <img id="createAcc-img" src="./assets/img/16009.jpg" title="CreateAccountScreen">
             </div>
             <div id="create-acc-pg-buttons-layout" class="ui-content buttons-layout">
                 <form action="#" method="post" id="pgCreateAccForm" name="pgCreateAccForm" style="width: 80%;">
                     <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Create Account</h3>
                     <div data-role="fieldcontain" style="margin-top: -10px;">
-                        <input class="open-sans-font" style="line-height: 20px!important;" required title="Enter email address here." type="email" id="pgSignUpEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
+                        <input class="open-sans-font" style="line-height: 20px!important;" required
+                            title="Enter email address here." type="email" id="pgSignUpEmail" placeholder="Email"
+                            autocomplete="off" data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password" id="pgSignUpPassword" placeholder="Password" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password"
+                            id="pgSignUpPassword" placeholder="Password" data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password" type="password" id="pgSignUpConfirmPassword" placeholder="Confirm-Password" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password"
+                            type="password" id="pgSignUpConfirmPassword" placeholder="Confirm-Password"
+                            data-clear-btn="true"></input>
                     </div>
                     <div style="margin-top: -20px !important; margin-bottom: 20px !important;">
                         <p class="iphone-smallest-font">
@@ -159,7 +118,9 @@
                             <span style="color: #222222; font-weight:550;">Terms + Conditions</span>
                         </p>
                     </div>
-                    <div><button type="submit" id="pgCreateAccBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Create Account</button>
+                    <div><button type="submit" id="pgCreateAccBtn"
+                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Create
+                            Account</button>
                     </div>
                 </form>
             </div>
@@ -172,8 +133,10 @@
     <div data-theme="a" id="pgLoginIn" data-role="page">
         <div id="pgLoginInContent" data-role="main">
             <div id="sign-in-pg-background-image-layout" class="ui-content background-image-layout container">
-                <div id="logInBackBtn" class="btn_grey" style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
-                <img id="logIn-img" src="./assets/img/1232.jpg" title="LoginInScreen" style="top: 0px; width: 600px; height: 480px;">
+                <div id="logInBackBtn" class="btn_grey"
+                    style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
+                <img id="logIn-img" src="./assets/img/1232.jpg" title="LoginInScreen"
+                    style="top: 0px; width: 600px; height: 480px;">
             </div>
             <div id="sign-in-pg-buttons-layout" class="ui-content buttons-layout">
                 <form action="#" method="post" id="pgLoginInForm" name="pgLoginInForm" style="width: 80%;">
@@ -182,15 +145,20 @@
                         <span class="open-sans-font" style="color: #504F4F;">Login to cotinue</span>
                     </p>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" style="line-height: 20px!important;" required title="Enter email address here." type="email" id="pgLoginInEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
+                        <input class="open-sans-font" style="line-height: 20px!important;" required
+                            title="Enter email address here." type="email" id="pgLoginInEmail" placeholder="Email"
+                            autocomplete="off" data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password" id="pgLoginInPassword" placeholder="Password" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password"
+                            id="pgLoginInPassword" placeholder="Password" data-clear-btn="true"></input>
                     </div>
                     <p style="font-size:11px; text-align: right;margin-top: -10px; margin-bottom: 20px;">
-                        <span id="forgetPasswordBtn" class="open-sans-font" style="color: #504F4F;">Forget Password?</span>
+                        <span id="forgetPasswordBtn" class="open-sans-font" style="color: #504F4F;">Forget
+                            Password?</span>
                     </p>
-                    <div><button type="submit" id="pgLoginInBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
+                    <div><button type="submit" id="pgLoginInBtn"
+                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
                     </div>
                 </form>
             </div>
@@ -203,16 +171,22 @@
     <div data-theme="a" id="pgForgetPassword" data-role="page">
         <div id="pgForgetPasswordContent" data-role="main">
             <div id="forget-password-pg-background-image-layout" class="ui-content background-image-layout container">
-                <div id="forgetPasswordBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
-                <img id="forgetPassword-img" src="./assets/img/16011.jpg" title="ForgetPasswordScreen" style="top: 0px; width: 700px; height: 600px;">
+                <div id="forgetPasswordBackBtn" class="btn"
+                    style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
+                <img id="forgetPassword-img" src="./assets/img/16011.jpg" title="ForgetPasswordScreen"
+                    style="top: 0px; width: 700px; height: 600px;">
             </div>
             <div id="forget-password-pg-buttons-layout" class="ui-content buttons-layout">
-                <form action="#" method="post" id="pgForgetPasswordForm" name="pgForgetPasswordForm" style="width: 80%;">
+                <form action="#" method="post" id="pgForgetPasswordForm" name="pgForgetPasswordForm"
+                    style="width: 80%;">
                     <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Forget Password</h3>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required title="Enter email address here." type="email" name="pgForgetPasswordEmail" id="pgForgetPasswordEmail" placeholder="Email" autocomplete="off" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required title="Enter email address here." type="email"
+                            name="pgForgetPasswordEmail" id="pgForgetPasswordEmail" placeholder="Email"
+                            autocomplete="off" data-clear-btn="true"></input>
                     </div>
-                    <div><button type="submit" id="pgForgetPasswordContinueBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Continue</button>
+                    <div><button type="submit" id="pgForgetPasswordContinueBtn"
+                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Continue</button>
                     </div>
                 </form>
             </div>
@@ -225,25 +199,35 @@
     <div data-theme="a" id="pgResetPassword" data-role="page">
         <div id="pgResetPasswordContent" data-role="main">
             <div id="reset-password-pg-background-image-layout" class="ui-content background-image-layout container">
-                <div id="resetPasswordBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
-                <img id="resetPassword-img" src="./assets/img/17233.jpg" title="resetPasswordScreen" style="top: 0px; width: 530px; height: 470px;">
+                <div id="resetPasswordBackBtn" class="btn"
+                    style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
+                <img id="resetPassword-img" src="./assets/img/17233.jpg" title="resetPasswordScreen"
+                    style="top: 0px; width: 530px; height: 470px;">
             </div>
             <div id="reset-password-pg-buttons-layout" class="ui-content buttons-layout">
                 <form method="post" id="pgResetPasswordForm" name="pgResetPasswordInForm" style="width: 80%;">
                     <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Reset Password</h3>
                     <p style="font-size:14px; text-align: center; ">
-                        <span class="open-sans-font" style="color: #504F4F;">We have sent a four digit code to your mail</span>
+                        <span class="open-sans-font" style="color: #504F4F;">We have sent a four digit code to your
+                            mail</span>
                     </p>
                     <div data-role="fieldcontain" style="margin-top: -10px;">
-                        <input class="open-sans-font" required title="FourDigitCode" type="number" name="fourDigitCode" id="fourDigitCode" placeholder="Four Digit Code" autocomplete="off" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required title="FourDigitCode" type="number" name="fourDigitCode"
+                            id="fourDigitCode" placeholder="Four Digit Code" autocomplete="off"
+                            data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password" id="pgResetPasswordInput" placeholder="Password" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Password" type="password"
+                            id="pgResetPasswordInput" placeholder="Password" data-clear-btn="true"></input>
                     </div>
                     <div data-role="fieldcontain">
-                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password" type="password" name="pgResetConfirmPassword" id="pgResetConfirmPassword" placeholder="Confirm-Password" data-clear-btn="true"></input>
+                        <input class="open-sans-font" required autocomplete="off" title="Confirm Password"
+                            type="password" name="pgResetConfirmPassword" id="pgResetConfirmPassword"
+                            placeholder="Confirm-Password" data-clear-btn="true"></input>
                     </div>
-                    <div><button type="submit" id="pgResetPasswordBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Reset Password</button>
+                    <div><button type="submit" id="pgResetPasswordBtn"
+                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Reset
+                            Password</button>
                     </div>
                 </form>
             </div>
@@ -255,18 +239,24 @@
 
     <div data-theme="a" id="pgResetPasswordSuccess" data-role="page">
         <div id="pgResetPasswordSuccessContent" data-role="main">
-            <div id="reset-password-success-pg-background-image-layout" class="ui-content background-image-layout container">
-                <div id="resetPasswordSuccessBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
-                <img id="resetPasswordSuccess-img" src="./assets/img/14294.jpg" title="resetPasswordSuccessScreen" style="top: 0px; width: 900px;height: 660px;">
+            <div id="reset-password-success-pg-background-image-layout"
+                class="ui-content background-image-layout container">
+                <div id="resetPasswordSuccessBackBtn" class="btn"
+                    style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
+                <img id="resetPasswordSuccess-img" src="./assets/img/14294.jpg" title="resetPasswordSuccessScreen"
+                    style="top: 0px; width: 900px;height: 660px;">
             </div>
             <div id="reset-password-success-pg-buttons-layout" class="ui-content buttons-layout">
-                <form method="post" id="pgResetPasswordSuccessForm" name="pgResetPasswordSuccessInForm" style="width: 80%;">
+                <form method="post" id="pgResetPasswordSuccessForm" name="pgResetPasswordSuccessInForm"
+                    style="width: 80%;">
                     <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Whoo Whoo!</h3>
                     <p style="font-size:14px; text-align: center; ">
-                        <span class="open-sans-font" style="color: #504F4F;">Your password has been reset succefully! </span>
+                        <span class="open-sans-font" style="color: #504F4F;">Your password has been reset succefully!
+                        </span>
                         <span class="open-sans-font" style="color: #504F4F;">Now login with your new password </span>
                     </p>
-                    <div><button type="submit" id="pgResetPasswordSuccessBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
+                    <div><button type="submit" id="pgResetPasswordSuccessBtn"
+                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
                     </div>
                 </form>
             </div>
@@ -279,19 +269,24 @@
 
     <div data-theme="a" id="pgAccountCreationSuccess" data-role="page">
         <div id="pgAccountCreationSuccessContent" data-role="main">
-            <div id="account-creation-success-pg-background-image-layout" class="ui-content background-image-layout container">
-                <div id="accountCreationSuccessBackBtn" class="btn_grey" style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
-                <img id="accountCreationSuccess-img" src="./assets/img/2986568.jpg" title="accountCreationSuccessScreen" style="top: 0px; width: 500px;height: 600px;">
+            <div id="account-creation-success-pg-background-image-layout"
+                class="ui-content background-image-layout container">
+                <div id="accountCreationSuccessBackBtn" class="btn_grey"
+                    style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
+                <img id="accountCreationSuccess-img" src="./assets/img/2986568.jpg" title="accountCreationSuccessScreen"
+                    style="top: 0px; width: 500px;height: 600px;">
             </div>
             <div id="account-creation-success-pg-buttons-layout" class="ui-content buttons-layout">
-                <form method="post" id="pgAccountCreationSuccessForm" name="pgAccountCreationSuccessForm" style="width: 84%;">
+                <form method="post" id="pgAccountCreationSuccessForm" name="pgAccountCreationSuccessForm"
+                    style="width: 84%;">
                     <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Your Account Has</h3>
                     <h3 class="open-sans-font" style="text-align: center; margin: 18px;">Been Created!</h3>
                     <p style="font-size:14px; text-align: center; margin-bottom: 20px;">
                         <span class="open-sans-font" style="color: #504F4F; font-weight: 550;">Congratulation,</span>
                         <span class="open-sans-font" style="color: #504F4F;">now you are ready to shop</span>
                     </p>
-                    <div><button type="submit" id="pgAccountCreationSuccessBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
+                    <div><button type="submit" id="pgAccountCreationSuccessBtn"
+                            class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b">Login</button>
                     </div>
                 </form>
             </div>
@@ -313,10 +308,12 @@
         <div id="pgHomeContent" data-role="main">
             <div class="fadeOut owl-carousel owl-theme owl-loaded owl-drag" style="text-align: center;">
                 <div class="owl-stage-outer">
-                    <div class="owl-stage" style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
+                    <div class="owl-stage"
+                        style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
                         <div class="owl-item" style="width: 345.2px; margin-right: 10px;">
                             <div class="item carousel-item-margin">
-                                <img class="carousel-img" src="./assets/img/carousel_img1.png" style="border: 3px solid #ddd;">
+                                <img class="carousel-img" src="./assets/img/carousel_img1.png"
+                                    style="border: 1px solid #ddd;">
                             </div>
                         </div>
                         <div class="owl-item" style="width: 345.2px; margin-right: 10px;">
@@ -340,9 +337,11 @@
                     <span id="flashDealtsBtn" class="flash-deals-text">Flash Deals</span>
                 </div>
                 <div id="home-carousel" style="margin-left: 5px;">
-                    <div id="home-carousel-div" class="owl-carousel owl-theme owl-loaded owl-drag home-carousel" style="text-align: center;">
+                    <div id="home-carousel-div" class="owl-carousel owl-theme owl-loaded owl-drag home-carousel"
+                        style="text-align: center;">
                         <div class="owl-stage-outer">
-                            <div id="owl-item-parent-div" class="owl-stage" style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
+                            <div id="owl-item-parent-div" class="owl-stage"
+                                style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
                             </div>
                         </div>
                     </div>
@@ -350,29 +349,39 @@
             </div>
             <div style="margin-top: 6px; background: #EDE762; height: 373px; width: 100%;">
                 <div style="display: flex; width: 100%; height: 46%; margin-bottom: 15px;">
-                    <div id="newProductsBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
-                        <img src="./assets/img/Home/New_Products.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    <div id="newProductsBtn"
+                        style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/New_Products.png"
+                            style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
                     </div>
-                    <div id="playAndWinBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
-                        <img src="./assets/img/Home/Play_and_Win.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    <div id="playAndWinBtn"
+                        style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Play_and_Win.png"
+                            style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
                     </div>
                 </div>
                 <div style="display: flex; width: 100%; height: 46%;">
-                    <div id="findStoresBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
-                        <img src="./assets/img/Home/Find_Stores.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    <div id="findStoresBtn"
+                        style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Find_Stores.png"
+                            style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
                     </div>
-                    <div id="topSelectionBtn" style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
-                        <img src="./assets/img/Home/Top_Selection.png" style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
+                    <div id="topSelectionBtn"
+                        style="width: 50%; height: 100%; float: left; margin: 5px; border-radius: 20px; background: #FFFFFF; -moz-box-shadow: 4px 4px 10px #D19761; -webkit-box-shadow: 4px 4px 10px #D19761; box-shadow: 4px 4px 10px #D19761;">
+                        <img src="./assets/img/Home/Top_Selection.png"
+                            style="height: 90%; width: 95%; top: 5%; left: 2%; position: relative;">
                     </div>
                 </div>
             </div>
         </div>
-        <div data-role="footer" data-position="fixed">
+        <div data-role="footer" data-position="fixed"
+            style="border-width: 0px !important; border-style: none !important;">
             <div data-role="navbar" data-grid="d">
                 <ul>
                     <li class="navbar-align">
                         <div id="homeHomeBtn">
-                            <img id="home-img" src="./assets/img/Navbar_Images/home_selected.png" class="icon icon-home">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home_selected.png"
+                                class="icon icon-home">
                             <div id="home-text" class="iphone-bottom-navbar-font selected-Text">Home</div>
                         </div>
                     </li>
@@ -418,7 +427,7 @@
             </div>
         </div>
         <div id="pgAccountCreationSuccessContent" data-role="main">
-
+            <div id="shop-background" class="shop-background-content"></div>
         </div>
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" data-grid="d">
@@ -431,7 +440,8 @@
                     </li>
                     <li class="navbar-align">
                         <div id="shopShoppingBtn">
-                            <img id="shop-img" src="./assets/img/Navbar_Images/shop_selected.png" class="icon icon-shop">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop_selected.png"
+                                class="icon icon-shop">
                             <div class="iphone-bottom-navbar-font selected-Text">Shop</div>
                         </div>
                     </li>
@@ -490,7 +500,8 @@
                     </li>
                     <li class="navbar-align">
                         <div id="searchSearch">
-                            <img id="search-img" src="./assets/img/Navbar_Images/search_selected.png" class="icon icon-search">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search_selected.png"
+                                class="icon icon-search">
                             <div class="iphone-bottom-navbar-font selected-Text">Search</div>
                         </div>
                     </li>
@@ -550,7 +561,8 @@
                     </li>
                     <li class="navbar-align">
                         <div id="favFavouritesBtn">
-                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png" class="icon">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png"
+                                class="icon">
                             <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
                         </div>
                     </li>
@@ -565,6 +577,129 @@
         </div>
     </div>
 
+
+    <!-- Account Page -->
+
+    <!-- <div data-theme="a" id="pgAccount" data-role="page">
+        <div id="pgAccountContent" data-role="main">
+            <div id="account-name-and-pic" class="account-top-group-layout">
+                <span id="user-name" class="user-name-layout"></span>
+                <img id="crown-membership" class="account-crown-icon" src="./assets/img/crown.png"></img>
+                <span id="member-type" class="member-type-layout">Gold Member</span>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Shop - Category View -->
+
+    <div data-theme="a" id="pgShop" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgShopContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="favHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png"
+                                class="icon">
+                            <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub Category View -->
+    <div data-theme="a" id="pgSubCategory" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgSubCategoryContent" data-role="main">
+            <div class="nav-bar">
+                <img id="back-icon-sub-category" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="sub-category-name-text" class="open-sans-font sub-category-style"></span>
+            </div>
+            <div id="sub-category-background" class="sub-category-background-content open-sans-font"></div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="favHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png"
+                                class="icon">
+                            <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Account Page -->
 
     <div data-theme="a" id="pgAccount" data-role="page">
@@ -576,8 +711,81 @@
                 <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
             </div>
         </div>
-        <div id="pgAccountCreationSuccessContent" data-role="main">
-
+        <!-- <div id="accountCreationSuccessContent" data-role="main"> -->
+        <div id="accountContent" data-role="main">
+            <div id="account-name-and-pic" class="account-top-group-layout">
+                <span id="user-name" class="user-name-layout"></span>
+                <img id="crown-membership" class="account-crown-icon" src="./assets/img/Member_Types/crown.png"></img>
+                <span id="member-type" class="member-type-layout">Gold Member</span>
+                <img id="drop_down_icon" style="position: absolute; width: 10px; height: 10px; left: 139px;top: 47px;"
+                    src="./assets/img/Icons/drop_down_icon.png"></img>
+                <img id="profile-pic" style="position: absolute; width: 60px; height: 60px; left: 290px; top: 10px;"
+                    src="./assets/img/man.png"></img>
+            </div>
+            <div id="order-state-block">
+                <div>
+                    <img id="document-icon"
+                        style="position: absolute; left: 5.33%; right: 90.4%; top: 18%; bottom: 80.79%; width: 20px; height: 20px;"
+                        src="./assets/img/Icons/document.png"></img>
+                    <span
+                        style="position: absolute; width: 54px; height: 18px; left: 47px; top: 149px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 18px; color: rgba(0, 0, 0, 0.8);">Orders</span>
+                    <span
+                        style="position: absolute; width: 42px; height: 16px; left: 314px; top: 149px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 9px; line-height: 12px; color: #2F78BB;">View
+                        all</span>
+                </div>
+                <span
+                    style="position: absolute; width: 42px; height: 16px; left: 22px; top: 179px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Unpaid</span>
+                <span
+                    style="position: absolute; width: 55px; height: 16px; left: 22px; top: 210px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Shipped</span>
+                <span
+                    style="position: absolute; width: 92px; height: 16px; left: 22px; top: 240px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">To
+                    be collected</span>
+                <div
+                    style="position: absolute; width: 375px; height: 7px; left: 0px; top: 272px; background: rgba(196, 196, 196, 0.75);">
+                </div>
+            </div>
+            <div id="location-block">
+                <img id="location-icon" style="position: absolute; width: 24px; height: 24px; left: 14px; top: 294px;"
+                    src="./assets/img/Icons/placeholder.png"></img>
+                <span id="location-text"
+                    style="position: absolute; width: 109px; height: 16px; left: 51px; top: 298px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Shipping
+                    Address</span>
+                <div
+                    style="position: absolute; width: 375px; height: 7px; left: 0px; top: 333px; background: rgba(196, 196, 196, 0.75);">
+                </div>
+            </div>
+            <div id="notification-block">
+                <div>
+                    <img id="bell-icon" style="position: absolute; width: 24px; height: 24px; left: 16px; top: 356px; "
+                        src="./assets/img/Icons/bell.png"></img>
+                    <span
+                        style="position: absolute; width: 109px; height: 16px; left: 51px; top: 360px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Notifications</span>
+                    <input type='checkbox' class='ios8-switch' id='checkbox-1'>
+                </div>
+                <div>
+                    <img id="settings-icon"
+                        style="position: absolute; width: 24px; height: 24px; left: 16px; top: 391px; "
+                        src="./assets/img/Icons/settings.png"></img>
+                    <span
+                        style="position: absolute; width: 109px; height: 16px; left: 51px; top: 395px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Settings</span>
+                </div>
+                <div>
+                    <img id="help-center-icon"
+                        style="position: absolute; width: 24px; height: 24px; left: 16px; top: 430px; "
+                        src="./assets/img/Icons/headset.png"></img>
+                    <span
+                        style="position: absolute; width: 109px; height: 16px; left: 51px; top: 434px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Help
+                        Center</span>
+                </div>
+                <div>
+                    <img id="about-us-icon"
+                        style="position: absolute; width: 24px; height: 24px; left: 16px; top: 469px; "
+                        src="./assets/img/Icons/headset.png"></img>
+                    <span id="about-us-text"
+                        style="position: absolute; width: 109px; height: 16px; left: 51px; top: 473px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">About
+                        Us</span>
+                </div>
+            </div>
         </div>
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" data-grid="d">
@@ -617,13 +825,223 @@
         </div>
     </div>
 
+    <!-- Edit Profile -->
+
+    <div data-theme="a" id="pgEditAccount" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="accountEditContent" data-role="main">
+            <div class="nav-bar">
+                <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Profile</span>
+                <div
+                    style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
+                </div>
+            </div>
+            <div id="my-profile-details" style="top: 30px;">
+                <span style="position: absolute; width: 75px; height: 16px; left: 23px; top: 120px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);
+            ">My Profile</span>
+                <img id="profile-pic-2" src="./assets/img/man.png"
+                    style="position: absolute; width: 60px; height: 60px; left: 304px; top: 98px;"></img>
+                <div style="position: absolute; width: 375px; height: 3px; left: 0px; top: 169px; background: #C4C4C4;">
+                </div>
+            </div>
+            <div id="account-details">
+                <div id="contact-name">
+                    <span
+                        style="position: absolute; width: 87px; height: 16px; left: 23px; top: 193px; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Contact
+                        Name</span>
+                    <span id="loged-in-user-name" class="open-sans-font"></span>
+                </div>
+                <div id="member-center">
+                    <span
+                        style="position: absolute; width: 100px; height: 16px; left: 23px; top: 229px; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Member
+                        Center</span>
+                    <span id="loged-in-member-center" class="open-sans-font"></span>
+                </div>
+                <div id="account-info">
+                    <span
+                        style="position: absolute; width: 100px; height: 16px; left: 23px; top: 265px; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Account
+                        Info</span>
+                    <span id="loged-in-account-info" class="open-sans-font"></span>
+                </div>
+                <div id="gender">
+                    <span
+                        style="position: absolute; width: 87px; height: 16px; left: 23px; top: 301px; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Gender</span>
+                    <span id="loged-in-user-gender" class="open-sans-font"></span>
+                </div>
+                <div id="birthday">
+                    <span
+                        style="position: absolute; width: 100px; height: 16px; left: 23px; top: 337px; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Birth
+                        Day</span>
+                    <span id="loged-in-user-birthday" class="open-sans-font"></span>
+                </div>
+                <div style="position: absolute; width: 375px; height: 4px; left: 0px; top: 374px; background: #C4C4C4;">
+                </div>
+                <div id="shipping-address">
+                    <span
+                        style="position: absolute; width: 150px; height: 16px; left: 23px; top: 400px; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Shipping
+                        Address</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us -->
+
+    <div data-theme="a" id="pgContactUs" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgContactUsContent" data-role="main">
+            <div class="nav-bar">
+                <img id="back-icon-contact-us" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="back-icon-contact-us-text" class="open-sans-font sub-category-style">Contact Us</span>
+                <div
+                    style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
+                </div>
+            </div>
+            <div id="contact-us-block"
+                style="position: absolute; width: 365px; height: 324px; left: 5px; top: 92px; background: #FFFFFF; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                <img id="call-icon" src="./assets/img/Icons/contact_us.png"
+                    style="position: absolute; width: 88.78px; height: 90px; left: 143.11px; top: 29px;"></img>
+                <span id="give-us-a-call"
+                    style="position: absolute; width: 200px; height: 22px; left: 131.27px; top: 127px; font-family: Open Sans; font-style: normal; font-weight: 600; font-size: 18px; line-height: 25px; color: #000000;">Give
+                    us a call</span>
+                <span id="contact-number"
+                    style="position: absolute; width: 124.3px; height: 22px; left: 125.35px; top: 154px; font-family: Open Sans; font-style: normal; font-weight: 600; font-size: 18px; line-height: 25px; color: rgba(0, 0, 0, 0.8);">0800
+                    952 0101</span>
+                <p id="about-us-para"
+                    style="position: absolute; width: 303px; height: 131px; left: 13px; top: 162px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 15px; color: rgba(0, 0, 0, 0.8);">
+                    <br>Need to speak to our Home Shopping team?
+                    Lines are open Monday to Saturday from 7am – 11pm and Sundays from 8am – 10pm.
+                    </br> <br>Need to speak to our Store service team?
+                    Lines are open Monday to Friday from 8am - 8pm, Saturday from 9am – 5.30pm and Sundays from 10am -
+                    4pm.
+                    </br></p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Shipping Address -->
+    <div data-theme="a" id="pgShippingAddress" data-role="page" class="ShippingAddress">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="shippingAddressContent" data-role="main">
+            <div class="nav-bar">
+                <img id="back-icon-shipping" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="back-icon-shipping-text" class="open-sans-font sub-category-style">Shipping Address</span>
+                <img id="edit-icon-" src="./assets/img/Navbar_Images/edit-black.png"
+                    style="position: absolute; width: 22px; height: 22px; left: 336px; top: 9px; opacity: 0.8;"></img>
+                <div
+                    style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
+                </div>
+                <div id="add-new-address" style="position: absolute; width: 375px; height: 45px; left: 0px; top: 42px;">
+                    <a href="#" class="add-new-shipping-address-style" id="shipping-address-text">Add a new address</a>
+                    <div
+                        style="position: absolute; width: 375px; height: 5px; left: 0px; top: 40px; background: #C4C4C4;">
+                    </div>
+                </div>
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span id="close-button" class="close">&times;</span>
+                        <span id="Address" style="position: absolute; top: 275px; left: 146px; width: 55px; height: 34.24px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 20px; line-height: 19px; color: #000000;">Address</span>
+                        <textarea id="address-input" rows="5" cols="50"></textarea>
+                        <button id="save-address-button" type="submit" style="left: 44px; top: 10%; width: 70% !important; height: 40px !important; align-items: center !important; display: flex !important; justify-content: center !important; text-align: center !important; background-image: linear-gradient(#F46B45, #EEA849) !important; text-transform: none !important;
+                    " class="iphone-large-font ui-btn-raised clr-primary ui-btn">Save Address</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop up Box for Address -->
+    <!-- <div id="popup-form-address" class="pop-up-box">
+        <form id="pop-up-form">
+            <span
+                style="position: absolute; width: 50px; height: 24px; left: 103px; top: 23px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 16px; line-height: 19px; color: #000000;">Address</span>
+            <input class="open-sans-font" style="line-height: 20px!important; top: 100px; left: 30px;" required
+                placeholder="Address" autocomplete="off" data-clear-btn="true"></input>
+            <button type="submit" style="position: absolute; top: 171px; left: 40px; width: 70% !important; height: 40px !important; align-items: center !important; display: flex !important; justify-content: center !important; text-align: center !important; background-image: linear-gradient(#F46B45, #EEA849) !important; text-transform: none !important;
+                    " class="iphone-large-font ui-btn-raised clr-primary ui-btn">Save Address</button>
+        </form>
+    </div> -->
+
+    <!-- About Us -->
+    <div data-theme="a" id="pgAboutUs" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgAboutUsContent" data-role="main">
+            <div class="nav-bar">
+                <img id="back-icon-about-us" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="back-icon-about-us-text" class="open-sans-font sub-category-style">About
+                    Us</span>
+                <div
+                    style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
+                </div>
+            </div>
+            <div>
+                <img id="about-us-image" style="position: absolute; width: 375px; height: 265px; left: 0px; top: 89px;"
+                    src="./assets/img/about-us.jpg"></img>
+                <span id="introducing-asda"
+                    style="position: absolute; width: 138px; height: 24px; left: 13px; top: 403px; font-family: Open Sans; font-size: 15px; line-height: 20px; color: rgba(0, 0, 0, 0.8);">Introducing
+                    ASDA
+                </span>
+                <p id="about-us-para"
+                    style="position: absolute; width: 303px; height: 131px; left: 13px; top: 430px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 15px; color: rgba(0, 0, 0, 0.8);">
+                    <br> By the mid-1960s, Britain was starting to swing. Rationing was ten years in the
+                    past; the
+                    economy
+                    was
+                    booming; ownership was growing; and there was shopping to be done.</br> <br>A great
+                    mood of optimism
+                    was
+                    sweeping the country, and nowhere more so than at Queens, where something very, very
+                    exciting was
+                    about
+                    to happen.</br></p>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <!-- Flash Deals Page -->
 
     <div data-theme="a" id="pgFlashDeals" data-role="page">
         <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
             <div style="display: flex;">
                 <img id="flashDealsBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
-                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title">Flash Deals</h1>
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title">Flash Deals
+                </h1>
             </div>
         </div>
         <div id="pgFlashDealsContent" data-role="main">
@@ -673,7 +1091,8 @@
         <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
             <div style="display: flex;">
                 <img id="newProductsBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
-                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title" style="left: 30% !important;">New Products</h1>
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title" style="left: 30% !important;">
+                    New Products</h1>
             </div>
         </div>
         <div id="pgAccountCreationSuccessContent" data-role="main">
@@ -724,7 +1143,8 @@
         <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar">
             <div style="display: flex;">
                 <img id="topSelectionBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
-                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title" style="left: 30% !important;">Top Selection</h1>
+                <h1 class="flash-deals-header-title-color" id="flash-deals-header-title" style="left: 30% !important;">
+                    Top Selection</h1>
             </div>
         </div>
         <div id="pgAccountCreationSuccessContent" data-role="main">
@@ -810,55 +1230,79 @@
 
 
 
-    <div data-theme="a" style="background-position:center center;background-repeat:no-repeat;background-size:cover;background-size: 100% 100%;" id="pgMenu" data-role="page">
+    <div data-theme="a"
+        style="background-position:center center;background-repeat:no-repeat;background-size:cover;background-size: 100% 100%;"
+        id="pgMenu" data-role="page">
 
         <header id="pgMenuHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
         </header>
         <div id="pgMenucontent" data-role="content">
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbUser" data-transition="slide" href="#pgUser"><img height="96" width="96" title="Users" alt="Maintain Users"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbUser" data-transition="slide"
+                    href="#pgUser"><img height="96" width="96" title="Users" alt="Maintain Users"></img>
                     <strong>Users</strong></a>
             </div>
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbProject" data-transition="slide" href="#pgProject"><img height="96" width="96" title="Projects" alt="Maintain Projects"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbProject" data-transition="slide"
+                    href="#pgProject"><img height="96" width="96" title="Projects" alt="Maintain Projects"></img>
                     <strong>Projects</strong></a>
             </div>
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbPerson" data-transition="slide" href="#pgPerson"><img height="96" width="96" title="People" alt="Maintain People"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbPerson" data-transition="slide"
+                    href="#pgPerson"><img height="96" width="96" title="People" alt="Maintain People"></img>
                     <strong>People</strong></a>
             </div>
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbReports" data-transition="slide" href="#pgReports"><img height="96" width="96" title="Reports" alt="Access Reports"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbReports" data-transition="slide"
+                    href="#pgReports"><img height="96" width="96" title="Reports" alt="Access Reports"></img>
                     <strong>Reports</strong></a>
             </div>
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbLogOff" data-transition="slide" href="#pgSignIn"><img height="96" width="96" title="Sign Out" alt="Sign Out"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbLogOff" data-transition="slide"
+                    href="#pgSignIn"><img height="96" width="96" title="Sign Out" alt="Sign Out"></img>
                     <strong>Sign Out</strong></a>
             </div>
         </div>
 
     </div>
-    <div data-theme="b" style="background-position:center center;background-size:cover;background-repeat:no-repeat;background-size: 100% 100%;" id="pgReports" data-role="page">
+
+
+    <div data-theme="b"
+        style="background-position:center center;background-size:cover;background-repeat:no-repeat;background-size: 100% 100%;"
+        id="pgReports" data-role="page">
 
         <header id="pgReportsHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
         </header>
         <div id="pgReportscontent" data-role="content">
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbRptBack" data-transition="slide" href="#pgMenu"><img height="96" width="96" title="Main Menu" alt="Main Menu"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbRptBack" data-transition="slide"
+                    href="#pgMenu"><img height="96" width="96" title="Main Menu" alt="Main Menu"></img>
                     <strong>Main Menu</strong></a>
             </div>
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbRptUser" data-transition="slide" href="#pgRptUser"><img height="96" width="96" title="Users Report" alt="Users"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbRptUser" data-transition="slide"
+                    href="#pgRptUser"><img height="96" width="96" title="Users Report" alt="Users"></img>
                     <strong>Users Report</strong></a>
             </div>
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbRptProject" data-transition="slide" href="#pgRptProject"><img height="96" width="96" title="Projects Report" alt="Projects"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbRptProject" data-transition="slide"
+                    href="#pgRptProject"><img height="96" width="96" title="Projects Report" alt="Projects"></img>
                     <strong>Projects Report</strong></a>
             </div>
-            <div style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
-                <a style="text-decoration: none; color: #FFFFFF;" id="sbRptPerson" data-transition="slide" href="#pgRptPerson"><img height="96" width="96" title="People Report" alt="People"></img>
+            <div
+                style="width:130px;height:96px;margin:15px 4px 10px 4px;float:left;padding-bottom:35px;text-align:center;">
+                <a style="text-decoration: none; color: #FFFFFF;" id="sbRptPerson" data-transition="slide"
+                    href="#pgRptPerson"><img height="96" width="96" title="People Report" alt="People"></img>
                     <strong>People Report</strong></a>
             </div>
         </div>
@@ -871,8 +1315,10 @@
 
         <header id="pgPermissionsHdr" data-role="header" data-position="fixed">
             <h1>Login Page</h1>
-            <a data-role="button" id="permissionsBack" href="#pgMenu" data-icon="arrow-l" data-transition="slide" class="ui-btn-left">Back</a>
-            <a data-role="button" id="permissionsApply" href="#" data-icon="check" data-theme="b" class="ui-btn-right">Done</a>
+            <a data-role="button" id="permissionsBack" href="#pgMenu" data-icon="arrow-l" data-transition="slide"
+                class="ui-btn-left">Back</a>
+            <a data-role="button" id="permissionsApply" href="#" data-icon="check" data-theme="b"
+                class="ui-btn-right">Done</a>
         </header>
         <div id="pgPermissionscontent" data-role="content">
             <h3>Permissions</h3>
@@ -882,38 +1328,43 @@
                     <ul data-role="listview">
                         <li>
                             <h2>View</h2>
-                            <p>View all Users</p><select name="permUserView" id="permUserView" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>View all Users</p><select name="permUserView" id="permUserView" data-role="slider"
+                                dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Create</h2>
-                            <p>Create a new Users record</p><select name="permUserCreate" id="permUserCreate" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Create a new Users record</p><select name="permUserCreate" id="permUserCreate"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Update</h2>
-                            <p>Update Users record(s)</p><select name="permUserUpdate" id="permUserUpdate" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Update Users record(s)</p><select name="permUserUpdate" id="permUserUpdate"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Delete</h2>
-                            <p>Delete Users record(s)</p><select name="permUserDelete" id="permUserDelete" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Delete Users record(s)</p><select name="permUserDelete" id="permUserDelete"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Export</h2>
-                            <p>Export Users record(s)</p><select name="permUserExport" id="permUserExport" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Export Users record(s)</p><select name="permUserExport" id="permUserExport"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                     </ul>
                 </div>
@@ -922,38 +1373,43 @@
                     <ul data-role="listview">
                         <li>
                             <h2>View</h2>
-                            <p>View all Projects</p><select name="permProjectView" id="permProjectView" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>View all Projects</p><select name="permProjectView" id="permProjectView"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Create</h2>
-                            <p>Create a new Projects record</p><select name="permProjectCreate" id="permProjectCreate" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Create a new Projects record</p><select name="permProjectCreate" id="permProjectCreate"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Update</h2>
-                            <p>Update Projects record(s)</p><select name="permProjectUpdate" id="permProjectUpdate" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Update Projects record(s)</p><select name="permProjectUpdate" id="permProjectUpdate"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Delete</h2>
-                            <p>Delete Projects record(s)</p><select name="permProjectDelete" id="permProjectDelete" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Delete Projects record(s)</p><select name="permProjectDelete" id="permProjectDelete"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Export</h2>
-                            <p>Export Projects record(s)</p><select name="permProjectExport" id="permProjectExport" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Export Projects record(s)</p><select name="permProjectExport" id="permProjectExport"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                     </ul>
                 </div>
@@ -962,38 +1418,43 @@
                     <ul data-role="listview">
                         <li>
                             <h2>View</h2>
-                            <p>View all People</p><select name="permPersonView" id="permPersonView" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>View all People</p><select name="permPersonView" id="permPersonView" data-role="slider"
+                                dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Create</h2>
-                            <p>Create a new People record</p><select name="permPersonCreate" id="permPersonCreate" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Create a new People record</p><select name="permPersonCreate" id="permPersonCreate"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Update</h2>
-                            <p>Update People record(s)</p><select name="permPersonUpdate" id="permPersonUpdate" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Update People record(s)</p><select name="permPersonUpdate" id="permPersonUpdate"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Delete</h2>
-                            <p>Delete People record(s)</p><select name="permPersonDelete" id="permPersonDelete" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Delete People record(s)</p><select name="permPersonDelete" id="permPersonDelete"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                         <li>
                             <h2>Export</h2>
-                            <p>Export People record(s)</p><select name="permPersonExport" id="permPersonExport" data-role="slider" dir="ltr">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
+                            <p>Export People record(s)</p><select name="permPersonExport" id="permPersonExport"
+                                data-role="slider" dir="ltr">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
                         </li>
                     </ul>
                 </div>
@@ -1016,12 +1477,14 @@
 
         <header id="pgUserHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgUserMenu" href="#pgUserPnl" data-icon="bars" data-transition="slide" class="ui-btn-left">Menu</a>
+            <a data-role="button" id="pgUserMenu" href="#pgUserPnl" data-icon="bars" data-transition="slide"
+                class="ui-btn-left">Menu</a>
             <a data-role="button" id="pgUserNew" data-icon="plus" data-theme="b" class="ui-btn-right">New</a>
         </header>
         <div id="pgUsercontent" data-role="content">
             <h3>Users</h3>
-            <ul data-role="listview" data-inset="true" id="pgUserList" data-filter="true" data-filter-placeholder="Search Users" data-filter-reveal="false">
+            <ul data-role="listview" data-inset="true" id="pgUserList" data-filter="true"
+                data-filter-placeholder="Search Users" data-filter-reveal="false">
                 <li data-role="list-divider">Your Users</li>
                 <li id="noUser">You have no users</li>
 
@@ -1038,7 +1501,9 @@
             <a data-role="button" id="pgRptUserNew" data-icon="plus" data-theme="b" class="ui-btn-right">New</a>
         </header>
         <div id="pgRptUsercontent" data-role="content">
-            <table id="RptUser" data-column-btn-text="Columns To Display" data-column-btn-theme="b" data-role="table" data-mode="columntoggle" data-column-popup-theme="a" class="ui-responsive table-stroke table-stripe ui-shadow ui-body-d">
+            <table id="RptUser" data-column-btn-text="Columns To Display" data-column-btn-theme="b" data-role="table"
+                data-mode="columntoggle" data-column-popup-theme="a"
+                class="ui-responsive table-stroke table-stripe ui-shadow ui-body-d">
                 <caption>Users Report</caption>
                 <thead>
                     <tr class="ui-bar-b">
@@ -1056,14 +1521,17 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td colspan="5">Powered by JQM.Show - https://play.google.com/store/apps/details?id=com.b4a.JQMShow
+                        <td colspan="5">Powered by JQM.Show -
+                            https://play.google.com/store/apps/details?id=com.b4a.JQMShow
                         </td>
                     </tr>
                 </tfoot>
             </table>
             <div data-role="fieldcontain">
-                <a download="User.xls" onclick="return ExcellentExport.excel(this, 'RptUser', 'User');" id="pgRptUserExport" data-corners="true" href="#" class="ui-btn ui-corner-all ui-shadow">Export to
-					Excel</a></div>
+                <a download="User.xls" onclick="return ExcellentExport.excel(this, 'RptUser', 'User');"
+                    id="pgRptUserExport" data-corners="true" href="#" class="ui-btn ui-corner-all ui-shadow">Export
+                    to
+                    Excel</a></div>
         </div>
 
     </div>
@@ -1086,40 +1554,51 @@
             <form action="#" method="post" id="pgAddUserForm" name="pgAddUserForm">
                 <div data-role="fieldcontain">
                     <label for="pgAddUserFirstName" id="lblpgAddUserFirstName">First Name<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter first name here." type="text" name="pgAddUserFirstName" id="pgAddUserFirstName" placeholder="Enter first name here." autocomplete="off" data-clear-btn="true"></input>
+                            style='color:red;'>*</span></label>
+                    <input required title="Enter first name here." type="text" name="pgAddUserFirstName"
+                        id="pgAddUserFirstName" placeholder="Enter first name here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgAddUserLastName" id="lblpgAddUserLastName">Last Name<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter last name here." type="text" name="pgAddUserLastName" id="pgAddUserLastName" placeholder="Enter last name here." autocomplete="off" data-clear-btn="true"></input>
+                            style='color:red;'>*</span></label>
+                    <input required title="Enter last name here." type="text" name="pgAddUserLastName"
+                        id="pgAddUserLastName" placeholder="Enter last name here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgAddUserEmail" id="lblpgAddUserEmail">Email Address<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter email address here." type="email" name="pgAddUserEmail" id="pgAddUserEmail" placeholder="Enter email address here." autocomplete="off" data-clear-btn="true"></input>
+                            style='color:red;'>*</span></label>
+                    <input required title="Enter email address here." type="email" name="pgAddUserEmail"
+                        id="pgAddUserEmail" placeholder="Enter email address here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgAddUserPassword" id="lblpgAddUserPassword">Password<span
-							style='color:red;'>*</span></label>
-                    <input required autocomplete="off" title="Enter password here." type="password" name="pgAddUserPassword" id="pgAddUserPassword" placeholder="Enter password here." data-clear-btn="true"></input>
+                            style='color:red;'>*</span></label>
+                    <input required autocomplete="off" title="Enter password here." type="password"
+                        name="pgAddUserPassword" id="pgAddUserPassword" placeholder="Enter password here."
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="pgAddUserConfirmPassword" id="lblpgAddUserConfirmPassword">Confirm Password<span
-							style='color:red;'>*</span></label>
-                    <input required autocomplete="off" title="Enter confirm password here." type="password" name="pgAddUserConfirmPassword" id="pgAddUserConfirmPassword" placeholder="Enter confirm password here." data-clear-btn="true"></input>
+                    <label for="pgAddUserConfirmPassword" id="lblpgAddUserConfirmPassword">Confirm
+                        Password<span style='color:red;'>*</span></label>
+                    <input required autocomplete="off" title="Enter confirm password here." type="password"
+                        name="pgAddUserConfirmPassword" id="pgAddUserConfirmPassword"
+                        placeholder="Enter confirm password here." data-clear-btn="true"></input>
                 </div>
                 <div dir="ltr" data-role="fieldcontain">
                     <label for="pgAddUserUserRole" id="lblpgAddUserUserRole">User Role<span
-							style='color:red;'>*</span></label>
+                            style='color:red;'>*</span></label>
                     <select name="pgAddUserUserRole" id="pgAddUserUserRole" dir="ltr" class="required">
-						<option value="null" data-placeholder="true">Select User Role</option>
-						<option value="Administrator">Administrator</option>
-						<option value="User">User</option>
-					</select>
+                        <option value="null" data-placeholder="true">Select User Role</option>
+                        <option value="Administrator">Administrator</option>
+                        <option value="User">User</option>
+                    </select>
                 </div>
                 <div data-role="fieldcontain">
-                    <input required title="" type="checkbox" name="pgAddUserActive" id="pgAddUserActive" autocomplete="off" value="Active"></input>
+                    <input required title="" type="checkbox" name="pgAddUserActive" id="pgAddUserActive"
+                        autocomplete="off" value="Active"></input>
                     <label for="pgAddUserActive" id="lblpgAddUserActive">Active<span style='color:red;'>*</span></label>
                 </div>
             </form>
@@ -1148,49 +1627,61 @@
 
         <header id="pgEditUserHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgEditUserMenu" href="#pgEditUserPnl" data-icon="bars" class="ui-btn-left">Menu</a>
+            <a data-role="button" id="pgEditUserMenu" href="#pgEditUserPnl" data-icon="bars"
+                class="ui-btn-left">Menu</a>
         </header>
         <div id="pgEditUsercontent" data-role="content">
             <h3>Edit User</h3>
             <form action="#" method="post" id="pgEditUserForm" name="pgEditUserForm">
                 <div data-role="fieldcontain">
                     <label for="pgEditUserFirstName" id="lblpgEditUserFirstName">First Name<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter first name here." type="text" name="pgEditUserFirstName" id="pgEditUserFirstName" placeholder="Enter first name here." autocomplete="off" data-clear-btn="true"></input>
+                            style='color:red;'>*</span></label>
+                    <input required title="Enter first name here." type="text" name="pgEditUserFirstName"
+                        id="pgEditUserFirstName" placeholder="Enter first name here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgEditUserLastName" id="lblpgEditUserLastName">Last Name<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter last name here." type="text" name="pgEditUserLastName" id="pgEditUserLastName" placeholder="Enter last name here." autocomplete="off" data-clear-btn="true"></input>
+                            style='color:red;'>*</span></label>
+                    <input required title="Enter last name here." type="text" name="pgEditUserLastName"
+                        id="pgEditUserLastName" placeholder="Enter last name here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgEditUserEmail" id="lblpgEditUserEmail">Email Address<span
-							style='color:red;'>*</span></label>
-                    <input required readonly="readonly" data-clear-btn="true" autofocus="true" title="Enter email address here." type="email" name="pgEditUserEmail" id="pgEditUserEmail" placeholder="Enter email address here." autocomplete="off"></input>
+                            style='color:red;'>*</span></label>
+                    <input required readonly="readonly" data-clear-btn="true" autofocus="true"
+                        title="Enter email address here." type="email" name="pgEditUserEmail" id="pgEditUserEmail"
+                        placeholder="Enter email address here." autocomplete="off"></input>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgEditUserPassword" id="lblpgEditUserPassword">Password<span
-							style='color:red;'>*</span></label>
-                    <input required autocomplete="off" title="Enter password here." type="password" name="pgEditUserPassword" id="pgEditUserPassword" placeholder="Enter password here." data-clear-btn="true"></input>
+                            style='color:red;'>*</span></label>
+                    <input required autocomplete="off" title="Enter password here." type="password"
+                        name="pgEditUserPassword" id="pgEditUserPassword" placeholder="Enter password here."
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="pgEditUserConfirmPassword" id="lblpgEditUserConfirmPassword">Confirm Password<span
-							style='color:red;'>*</span></label>
-                    <input required autocomplete="off" title="Enter confirm password here." type="password" name="pgEditUserConfirmPassword" id="pgEditUserConfirmPassword" placeholder="Enter confirm password here." data-clear-btn="true"></input>
+                    <label for="pgEditUserConfirmPassword" id="lblpgEditUserConfirmPassword">Confirm
+                        Password<span style='color:red;'>*</span></label>
+                    <input required autocomplete="off" title="Enter confirm password here." type="password"
+                        name="pgEditUserConfirmPassword" id="pgEditUserConfirmPassword"
+                        placeholder="Enter confirm password here." data-clear-btn="true"></input>
                 </div>
                 <div dir="ltr" data-role="fieldcontain">
                     <label for="pgEditUserUserRole" id="lblpgEditUserUserRole">User Role<span
-							style='color:red;'>*</span></label>
+                            style='color:red;'>*</span></label>
                     <select name="pgEditUserUserRole" id="pgEditUserUserRole" dir="ltr" class="required">
-						<option value="null" data-placeholder="true">Select User Role</option>
-						<option value="Administrator">Administrator</option>
-						<option value="User">User</option>
-					</select>
+                        <option value="null" data-placeholder="true">Select User Role</option>
+                        <option value="Administrator">Administrator</option>
+                        <option value="User">User</option>
+                    </select>
                 </div>
                 <div data-role="fieldcontain">
-                    <input required title="" type="checkbox" name="pgEditUserActive" id="pgEditUserActive" autocomplete="off" value="Active"></input>
+                    <input required title="" type="checkbox" name="pgEditUserActive" id="pgEditUserActive"
+                        autocomplete="off" value="Active"></input>
                     <label for="pgEditUserActive" id="lblpgEditUserActive">Active<span
-							style='color:red;'>*</span></label>
+                            style='color:red;'>*</span></label>
                 </div>
             </form>
         </div>
@@ -1220,12 +1711,14 @@
 
         <header id="pgProjectHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgProjectMenu" href="#pgProjectPnl" data-icon="bars" data-transition="slide" class="ui-btn-left">Menu</a>
+            <a data-role="button" id="pgProjectMenu" href="#pgProjectPnl" data-icon="bars" data-transition="slide"
+                class="ui-btn-left">Menu</a>
             <a data-role="button" id="pgProjectNew" data-icon="plus" data-theme="b" class="ui-btn-right">New</a>
         </header>
         <div id="pgProjectcontent" data-role="content">
             <h3>Projects</h3>
-            <ul data-role="listview" data-inset="true" id="pgProjectList" data-filter="true" data-filter-placeholder="Search Projects" data-filter-reveal="false">
+            <ul data-role="listview" data-inset="true" id="pgProjectList" data-filter="true"
+                data-filter-placeholder="Search Projects" data-filter-reveal="false">
                 <li data-role="list-divider">Your Projects</li>
                 <li id="noProject">You have no projects</li>
 
@@ -1242,7 +1735,9 @@
             <a data-role="button" id="pgRptProjectNew" data-icon="plus" data-theme="b" class="ui-btn-right">New</a>
         </header>
         <div id="pgRptProjectcontent" data-role="content">
-            <table id="RptProject" data-column-btn-text="Columns To Display" data-column-btn-theme="b" data-role="table" data-mode="columntoggle" data-column-popup-theme="a" class="ui-responsive table-stroke table-stripe ui-shadow ui-body-d">
+            <table id="RptProject" data-column-btn-text="Columns To Display" data-column-btn-theme="b" data-role="table"
+                data-mode="columntoggle" data-column-popup-theme="a"
+                class="ui-responsive table-stroke table-stripe ui-shadow ui-body-d">
                 <caption>Projects Report</caption>
                 <thead>
                     <tr class="ui-bar-b">
@@ -1261,20 +1756,23 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td colspan="6">Powered by JQM.Show - https://play.google.com/store/apps/details?id=com.b4a.JQMShow
+                        <td colspan="6">Powered by JQM.Show -
+                            https://play.google.com/store/apps/details?id=com.b4a.JQMShow
                         </td>
                     </tr>
                 </tfoot>
             </table>
             <div data-role="fieldcontain">
-                <a download="Project.xls" onclick="return ExcellentExport.excel(this, 'RptProject', 'Project');" id="pgRptProjectExport" data-corners="true" href="#" class="ui-btn ui-corner-all ui-shadow">Export
-					to Excel</a></div>
+                <a download="Project.xls" onclick="return ExcellentExport.excel(this, 'RptProject', 'Project');"
+                    id="pgRptProjectExport" data-corners="true" href="#" class="ui-btn ui-corner-all ui-shadow">Export
+                    to Excel</a></div>
         </div>
 
     </div>
 
     <div data-theme="a" id="pgAddProject" data-role="page">
-        <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgAddProjectPnl" data-role="panel">
+        <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgAddProjectPnl"
+            data-role="panel">
             <ul data-role="listview" id="pgAddProjectPnlLV">
                 <li><a data-transition="slide" href="#pgAddProject">New</a></li>
                 <li><a data-transition="slide" href="#pgRptProject">Report</a></li>
@@ -1284,65 +1782,83 @@
 
         <header id="pgAddProjectHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgAddProjectMenu" href="#pgAddProjectPnl" data-icon="bars" class="ui-btn-left">Menu</a>
+            <a data-role="button" id="pgAddProjectMenu" href="#pgAddProjectPnl" data-icon="bars"
+                class="ui-btn-left">Menu</a>
         </header>
         <div id="pgAddProjectcontent" data-role="content">
             <h3>Add Project</h3>
             <form action="#" method="post" id="pgAddProjectForm" name="pgAddProjectForm">
                 <div data-role="fieldcontain">
-                    <label for="pgAddProjectProjectName" id="lblpgAddProjectProjectName">Project Name<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter project name here." type="text" name="pgAddProjectProjectName" id="pgAddProjectProjectName" placeholder="Enter project name here." autocomplete="off" data-clear-btn="true"></input>
+                    <label for="pgAddProjectProjectName" id="lblpgAddProjectProjectName">Project
+                        Name<span style='color:red;'>*</span></label>
+                    <input required title="Enter project name here." type="text" name="pgAddProjectProjectName"
+                        id="pgAddProjectProjectName" placeholder="Enter project name here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
-                    <fieldset id="fspgAddProjectStatus" data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <fieldset id="fspgAddProjectStatus" data-role="controlgroup" data-type="horizontal"
+                        data-mini="true">
                         <legend>Status<span style='color:red;'>*</span></legend>
-                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusApproved" autocomplete="off" value="Approved"></input>
+                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusApproved" autocomplete="off"
+                            value="Approved"></input>
                         <label for="pgAddProjectStatusApproved" id="lblpgAddProjectStatusApproved">Approved</label>
-                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusPending" autocomplete="off" value="Pending"></input>
+                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusPending" autocomplete="off"
+                            value="Pending"></input>
                         <label for="pgAddProjectStatusPending" id="lblpgAddProjectStatusPending">Pending</label>
-                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusStarted" autocomplete="off" value="Started"></input>
+                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusStarted" autocomplete="off"
+                            value="Started"></input>
                         <label for="pgAddProjectStatusStarted" id="lblpgAddProjectStatusStarted">Started</label>
-                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusCancelled" autocomplete="off" value="Cancelled"></input>
+                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusCancelled"
+                            autocomplete="off" value="Cancelled"></input>
                         <label for="pgAddProjectStatusCancelled" id="lblpgAddProjectStatusCancelled">Cancelled</label>
-                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusOn hold" autocomplete="off" value="On hold"></input>
-                        <label for="pgAddProjectStatusOn hold" id="lblpgAddProjectStatusOn hold">On hold</label>
+                        <input type="radio" name="pgAddProjectStatus" id="pgAddProjectStatusOn hold" autocomplete="off"
+                            value="On hold"></input>
+                        <label for="pgAddProjectStatusOn hold" id="lblpgAddProjectStatusOn hold">On
+                            hold</label>
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain">
-                    <fieldset id="fspgAddProjectPriority" data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <fieldset id="fspgAddProjectPriority" data-role="controlgroup" data-type="horizontal"
+                        data-mini="true">
                         <legend>Priority<span style='color:red;'>*</span></legend>
-                        <input type="radio" name="pgAddProjectPriority" id="pgAddProjectPriorityLow" autocomplete="off" value="Low"></input>
+                        <input type="radio" name="pgAddProjectPriority" id="pgAddProjectPriorityLow" autocomplete="off"
+                            value="Low"></input>
                         <label for="pgAddProjectPriorityLow" id="lblpgAddProjectPriorityLow">Low</label>
-                        <input type="radio" name="pgAddProjectPriority" id="pgAddProjectPriorityMedium" autocomplete="off" value="Medium"></input>
+                        <input type="radio" name="pgAddProjectPriority" id="pgAddProjectPriorityMedium"
+                            autocomplete="off" value="Medium"></input>
                         <label for="pgAddProjectPriorityMedium" id="lblpgAddProjectPriorityMedium">Medium</label>
-                        <input type="radio" name="pgAddProjectPriority" id="pgAddProjectPriorityHigh" autocomplete="off" value="High"></input>
+                        <input type="radio" name="pgAddProjectPriority" id="pgAddProjectPriorityHigh" autocomplete="off"
+                            value="High"></input>
                         <label for="pgAddProjectPriorityHigh" id="lblpgAddProjectPriorityHigh">High</label>
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgAddProjectDueDate" id="lblpgAddProjectDueDate">Due Date<span
-							style='color:red;'>*</span></label>
-                    <input required data-options='{"mode":"flipbox","dateFormat":"%Y-%m-%d","overrideDateFormat":"%Y-%m-%d"}' title="Enter due date here." type="text" name="pgAddProjectDueDate" id="pgAddProjectDueDate" placeholder="Enter due date here." autocomplete="off"
-                        data-role="datebox"></input>
+                            style='color:red;'>*</span></label>
+                    <input required
+                        data-options='{"mode":"flipbox","dateFormat":"%Y-%m-%d","overrideDateFormat":"%Y-%m-%d"}'
+                        title="Enter due date here." type="text" name="pgAddProjectDueDate" id="pgAddProjectDueDate"
+                        placeholder="Enter due date here." autocomplete="off" data-role="datebox"></input>
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="pgAddProjectPercentComplete" id="lblpgAddProjectPercentComplete">Percent Complete<span
-							style='color:red;'>*</span></label>
-                    <input required min="0" max="100" title="" type="range" name="pgAddProjectPercentComplete" id="pgAddProjectPercentComplete" autocomplete="off"></input>
+                    <label for="pgAddProjectPercentComplete" id="lblpgAddProjectPercentComplete">Percent
+                        Complete<span style='color:red;'>*</span></label>
+                    <input required min="0" max="100" title="" type="range" name="pgAddProjectPercentComplete"
+                        id="pgAddProjectPercentComplete" autocomplete="off"></input>
                 </div>
                 <div dir="ltr" data-role="fieldcontain">
                     <label for="pgAddProjectOwner" id="lblpgAddProjectOwner">Owner<span
-							style='color:red;'>*</span></label>
+                            style='color:red;'>*</span></label>
                     <select name="pgAddProjectOwner" id="pgAddProjectOwner" dir="ltr" class="required">
-						<option value="null" data-placeholder="true">Select Owner</option>
-						<option></option>
-					</select>
+                        <option value="null" data-placeholder="true">Select Owner</option>
+                        <option></option>
+                    </select>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgAddProjectNotes" id="lblpgAddProjectNotes">Notes<span
-							style='color:red;'>*</span></label>
-                    <textarea name="pgAddProjectNotes" id="pgAddProjectNotes" placeholder="Enter notes here." class="required"></textarea>
+                            style='color:red;'>*</span></label>
+                    <textarea name="pgAddProjectNotes" id="pgAddProjectNotes" placeholder="Enter notes here."
+                        class="required"></textarea>
                 </div>
             </form>
         </div>
@@ -1360,7 +1876,8 @@
     </div>
 
     <div data-theme="a" data-url="ProjectName" id="pgEditProject" data-role="page">
-        <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgEditProjectPnl" data-role="panel">
+        <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgEditProjectPnl"
+            data-role="panel">
             <ul data-role="listview" id="pgEditProjectPnlLV">
                 <li><a data-transition="slide" href="#pgAddProject">New</a></li>
                 <li><a data-transition="slide" href="#pgRptProject">Report</a></li>
@@ -1370,65 +1887,83 @@
 
         <header id="pgEditProjectHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgEditProjectMenu" href="#pgEditProjectPnl" data-icon="bars" class="ui-btn-left">Menu</a>
+            <a data-role="button" id="pgEditProjectMenu" href="#pgEditProjectPnl" data-icon="bars"
+                class="ui-btn-left">Menu</a>
         </header>
         <div id="pgEditProjectcontent" data-role="content">
             <h3>Edit Project</h3>
             <form action="#" method="post" id="pgEditProjectForm" name="pgEditProjectForm">
                 <div data-role="fieldcontain">
-                    <label for="pgEditProjectProjectName" id="lblpgEditProjectProjectName">Project Name<span
-							style='color:red;'>*</span></label>
-                    <input required readonly="readonly" data-clear-btn="true" autofocus="true" title="Enter project name here." type="text" name="pgEditProjectProjectName" id="pgEditProjectProjectName" placeholder="Enter project name here." autocomplete="off"></input>
+                    <label for="pgEditProjectProjectName" id="lblpgEditProjectProjectName">Project
+                        Name<span style='color:red;'>*</span></label>
+                    <input required readonly="readonly" data-clear-btn="true" autofocus="true"
+                        title="Enter project name here." type="text" name="pgEditProjectProjectName"
+                        id="pgEditProjectProjectName" placeholder="Enter project name here." autocomplete="off"></input>
                 </div>
                 <div data-role="fieldcontain">
-                    <fieldset id="fspgEditProjectStatus" data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <fieldset id="fspgEditProjectStatus" data-role="controlgroup" data-type="horizontal"
+                        data-mini="true">
                         <legend>Status<span style='color:red;'>*</span></legend>
-                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusApproved" autocomplete="off" value="Approved"></input>
+                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusApproved"
+                            autocomplete="off" value="Approved"></input>
                         <label for="pgEditProjectStatusApproved" id="lblpgEditProjectStatusApproved">Approved</label>
-                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusPending" autocomplete="off" value="Pending"></input>
+                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusPending"
+                            autocomplete="off" value="Pending"></input>
                         <label for="pgEditProjectStatusPending" id="lblpgEditProjectStatusPending">Pending</label>
-                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusStarted" autocomplete="off" value="Started"></input>
+                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusStarted"
+                            autocomplete="off" value="Started"></input>
                         <label for="pgEditProjectStatusStarted" id="lblpgEditProjectStatusStarted">Started</label>
-                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusCancelled" autocomplete="off" value="Cancelled"></input>
+                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusCancelled"
+                            autocomplete="off" value="Cancelled"></input>
                         <label for="pgEditProjectStatusCancelled" id="lblpgEditProjectStatusCancelled">Cancelled</label>
-                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusOn hold" autocomplete="off" value="On hold"></input>
-                        <label for="pgEditProjectStatusOn hold" id="lblpgEditProjectStatusOn hold">On hold</label>
+                        <input type="radio" name="pgEditProjectStatus" id="pgEditProjectStatusOn hold"
+                            autocomplete="off" value="On hold"></input>
+                        <label for="pgEditProjectStatusOn hold" id="lblpgEditProjectStatusOn hold">On
+                            hold</label>
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain">
-                    <fieldset id="fspgEditProjectPriority" data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <fieldset id="fspgEditProjectPriority" data-role="controlgroup" data-type="horizontal"
+                        data-mini="true">
                         <legend>Priority<span style='color:red;'>*</span></legend>
-                        <input type="radio" name="pgEditProjectPriority" id="pgEditProjectPriorityLow" autocomplete="off" value="Low"></input>
+                        <input type="radio" name="pgEditProjectPriority" id="pgEditProjectPriorityLow"
+                            autocomplete="off" value="Low"></input>
                         <label for="pgEditProjectPriorityLow" id="lblpgEditProjectPriorityLow">Low</label>
-                        <input type="radio" name="pgEditProjectPriority" id="pgEditProjectPriorityMedium" autocomplete="off" value="Medium"></input>
+                        <input type="radio" name="pgEditProjectPriority" id="pgEditProjectPriorityMedium"
+                            autocomplete="off" value="Medium"></input>
                         <label for="pgEditProjectPriorityMedium" id="lblpgEditProjectPriorityMedium">Medium</label>
-                        <input type="radio" name="pgEditProjectPriority" id="pgEditProjectPriorityHigh" autocomplete="off" value="High"></input>
+                        <input type="radio" name="pgEditProjectPriority" id="pgEditProjectPriorityHigh"
+                            autocomplete="off" value="High"></input>
                         <label for="pgEditProjectPriorityHigh" id="lblpgEditProjectPriorityHigh">High</label>
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgEditProjectDueDate" id="lblpgEditProjectDueDate">Due Date<span
-							style='color:red;'>*</span></label>
-                    <input required data-options='{"mode":"flipbox","dateFormat":"%Y-%m-%d","overrideDateFormat":"%Y-%m-%d"}' title="Enter due date here." type="text" name="pgEditProjectDueDate" id="pgEditProjectDueDate" placeholder="Enter due date here." autocomplete="off"
-                        data-role="datebox"></input>
+                            style='color:red;'>*</span></label>
+                    <input required
+                        data-options='{"mode":"flipbox","dateFormat":"%Y-%m-%d","overrideDateFormat":"%Y-%m-%d"}'
+                        title="Enter due date here." type="text" name="pgEditProjectDueDate" id="pgEditProjectDueDate"
+                        placeholder="Enter due date here." autocomplete="off" data-role="datebox"></input>
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="pgEditProjectPercentComplete" id="lblpgEditProjectPercentComplete">Percent Complete<span
-							style='color:red;'>*</span></label>
-                    <input required min="0" max="100" title="" type="range" name="pgEditProjectPercentComplete" id="pgEditProjectPercentComplete" autocomplete="off"></input>
+                    <label for="pgEditProjectPercentComplete" id="lblpgEditProjectPercentComplete">Percent
+                        Complete<span style='color:red;'>*</span></label>
+                    <input required min="0" max="100" title="" type="range" name="pgEditProjectPercentComplete"
+                        id="pgEditProjectPercentComplete" autocomplete="off"></input>
                 </div>
                 <div dir="ltr" data-role="fieldcontain">
                     <label for="pgEditProjectOwner" id="lblpgEditProjectOwner">Owner<span
-							style='color:red;'>*</span></label>
+                            style='color:red;'>*</span></label>
                     <select name="pgEditProjectOwner" id="pgEditProjectOwner" dir="ltr" class="required">
-						<option value="null" data-placeholder="true">Select Owner</option>
-						<option></option>
-					</select>
+                        <option value="null" data-placeholder="true">Select Owner</option>
+                        <option></option>
+                    </select>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="pgEditProjectNotes" id="lblpgEditProjectNotes">Notes<span
-							style='color:red;'>*</span></label>
-                    <textarea name="pgEditProjectNotes" id="pgEditProjectNotes" placeholder="Enter notes here." class="required"></textarea>
+                            style='color:red;'>*</span></label>
+                    <textarea name="pgEditProjectNotes" id="pgEditProjectNotes" placeholder="Enter notes here."
+                        class="required"></textarea>
                 </div>
             </form>
         </div>
@@ -1450,7 +1985,8 @@
 
         <header id="pgPersonMindReportsToHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgPersonMindReportsToBackReportsTo" href="#pgPerson" data-icon="arrow-l" data-transition="slide" class="ui-btn-left">Back</a>
+            <a data-role="button" id="pgPersonMindReportsToBackReportsTo" href="#pgPerson" data-icon="arrow-l"
+                data-transition="slide" class="ui-btn-left">Back</a>
             <a data-role="button" id="PersonMindExportReportsTo" data-icon="camera" class="ui-btn-right">Export</a>
         </header>
         <div id="PersonMindReportsTo">
@@ -1463,7 +1999,8 @@
         <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgPersonPnl" data-role="panel">
             <ul data-role="listview" id="pgPersonPnlLV">
                 <li><a data-transition="slide" href="#pgAddPerson">New</a></li>
-                <li><a data-transition="slide" href="#pgPersonMindReportsTo">Relationships > Reports To</a></li>
+                <li><a data-transition="slide" href="#pgPersonMindReportsTo">Relationships > Reports
+                        To</a></li>
                 <li><a data-transition="slide" href="#pgRptPerson">Report</a></li>
                 <li><a data-transition="slide" href="#pgMenu">Back</a></li>
             </ul>
@@ -1471,12 +2008,14 @@
 
         <header id="pgPersonHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgPersonMenu" href="#pgPersonPnl" data-icon="bars" data-transition="slide" class="ui-btn-left">Menu</a>
+            <a data-role="button" id="pgPersonMenu" href="#pgPersonPnl" data-icon="bars" data-transition="slide"
+                class="ui-btn-left">Menu</a>
             <a data-role="button" id="pgPersonNew" data-icon="plus" data-theme="b" class="ui-btn-right">New</a>
         </header>
         <div id="pgPersoncontent" data-role="content">
             <h3>People</h3>
-            <ul data-role="listview" data-inset="true" id="pgPersonList" data-filter="true" data-filter-placeholder="Search People" data-filter-reveal="false">
+            <ul data-role="listview" data-inset="true" id="pgPersonList" data-filter="true"
+                data-filter-placeholder="Search People" data-filter-reveal="false">
                 <li data-role="list-divider">Your People</li>
                 <li id="noPerson">You have no people</li>
 
@@ -1493,7 +2032,9 @@
             <a data-role="button" id="pgRptPersonNew" data-icon="plus" data-theme="b" class="ui-btn-right">New</a>
         </header>
         <div id="pgRptPersoncontent" data-role="content">
-            <table id="RptPerson" data-column-btn-text="Columns To Display" data-column-btn-theme="b" data-role="table" data-mode="columntoggle" data-column-popup-theme="a" class="ui-responsive table-stroke table-stripe ui-shadow ui-body-d">
+            <table id="RptPerson" data-column-btn-text="Columns To Display" data-column-btn-theme="b" data-role="table"
+                data-mode="columntoggle" data-column-popup-theme="a"
+                class="ui-responsive table-stroke table-stripe ui-shadow ui-body-d">
                 <caption>People Report</caption>
                 <thead>
                     <tr class="ui-bar-b">
@@ -1509,23 +2050,27 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td colspan="3">Powered by JQM.Show - https://play.google.com/store/apps/details?id=com.b4a.JQMShow
+                        <td colspan="3">Powered by JQM.Show -
+                            https://play.google.com/store/apps/details?id=com.b4a.JQMShow
                         </td>
                     </tr>
                 </tfoot>
             </table>
             <div data-role="fieldcontain">
-                <a download="Person.xls" onclick="return ExcellentExport.excel(this, 'RptPerson', 'Person');" id="pgRptPersonExport" data-corners="true" href="#" class="ui-btn ui-corner-all ui-shadow">Export to
-					Excel</a></div>
+                <a download="Person.xls" onclick="return ExcellentExport.excel(this, 'RptPerson', 'Person');"
+                    id="pgRptPersonExport" data-corners="true" href="#" class="ui-btn ui-corner-all ui-shadow">Export to
+                    Excel</a></div>
         </div>
 
     </div>
 
     <div data-theme="a" id="pgAddPerson" data-role="page">
-        <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgAddPersonPnl" data-role="panel">
+        <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgAddPersonPnl"
+            data-role="panel">
             <ul data-role="listview" id="pgAddPersonPnlLV">
                 <li><a data-transition="slide" href="#pgAddPerson">New</a></li>
-                <li><a data-transition="slide" href="#pgPersonMindReportsTo">Relationships > Reports To</a></li>
+                <li><a data-transition="slide" href="#pgPersonMindReportsTo">Relationships > Reports
+                        To</a></li>
                 <li><a data-transition="slide" href="#pgRptPerson">Report</a></li>
                 <li><a data-transition="slide" href="#pgPerson">Back</a></li>
             </ul>
@@ -1533,28 +2078,33 @@
 
         <header id="pgAddPersonHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgAddPersonMenu" href="#pgAddPersonPnl" data-icon="bars" class="ui-btn-left">Menu</a>
+            <a data-role="button" id="pgAddPersonMenu" href="#pgAddPersonPnl" data-icon="bars"
+                class="ui-btn-left">Menu</a>
         </header>
         <div id="pgAddPersoncontent" data-role="content">
             <h3>Add Person</h3>
             <form action="#" method="post" id="pgAddPersonForm" name="pgAddPersonForm">
                 <div data-role="fieldcontain">
                     <label for="pgAddPersonFullName" id="lblpgAddPersonFullName">Full Name<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter full name here." type="text" name="pgAddPersonFullName" id="pgAddPersonFullName" placeholder="Enter full name here." autocomplete="off" data-clear-btn="true"></input>
+                            style='color:red;'>*</span></label>
+                    <input required title="Enter full name here." type="text" name="pgAddPersonFullName"
+                        id="pgAddPersonFullName" placeholder="Enter full name here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="pgAddPersonEmailAddress" id="lblpgAddPersonEmailAddress">Email Address<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter email address here." type="email" name="pgAddPersonEmailAddress" id="pgAddPersonEmailAddress" placeholder="Enter email address here." autocomplete="off" data-clear-btn="true"></input>
+                    <label for="pgAddPersonEmailAddress" id="lblpgAddPersonEmailAddress">Email
+                        Address<span style='color:red;'>*</span></label>
+                    <input required title="Enter email address here." type="email" name="pgAddPersonEmailAddress"
+                        id="pgAddPersonEmailAddress" placeholder="Enter email address here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div dir="ltr" data-role="fieldcontain">
                     <label for="pgAddPersonReportsTo" id="lblpgAddPersonReportsTo">Reports To<span
-							style='color:red;'>*</span></label>
+                            style='color:red;'>*</span></label>
                     <select name="pgAddPersonReportsTo" id="pgAddPersonReportsTo" dir="ltr" class="required">
-						<option value="null" data-placeholder="true">Select Reports To</option>
-						<option></option>
-					</select>
+                        <option value="null" data-placeholder="true">Select Reports To</option>
+                        <option></option>
+                    </select>
                 </div>
             </form>
         </div>
@@ -1572,10 +2122,12 @@
     </div>
 
     <div data-theme="a" data-url="FullName" id="pgEditPerson" data-role="page">
-        <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgEditPersonPnl" data-role="panel">
+        <div data-position="left" data-display="reveal" data-position-fixed="true" id="pgEditPersonPnl"
+            data-role="panel">
             <ul data-role="listview" id="pgEditPersonPnlLV">
                 <li><a data-transition="slide" href="#pgAddPerson">New</a></li>
-                <li><a data-transition="slide" href="#pgPersonMindReportsTo">Relationships > Reports To</a></li>
+                <li><a data-transition="slide" href="#pgPersonMindReportsTo">Relationships > Reports
+                        To</a></li>
                 <li><a data-transition="slide" href="#pgRptPerson">Report</a></li>
                 <li><a data-transition="slide" href="#pgPerson">Back</a></li>
             </ul>
@@ -1583,28 +2135,33 @@
 
         <header id="pgEditPersonHdr" data-role="header" data-position="fixed">
             <h1>MyProjects</h1>
-            <a data-role="button" id="pgEditPersonMenu" href="#pgEditPersonPnl" data-icon="bars" class="ui-btn-left">Menu</a>
+            <a data-role="button" id="pgEditPersonMenu" href="#pgEditPersonPnl" data-icon="bars"
+                class="ui-btn-left">Menu</a>
         </header>
         <div id="pgEditPersoncontent" data-role="content">
             <h3>Edit Person</h3>
             <form action="#" method="post" id="pgEditPersonForm" name="pgEditPersonForm">
                 <div data-role="fieldcontain">
                     <label for="pgEditPersonFullName" id="lblpgEditPersonFullName">Full Name<span
-							style='color:red;'>*</span></label>
-                    <input required readonly="readonly" data-clear-btn="true" autofocus="true" title="Enter full name here." type="text" name="pgEditPersonFullName" id="pgEditPersonFullName" placeholder="Enter full name here." autocomplete="off"></input>
+                            style='color:red;'>*</span></label>
+                    <input required readonly="readonly" data-clear-btn="true" autofocus="true"
+                        title="Enter full name here." type="text" name="pgEditPersonFullName" id="pgEditPersonFullName"
+                        placeholder="Enter full name here." autocomplete="off"></input>
                 </div>
                 <div data-role="fieldcontain">
-                    <label for="pgEditPersonEmailAddress" id="lblpgEditPersonEmailAddress">Email Address<span
-							style='color:red;'>*</span></label>
-                    <input required title="Enter email address here." type="email" name="pgEditPersonEmailAddress" id="pgEditPersonEmailAddress" placeholder="Enter email address here." autocomplete="off" data-clear-btn="true"></input>
+                    <label for="pgEditPersonEmailAddress" id="lblpgEditPersonEmailAddress">Email
+                        Address<span style='color:red;'>*</span></label>
+                    <input required title="Enter email address here." type="email" name="pgEditPersonEmailAddress"
+                        id="pgEditPersonEmailAddress" placeholder="Enter email address here." autocomplete="off"
+                        data-clear-btn="true"></input>
                 </div>
                 <div dir="ltr" data-role="fieldcontain">
                     <label for="pgEditPersonReportsTo" id="lblpgEditPersonReportsTo">Reports To<span
-							style='color:red;'>*</span></label>
+                            style='color:red;'>*</span></label>
                     <select name="pgEditPersonReportsTo" id="pgEditPersonReportsTo" dir="ltr" class="required">
-						<option value="null" data-placeholder="true">Select Reports To</option>
-						<option></option>
-					</select>
+                        <option value="null" data-placeholder="true">Select Reports To</option>
+                        <option></option>
+                    </select>
                 </div>
             </form>
         </div>

@@ -26,7 +26,21 @@
     color: rgba(0, 0, 0, 0.8);
 }
 
+.user-name-layout{
+    position: absolute;
+    width: 145px;
+    height: 22px;
+    left: 27px;
+    top: 12px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 20px;
+}
+
 .member-type-layout{
+    position: absolute;
     width: 79px;
     height: 14px;
     left: 58px;
@@ -37,6 +51,9 @@
     font-size: 12px;
     line-height: 16px;
     color: rgba(0, 0, 0, 0.9);
+}
+.default-profile-font-style{
+    font-family: Open Sans; font-size: 12px; line-height: 16px; color: rgba(0, 0, 0, 0.8);
 }
 /* iPhone X */
 
