@@ -39,7 +39,6 @@
 
 .member-type-layout{
     position: absolute;
-.member-type-layout {
     width: 79px;
     height: 14px;
     left: 58px;
@@ -51,8 +50,6 @@
     line-height: 16px;
     color: rgba(0, 0, 0, 0.9);
 }
-
-
 .default-profile-font-style{
     font-family: Open Sans; font-size: 12px; line-height: 16px; color: rgba(0, 0, 0, 0.8);
 }
