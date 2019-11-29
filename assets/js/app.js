@@ -1083,7 +1083,6 @@ $(function() {
             itemFavouriteRatingParentDiv.append(itemFavouriteRating);
             itemFavouriteRatingParentDiv.append(itemFavouriteImgRating);
 
-<<<<<<< HEAD
             var contextMenuParentDiv = $('<img>', {
                 'class': 'contextMenu iw-mTrigger',
                 'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
@@ -1109,8 +1108,6 @@ $(function() {
 
             $('.contextMenu').contextMenu(menu);
 
-=======
->>>>>>> b58ed942e5a5f74b006932a9cebf4c5f654859cf
             var itemFavouriteContextMenu = $('<div>', {
                 'style': 'text-align: end; margin-top: -20px;',
                 'class': 'context-menu',
