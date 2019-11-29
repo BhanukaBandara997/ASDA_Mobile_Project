@@ -100,6 +100,7 @@ $(function() {
         $('#homeShoppingBtn, #shopShoppingBtn, #searchShoppingBtn, #favShoppingBtn, #accShoppingBtn, #flashDealsShoppingBtn, #newProductsShoppingBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            app.GetCategories();
             $.mobile.changePage('#pgShopping');
         });
 
@@ -132,7 +133,7 @@ $(function() {
             //check password matching
             var passwordMatched = checkPasswordMatch($('#pgSignUpPassword').val().trim(), $('#pgSignUpConfirmPassword').val().trim());
             if (passwordMatched) {
-                //get form contents into an object
+                //get form  contents into an object
                 userRecObj = pgAddUserDetailsToObj();
                 //save object to JSON and return saved status
                 var userAddedSucce = app.addUser(userRecObj);
@@ -163,6 +164,11 @@ $(function() {
             userRecObj.ConfirmPassword = $('#pgSignUpConfirmPassword').val().trim();
             userRecObj.ConfirmPassword = sjcl.encrypt('MashJQMShow', userRecObj.ConfirmPassword);
             userRecObj.FourDigitCode = "0000";
+            userRecObj.AddressOne = null;
+            userRecObj.AddressTwo = null;
+            userRecObj.UserGender = null;
+            userRecObj.BirthDay = null;
+            userRecObj.MemberCenter = null;
             return userRecObj;
         }
 
@@ -247,11 +253,13 @@ $(function() {
             //find if status is successful or not
             var succ = $('#pgLoginIn').data('success');
             if (succ == 'true') {
+                // set user name adress to account
+                setUserName(userName);
                 pgSignInClear();
                 currentLoggedUser = Email.split('@')[0];
                 // show the page to display after sign in
                 toastr.success('Login Success.', 'ASDA_Project');
-                $.mobile.changePage('#pgMenu', { transition: pgtransition });
+                $.mobile.changePage('#pgHome', { transition: pgtransition });
             }
         };
 
@@ -326,6 +334,7 @@ $(function() {
             }
         });
 
+
         app.PasswordReset = function(fourDigitCode, newPassword, newConfirmPassword) {
             var Email = localStorage.getItem("currentLoggedInUser");
             $('#pgResetPassword').data('success', 'true');
@@ -379,22 +388,128 @@ $(function() {
             $('#pgResetConfirmPassword').val('');
         }
 
+        ///////////////////////////// Update Address //////////////////////////////////////////
+
+        app.UpdateAddress = function(newAddress) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            // $('#pgShippingAddress').data('success', 'true');
+            var userName = Email.trim();
+            userName = userName.split('@')[0];
+            userName += '.json';
+
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                try {
+                    var userRec = JSON.parse(req.responseText);
+
+                    if (userRec.AddressTwo == null && userRec.AddressOne == null) {
+                        userRec.AddressOne = newAddress;
+                    }
+                    if (userRec.AddressOne != null) {
+                        userRec.AddressTwo = newAddress;
+                    }
+                    if (userRec.AddressTwo != null && userRec.AddressOne != null) {
+                        toastr.error('You cannot add more Addresses');
+                    }
+
+                    var recordJSON = JSON.stringify(userRec);
+                    var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {
+                            var succ = $('#pgShippingAddress').data('success');
+                            if (succ == 'true') {
+                                pgResetPasswordClear();
+                                // show the page to display after forget password
+                                $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+                            }
+                        } catch (e) {
+                            //user file is not found
+                            $('#pgShippingAddress').data('success', 'false');
+                            toastr.error('Updating Password Error Occured!');
+                        }
+                    }
+                    if (Email != userRec.Email) {
+                        $('#pgShippingAddress').data('success', 'false');
+                        toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                    }
+                } catch (e) {
+                    //user file is not found
+                    $('#pgShippingAddress').data('success', 'false');
+                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                }
+            }
+        }
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-        $('#temp-shoping-cart').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            app.GetCategories();
-            //$.mobile.changePage('#pgLoginIn', {transition: pgtransition});
-        });
 
         $('#back-icon-sub-category').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgShop', { transition: pgtransition });
+            $.mobile.changePage('#pgShopping', { transition: pgtransition });
         });
+
+        $('#user-name, #profile-pic').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+        });
+
+        $('#user-name, #profile-pic').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+        });
+
+        $('#about-us-icon, #about-us-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAboutUs', { transition: pgtransition });
+        });
+
+        $('#back-icon-edit-profile, #back-icon-profile-text, #back-icon-about-us, #back-icon-about-us-text, #back-icon-contact-us, #back-icon-contact-us-text, #back-icon-shipping, #back-icon-shipping-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAccount', { transition: pgtransition });
+        });
+
+        $('#location-icon, #location-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+        });
+
+        $('#shipping-address-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.ShowPopUpDialogBox();
+        });
+
+        // $('#shipping-address-text').on('click', function(e) {
+        //     e.preventDefault();
+        //     e.stopImmediatePropagation();
+        //     $.mobile.changePage('#pgContactUs', { transition: pgtransition });
+        // });
+
+        app.ShowPopUpDialogBox = function() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            // When the user clicks anywhere outside of the modal, close it
+            $('#close-button').on('click', function(e) {
+                modal.style.display = "none";
+            });
+
+            $('#pgShippingAddress').on('click', function(e) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
+
+            $('#save-address-button').on('click', function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                app.UpdateAddress($('#address-input').val().trim());
+            });
+        }
 
         function PopulateCategories(categoryState, categoriesObj) {
             var icnt;
@@ -520,12 +635,16 @@ $(function() {
             $.mobile.changePage('#pgSubCategory', { transition: pgtransition });
         }
 
+        function setUserName(userName) {
+            var newUserName = userName.substr(0, userName.indexOf('.'));
+            $("#user-name").text(newUserName);
+        }
+
 
 
         ///////////////////////////// Flash Deals Carousel Item Appending /////////////////////////////////////////////////////
 
         $(document).delegate('.ui-page', 'pageshow', function() {
-
             $('.fadeOut').owlCarousel({
                 items: 1,
                 animateOut: 'fadeOut',
@@ -540,8 +659,6 @@ $(function() {
             });
 
             app.GetFlashDealsItems();
-
-            $('#favSelect-button').removeClass('ui-shadow');
 
         });
 
@@ -864,6 +981,7 @@ $(function() {
             }
         });
 
+
         app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue) {
 
             if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
@@ -877,29 +995,51 @@ $(function() {
                 try {
                     var favouriteItemsList = JSON.parse(req.responseText);
                     $('#pgFavouritesContent').empty();
-                    topAlignPercentage = 23;
+
                     $.each(favouriteItemsList.FavouriteItemList, function() {
-                        appendFavouriteItemsToList($('#pgFavouritesContent'), this, topAlignPercentage);
-                        topAlignPercentage += 18;
+                        appendFavouriteItemsToList($('#pgFavouritesContent'), this);
                     });
                 } catch (e) {}
             }
 
         };
 
-        function appendFavouriteItemsToList(parent, dataObj, topAlignPercentage) {
+        function appendFavouriteItemsToList(parent, dataObj) {
+
+            var contextMenuParentDiv = $('<div>', {
+                'id': 'context-menu-items',
+                'class': 'context-menu-container'
+            });
+
+            var contextMenuUl = $('<ul>', {});
+
+            var contextMenuLi1 = $('<li>', {});
+            contextMenuUl.text('Move to');
+
+            var contextMenuLi2 = $('<li>', {});
+            contextMenuUl.text('Delete');
+
+            var contextMenuLi3 = $('<li>', {});
+            contextMenuUl.text('Share via E-mail');
+
+            contextMenuUl.append(contextMenuLi1);
+            contextMenuUl.append(contextMenuLi2);
+            contextMenuUl.append(contextMenuLi3);
+
+            contextMenuParentDiv.append(contextMenuUl);
+
 
             var itemFavouriteListRow = $('<div>', {
                 'id': dataObj.Product_ID,
                 'border-bottom': '1px #C4C4C4 solid;',
                 'class': 'flashDealsRow',
-                'style': 'margin-bottom: 15px; margin-top: 15px;'
+                'style': 'margin-bottom: 30px; margin-top: 30px;'
+            }).on('click', function() {
+                console.log(dataObj.Product_ID)
             });
 
             var itemFavouriteImageParentDiv = $('<div>', {
                 'style': 'display: flex; margin-left: 5%;'
-            }).on('click', function() {
-                alert(dataObj.Product_ID + "ITEM CLICKED");
             });
 
             var itemFavouriteImg = $('<img>', {
@@ -915,8 +1055,6 @@ $(function() {
 
             var itemFavouriteName = $('<span>', {
                 'class': 'flash-deals-item-details'
-            }).on('click', function() {
-                alert(dataObj.Product_ID + "ITEM CLICKED");
             });
 
             itemFavouriteName.text(dataObj.Product_Name);
@@ -945,6 +1083,7 @@ $(function() {
             itemFavouriteRatingParentDiv.append(itemFavouriteRating);
             itemFavouriteRatingParentDiv.append(itemFavouriteImgRating);
 
+<<<<<<< HEAD
             var contextMenuParentDiv = $('<img>', {
                 'class': 'contextMenu iw-mTrigger',
                 'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
@@ -970,12 +1109,15 @@ $(function() {
 
             $('.contextMenu').contextMenu(menu);
 
+=======
+>>>>>>> b58ed942e5a5f74b006932a9cebf4c5f654859cf
             var itemFavouriteContextMenu = $('<div>', {
-                'style': 'text-align: end; margin-top: -10px;',
-                'class': 'context-menu'
+                'style': 'text-align: end; margin-top: -20px;',
+                'class': 'context-menu',
+                'data-container-id': 'context-menu-items'
             });
 
-            itemFavouriteContextMenu.append(contextMenuParentDiv);
+            var tableContextMenu = new ContextMenu("context-menu-items", menuItemClickListener);
 
             itemFavouriteDetailsParentDiv.append(itemFavouriteName);
             itemFavouriteDetailsParentDiv.append(itemFavouritePrice);
@@ -988,6 +1130,24 @@ $(function() {
             parent.append(itemFavouriteListRow);
         }
 
+        function menuItemClickListener(menu_item, parent) {
+            alert("Menu Item Clicked: " + menu_item.text() + "\nRecord ID: " + parent.attr("data-row-id"));
+        }
+
+        // <div class="flashDealsRow">
+        //         <div style="display: flex; margin-left: 5%;">
+        //             <img style="height: 100px; width: 100px;" src="./assets/img/Item_Images/M&amp;M-Peanut-Butter-Chocolate-Candy.jpg">
+        //         </div>
+        //         <div style="display: grid; padding: 15px;">
+        //             <span class="flash-deals-item-details">M&amp;M'S Peanut Butter Chocolate Candy, Singles Size</span>
+        //             <span class="flash-deals-price" style="margin-top: 15px;">$17.76</span>
+        //             <div style="display: flex; margin-top: 7px; margin-left: 2px;">
+        //                 <span class="favourites-rating">4.0</span>
+        //                 <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/starRating.png">
+        //             </div>
+        //             <div class="context-menu" data-container-id="context-menu-items" style="text-align: end; margin-top: -20px;"></div>
+        //         </div>
+        //     </div>
 
 
 
