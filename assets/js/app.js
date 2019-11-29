@@ -964,7 +964,7 @@ $(function() {
             }, {
                 name: 'Share via E-mail',
                 fun: function(data, event) {
-
+                    $.mobile.changePage("#myDialog");
                 }
             }];
 
