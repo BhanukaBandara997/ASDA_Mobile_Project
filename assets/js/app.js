@@ -953,18 +953,18 @@ $(function() {
 
             var menu = [{
                 name: 'Move to',
-                fun: function() {
-                    alert('i am Move To button')
+                fun: function(data, event) {
+                    alert('i am Move To button');
                 }
             }, {
                 name: 'Delete',
-                fun: function() {
-                    alert('i am delete button')
+                fun: function(data, event) {
+                    alert('i am delete button');
                 }
             }, {
                 name: 'Share via E-mail',
-                fun: function() {
-                    alert('i am Share button')
+                fun: function(data, event) {
+
                 }
             }];
 

@@ -127,15 +127,15 @@
                         className != undefined && elm.attr('class', className);
 
                         var imgIcon = elm.find('.iw-mIcon');
-                        if(imgIcon.length) imgIcon.remove();
-                        
+                        if (imgIcon.length) imgIcon.remove();
+
                         //update image or icon
                         if (img) {
                             elm.prepend('<img src="' + img + '" align="absmiddle" class="iw-mIcon" />');
                         } else if (icon) {
-                            elm.prepend('<span align="absmiddle" class="iw-mIcon '+icon+'" />');
+                            elm.prepend('<span align="absmiddle" class="iw-mIcon ' + icon + '" />');
                         }
-                        
+
                         //to change submenus
                         if (subMenu) {
                             elm.contextMenu('update', subMenu);
@@ -168,8 +168,8 @@
         },
         refresh: function() {
             var menuData = this.filter(function() {
-                return !!$(this).data('iw-menuData');
-            }).data('iw-menuData'),
+                    return !!$(this).data('iw-menuData');
+                }).data('iw-menuData'),
                 newElm = this.filter(function() {
                     return !$(this).data('iw-menuData');
                 });
@@ -607,10 +607,10 @@
                         selected.click();
                         break;
                     case 40:
-                        (index == optList.length - 1 || selected.length == 0) ? first() : next();
+                        (index == optList.length - 1 || selected.length == 0) ? first(): next();
                         break;
                     case 38:
-                        (index == 0 || selected.length == 0) ? last() : prev();
+                        (index == 0 || selected.length == 0) ? last(): prev();
                         break;
                     case 33:
                         first();
@@ -690,7 +690,7 @@
                     if (img) {
                         list.prepend('<img src="' + img + '" align="absmiddle" class="iw-mIcon" />');
                     } else if (icon) {
-                        list.prepend('<span align="absmiddle" class="' + "iw-mIcon "+icon+'" />');
+                        list.prepend('<span align="absmiddle" class="' + "iw-mIcon " + icon + '" />');
                     }
                     //to add disable
                     if (disable) {
