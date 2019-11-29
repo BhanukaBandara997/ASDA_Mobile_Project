@@ -541,6 +541,8 @@ $(function() {
 
             app.GetFlashDealsItems();
 
+            $('#favSelect-button').removeClass('ui-shadow');
+
         });
 
         app.GetFlashDealsItems = function() {
@@ -862,7 +864,6 @@ $(function() {
             }
         });
 
-
         app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue) {
 
             if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
@@ -876,51 +877,29 @@ $(function() {
                 try {
                     var favouriteItemsList = JSON.parse(req.responseText);
                     $('#pgFavouritesContent').empty();
-
+                    topAlignPercentage = 23;
                     $.each(favouriteItemsList.FavouriteItemList, function() {
-                        appendFavouriteItemsToList($('#pgFavouritesContent'), this);
+                        appendFavouriteItemsToList($('#pgFavouritesContent'), this, topAlignPercentage);
+                        topAlignPercentage += 18;
                     });
                 } catch (e) {}
             }
 
         };
 
-        function appendFavouriteItemsToList(parent, dataObj) {
-
-            var contextMenuParentDiv = $('<div>', {
-                'id': 'context-menu-items',
-                'class': 'context-menu-container'
-            });
-
-            var contextMenuUl = $('<ul>', {});
-
-            var contextMenuLi1 = $('<li>', {});
-            contextMenuUl.text('Move to');
-
-            var contextMenuLi2 = $('<li>', {});
-            contextMenuUl.text('Delete');
-
-            var contextMenuLi3 = $('<li>', {});
-            contextMenuUl.text('Share via E-mail');
-
-            contextMenuUl.append(contextMenuLi1);
-            contextMenuUl.append(contextMenuLi2);
-            contextMenuUl.append(contextMenuLi3);
-
-            contextMenuParentDiv.append(contextMenuUl);
-
+        function appendFavouriteItemsToList(parent, dataObj, topAlignPercentage) {
 
             var itemFavouriteListRow = $('<div>', {
                 'id': dataObj.Product_ID,
                 'border-bottom': '1px #C4C4C4 solid;',
                 'class': 'flashDealsRow',
-                'style': 'margin-bottom: 30px; margin-top: 30px;'
-            }).on('click', function() {
-                console.log(dataObj.Product_ID)
+                'style': 'margin-bottom: 15px; margin-top: 15px;'
             });
 
             var itemFavouriteImageParentDiv = $('<div>', {
                 'style': 'display: flex; margin-left: 5%;'
+            }).on('click', function() {
+                alert(dataObj.Product_ID + "ITEM CLICKED");
             });
 
             var itemFavouriteImg = $('<img>', {
@@ -936,6 +915,8 @@ $(function() {
 
             var itemFavouriteName = $('<span>', {
                 'class': 'flash-deals-item-details'
+            }).on('click', function() {
+                alert(dataObj.Product_ID + "ITEM CLICKED");
             });
 
             itemFavouriteName.text(dataObj.Product_Name);
@@ -964,13 +945,37 @@ $(function() {
             itemFavouriteRatingParentDiv.append(itemFavouriteRating);
             itemFavouriteRatingParentDiv.append(itemFavouriteImgRating);
 
-            var itemFavouriteContextMenu = $('<div>', {
-                'style': 'text-align: end; margin-top: -20px;',
-                'class': 'context-menu',
-                'data-container-id': 'context-menu-items'
+            var contextMenuParentDiv = $('<img>', {
+                'class': 'contextMenu iw-mTrigger',
+                'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
+                'src': ' ./assets/img/menu.png'
             });
 
-            var tableContextMenu = new ContextMenu("context-menu-items", menuItemClickListener);
+            var menu = [{
+                name: 'Move to',
+                fun: function() {
+                    alert('i am Move To button')
+                }
+            }, {
+                name: 'Delete',
+                fun: function() {
+                    alert('i am delete button')
+                }
+            }, {
+                name: 'Share via E-mail',
+                fun: function() {
+                    alert('i am Share button')
+                }
+            }];
+
+            $('.contextMenu').contextMenu(menu);
+
+            var itemFavouriteContextMenu = $('<div>', {
+                'style': 'text-align: end; margin-top: -10px;',
+                'class': 'context-menu'
+            });
+
+            itemFavouriteContextMenu.append(contextMenuParentDiv);
 
             itemFavouriteDetailsParentDiv.append(itemFavouriteName);
             itemFavouriteDetailsParentDiv.append(itemFavouritePrice);
@@ -983,24 +988,6 @@ $(function() {
             parent.append(itemFavouriteListRow);
         }
 
-        function menuItemClickListener(menu_item, parent) {
-            alert("Menu Item Clicked: " + menu_item.text() + "\nRecord ID: " + parent.attr("data-row-id"));
-        }
-
-        // <div class="flashDealsRow">
-        //         <div style="display: flex; margin-left: 5%;">
-        //             <img style="height: 100px; width: 100px;" src="./assets/img/Item_Images/M&amp;M-Peanut-Butter-Chocolate-Candy.jpg">
-        //         </div>
-        //         <div style="display: grid; padding: 15px;">
-        //             <span class="flash-deals-item-details">M&amp;M'S Peanut Butter Chocolate Candy, Singles Size</span>
-        //             <span class="flash-deals-price" style="margin-top: 15px;">$17.76</span>
-        //             <div style="display: flex; margin-top: 7px; margin-left: 2px;">
-        //                 <span class="favourites-rating">4.0</span>
-        //                 <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/starRating.png">
-        //             </div>
-        //             <div class="context-menu" data-container-id="context-menu-items" style="text-align: end; margin-top: -20px;"></div>
-        //         </div>
-        //     </div>
 
 
 
