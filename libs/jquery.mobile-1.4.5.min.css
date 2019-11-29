@@ -3276,7 +3276,7 @@ li.ui-block-e {
 
 .ui-header-fixed.ui-fixed-hidden {
     top: 0;
-    padding-top: 0
+    padding-top: 4px;
 }
 
 .ui-header-fixed .ui-btn-left,
@@ -3296,7 +3296,7 @@ li.ui-block-e {
 
 .ui-footer-fixed.ui-fixed-hidden {
     bottom: 0;
-    padding-bottom: 0
+    padding-bottom: 3px
 }
 
 .ui-header-fullscreen,

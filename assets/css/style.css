@@ -70,6 +70,16 @@ caption {
     font-family: 'Open Sans', sans-serif;
 }
 
+span.select2 {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 14px !important;
+}
+
+#favSelect.select2 option {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 10px !important;
+}
+
 .asda-bar {
     position: absolute;
     width: 375px;
@@ -127,11 +137,13 @@ caption {
     box-shadow: 0px 4px 4px rgba(125, 101, 101, 0.34);
 }
 
+
+
 input[type="checkbox"].ios8-switch {
     position: absolute;
     margin: 8px 0 0 16px;
     top: 294px;
-    left: 310px;    
+    left: 310px;
 }
 input[type="checkbox"].ios8-switch + label {
     position: relative;
@@ -201,7 +213,7 @@ input[type="checkbox"].ios8-switch:checked + label:before {
     margin-top: 38%;
     height: 27%;
   }
-  
+
   /* The Close Button */
   .close {
     color: #aaaaaa;
@@ -209,7 +221,7 @@ input[type="checkbox"].ios8-switch:checked + label:before {
     font-size: 28px;
     font-weight: bold;
   }
-  
+
   .close:hover,
   .close:focus {
     color: #000;
@@ -219,16 +231,16 @@ input[type="checkbox"].ios8-switch:checked + label:before {
 
 
 .add-new-shipping-address-style{
-    position: absolute; 
-    width: 121px; 
-    height: 18px; 
-    left: 13px; 
-    top: 11px; 
-    font-family: Open Sans; 
-    font-style: normal; 
-    font-weight: normal; 
-    font-size: 12px; 
-    line-height: 16px; 
+    position: absolute;
+    width: 121px;
+    height: 18px;
+    left: 13px;
+    top: 11px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
     color: #467E9E;
 }
 
@@ -260,7 +272,7 @@ input[type="checkbox"].ios8-switch:checked + label:before {
         justify-content: center;
     }
     div.flash-deals-navbar {
-        height: 120px;
+        height: 80px;
         background-image: linear-gradient(#F46B45, #EEA849) !important;
         border-radius: 0px 0px 30px 30px;
         width: 367px;
@@ -299,7 +311,7 @@ input[type="checkbox"].ios8-switch:checked + label:before {
         justify-content: center;
     }
     div.flash-deals-navbar {
-        height: 120px;
+        height: 80px;
         background-image: linear-gradient(#F46B45, #EEA849) !important;
         border-radius: 0px 0px 30px 30px;
         width: 367px;
@@ -351,7 +363,7 @@ input[type="checkbox"].ios8-switch:checked + label:before {
         justify-content: center;
     }
     div.flash-deals-navbar {
-        height: 120px;
+        height: 80px;
         background-image: linear-gradient(#F46B45, #EEA849) !important;
         border-radius: 0px 0px 30px 30px;
         width: 367px;
@@ -404,7 +416,7 @@ input[type="checkbox"].ios8-switch:checked + label:before {
         justify-content: center;
     }
     div.flash-deals-navbar {
-        height: 120px;
+        height: 80px;
         background-image: linear-gradient(#F46B45, #EEA849) !important;
         border-radius: 0px 0px 30px 30px;
         width: 367px;
@@ -509,4 +521,31 @@ input[type="checkbox"].ios8-switch:checked + label:before {
 
 #home-carousel-div>div.owl-dots {
     display: none;
+}
+
+.flashDealsRow {
+    display: flex;
+    clear: both;
+}
+
+.flashDealsColomn {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 200px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25), inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+    margin: 7px;
+    text-align: center;
+}
+
+.productTypesColomn {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 185px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25), inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+    margin: 7px;
+    text-align: center;
 }

@@ -1,4 +1,4 @@
-.card-text-font-style{
+.card-text-font-style {
     text-align: center;
     height: 14px;
     font-family: Open Sans;
@@ -10,19 +10,17 @@
     border-radius: 10px;
 }
 
-.sub-category-style{
+.sub-category-style {
     position: absolute;
     width: 180px;
     height: 20px;
     left: 50px;
     top: 10px;
-
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
     line-height: 20px;
-
     color: rgba(0, 0, 0, 0.8);
 }
 
@@ -41,6 +39,7 @@
 
 .member-type-layout{
     position: absolute;
+.member-type-layout {
     width: 79px;
     height: 14px;
     left: 58px;
@@ -52,6 +51,8 @@
     line-height: 16px;
     color: rgba(0, 0, 0, 0.9);
 }
+
+
 .default-profile-font-style{
     font-family: Open Sans; font-size: 12px; line-height: 16px; color: rgba(0, 0, 0, 0.8);
 }
@@ -100,13 +101,12 @@
     text-transform: none !important;
 }
 
-.asda-logo-style{
+.asda-logo-style {
     position: absolute;
     width: 116px;
     height: 25px;
     left: 158px;
     top: -1px;
-
     font-family: Open Sans;
     font-style: normal;
     font-weight: bold;
@@ -114,8 +114,51 @@
     line-height: 30px;
     background-image: linear-gradient(#F46B45, #EEA849) !important;
     -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
 }
+
+.flash-deals-item-details {
+    font-family: Open Sans;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.9);
+    margin-bottom: 5px;
+    text-align: left !important;
+}
+
+.flash-deals-price {
+    text-align: left !important;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 14px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.9);
+    margin-bottom: 5px;
+}
+
+.flash-deals-discount-price {
+    font-family: Open Sans;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 11px;
+    color: #939191;
+    margin-top: 4px;
+    text-align: left !important;
+}
+
+.favourites-rating {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 10px;
+    color: rgba(0, 0, 0, 0.5);
+    margin-top: 4px;
+}
+
 
 /* iPad Pro */
 
@@ -190,6 +233,7 @@
     }
 }
 
+
 /* iPhone X Landscape */
 
 @media screen and (min-height: 375px) and (min-width: 812px) and (orientation: landscape) {
@@ -218,6 +262,7 @@
         font-size: 23px;
     }
 }
+
 
 /* iPad Pro Portrait */
 
@@ -249,6 +294,7 @@
         font-size: 23px;
     }
 }
+
 
 /* iPad Pro Landscape */
 
