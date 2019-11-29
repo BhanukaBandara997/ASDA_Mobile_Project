@@ -247,6 +247,8 @@ $(function() {
             //find if status is successful or not
             var succ = $('#pgLoginIn').data('success');
             if (succ == 'true') {
+                // set user name adress to account
+                setUserName(userName);
                 pgSignInClear();
                 currentLoggedUser = Email.split('@')[0];
                 // show the page to display after sign in
@@ -383,18 +385,122 @@ $(function() {
 
 
 
-        $('#temp-shoping-cart').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            app.GetCategories();
-            //$.mobile.changePage('#pgLoginIn', {transition: pgtransition});
-        });
+        ///////////////////////////// Update Address //////////////////////////////////////////
+
+        app.UpdateAddress = function(newAddress) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            // $('#pgShippingAddress').data('success', 'true');
+            var userName = Email.trim();
+            userName = userName.split('@')[0];
+            userName += '.json';
+
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                try {
+                    var userRec = JSON.parse(req.responseText);
+
+                    if (userRec.AddressTwo == null && userRec.AddressOne == null) {
+                        userRec.AddressOne = newAddress;
+                    }
+                    if (userRec.AddressOne != null) {
+                        userRec.AddressTwo = newAddress;
+                    }
+                    if (userRec.AddressTwo != null && userRec.AddressOne != null) {
+                        toastr.error('You cannot add more Addresses');
+                    }
+
+                    var recordJSON = JSON.stringify(userRec);
+                    var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {
+                            var succ = $('#pgShippingAddress').data('success');
+                            if (succ == 'true') {
+                                pgResetPasswordClear();
+                                // show the page to display after forget password
+                                $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+                            }
+                        } catch (e) {
+                            //user file is not found
+                            $('#pgShippingAddress').data('success', 'false');
+                            toastr.error('Updating Password Error Occured!');
+                        }
+                    }
+                    if (Email != userRec.Email) {
+                        $('#pgShippingAddress').data('success', 'false');
+                        toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                    }
+                } catch (e) {
+                    //user file is not found
+                    $('#pgShippingAddress').data('success', 'false');
+                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                }
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         $('#back-icon-sub-category').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgShop', { transition: pgtransition });
+            $.mobile.changePage('#pgShopping', { transition: pgtransition });
         });
+
+        $('#user-name, #profile-pic').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+        });
+
+        $('#user-name, #profile-pic').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+        });
+
+        $('#about-us-icon, #about-us-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAboutUs', { transition: pgtransition });
+        });
+
+        $('#back-icon-edit-profile, #back-icon-profile-text, #back-icon-about-us, #back-icon-about-us-text, #back-icon-contact-us, #back-icon-contact-us-text, #back-icon-shipping, #back-icon-shipping-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAccount', { transition: pgtransition });
+        });
+
+        $('#location-icon, #location-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+        });
+
+        $('#shipping-address-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.ShowPopUpDialogBox();
+        });
+
+        app.ShowPopUpDialogBox = function() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            // When the user clicks anywhere outside of the modal, close it
+            $('#close-button').on('click', function(e) {
+                modal.style.display = "none";
+            });
+
+            $('#pgShippingAddress').on('click', function(e) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
+
+            $('#save-address-button').on('click', function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                app.UpdateAddress($('#address-input').val().trim());
+            });
+        }
 
         function PopulateCategories(categoryState, categoriesObj) {
             var icnt;
@@ -460,7 +566,7 @@ $(function() {
             parentDiv.append(previousCategoryObj);
             parentDiv.append(newCategoryObj);
             if (categoryState == "parent") {
-                $('#shop-background').append(parentDiv);
+                $('#pgShopContent').append(parentDiv);
             } else {
                 $('#sub-category-background').append(parentDiv);
             }
@@ -520,6 +626,10 @@ $(function() {
             $.mobile.changePage('#pgSubCategory', { transition: pgtransition });
         }
 
+        function setUserName(userName) {
+            var newUserName = userName.substr(0, userName.indexOf('.'));
+            $("#user-name").text(newUserName);
+        }
 
 
         ///////////////////////////// Flash Deals Carousel Item Appending /////////////////////////////////////////////////////
@@ -987,6 +1097,5 @@ $(function() {
 
             parent.append(itemFavouriteListRow);
         }
-        app.init();
     })(ASDA_Project);
 });
