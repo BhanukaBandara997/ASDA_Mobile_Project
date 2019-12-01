@@ -3,7 +3,11 @@ $(function() {
     var ASDA_Project = {};
     var pgtransition = 'slide';
     var currentLoggedUser = null;
-    var favouritesSelectorValue = null;
+    var favouritesSelectorValue = "ALL_PRODUCTS";
+    var deleteFavouriteItemsList = [];
+    var shareFavouriteItemsList = [];
+    var moveFavouriteItemsList = [];
+    var selectedItemId = null;
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -653,6 +657,14 @@ $(function() {
 
             $('#favSelect-button').removeClass('ui-shadow');
 
+            if ($('#fav-footer').hasClass('slideup')) {
+                $('#fav-footer').removeClass("slideup");
+            }
+
+            if ($('#fav-header').hasClass('slidedown')) {
+                $('#fav-header').removeClass("slidedown");
+            }
+
         });
 
         app.GetFlashDealsItems = function() {
@@ -665,7 +677,9 @@ $(function() {
                     $.each(flashDealItemsList.FlashDealsList, function() {
                         appendFlashDealItems($('#owl-item-parent-div'), this);
                     });
-                } catch (e) {}
+                } catch (e) {
+                    toastr.success('An Error Occurred While Retrieving Flash Deals Item List');
+                }
             }
 
         };
@@ -758,7 +772,7 @@ $(function() {
 
                     });
                 } catch (e) {
-
+                    toastr.success('An Error Occurred While Retrieving Flash Deals Item List');
                 }
             }
 
@@ -884,7 +898,7 @@ $(function() {
                         });
                     }
                 } catch (e) {
-
+                    toastr.success('An Error Occurred While Retrieving Product Type Item List');
                 }
             }
 
@@ -974,6 +988,44 @@ $(function() {
             }
         });
 
+        ///////////////////////////////////// Edit Button View /////////////////////////////////////////
+
+        function editBtnFunctionalities() {
+            var X = 1;
+            var Y = 0;
+            var Z = 7;
+            $('.edit-check-box').css('display', 'none');
+            $('#edit-btn').attr('src', './assets/img/Navbar_Images/edit-black.png');
+            $('#favEditNavBar').css('display', 'none');
+            $('#favNavBar').css('display', 'block');
+            $('#fav-footer').css('border-width', X + 'px ' + Y + 'px');
+            $('#fav-footer').css('padding-top', Z + 'px');
+            deleteFavouriteItemsList = [];
+            moveFavouriteItemsList = [];
+            $('input:checkbox').removeAttr('checked');
+        }
+
+        function correctBtnFunctionalities() {
+            var X = 2;
+            var Y = 0;
+            $('.edit-check-box').css('display', 'block');
+            $('#edit-btn').attr('src', './assets/img/Navbar_Images/correct-signal.png');
+            $('#favNavBar').css('display', 'none');
+            $('#favEditNavBar').css('display', 'block');
+            $('#fav-footer').css('border-width', X + 'px ' + Y + 'px');
+            $('#fav-footer').css('padding-top', Y + 'px');
+        }
+
+        $('#edit-btn').on('click', function() {
+            if ($('#edit-btn').attr('src') == './assets/img/Navbar_Images/correct-signal.png') {
+                editBtnFunctionalities();
+            } else {
+                correctBtnFunctionalities();
+            }
+        });
+
+        //////////////////////// Get Favourite List According To User //////////////////////////////
+
         app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue) {
 
             if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
@@ -992,10 +1044,14 @@ $(function() {
                         appendFavouriteItemsToList($('#pgFavouritesContent'), this, topAlignPercentage);
                         topAlignPercentage += 18;
                     });
-                } catch (e) {}
+                } catch (e) {
+                    toastr.success('An Error Occurred While Retrieving Favourite Item List');
+                }
             }
 
         };
+
+        //////////////////////// Append Favourite List Items To List //////////////////////////////
 
         function appendFavouriteItemsToList(parent, dataObj, topAlignPercentage) {
 
@@ -1031,6 +1087,41 @@ $(function() {
 
             itemFavouriteName.text(dataObj.Product_Name);
 
+            var itemFavouriteEditCheckBox = $('<input>', {
+                'type': 'checkbox',
+                'class': 'edit-check-box',
+                'id': 'edit-check-box-' + dataObj.Product_ID,
+                'style': ' height: 30px; width: 20px; display: none; margin-left: 90%; margin-bottom: -15%;'
+            }).on('change', function(e) {
+                if ($(this).is(':checked')) {
+                    var selectedId = this.id.split('-')[3];
+                    deleteFavouriteItemsList.push(selectedId);
+                    moveFavouriteItemsList.push(selectedId);
+                } else {
+                    var selectedId = this.id.split('-')[3];
+                    deleteFavouriteItemsList = jQuery.grep(deleteFavouriteItemsList, function(value) {
+                        return value != selectedId;
+                    });
+
+                    moveFavouriteItemsList = jQuery.grep(moveFavouriteItemsList, function(value) {
+                        return value != selectedId;
+                    });
+                }
+            });
+
+            var myVar = setInterval(myTimer, 5);
+
+            function myTimer() {
+                if ($('#fav-header').hasClass('ui-fixed-hidden')) {
+                    $('#fav-header').removeClass("ui-fixed-hidden");
+                    $('#fav-header').removeClass("slidedown");
+                }
+                if ($('#fav-footer').hasClass('ui-fixed-hidden')) {
+                    $('#fav-footer').removeClass("ui-fixed-hidden");
+                    $('#fav-footer').removeClass("slideup");
+                }
+            }
+
             var itemFavouritePrice = $('<span>', {
                 'class': 'flash-deals-price'
             });
@@ -1058,7 +1149,10 @@ $(function() {
             var contextMenuParentDiv = $('<img>', {
                 'class': 'contextMenu iw-mTrigger',
                 'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
-                'src': ' ./assets/img/menu.png'
+                'src': ' ./assets/img/menu.png',
+                'id': 'context-menu-' + dataObj.Product_ID
+            }).on('click', function() {
+                selectedItemId = this.id.split('-')[2];
             });
 
             var menu = [{
@@ -1069,25 +1163,28 @@ $(function() {
             }, {
                 name: 'Delete',
                 fun: function(data, event) {
-                    alert('i am delete button');
+                    deleteFavouriteItemsList.push(selectedItemId);
+                    deleteFavouriteItems(deleteFavouriteItemsList);
                 }
             }, {
                 name: 'Share via E-mail',
                 fun: function(data, event) {
-
+                    $("#popup_login").popup();
+                    $('#popup_login').popup("open");
                 }
             }];
 
             $('.contextMenu').contextMenu(menu);
 
             var itemFavouriteContextMenu = $('<div>', {
-                'style': 'text-align: end; margin-top: -10px;',
+                'style': 'text-align: end; margin-top: 10px; margin-right: 5px;',
                 'class': 'context-menu'
             });
 
             itemFavouriteContextMenu.append(contextMenuParentDiv);
 
             itemFavouriteDetailsParentDiv.append(itemFavouriteName);
+            itemFavouriteDetailsParentDiv.append(itemFavouriteEditCheckBox);
             itemFavouriteDetailsParentDiv.append(itemFavouritePrice);
             itemFavouriteDetailsParentDiv.append(itemFavouriteRatingParentDiv);
             itemFavouriteDetailsParentDiv.append(itemFavouriteContextMenu);
@@ -1097,5 +1194,87 @@ $(function() {
 
             parent.append(itemFavouriteListRow);
         }
+
+        ////////////////////////// Remove Favourite From List //////////////////////////////////////
+
+        function deleteFavouriteItems(deleteFavouriteItemsList) {
+            deleteFavouriteItemsList.forEach(element => {
+                $('#pgFavouritesContent').find("div#" + element).remove();
+
+                if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
+                    favouritesSelectorValue = "defaultFavouriteList"
+                }
+                currentLoggedUser = "User_001";
+                var fileName = currentLoggedUser + "-" + favouritesSelectorValue;
+                fileName += '.json';
+                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                if (req.status == 200) {
+                    try {
+                        var favouriteItemsList = JSON.parse(req.responseText);
+                        $.each(favouriteItemsList.FavouriteItemList, function(index, val) {
+                            if (this.Product_ID === element) {
+                                delete favouriteItemsList.FavouriteItemList[index];
+                            }
+                        });
+                        var updatedFileName = currentLoggedUser + "-" + favouritesSelectorValue;
+                        updateFavouriteList(favouriteItemsList, updatedFileName);
+
+                    } catch (e) {
+                        toastr.success('An Error Occurred While Retrieving Favourite Item List');
+                    }
+                }
+                deleteFavouriteItemsList = [];
+            });
+        }
+
+        ////////////////////////// Delete Multiple Items Once /////////////////////////////////////////////////////
+
+        $('#favDeleteItemsBtn').on('click', function() {
+            /////////// Delete Popup need to add --- TODO //////////////////////////////////////
+
+            deleteFavouriteItems(deleteFavouriteItemsList);
+            editBtnFunctionalities();
+
+        });
+
+        /////////////////////////// Move Item To New Favourite Lists ////////////////////////////////////////////////
+
+        $('#favMoveToBtn').on('click', function() {
+            /////////// Move Popup need to add --- TODO //////////////////////////////////////
+
+
+
+        });
+
+        ////////////////////////// Upadate Favourite Items List //////////////////////////////////////////////////////
+
+        function updateFavouriteList(updatedFavouriteList, fileName) {
+            updatedFavouriteList.FavouriteItemList.FileName = fileName;
+            var recordJSON = JSON.stringify(updatedFavouriteList);
+            var req = Ajax("./controllers/ajaxSaveFavouriteList.php", "POST", recordJSON);
+            if (req.status == 200) {} else {
+                toastr.success('An Error Occurred While Deleting Item');
+            }
+        };
+
+
+        //////////// Share Favourite From List //////////////////////////////////////
+
+        function shareFavouriteItems(shareFavouriteItemsList) {
+            shareFavouriteItemsList.forEach(element => {
+                $('#pgFavouritesContent').find("div#" + element.Product_ID).remove();
+                deleteFavouriteItemsList = [];
+            });
+        }
+
+        //////////// Move Favourite From List //////////////////////////////////////
+
+        function moveFavouriteItems(moveFavouriteItemsList) {
+            moveFavouriteItemsList.forEach(element => {
+                $('#pgFavouritesContent').find("div#" + element.Product_ID).remove();
+                deleteFavouriteItemsList = [];
+            });
+        }
+
     })(ASDA_Project);
 });

@@ -516,7 +516,7 @@
 
     <!-- Favourites Page -->
     <div data-theme="a" id="pgFavourites" data-role="page" style="padding-top: 5px;">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF; height: 95px !important; box-shadow: none !important; border: none !important;" data-tap-toggle="false">
+        <div id="fav-header" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF; height: 95px !important; box-shadow: none !important; border: none !important;" data-tap-toggle="false">
             <div id="header-title" style="top: -8% !important;">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
@@ -537,10 +537,10 @@
                 </form>
             </div>
         </div>
-        <div id="pgFavouritesContent" data-role="main" style="margin-top: 5px;">
+        <div id="pgFavouritesContent" data-role="main" style="margin-top: 5px;" data-tap-toggle="false">
         </div>
-        <div data-role="footer" style="padding-top: 7px;" data-position="fixed" data-tap-toggle="false">
-            <div data-role="navbar" data-grid="d">
+        <div id="fav-footer" data-role="footer" style="padding-top: 7px;" data-position="fixed" data-tap-toggle="false">
+            <div id="favNavBar" data-role="navbar" data-grid="d" style="display: block">
                 <ul>
                     <li class="navbar-align">
                         <div id="favHomeBtn">
@@ -574,8 +574,37 @@
                     </li>
                 </ul>
             </div>
+            <div id="favEditNavBar" data-grid="d" style="display: none">
+                <ul style="margin-bottom: 1%;">
+                    <li class="navbar-align">
+                        <div id="favMoveToBtn" style="margin-left: -20%;">
+                            <button class="favourites-move-to-btn"> MOVE TO ANOTHER LIST </button>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favDeleteItemsBtn" style="margin-left: -15%;">
+                            <button class="favourites-delete-btn"> DELETE </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+
+    <!-- <div data-role="popup" id="popup_login" data-theme="a">
+        <form>
+            <div style="padding: 20px 20px;">
+                <h2>Sign in</h2>
+                <label for="name" class="ui-hidden-accessible">Username:</label>
+                <input type="text" name="user" id="name" value="" placeholder="enter the username" data-theme="a">
+
+                <label for="pwd" class="ui-hidden-accessible">Password:</label>
+                <input type="password" name="pass" id="pwd" value="" placeholder="enter the password" data-theme="a">
+                <button type="submit" class="ui-btn ui-btn-b ui-btn-icon-left 
+                 ui-icon-forward">Sign in</button>
+            </div>
+        </form>
+    </div> -->
 
     <!-- Account Page -->
 

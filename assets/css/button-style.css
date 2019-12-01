@@ -34,6 +34,34 @@
     width: 22px;
 }
 
+.favourites-move-to-btn {
+    font-family: Open Sans !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-size: 15px !important;
+    line-height: 15px !important;
+    text-align: center !important;
+    color: black !important;
+    background: rgba(123, 123, 123, 0.8) !important;
+    border-radius: 8px !important;
+    height: 45px !important;
+    width: 210px !important;
+}
+
+.favourites-delete-btn {
+    font-family: Open Sans !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-size: 16px !important;
+    line-height: 15px !important;
+    text-align: center !important;
+    color: white !important;
+    background: #FF0000 !important;
+    border-radius: 8px !important;
+    height: 45px !important;
+    width: 110px !important;
+}
+
 
 /* iPhone X Portrait */
 
@@ -131,11 +159,11 @@
         background: #FFFFFF;
         border-radius: 40px 40px 0px 0px;
     }
-    .pgCreateAccBtn{
+    .pgCreateAccBtn {
         width: 250px;
         height: 10px;
     }
-    div#sign-in-pg-buttons-layout{
+    div#sign-in-pg-buttons-layout {
         position: absolute;
         width: 359px;
         height: 260px;
@@ -145,12 +173,12 @@
         border-radius: 40px 40px 0px 0px;
     }
     /* Forget Password */
-    div#forget-password-pg-buttons-layout{
-    position: absolute;
-    width: 359px;
-    height: 203px;
-    left: 220px;
-    top: 178px;
+    div#forget-password-pg-buttons-layout {
+        position: absolute;
+        width: 359px;
+        height: 203px;
+        left: 220px;
+        top: 178px;
     }
 }
 
