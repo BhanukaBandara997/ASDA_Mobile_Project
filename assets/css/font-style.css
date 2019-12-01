@@ -24,7 +24,7 @@
     color: rgba(0, 0, 0, 0.8);
 }
 
-.user-name-layout{
+.user-name-layout {
     position: absolute;
     width: 145px;
     height: 22px;
@@ -37,7 +37,7 @@
     line-height: 20px;
 }
 
-.member-type-layout{
+.member-type-layout {
     position: absolute;
     width: 79px;
     height: 14px;
@@ -50,9 +50,15 @@
     line-height: 16px;
     color: rgba(0, 0, 0, 0.9);
 }
-.default-profile-font-style{
-    font-family: Open Sans; font-size: 12px; line-height: 16px; color: rgba(0, 0, 0, 0.8);
+
+.default-profile-font-style {
+    font-family: Open Sans;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
 }
+
+
 /* iPhone X */
 
 .iphone-bottom-navbar-font {
@@ -154,6 +160,39 @@
     line-height: 10px;
     color: rgba(0, 0, 0, 0.5);
     margin-top: 4px;
+}
+
+.popup-cancel-btn {
+    font-size: 14px !important;
+    color: #FF0000 !important;
+    font-family: Open Sans;
+    font-weight: normal;
+}
+
+.popup-delete-btn {
+    font-size: 14px !important;
+    color: #FF0000 !important;
+    font-family: Open Sans !important;
+    font-weight: normal !important;
+}
+
+.popup-submit-btn {
+    font-size: 14px !important;
+    color: #5187D9 !important;
+    font-family: Open Sans !important;
+    font-weight: normal !important;
+}
+
+.popup-content {
+    font-size: 15px !important;
+    font-family: Open Sans !important;
+    font-weight: normal;
+}
+
+.popup-header {
+    color: black !important;
+    font-size: 20px !important;
+    font-family: Open Sans !important;
 }
 
 

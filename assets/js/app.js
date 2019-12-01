@@ -656,6 +656,8 @@ $(function() {
             app.GetFlashDealsItems();
 
             $('#favSelect-button').removeClass('ui-shadow');
+            $('#cancelFavouriteBtn').removeClass('ui-shadow');
+            $('#deleteFavouriteBtn').removeClass('ui-shadow');
 
             if ($('#fav-footer').hasClass('slideup')) {
                 $('#fav-footer').removeClass("slideup");
@@ -1163,14 +1165,12 @@ $(function() {
             }, {
                 name: 'Delete',
                 fun: function(data, event) {
-                    deleteFavouriteItemsList.push(selectedItemId);
-                    deleteFavouriteItems(deleteFavouriteItemsList);
+                    $('#deletePopupDialog').popup('open');
                 }
             }, {
                 name: 'Share via E-mail',
                 fun: function(data, event) {
-                    $("#popup_login").popup();
-                    $('#popup_login').popup("open");
+                    $('#sharePopupDialog').popup('open');
                 }
             }];
 
@@ -1227,20 +1227,24 @@ $(function() {
             });
         }
 
-        ////////////////////////// Delete Multiple Items Once /////////////////////////////////////////////////////
+        ////////////////////////// Delete Popup Show Method /////////////////////////////////////////////////////
 
         $('#favDeleteItemsBtn').on('click', function() {
-            /////////// Delete Popup need to add --- TODO //////////////////////////////////////
+            $('#deletePopupDialog').popup('open');
+        });
 
+        ////////////////////////// Delete Multiple Items Once /////////////////////////////////////////////////////
+
+        $('#deleteFavouriteBtn').on('click', function() {
             deleteFavouriteItems(deleteFavouriteItemsList);
             editBtnFunctionalities();
-
         });
 
         /////////////////////////// Move Item To New Favourite Lists ////////////////////////////////////////////////
 
         $('#favMoveToBtn').on('click', function() {
-            /////////// Move Popup need to add --- TODO //////////////////////////////////////
+
+            ////////////////////////// Move Popup need to add --- TODO //////////////////////////////////////
 
 
 
@@ -1263,7 +1267,7 @@ $(function() {
         function shareFavouriteItems(shareFavouriteItemsList) {
             shareFavouriteItemsList.forEach(element => {
                 $('#pgFavouritesContent').find("div#" + element.Product_ID).remove();
-                deleteFavouriteItemsList = [];
+                shareFavouriteItemsList = [];
             });
         }
 
@@ -1275,6 +1279,32 @@ $(function() {
                 deleteFavouriteItemsList = [];
             });
         }
+
+        $('#shareSubmitBtn').on('click', function() {
+            var sEmail = $('#shareFavouriteViaEmail').val();
+            // Checking Empty Fields
+            if ($.trim(sEmail).length == 0) {
+                $('#invalidEmailSpan').css('display', 'block');
+            }
+            if (validateEmail(sEmail)) {
+                $('#invalidEmailSpan').css('display', 'none');
+
+            } else {
+                $('#invalidEmailSpan').css('display', 'block');
+            }
+        });
+
+        // Function that validates email address through a regular expression.
+        function validateEmail(sEmail) {
+            var filter = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            if (filter.test(sEmail)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
 
     })(ASDA_Project);
 });

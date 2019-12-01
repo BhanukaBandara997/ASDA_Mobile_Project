@@ -36,6 +36,14 @@
     top: 38px;
 }
 
+.icon-popup-nav {
+    height: 18px !important;
+    width: 18px !important;
+    position: absolute;
+    top: 35%;
+    left: 7%;
+}
+
 
 /* iPhone X Portrait */
 
