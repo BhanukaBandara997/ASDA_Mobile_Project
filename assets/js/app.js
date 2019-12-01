@@ -5,7 +5,7 @@ $(function() {
     var currentLoggedUser = null;
     var favouritesSelectorValue = "ALL_PRODUCTS";
     var deleteFavouriteItemsList = [];
-    var shareFavouriteItemsList = [];
+    var shareFavouriteItem = null;
     var moveFavouriteItemsList = [];
     var selectedItemId = null;
     (function(app) {
@@ -1165,12 +1165,17 @@ $(function() {
             }, {
                 name: 'Delete',
                 fun: function(data, event) {
+                    deleteFavouriteItemsList.push(selectedItemId);
                     $('#deletePopupDialog').popup('open');
                 }
             }, {
                 name: 'Share via E-mail',
                 fun: function(data, event) {
+                    shareFavouriteItem = selectedItemId;
                     $('#sharePopupDialog').popup('open');
+                    $('#cancelFavouriteBtn').removeClass('ui-shadow');
+                    $('#shareFavouriteBtn').removeClass('ui-shadow');
+
                 }
             }];
 
@@ -1218,12 +1223,12 @@ $(function() {
                         });
                         var updatedFileName = currentLoggedUser + "-" + favouritesSelectorValue;
                         updateFavouriteList(favouriteItemsList, updatedFileName);
-
                     } catch (e) {
                         toastr.success('An Error Occurred While Retrieving Favourite Item List');
                     }
                 }
                 deleteFavouriteItemsList = [];
+                $('#deletePopupDialog').popup('close');
             });
         }
 
@@ -1258,6 +1263,7 @@ $(function() {
             var req = Ajax("./controllers/ajaxSaveFavouriteList.php", "POST", recordJSON);
             if (req.status == 200) {} else {
                 toastr.success('An Error Occurred While Deleting Item');
+                $('#deletePopupDialog').popup('close');
             }
         };
 
@@ -1280,17 +1286,25 @@ $(function() {
             });
         }
 
-        $('#shareSubmitBtn').on('click', function() {
+        $('#shareFavouriteBtn').on('click', function() {
             var sEmail = $('#shareFavouriteViaEmail').val();
             // Checking Empty Fields
             if ($.trim(sEmail).length == 0) {
                 $('#invalidEmailSpan').css('display', 'block');
-            }
-            if (validateEmail(sEmail)) {
-                $('#invalidEmailSpan').css('display', 'none');
-
             } else {
-                $('#invalidEmailSpan').css('display', 'block');
+                if (validateEmail(sEmail)) {
+                    $('#invalidEmailSpan').css('display', 'none');
+                    $('#shareContentSpan').text("Attached favourite item name");
+                    $('#shareContentSpan').css('padding', '37px');
+                    $('#shareContentSpan').css('margin-left', '-15px');
+                    $('input#shareFavouriteViaEmail').val(shareFavouriteItem);
+                    $('#shareSubmitSpan').text("SEND");
+
+                    ////////////// Send Mail To Using Product Id /////////////////////////////////
+
+                } else {
+                    $('#invalidEmailSpan').css('display', 'block');
+                }
             }
         });
 
