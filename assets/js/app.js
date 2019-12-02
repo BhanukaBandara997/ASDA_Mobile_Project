@@ -256,8 +256,7 @@ $(function() {
                 pgSignInClear();
                 currentLoggedUser = Email.split('@')[0];
                 // show the page to display after sign in
-                toastr.success('Login Success.', 'ASDA_Project');
-                $.mobile.changePage('#pgMenu', { transition: pgtransition });
+                $.mobile.changePage('#pgHome', { transition: pgtransition });
             }
         };
 
@@ -295,6 +294,22 @@ $(function() {
                     if (Email != userRec.Email) {
                         $('#pgForgetPassword').data('success', 'false');
                         toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                    } else {
+                        var fourDigitCode = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+                        localStorage.setItem("fourDigitCode", fourDigitCode);
+                        var recordJSON = {
+                            'Email': Email,
+                            'FourDigitCode': fourDigitCode
+                        }
+                        recordJSON = JSON.stringify(recordJSON);
+                        var req = Ajax("./controllers/ajaxSendResetCode.php", "POST", recordJSON);
+                        if (req.status == 200) {
+                            try {
+                                toastr.success('Verification Code Sended To Your - ' + Email + ' Address');
+                            } catch (e) {
+                                toastr.error('An Error Occured While Sending Verification Code');
+                            }
+                        }
                     }
                 } catch (e) {
                     //user file is not found
@@ -324,9 +339,10 @@ $(function() {
         $('#pgResetPasswordForm').submit(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            var fourDigitCode = localStorage.getItem("fourDigitCode");
             var passwordMatched = checkPasswordMatch($('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
             if (passwordMatched) {
-                app.PasswordReset($('#fourDigitCode').val().trim(), $('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
+                app.PasswordReset(fourDigitCode, $('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
             } else {
                 toastr.error('Password mismatch. Re-enter the correct password again!');
             }
@@ -334,11 +350,12 @@ $(function() {
 
         app.PasswordReset = function(fourDigitCode, newPassword, newConfirmPassword) {
             var Email = localStorage.getItem("currentLoggedInUser");
+            var fourLocalDigitCode = localStorage.getItem("fourDigitCode");
             $('#pgResetPassword').data('success', 'true');
             var userName = Email.trim();
             userName = userName.split('@')[0];
             userName += '.json';
-            if (fourDigitCode == 0000) {
+            if (fourDigitCode == fourLocalDigitCode) {
                 var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
                 if (req.status == 200) {
                     try {
@@ -379,7 +396,7 @@ $(function() {
 
         };
 
-        function pgForgetPasswordClear() {
+        function pgResetPasswordClear() {
             $('#fourDigitCode').val('');
             $('#pgResetPasswordInput').val('');
             $('#pgResetConfirmPassword').val('');
