@@ -8,6 +8,8 @@ $(function() {
     var shareFavouriteItem = null;
     var moveFavouriteItemsList = [];
     var selectedItemId = null;
+    var selectedItemName = null;
+    var selectedFavouriteListName = "Default_Favourite_List";
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -1169,15 +1171,18 @@ $(function() {
                 'class': 'contextMenu iw-mTrigger',
                 'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
                 'src': ' ./assets/img/menu.png',
-                'id': 'context-menu-' + dataObj.Product_ID
+                'id': 'context-menu-' + dataObj.Product_ID + "-" + dataObj.Product_Name,
+                'product-name': dataObj.Product_Name
             }).on('click', function() {
                 selectedItemId = this.id.split('-')[2];
+                selectedItemName = this.id.split('-')[3].trim();
             });
 
             var menu = [{
                 name: 'Move to',
                 fun: function(data, event) {
-                    alert('i am Move To button');
+                    $('#movePopupDialog').popup('open');
+                    getFavouriteListsForUser();
                 }
             }, {
                 name: 'Delete',
@@ -1188,7 +1193,10 @@ $(function() {
             }, {
                 name: 'Share via E-mail',
                 fun: function(data, event) {
-                    shareFavouriteItem = selectedItemId;
+                    shareFavouriteItem = {
+                        'productId': selectedItemId,
+                        'productName': selectedItemName
+                    };
                     $('#sharePopupDialog').popup('open');
                     $('#cancelFavouriteBtn').removeClass('ui-shadow');
                     $('#shareFavouriteBtn').removeClass('ui-shadow');
@@ -1224,7 +1232,7 @@ $(function() {
                 $('#pgFavouritesContent').find("div#" + element).remove();
 
                 if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
-                    favouritesSelectorValue = "defaultFavouriteList"
+                    favouritesSelectorValue = "defaultFavouriteList";
                 }
                 currentLoggedUser = "User_001";
                 var fileName = currentLoggedUser + "-" + favouritesSelectorValue;
@@ -1267,9 +1275,7 @@ $(function() {
         $('#favMoveToBtn').on('click', function() {
 
             ////////////////////////// Move Popup need to add --- TODO //////////////////////////////////////
-
-
-
+            $('#movePopupDialog').popup('open');
         });
 
         ////////////////////////// Upadate Favourite Items List //////////////////////////////////////////////////////
@@ -1305,6 +1311,7 @@ $(function() {
 
         $('#shareFavouriteBtn').on('click', function() {
             var sEmail = $('#shareFavouriteViaEmail').val();
+            var itemURL = null;
             // Checking Empty Fields
             if ($.trim(sEmail).length == 0) {
                 $('#invalidEmailSpan').css('display', 'block');
@@ -1314,16 +1321,186 @@ $(function() {
                     $('#shareContentSpan').text("Attached favourite item name");
                     $('#shareContentSpan').css('padding', '37px');
                     $('#shareContentSpan').css('margin-left', '-15px');
-                    $('input#shareFavouriteViaEmail').val(shareFavouriteItem);
+                    $('input#shareFavouriteViaEmail').val(shareFavouriteItem.productName);
                     $('#shareSubmitSpan').text("SEND");
 
-                    ////////////// Send Mail To Using Product Id /////////////////////////////////
+                    ////////////// Send Mail To Using Product Id and Name /////////////////////////////////
+                    itemURL = ""; //////////// TODO Set ITEM URL
+                    var recordJSON = {
+                        'Email': Email,
+                        'ItemURL': itemURL
+                    }
+                    recordJSON = JSON.stringify(recordJSON);
+                    var req = Ajax("./controllers/ajaxShareItem.php", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {
+                            toastr.success('Item Shared To Your - ' + Email + ' Address');
+                            $('#sharePopupDialog').popup('close');
+                        } catch (e) {
+                            toastr.error('An Error Occured While Sharing Item');
+                        }
+                    }
 
                 } else {
                     $('#invalidEmailSpan').css('display', 'block');
                 }
             }
         });
+
+        $('#add-img').on('click', function() {
+            $('#movePopupDialog').popup('close');
+        });
+
+        $("#movePopupDialog").bind({
+            popupafterclose: function(event, ui) {
+                if (selectedFavouriteListName == "Default_Favourite_List") {
+                    $('#createNewFavListPopupDialog').popup('open');
+                }
+            }
+        });
+
+        function getFavouriteListsForUser() {
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-favouriteLists";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var favouriteItemsList = JSON.parse(req.responseText);
+                    $('#favouriteListDiv').empty();
+                    $.each(favouriteItemsList.FavouriteLists, function(index, val) {
+                        appendFavouriteListsToDialog($('#favouriteListDiv'), val.Name);
+                    });
+
+                } catch (e) {
+                    toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                }
+            }
+            $("#Default_Favourite_List").prop("checked", true);
+        }
+
+
+        function appendFavouriteListsToDialog(parent, favouriteListName) {
+
+            var radioBtnId = favouriteListName;
+
+            var favouriteListParentDiv = $('<div>', {
+                'style': 'display: flex; margin-bottom: 20px; width: 100%'
+            });
+
+            var favouriteListVisibilityImg = $('<img>', {
+                'class': 'visibility-img',
+                'src': './assets/img/Navbar_Images/visibility.png'
+            });
+
+            var favouriteListTitleSpan = $('<span>', {
+                'class': 'popup-content',
+                'style': 'margin-left: 10px; margin-right: 10px;'
+            });
+            favouriteListName = favouriteListName.replace(/[^a-z0-9\s]/gi, ' ');
+            favouriteListTitleSpan.text(favouriteListName);
+
+            var favouriteListInput = $('<input>', {
+                'type': 'radio',
+                'class': 'radio-btn',
+                'id': radioBtnId,
+                'style': 'height: 25px; width: 25px; margin-top: -1px; right: 8%;  position: absolute;'
+            }).on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('.radio-btn').prop("checked", false);
+                    $("#" + radioBtnId).prop("checked", true);
+                    selectedFavouriteListName = $(this).attr('id');
+                }
+            });
+
+            favouriteListParentDiv.append(favouriteListVisibilityImg);
+            favouriteListParentDiv.append(favouriteListTitleSpan);
+            favouriteListParentDiv.append(favouriteListInput);
+
+            parent.append(favouriteListParentDiv);
+
+        }
+
+        $('#moveFavouriteBtn').on('click', function() {
+            if (moveFavouriteItemsList.length > 0) {
+                var favouriteListName = selectedFavouriteListName;
+            }
+
+            ////////// Logic to Move Items to New List //////////////////////////
+
+            ///////// Route to new page and update the selector /////////////
+
+        });
+
+        $('#createFavouriteListBtn').on('click', function() {
+            var newFavouriteListName = $('#createFavouriteListName').val();
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-favouriteLists";
+            fileName += '.json';
+            var validFavouriteListName = true;
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var favouriteItemsList = JSON.parse(req.responseText);
+                    $.each(favouriteItemsList.FavouriteLists, function(index, val) {
+                        if (val.Name == newFavouriteListName) {
+                            $('#invalidFavouriteListSpan').css('display', 'block');
+                            validFavouriteListName = false;
+                        } else {
+                            $('#invalidFavouriteListSpan').css('display', 'none');
+                        }
+                    });
+
+                    if (validFavouriteListName) {
+                        var fileName = currentLoggedUser + "-" + newFavouriteListName + "FavouriteList";
+                        var newFavouriteListObj = {
+                            "Name": newFavouriteListName,
+                            "FileName": currentLoggedUser + "-" + newFavouriteListName + "FavouriteList"
+                        }
+                        favouriteItemsList.FavouriteLists.push(newFavouriteListObj);
+                        var parentFileName = currentLoggedUser + "-favouriteLists";
+                        updateFavouriteListWithNew(favouriteItemsList, parentFileName);
+                    }
+
+                } catch (e) {
+                    toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                }
+            }
+        });
+
+
+        ///////////////////////// Update With New Favourites Lists  //////////////////////////////////////
+
+        function updateFavouriteListWithNew(updatedFavouriteList, parentFileName) {
+            var fileName = {
+                "ParentFileName": parentFileName
+            }
+            updatedFavouriteList.FavouriteLists.push(fileName);
+            var recordJSON = JSON.stringify(updatedFavouriteList);
+            var req = Ajax("./controllers/ajaxUpdateFavouriteList.php", "POST", recordJSON);
+            if (req.status == 200) {
+                $.mobile.changePage('#pgFavourites');
+                $('#createFavouriteListName').val('');
+                $('#movePopupDialog').popup('open');
+            } else {
+                toastr.success('An Error Occurred While Deleting Item');
+            }
+        };
+
+        $("#movePopupDialog").bind({
+            popupbeforeposition: function(event, ui) {
+                getFavouriteListsForUser();
+            }
+        });
+
+        $("#createNewFavListPopupDialog").bind({
+            popupafterclose: function(event, ui) {
+                $('#createFavouriteListName').val('');
+            }
+        });
+
 
         // Function that validates email address through a regular expression.
         function validateEmail(sEmail) {

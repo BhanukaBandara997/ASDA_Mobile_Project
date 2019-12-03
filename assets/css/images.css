@@ -44,6 +44,16 @@
     left: 7%;
 }
 
+#add-img {
+    left: 83% !important;
+}
+
+.visibility-img {
+    width: 20px;
+    height: 15px;
+    margin-top: 3px;
+}
+
 
 /* iPhone X Portrait */
 

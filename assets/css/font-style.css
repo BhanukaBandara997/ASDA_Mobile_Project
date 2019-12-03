@@ -183,6 +183,13 @@
     font-weight: normal !important;
 }
 
+.popup-normal-btn {
+    font-size: 14px !important;
+    color: black !important;
+    font-family: Open Sans !important;
+    font-weight: normal !important;
+}
+
 .popup-content {
     font-size: 15px !important;
     font-family: Open Sans !important;
