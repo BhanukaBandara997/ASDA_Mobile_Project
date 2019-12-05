@@ -10,6 +10,7 @@ $(function() {
     var selectedItemId = null;
     var selectedItemName = null;
     var selectedFavouriteListName = "Default_Favourite_List";
+    var createNewFavouriteListName = '';
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -119,6 +120,7 @@ $(function() {
             e.preventDefault();
             e.stopImmediatePropagation();
             app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+            getFavouriteListsForUser();
             $.mobile.changePage('#pgFavourites');
         });
 
@@ -1182,6 +1184,7 @@ $(function() {
                 name: 'Move to',
                 fun: function(data, event) {
                     $('#movePopupDialog').popup('open');
+                    moveFavouriteItemsList.push(selectedItemId);
                     getFavouriteListsForUser();
                 }
             }, {
@@ -1273,12 +1276,11 @@ $(function() {
         /////////////////////////// Move Item To New Favourite Lists ////////////////////////////////////////////////
 
         $('#favMoveToBtn').on('click', function() {
-
             ////////////////////////// Move Popup need to add --- TODO //////////////////////////////////////
             $('#movePopupDialog').popup('open');
         });
 
-        ////////////////////////// Upadate Favourite Items List //////////////////////////////////////////////////////
+        ////////////////////////// Update Favourite Items List //////////////////////////////////////////////////////
 
         function updateFavouriteList(updatedFavouriteList, fileName) {
             updatedFavouriteList.FavouriteItemList.FileName = fileName;
@@ -1297,15 +1299,6 @@ $(function() {
             shareFavouriteItemsList.forEach(element => {
                 $('#pgFavouritesContent').find("div#" + element.Product_ID).remove();
                 shareFavouriteItemsList = [];
-            });
-        }
-
-        //////////// Move Favourite From List //////////////////////////////////////
-
-        function moveFavouriteItems(moveFavouriteItemsList) {
-            moveFavouriteItemsList.forEach(element => {
-                $('#pgFavouritesContent').find("div#" + element.Product_ID).remove();
-                deleteFavouriteItemsList = [];
             });
         }
 
@@ -1347,15 +1340,39 @@ $(function() {
             }
         });
 
+        //////////// Move Favourite From List //////////////////////////////////////
+
+        function moveFavouriteItems(moveFavouriteItemsList) {
+            moveFavouriteItemsList.forEach(element => {
+                $('#pgFavouritesContent').find("div#" + element.Product_ID).remove();
+                moveFavouriteItemsList = [];
+            });
+        }
+
         $('#add-img').on('click', function() {
             $('#movePopupDialog').popup('close');
+            // if (moveFavouriteItemsList.length > 0) {
+            //     $('#createNewFavListPopupDialog').popup('open');
+            // }
         });
 
         $("#movePopupDialog").bind({
             popupafterclose: function(event, ui) {
-                if (selectedFavouriteListName == "Default_Favourite_List") {
+                if (moveFavouriteItemsList.length > 0) {
                     $('#createNewFavListPopupDialog').popup('open');
                 }
+            }
+        });
+
+        $('#cancelMoveFavouriteBtn', function() {
+            $.mobile.changePage('#pgFavourites');
+            moveFavouriteItemsList = [];
+        });
+
+        $("#sharePopupDialog").bind({
+            popupafterclose: function(event, ui) {
+                $('#shareFavouriteViaEmail').val('');
+                $('#invalidEmailSpan').css('display', 'none');
             }
         });
 
@@ -1369,8 +1386,12 @@ $(function() {
                 try {
                     var favouriteItemsList = JSON.parse(req.responseText);
                     $('#favouriteListDiv').empty();
+                    $('#favSelect').empty();
                     $.each(favouriteItemsList.FavouriteLists, function(index, val) {
                         appendFavouriteListsToDialog($('#favouriteListDiv'), val.Name);
+                        if (index >= 1) {
+                            appendToListNames($('#favSelect'), val.Name);
+                        }
                     });
 
                 } catch (e) {
@@ -1422,58 +1443,205 @@ $(function() {
 
         }
 
-        $('#moveFavouriteBtn').on('click', function() {
-            if (moveFavouriteItemsList.length > 0) {
-                var favouriteListName = selectedFavouriteListName;
-            }
+        /////////// Get Default Favourite List Item Details //////////////////////////
 
-            ////////// Logic to Move Items to New List //////////////////////////
-
-            ///////// Route to new page and update the selector /////////////
-
-        });
-
-        $('#createFavouriteListBtn').on('click', function() {
-            var newFavouriteListName = $('#createFavouriteListName').val();
+        function getDefaultFavouriteListItems(moveFavouriteItemsList) {
             //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
             var currentLoggedUser = "User_001";
-            var fileName = currentLoggedUser + "-favouriteLists";
-            fileName += '.json';
-            var validFavouriteListName = true;
+            var fileName = currentLoggedUser + "-defaultFavouriteList";
             var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
                     var favouriteItemsList = JSON.parse(req.responseText);
-                    $.each(favouriteItemsList.FavouriteLists, function(index, val) {
-                        if (val.Name == newFavouriteListName) {
-                            $('#invalidFavouriteListSpan').css('display', 'block');
-                            validFavouriteListName = false;
-                        } else {
-                            $('#invalidFavouriteListSpan').css('display', 'none');
-                        }
+                    $.each(favouriteItemsList.FavouriteItemList, function(index, val) {
+                        $.each(moveFavouriteItemsList, function(val) {
+                            if (val.Product_ID != val) {
+                                delete favouriteItemsList.FavouriteItemList[index];
+                            }
+                        });
                     });
-
-                    if (validFavouriteListName) {
-                        var fileName = currentLoggedUser + "-" + newFavouriteListName + "FavouriteList";
-                        var newFavouriteListObj = {
-                            "Name": newFavouriteListName,
-                            "FileName": currentLoggedUser + "-" + newFavouriteListName + "FavouriteList"
-                        }
-                        favouriteItemsList.FavouriteLists.push(newFavouriteListObj);
-                        var parentFileName = currentLoggedUser + "-favouriteLists";
-                        updateFavouriteListWithNew(favouriteItemsList, parentFileName);
-                    }
-
                 } catch (e) {
-                    toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                }
+            } else {
+                toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
+            }
+            return favouriteItemsList;
+        }
+
+
+        $('#moveFavouriteBtn').on('click', function() {
+            if (moveFavouriteItemsList.length > 0) {
+                var favouriteListName = selectedFavouriteListName.replace(/ /g, '_');
+                //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+                var currentLoggedUser = "User_001";
+                var fileName = currentLoggedUser + "-favouriteLists";
+                fileName += '.json';
+                var validFavouriteListName = true;
+                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                if (req.status == 200) {
+                    try {
+                        var favouriteItemsList = JSON.parse(req.responseText);
+                        $.each(favouriteItemsList.FavouriteLists, function(index, val) {
+                            if (val.Name == favouriteListName) {
+                                var fileName = val.FileName;
+                                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                                if (req.status == 200) {
+                                    try {
+                                        var favouriteItemsList = JSON.parse(req.responseText);
+                                        var updatedFavouriteList = getDefaultFavouriteListItems(moveFavouriteItemsList);
+                                        var newFavouriteList = favouriteItemsList.FavouriteItemList.push(updatedFavouriteList.FavouriteItemList);
+                                        updateFavouriteListWithNewItems(updatedFavouriteList, fileName);
+
+                                        ////////// Logic to Move Items to New List //////////////////////////
+
+                                        ///////// Route to new page and update the selector /////////////
+
+                                    } catch (e) {
+
+                                    }
+                                }
+                            } else {
+                                validFavouriteListName = false;
+                            }
+                        });
+
+                    } catch (e) {
+                        toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                    }
                 }
             }
         });
 
 
+        $('#createFavouriteListBtn').on('click', function() {
+            var newFavouriteListName = $('#createFavouriteListName').val();
+            if (newFavouriteListName.length > 0) {
+                //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+                var currentLoggedUser = "User_001";
+                var fileName = currentLoggedUser + "-favouriteLists";
+                fileName += '.json';
+                var validFavouriteListName = true;
+                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                if (req.status == 200) {
+                    try {
+                        var favouriteItemsList = JSON.parse(req.responseText);
+                        $.each(favouriteItemsList.FavouriteLists, function(index, val) {
+                            if (val.Name == newFavouriteListName) {
+                                $('#invalidFavouriteListSpan').css('display', 'block');
+                                validFavouriteListName = false;
+                            } else {
+                                $('#invalidFavouriteListSpan').css('display', 'none');
+                            }
+                        });
+
+                        if (validFavouriteListName) {
+                            var fileName = currentLoggedUser + "-" + newFavouriteListName + "FavouriteList";
+                            var newFavouriteListObj = {
+                                "Name": newFavouriteListName,
+                                "FileName": currentLoggedUser + "-" + newFavouriteListName + "FavouriteList"
+                            }
+                            favouriteItemsList.FavouriteLists.push(newFavouriteListObj);
+                            var parentFileName = currentLoggedUser + "-favouriteLists";
+                            updateFavouriteListWithNew(favouriteItemsList, parentFileName, newFavouriteListObj);
+                            appendToListNames($('#favSelect'), newFavouriteListName);
+                            updateFavouriteListsWithNewItems(newFavouriteListObj.FileName);
+                        }
+
+                    } catch (e) {
+                        toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                    }
+                }
+            } else {
+                $('#invalidFavouriteListSpan').css('display', 'block');
+                $('#invalidFavouriteListSpan').text('Enter a name');
+            }
+        });
+
+
+        ///////////////////////// Update With New Favourite List Items  //////////////////////////////////////
+
+        function updateFavouriteListWithNewItems(updatedFavouriteItemList, parentFileName) {
+            var fileName = {
+                "ParentFileName": parentFileName
+            }
+            var newObj = $.extend(updatedFavouriteItemList, fileName);
+            var recordJSON = JSON.stringify(newObj);
+            var req = Ajax("./controllers/ajaxUpdateFavouriteListWithItems.php", "POST", recordJSON);
+            if (req.status == 200) {
+                return true;
+
+            } else {
+                toastr.success('An Error Occurred While Upating Favourite Lists');
+                return false;
+            }
+        };
+
+        /////////////// Append Values to Selector As Options ////////////////////////////////////////////
+
+        function appendToListNames(parent, listName) {
+
+            var favouriteListOptionParent = $('<option>', {
+                'style': 'color: #333 !important;',
+                'value': listName.replace(/ /g, '_')
+            });
+            favouriteListOptionParent.text(listName);
+
+            parent.append(favouriteListOptionParent);
+
+        }
+
+
+        function appendFavouriteListsToParent(parent, listObj) {
+
+            var favouriteListParent = $('<div>', {
+                'style': 'margin-top: 3%;'
+            });
+
+            var favouriteListTitleDiv = $('<div>', {
+                'style': 'margin-left: 3%; margin-bottom: 1%; display: flex;'
+            });
+
+            var favouriteListTitleDiv = $('<span>', {
+                'class': 'favouriteListTitleSpan'
+            });
+
+            var favouriteListContextMenu = $('<img>', {
+                'src': './assets/img/menu.png',
+                'style': 'right: 4%; position: absolute;height: 18px; width: 18px; transform: rotate(90deg);'
+            });
+
+            favouriteListTitleDiv.append(favouriteListTitleDiv);
+            favouriteListTitleDiv.append(favouriteListContextMenu);
+
+            //     <div style="margin-top: 3%;">
+            //     <div style="margin-left: 3%; margin-bottom: 1%; display: flex;">
+            //         <span style="font-family: Open Sans; font-style: normal;font-weight: 600;font-size: 15px;line-height: 16px; align-items: center; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.8);" id="favouriteListTitleSpan">Default Favourite List</span>
+            //         <img src="./assets/img/menu.png" style="">
+            //     </div>
+            //     <div style="margin-bottom: 4%;  margin-left: 10px;">
+            //         <div class="owl-item active" style="width: 148px;">
+            //             <div class="owl-item" style="width: 145px;margin-right: 10px;">
+            //                 <div class="item flash-deals-carousel-item-margin">
+            //                     <div style="background: #FFFFFF;height: 170px !important;display: flex;border-radius: 20px;border: 1px solid rgba(123, 123, 123, 0.8);box-sizing: border-box;">
+            //                         <div style="width: 150px;">
+            //                             <img src="./assets/img/Item_Images/Nature-Cookies.jpg" style="width: 80px !important;height: 80px !important;/* position: absolute; */margin-top: 5%;margin-left: 20%;">
+            //                             <span style="font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 11px;display: flex;color: rgba(0, 0, 0, 0.6);margin-bottom: 5px; text-align: center;"> Parle Monaco Cheeselings, Classic, 150g </span>
+            //                             <span style="font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 15px;letter-spacing: -0.02em;color: rgba(0, 0, 0, 0.8); margin-left: 25%;">US $3.40 </span>
+            //                         </div>
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //         </div>
+            //     </div>
+            //     <div style="height:3px; background: #C4C4C4;"></div>
+            // </div>
+
+        }
+
         ///////////////////////// Update With New Favourites Lists  //////////////////////////////////////
 
-        function updateFavouriteListWithNew(updatedFavouriteList, parentFileName) {
+        function updateFavouriteListWithNew(updatedFavouriteList, parentFileName, newFavouriteListObj) {
             var fileName = {
                 "ParentFileName": parentFileName
             }
@@ -1483,9 +1651,9 @@ $(function() {
             if (req.status == 200) {
                 $.mobile.changePage('#pgFavourites');
                 $('#createFavouriteListName').val('');
-                $('#movePopupDialog').popup('open');
+
             } else {
-                toastr.success('An Error Occurred While Deleting Item');
+                toastr.success('An Error Occurred While Upating Favourite Lists');
             }
         };
 
@@ -1498,9 +1666,81 @@ $(function() {
         $("#createNewFavListPopupDialog").bind({
             popupafterclose: function(event, ui) {
                 $('#createFavouriteListName').val('');
+                $('#invalidFavouriteListSpan').css('display', 'none');
             }
         });
 
+
+
+        function updateFavouriteListsWithNewItems(fileName) {
+
+            var updatedFavouriteList = getDefaultFavouriteList(moveFavouriteItemsList);
+            var fileCreatedSuccess = updateFavouriteListWithNewItems(updatedFavouriteList, fileName);
+            if (fileCreatedSuccess) {
+                $('#pgFavouritesContent').empty();
+
+                var favouriteLists = getDefaultFavouriteListDetails();
+
+                $.each(favouriteLists, function(index, value) {
+
+
+                });
+
+
+
+
+            }
+
+
+            ///////////// Append New Lists To The Main DIV ////////////////////////////////
+
+        }
+
+        /////////// Get Default Favourite List Item Details //////////////////////////
+
+        function getDefaultFavouriteList(moveFavouriteItemsList) {
+            var favouriteItemsList = null;
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-defaultFavouriteList.json";
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    favouriteItemsList = JSON.parse(req.responseText);
+                    $.each(favouriteItemsList.FavouriteItemList, function(index, value) {
+                        $.each(moveFavouriteItemsList, function(i, val) {
+                            if (index.split('-')[1] != val) {
+                                delete favouriteItemsList.FavouriteItemList[index];
+                            }
+                        });
+                    });
+                } catch (e) {
+                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                }
+            } else {
+                toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
+            }
+            return favouriteItemsList;
+        }
+
+
+        function getDefaultFavouriteListDetails() {
+            var favouriteItemsList = null;
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-defaultFavouriteList.json";
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    favouriteItemsList = JSON.parse(req.responseText);
+                } catch (e) {
+                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                }
+            } else {
+                toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
+            }
+            return favouriteItemsList;
+        }
 
         // Function that validates email address through a regular expression.
         function validateEmail(sEmail) {
@@ -1511,7 +1751,6 @@ $(function() {
                 return false;
             }
         }
-
 
 
     })(ASDA_Project);

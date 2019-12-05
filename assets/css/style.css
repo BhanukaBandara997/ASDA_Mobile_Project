@@ -80,6 +80,11 @@ span.select2 {
     font-size: 10px !important;
 }
 
+#favListSelect.select2 option {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 10px !important;
+}
+
 .asda-bar {
     position: absolute;
     width: 375px;
