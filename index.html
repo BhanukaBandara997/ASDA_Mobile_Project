@@ -372,7 +372,7 @@
 
     <!-- Category Page -->
 
-    <div data-theme="a" id="pgShopping" data-role="page" style="padding-top: 5px;">
+    <!-- <div data-theme="a" id="pgShopping" data-role="page" style="padding-top: 5px;">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -420,7 +420,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
     <!-- Search Page -->
@@ -560,55 +560,50 @@
     <div data-theme="a" id="pgShop" data-role="page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
 
-            <div data-theme="a" id="pgAccount" data-role="page">
-                <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgShopContent" data-role="main">
 
-                    <div id="header-title">
-                        <h1 class="header-title-color" id="header-title">ASDA</h1>
-                    </div>
-                    <div id="header-" class="header-cart-navbar">
-                        <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
-                    </div>
-                </div>
-                <div id="pgShopContent" data-role="main">
-
-                </div>
-                <div data-role="footer" data-position="fixed">
-                    <div data-role="navbar" data-grid="d">
-                        <ul>
-                            <li class="navbar-align">
-                                <div id="favHomeBtn">
-                                    <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
-                                    <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
-                                </div>
-                            </li>
-                            <li class="navbar-align">
-                                <div id="favShoppingBtn">
-                                    <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
-                                    <div class="iphone-bottom-navbar-font">Shop</div>
-                                </div>
-                            </li>
-                            <li class="navbar-align">
-                                <div id="favSearch">
-                                    <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
-                                    <div class="iphone-bottom-navbar-font">Search</div>
-                                </div>
-                            </li>
-                            <li class="navbar-align">
-                                <div id="favFavouritesBtn">
-                                    <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png" class="icon">
-                                    <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
-                                </div>
-                            </li>
-                            <li class="navbar-align">
-                                <div id="favAccountBtn">
-                                    <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
-                                    <div class="iphone-bottom-navbar-font">Account</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-grid="d">
+                <ul>
+                    <li class="navbar-align">
+                        <div id="favHomeBtn">
+                            <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
+                            <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favSearch">
+                            <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
+                            <div class="iphone-bottom-navbar-font">Search</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png" class="icon">
+                            <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="favAccountBtn">
+                            <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Account</div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -686,49 +681,46 @@
                 <span id="user-name" class="user-name-layout"></span>
                 <img id="crown-membership" class="account-crown-icon" src="./assets/img/Member_Types/crown.png"></img>
                 <span id="member-type" class="member-type-layout">Gold Member</span>
-                <img id="drop_down_icon" style="position: absolute; width: 10px; height: 10px; left: 139px;top: 47px;" src="./assets/img/Icons/drop_down_icon.png"></img>
-                <img id="profile-pic" style="position: absolute; width: 60px; height: 60px; left: 290px; top: 10px;" src="./assets/img/man.png"></img>
+                <img id="drop_down_icon" class="drop-down-icon-member-center" src="./assets/img/Icons/drop_down_icon.png"></img>
+                <img id="profile-pic" class="profile-pic-image" src="./assets/img/man.png"></img>
             </div>
             <div id="order-state-block">
                 <div>
-                    <img id="document-icon" style="position: absolute; left: 5.33%; right: 90.4%; top: 18%; bottom: 80.79%; width: 20px; height: 20px;" src="./assets/img/Icons/document.png"></img>
-                    <span style="position: absolute; width: 54px; height: 18px; left: 47px; top: 149px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 18px; color: rgba(0, 0, 0, 0.8);">Orders</span>
-                    <span style="position: absolute; width: 42px; height: 16px; left: 314px; top: 149px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 9px; line-height: 12px; color: #2F78BB;">View
+                    <img id="document-icon" class="document-icon-style" src="./assets/img/Icons/document.png"></img>
+                    <span class="orders-text-style">Orders</span>
+                    <span class="order-type-view-all-text">View
                         all</span>
                 </div>
-                <span style="position: absolute; width: 42px; height: 16px; left: 22px; top: 179px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Unpaid</span>
-                <span style="position: absolute; width: 55px; height: 16px; left: 22px; top: 210px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Shipped</span>
-                <span style="position: absolute; width: 92px; height: 16px; left: 22px; top: 240px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">To
-                    be collected</span>
-                <div style="position: absolute; width: 375px; height: 7px; left: 0px; top: 272px; background: rgba(196, 196, 196, 0.75);">
+                <span class="shipping-type-details unpaid-shipping-type">Unpaid</span>
+                <span class="shipping-type-details shipped-shipping-type">Shipped</span>
+                <span class="shipping-type-details to-be-collected-shippig-type">To be collected</span>
+                <div class="order-state-divider">
                 </div>
             </div>
             <div id="location-block">
-                <img id="location-icon" style="position: absolute; width: 24px; height: 24px; left: 14px; top: 294px;" src="./assets/img/Icons/placeholder.png"></img>
-                <span id="location-text" style="position: absolute; width: 109px; height: 16px; left: 51px; top: 298px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Shipping
+                <img id="location-icon" class="location-icon-account" src="./assets/img/Icons/placeholder.png"></img>
+                <span id="location-text" class="edit-settings-basic-font-styles shipping-address-possition">Shipping
                     Address</span>
                 <div style="position: absolute; width: 375px; height: 7px; left: 0px; top: 333px; background: rgba(196, 196, 196, 0.75);">
                 </div>
             </div>
             <div id="notification-block">
                 <div>
-                    <img id="bell-icon" style="position: absolute; width: 24px; height: 24px; left: 16px; top: 356px; " src="./assets/img/Icons/bell.png"></img>
-                    <span style="position: absolute; width: 109px; height: 16px; left: 51px; top: 360px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Notifications</span>
+                    <img id="bell-icon" class="bell-icon-account" src="./assets/img/Icons/bell.png"></img>
+                    <span class="edit-settings-basic-font-styles notifictions-possition">Notifications</span>
                     <input type='checkbox' class='ios8-switch' id='checkbox-1'>
                 </div>
                 <div>
-                    <img id="settings-icon" style="position: absolute; width: 24px; height: 24px; left: 16px; top: 391px; " src="./assets/img/Icons/settings.png"></img>
-                    <span style="position: absolute; width: 109px; height: 16px; left: 51px; top: 395px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Settings</span>
+                    <img id="settings-icon" class="settings-icon-account" src="./assets/img/Icons/settings.png"></img>
+                    <span class="edit-settings-basic-font-styles settings-possition">Settings</span>
                 </div>
                 <div>
-                    <img id="help-center-icon" style="position: absolute; width: 24px; height: 24px; left: 16px; top: 430px; " src="./assets/img/Icons/headset.png"></img>
-                    <span style="position: absolute; width: 109px; height: 16px; left: 51px; top: 434px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">Help
-                        Center</span>
+                    <img id="help-center-icon" class="help-center-icon-account" src="./assets/img/Icons/headset.png"></img>
+                    <span class="edit-settings-basic-font-styles help-center-text-possition">Help Center</span>
                 </div>
                 <div>
-                    <img id="about-us-icon" style="position: absolute; width: 24px; height: 24px; left: 16px; top: 469px; " src="./assets/img/Icons/headset.png"></img>
-                    <span id="about-us-text" style="position: absolute; width: 109px; height: 16px; left: 51px; top: 473px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);">About
-                        Us</span>
+                    <img id="about-us-icon" class="about-us-icon-account" src="./assets/img/Icons/aboutUs.png"></img>
+                    <span id="about-us-text" class="edit-settings-basic-font-styles about-us-text-possition">About Us</span>
                 </div>
             </div>
         </div>
@@ -771,7 +763,7 @@
         </div>
     </div>
 
-    <!-- Edit Profile -->
+    <!-- Edit Account -->
 
     <div data-theme="a" id="pgEditAccount" data-role="page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
@@ -786,51 +778,160 @@
             <div class="nav-bar">
                 <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
                 <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Profile</span>
-                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
-                </div>
+                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;"></div>
             </div>
             <div id="my-profile-details" style="top: 30px;">
-                <span style="position: absolute; width: 75px; height: 16px; left: 23px; top: 120px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);
-            ">My Profile</span>
-                <img id="profile-pic-2" src="./assets/img/man.png" style="position: absolute; width: 60px; height: 60px; left: 304px; top: 98px;"></img>
-                <div style="position: absolute; width: 375px; height: 3px; left: 0px; top: 169px; background: #C4C4C4;">
-                </div>
+                <!-- <span claas="my-profile-details-title-style"> -->
+                <span style="position: absolute; width: 75px; height: 16px; left: 23px; top: 120px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.85);"> My Profile</span>
+                <img id="profile-pic-2" class="profile-pic-2-style" src="./assets/img/man.png"></img>
+                <div class="edit-account-divider"></div>
             </div>
             <div id="account-details">
-                <div id="contact-name" style="position: absolute; width: 353px; height: 16px; left: 11px; top: 193px;">
-                    <span style="position: absolute; width: 87px; height: 16px; left: 23px; top: auto; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Contact
-                        Name</span>
-                    <span id="loged-in-user-name" class="open-sans-font" style="position: absolute; width: 89px; height: 16px; left: 256px; top: auto; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 10px; line-height: 14px; color: rgba(0, 0, 0, 0.8);"></span>
+                <div id="contact-name" class="customer-name-block-style">
+                    <span class="contact-name-style account-details-font-styles">Contact Name</span>
+                    <span id="loged-in-user-name" class="clickable-font-styles user-name-text-possition"></span>
                 </div>
-                <div id="member-center" style="position: absolute; width: 353px; height: 16px; left: 11px; top: 229px;">
-                    <span style="position: absolute; width: 100px; height: 16px; left: 23px; top: auto; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Member
-                        Center</span>
-                    <span id="loged-in-member-center" class="open-sans-font" style="position: absolute; width: 85px; height: 15px; left: 256px; top: auto; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 11px; line-height: 15px; color: rgba(0, 0, 0, 0.9);"></span>
-                    <img id="member-center-icon" style="position: absolute; width: 18px; height: 20px; left: 342px; top: auto; background: url(crown.png);"> </img>
+                <div id="member-center" class="member-center-block">
+                    <span class="account-details-font-styles member-center-style">Member Center</span>
+                    <span id="loged-in-member-center" class="clickable-font-styles user-full-name-style"></span>
+                    <img id="member-center-icon" class="member-center-icon-style"> </img>
                 </div>
 
-                <div id="account-info" style="position: absolute; width: 353px; height: 16px; left: 11px; top: 265px;">
-                    <span style="position: absolute; width: 100px; height: 16px; left: 23px; top: auto; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Account
-                        Info</span>
-                    <span id="loged-in-account-info" class="open-sans-font" style="position: absolute; width: 102px; height: 16px; left: 256px; top: auto; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 10px; line-height: 14px; color: rgba(0, 0, 0, 0.8);"></span>
+                <div id="account-info" class="account-info-block">
+                    <span class="account-details-font-styles account-info-style">Account Info</span>
+                    <span id="loged-in-account-info" class="clickable-font-styles logged-in-user-name-style"></span>
                 </div>
-                <div id="gender" style="position: absolute; width: 353px; height: 16px; left: 11px; top: 301px;">
-                    <span style="position: absolute; width: 87px; height: 16px; left: 23px; top: auto; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Gender</span>
-                    <span id="loged-in-user-gender" class="open-sans-font" style="position: absolute; width: 29px; height: 16px; left: 256px; top: auto; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 10px; line-height: 14px; color: rgba(0, 0, 0, 0.8);"></span>
+                <div id="gender" class="gender-block">
+                    <span class="account-details-font-styles gender-style">Gender</span>
+                    <span id="loged-in-user-gender" class="clickable-font-styles logged-in-user-gender"></span>
                 </div>
-                <div id="birthday" style="position: absolute; width: 353px; height: 16px; left: 11px; top: 337px">
-                    <span style="position: absolute; width: 100px; height: 16px; left: 23px; top: auto; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Birth
-                        Day</span>
-                    <span id="loged-in-user-birthday" class="open-sans-font" style=" position: absolute; width: 55px; height: 16px; left: 256px; top: auto; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 10px; line-height: 14px; color: rgba(0, 0, 0, 0.8); "></span>
+                <div id="birthday" class="birthday-block">
+                    <span class="account-details-font-styles birthday-style">Birth Day</span>
+                    <span id="loged-in-user-birthday" class="clickable-font-styles logged-in-user-birthday"></span>
                 </div>
                 <div style="position: absolute; width: 375px; height: 4px; left: 0px; top: 378px; background: #C4C4C4;">
                 </div>
                 <div id="shipping-address">
-                    <span style="position: absolute; width: 150px; height: 16px; left: 23px; top: 400px; font-family: Open Sans; font-size: 13px; line-height: 16px; color: rgba(0, 0, 0, 0.8);">Shipping
-                        Address</span>
-
+                    <span class="account-details-font-styles shipping-address-style">Shipping Address</span>
                 </div>
             </div>
+
+            <!-- Add Gender -->
+
+            <div data-role="popup" id="genderPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
+                data-transition="none" data-position-to="origin">
+                <div id="addGenderDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <!-- <span class="ui-title popup-header" role="heading">Add Gender</span> -->
+                    <span role="heading">Add Gender</span>
+                    <!-- margin-left: 8%; -->
+                </div>
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                    <!-- <span style="margin-left: 10px;" class="popup-content"></span> -->
+
+                    <input type="radio" name="gender" value="Male" style="position: absolute; width: 18px; height: 18.93px; top: 10px; left: 183px;"> Male<br>
+                    <input type="radio" name="gender" value="Female" style="position: absolute; width: 18px; height: 18.93px; top: 11px; left: 183px;"> Female<br>
+                    <a id="cancelSaveGenderBtn" href="#pgEditAccount" style="left: 46%; margin-top: 2%; margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <spantext class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                            </span>
+                    </a>
+                    <a id="saveGenderBtn" href="#" style="position: absolute; left: 70%; margin-top: 2%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text popup-delete-btn">Save</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Add Birthday -->
+
+            <div data-role="popup" id="birthdayPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+                data-corners="true" data-transition="none" data-position-to="origin">
+                <div id="addBirthdayDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <!-- <span class="ui-title popup-header" role="heading">Add Birthday</span> -->
+                    <span role="heading">Add Birthday</span>
+                    <!-- margin-left: 8%; -->
+                </div>
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                    <input id="userBirthDay" type="date" name="birthday"><br>
+
+                    <a id="cancelSaveBithdayBtn" href="#pgEditAccount" style="left: 46%; margin-top: 2%; margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <spantext class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                            </span>
+                    </a>
+                    <a id="saveBirthdayBtn" href="#" style="position: absolute; left: 70%; margin-top: 2%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text popup-delete-btn">Save</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Add First and Last Names -->
+
+            <div data-role="popup" id="namePopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
+                data-transition="none" data-position-to="origin">
+                <div id="addNameDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <!-- <span class="ui-title popup-header" role="heading">Add Names</span> -->
+                    <span role="heading">Add Names</span>
+                    <!-- margin-left: 8%; -->
+                </div>
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                    <!-- <input id="userName" type="date" name="birthday"><br> -->
+                    <span class="ui-btn-text clickable-font-styles"> First Name :</span>
+                    <input id="fname" type="text" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
+                    <span class="ui-btn-text clickable-font-styles"> Last Name :</span>
+                    <input id="lname" type="text" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
+                    <a id="cancelSaveNameBtn" href="#pgEditAccount" style="left: 46%; margin-top: 2%; margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <spantext class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                            </span>
+                    </a>
+                    <a id="saveNameBtn" href="#" style="position: absolute; left: 70%; margin-top: 2%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text popup-delete-btn">Save</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Edit Shipping Address -->
+
+            <div data-role="popup" id="addressPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+                data-corners="true" data-transition="none" data-position-to="origin">
+                <div id="addaddressDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <!-- <span class="ui-title popup-header" role="heading">Address</span> -->
+                    <span role="heading">Address</span>
+                    <!-- margin-left: 8%; -->
+                </div>
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                    <!-- <input id="userName" type="date" name="birthday"><br> -->
+                    <span class="ui-btn-text clickable-font-styles"> Address :</span>
+                    <input id="address" type="text" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
+                    <!-- <span class="ui-btn-text clickable-font-styles"> Last Name :</span>
+                    <input id="lname" type="text" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br> -->
+                    <a id="cancelSaveAddressBtn" href="#pgEditAccount" style="left: 46%; margin-top: 2%; margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <spantext class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                            </span>
+                    </a>
+                    <a id="saveAddressBtn" href="#" style="position: absolute; left: 70%; margin-top: 2%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text popup-delete-btn">Save</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -849,16 +950,15 @@
             <div class="nav-bar">
                 <img id="back-icon-contact-us" src="./assets/img/back_grey.png" class="back-icon"></img>
                 <span id="back-icon-contact-us-text" class="open-sans-font sub-category-style">Contact Us</span>
-                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
+                <div class="contact-us-divider">
                 </div>
             </div>
-            <div id="contact-us-block" style="position: absolute; width: 365px; height: 324px; left: 5px; top: 92px; background: #FFFFFF; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
-                <img id="call-icon" src="./assets/img/Icons/contact_us.png" style="position: absolute; width: 88.78px; height: 90px; left: 143.11px; top: 29px;"></img>
-                <span id="give-us-a-call" style="position: absolute; width: 200px; height: 22px; left: 131.27px; top: 127px; font-family: Open Sans; font-style: normal; font-weight: 600; font-size: 18px; line-height: 25px; color: #000000;">Give
+            <div id="contact-us-block" class="contact-us-details-block">
+                <img id="call-icon" class="call-us-styles" src="./assets/img/Icons/contact_us.png"></img>
+                <span id="give-us-a-call" class="give-us-a-call-text-style">Give
                     us a call</span>
-                <span id="contact-number" style="position: absolute; width: 124.3px; height: 22px; left: 125.35px; top: 154px; font-family: Open Sans; font-style: normal; font-weight: 600; font-size: 18px; line-height: 25px; color: rgba(0, 0, 0, 0.8);">0800
-                    952 0101</span>
-                <p id="about-us-para" style="position: absolute; width: 303px; height: 131px; left: 13px; top: 162px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 15px; color: rgba(0, 0, 0, 0.8);">
+                <span id="contact-number" class="contact-number-style">0800 952 0101</span>
+                <p id="about-us-para" class="about-us-paragraph-style">
                     <br>Need to speak to our Home Shopping team? Lines are open Monday to Saturday from 7am – 11pm and Sundays from 8am – 10pm.
                     </br> <br>Need to speak to our Store service team? Lines are open Monday to Friday from 8am - 8pm, Saturday from 9am – 5.30pm and Sundays from 10am - 4pm.
                     </br>
@@ -882,29 +982,27 @@
             <div class="nav-bar">
                 <img id="back-icon-shipping" src="./assets/img/back_grey.png" class="back-icon"></img>
                 <span id="back-icon-shipping-text" class="open-sans-font sub-category-style">Shipping Address</span>
-                <img id="edit-icon-" src="./assets/img/Navbar_Images/edit-black.png" style="position: absolute; width: 22px; height: 22px; left: 336px; top: 9px; opacity: 0.8;"></img>
+                <img id="edit-icon" class="edit-icon-style" src="./assets/img/Navbar_Images/edit-black.png"></img>
                 <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
                 </div>
                 <div id="add-new-address" style="position: absolute; width: 375px; height: 45px; left: 0px; top: 42px;">
                     <a href="#" class="add-new-shipping-address-style" id="shipping-address-text">Add a new address</a>
-                    <div style="position: absolute; width: 375px; height: 5px; left: 0px; top: 40px; background: #C4C4C4;">
+                    <div class="shipping-address-divider"> </div>
+                </div>
+                <div id="address-container" class="address-container-style"></div>
+                <div id="address-one-container" class="address-one-container-style">
+                    <div id="address-one" class="address-one-style">
+                    </div>
+                    <input type="radio" class="address-one-radio" name="address" value="first-address"> <br>
+                    <div id="boder" calss="shipping-address-divider-two">
                     </div>
 
                 </div>
-                <div id="address-container" style="position: absolute; width: 365px; height: 596px; left: 5px; top: 162px;"></div>
-                <div id="address-one-container" style="position: absolute; width: 375px; height: 89px; left: 14px; top: 93px;">
-                    <div id="address-one" style="margin-top: 10px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 16px; line-height: 19px; color: #000000;">
+                <div id="address-two-container" class="address-two-container-style">
+                    <div id="address-two" class="address-two-style">
                     </div>
-                    <input type="radio" name="address" value="second-address" style="position: absolute; width: 18px; height: 18.93px; left: 331px; top: auto;"> <br>
-                    <div id="boder" style="position: absolute; width: 375px; height: 1px; left: -14px; top: auto; background: #C4C4C4;">
-                    </div>
-
-                </div>
-                <div id="address-two-container" style="position: absolute; width: 375px; height: 89px; left: 14px; top: 150px; ">
-                    <div id="address-two" style="margin-top: 10px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 16px; line-height: 19px; color: #000000;">
-                    </div>
-                    <input type="radio" name="address" value="first-address" style=" position: absolute; width: 18px; height: 18.93px; left: 331px; top: auto;"> <br>
-                    <div id="boder" style="position: absolute; width: 375px; height: 1px; left: -14px; top: auto; background: #C4C4C4;">
+                    <input type="radio" class="address-two-radio" name="address" value="second-address"> <br>
+                    <div id="boder" class="shipping-address-divider-three">
                     </div>
 
                 </div>
@@ -1155,6 +1253,27 @@
         </div>
         <div id="pgAccountCreationSuccessContent" data-role="main">
 
+        </div>
+    </div>
+
+    <!-- Item View -->
+
+    <div data-theme="a" id="pgItemView" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div class="nav-bar">
+                <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Profile</span>
+                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;"></div>
+                <img id="shopping-cart-icon" class="shopping-icon-item-view" src="./assets/img/Navbar_Images/cart.png" class="cart-icon"></img>
+                <img id="share-item-icon" class="share-icon-item-view" src="./assets/img/Navbar_Images/share.png" class="share-icon"></img>
+            </div>
+        </div>
+        <div id="pgAccountCreationSuccessContent" data-role="main">
+
+        </div>
+        <div data-role="footer" data-position="fixed" style="padding-top: 7px;" data-tap-toggle="false">
+            <button id="add-to-cart-btn" class="add-to-cart-btn-style"></button>
+            <button id="buy-now-byn" class="buy-now-btn-style"></button>
         </div>
     </div>
 

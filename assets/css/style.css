@@ -574,3 +574,139 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     margin: 7px;
     text-align: center;
 }
+
+.order-state-divider {
+    position: absolute;
+    width: 375px;
+    height: 7px;
+    left: 0px;
+    top: 272px;
+    background: rgba(196, 196, 196, 0.75);
+}
+
+.contact-us-divider {
+    position: absolute;
+    width: 375px;
+    height: 1.5px;
+    left: 0px;
+    top: 41px;
+    background: #C4C4C4;
+}
+
+.contact-us-details-block {
+    position: absolute;
+    width: 365px;
+    height: 324px;
+    left: 5px;
+    top: 92px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.shipping-address-divider {
+    position: absolute;
+    width: 375px;
+    height: 5px;
+    left: 0px;
+    top: 40px;
+    background: #C4C4C4;
+}
+
+.shipping-address-divider-two {
+    position: absolute;
+    width: 375px;
+    height: 1px;
+    left: -14px;
+    top: auto;
+    background: #C4C4C4;
+}
+
+.shipping-address-divider-three {
+    position: absolute;
+    width: 375px;
+    height: 1px;
+    left: -14px;
+    top: auto;
+    background: #C4C4C4;
+}
+
+.address-container-style {
+    position: absolute;
+    width: 365px;
+    height: 596px;
+    left: 5px;
+    top: 162px;
+}
+
+.address-one-radio {
+    position: absolute;
+    width: 18px;
+    height: 18.93px;
+    left: 331px;
+    top: auto;
+}
+
+.address-two-radio {
+    position: absolute;
+    width: 18px;
+    height: 18.93px;
+    left: 331px;
+    top: auto;
+}
+
+.address-two-container-style {
+    position: absolute;
+    width: 375px;
+    height: 89px;
+    left: 14px;
+    top: 150px;
+}
+
+.edit-account-divider {
+    position: absolute;
+    width: 375px;
+    height: 3px;
+    left: 0px;
+    top: 169px;
+    background: #C4C4C4;
+}
+
+.customer-name-block-style {
+    position: absolute;
+    width: 353px;
+    height: 16px;
+    left: 11px;
+    top: 193px;
+}
+
+.member-center-block {
+    position: absolute;
+    width: 353px;
+    height: 16px;
+    left: 11px;
+    top: 229px;
+}
+
+.account-info-block {
+    position: absolute;
+    width: 353px;
+    height: 16px;
+    left: 11px;
+    top: 265px;
+}
+
+.gender-block {
+    position: absolute;
+    width: 353px;
+    height: 16px;
+    left: 11px;
+    top: 301px;
+}
+
+.birthday-block {
+    position: absolute;
+    width: 353px;
+    height: 16px;
+    left: 11px;
+    top: 337px
+}

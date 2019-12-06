@@ -36,6 +36,126 @@
     top: 38px;
 }
 
+.drop-down-icon-member-center {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: 139px;
+    top: 47px;
+}
+
+.profile-pic-image {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    left: 290px;
+    top: 10px;
+}
+
+.document-icon-style {
+    position: absolute;
+    left: 5.33%;
+    right: 90.4%;
+    top: 18%;
+    bottom: 80.79%;
+    width: 20px;
+    height: 20px;
+}
+
+.location-icon-account {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 14px;
+    top: 294px;
+    opacity: 65%;
+}
+
+.bell-icon-account {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 14px;
+    top: 356px;
+    opacity: 65%;
+}
+
+.settings-icon-account {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 14px;
+    top: 391px;
+    opacity: 65%;
+}
+
+.help-center-icon-account {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 14px;
+    top: 430px;
+    opacity: 65%;
+}
+
+.about-us-icon-account {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 14px;
+    top: 469px;
+    opacity: 65%;
+}
+
+.call-us-styles {
+    position: absolute;
+    width: 88.78px;
+    height: 90px;
+    left: 143.11px;
+    top: 29px;
+}
+
+.edit-icon-style {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 336px;
+    top: 9px;
+    opacity: 0.8;
+}
+
+.profile-pic-2-style {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    left: 304px;
+    top: 98px;
+}
+
+.member-center-icon-style {
+    position: absolute;
+    width: 18px;
+    height: 20px;
+    left: 342px;
+    top: auto;
+}
+
+.shopping-icon-item-view {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 303px;
+    top: 10px;
+}
+
+.share-icon-item-view {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 335px;
+    top: 10px;
+}
+
 
 /* iPhone X Portrait */
 

@@ -24,7 +24,126 @@
     color: rgba(0, 0, 0, 0.8);
 }
 
-.user-name-layout{
+.clickable-font-styles {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 15px;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.shipping-type-details {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.shipped-shipping-type {
+    position: absolute;
+    width: 55px;
+    height: 16px;
+    left: 22px;
+    top: 210px;
+}
+
+.to-be-collected-shippig-type {
+    position: absolute;
+    width: 92px;
+    height: 16px;
+    left: 22px;
+    top: 240px;
+}
+
+.unpaid-shipping-type {
+    position: absolute;
+    width: 42px;
+    height: 16px;
+    left: 22px;
+    top: 179px;
+}
+
+.orders-text-style {
+    position: absolute;
+    width: 54px;
+    height: 18px;
+    left: 47px;
+    top: 149px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.order-type-view-all-text {
+    position: absolute;
+    width: 42px;
+    height: 16px;
+    left: 314px;
+    top: 149px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 9px;
+    line-height: 12px;
+    color: #2F78BB;
+}
+
+.edit-settings-basic-font-styles {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.shipping-address-possition {
+    position: absolute;
+    width: 109px;
+    height: 16px;
+    left: 51px;
+    top: 298px;
+}
+
+.notifictions-possition {
+    position: absolute;
+    width: 109px;
+    height: 16px;
+    left: 51px;
+    top: 360px;
+}
+
+.settings-possition {
+    position: absolute;
+    width: 109px;
+    height: 16px;
+    left: 51px;
+    top: 395px;
+}
+
+.help-center-text-possition {
+    position: absolute;
+    width: 109px;
+    height: 16px;
+    left: 51px;
+    top: 434px;
+}
+
+.about-us-text-possition {
+    position: absolute;
+    width: 109px;
+    height: 16px;
+    left: 51px;
+    top: 473px;
+}
+
+.user-name-layout {
     position: absolute;
     width: 145px;
     height: 22px;
@@ -37,7 +156,7 @@
     line-height: 20px;
 }
 
-.member-type-layout{
+.member-type-layout {
     position: absolute;
     width: 89px;
     height: 14px;
@@ -50,9 +169,194 @@
     line-height: 16px;
     color: rgba(0, 0, 0, 0.9);
 }
-.default-profile-font-style{
-    font-family: Open Sans; font-size: 12px; line-height: 16px; color: rgba(0, 0, 0, 0.8);
+
+.default-profile-font-style {
+    font-family: Open Sans;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
 }
+
+.give-us-a-call-text-style {
+    position: absolute;
+    width: 200px;
+    height: 22px;
+    left: 131.27px;
+    top: 127px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+}
+
+.contact-number-style {
+    position: absolute;
+    width: 124.3px;
+    height: 22px;
+    left: 125.35px;
+    top: 154px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.about-us-paragraph-style {
+    position: absolute;
+    width: 303px;
+    height: 131px;
+    left: 13px;
+    top: 162px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 15px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.address-one-container-style {
+    position: absolute;
+    width: 375px;
+    height: 89px;
+    left: 14px;
+    top: 93px;
+}
+
+.address-one-style {
+    margin-top: 10px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+}
+
+.address-two-style {
+    margin-top: 10px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+}
+
+.account-details-font-styles {
+    font-family: Open Sans;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.my-profile-details-title-style {
+    position: absolute;
+    width: 75px;
+    height: 16px;
+    left: 23px;
+    top: 120px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.contact-name-style {
+    position: absolute;
+    width: 87px;
+    height: 16px;
+    left: 23px;
+    top: auto;
+}
+
+.user-name-text-possition {
+    position: absolute;
+    width: 89px;
+    height: 16px;
+    left: 256px;
+    top: auto;
+}
+
+.member-center-style {
+    position: absolute;
+    width: 100px;
+    height: 16px;
+    left: 23px;
+    top: auto;
+}
+
+.user-full-name-style {
+    position: absolute;
+    width: 85px;
+    height: 15px;
+    left: 256px;
+    top: auto;
+}
+
+.account-info-style {
+    position: absolute;
+    width: 100px;
+    height: 16px;
+    left: 23px;
+    top: auto;
+}
+
+.gender-style {
+    position: absolute;
+    width: 87px;
+    height: 16px;
+    left: 23px;
+    top: auto;
+}
+
+.birthday-style {
+    position: absolute;
+    width: 100px;
+    height: 16px;
+    left: 23px;
+    top: auto;
+}
+
+.logged-in-user-name-style {
+    position: absolute;
+    width: 102px;
+    height: 16px;
+    left: 256px;
+    top: auto;
+}
+
+.logged-in-user-gender {
+    position: absolute;
+    width: 29px;
+    height: 16px;
+    left: 256px;
+    top: auto;
+}
+
+.logged-in-user-birthday {
+    position: absolute;
+    width: 100px;
+    height: 16px;
+    left: 256px;
+    top: auto;
+}
+
+.shipping-address-style {
+    position: absolute;
+    width: 200px;
+    height: 16px;
+    left: 23px;
+    top: 400px;
+}
+
+
 /* iPhone X */
 
 .iphone-bottom-navbar-font {

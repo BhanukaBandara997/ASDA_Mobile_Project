@@ -101,7 +101,7 @@ $(function() {
             e.preventDefault();
             e.stopImmediatePropagation();
             app.GetCategories();
-            $.mobile.changePage('#pgShopping');
+            $.mobile.changePage('#pgShop');
         });
 
         $('#homeSearch, #shopSearch, #searchSearch, #favSearch, #accSearch, #flashDealsSearch, #newProductsSearch, #topSelectionSearch').on('click', function(e) {
@@ -172,6 +172,8 @@ $(function() {
             userRecObj.UserGender = null;
             userRecObj.BirthDay = null;
             userRecObj.LoyaltyPoints = 0;
+            userRecObj.FirstName = null;
+            userRecObj.LastName = null;
             return userRecObj;
         }
 
@@ -448,7 +450,7 @@ $(function() {
         $('#back-icon-sub-category').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            $.mobile.changePage('#pgShopping', { transition: pgtransition });
+            $.mobile.changePage('#pgShop', { transition: pgtransition });
         });
 
         $('#user-name, #profile-pic').on('click', function(e) {
@@ -459,11 +461,11 @@ $(function() {
             $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
         });
 
-        $('#user-name, #profile-pic').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
-        });
+        // $('#user-name, #profile-pic').on('click', function(e) {
+        //     e.preventDefault();
+        //     e.stopImmediatePropagation();
+        //     $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+        // });
 
         $('#about-us-icon, #about-us-text').on('click', function(e) {
             e.preventDefault();
@@ -494,11 +496,56 @@ $(function() {
             app.ShowPopUpDialogBox();
         });
 
-        // $('#shipping-address-text').on('click', function(e) {
-        //     e.preventDefault();
-        //     e.stopImmediatePropagation();
-        //     $.mobile.changePage('#pgContactUs', { transition: pgtransition });
-        // });
+        // Pop-up Gender Dialog
+        $('#loged-in-user-gender').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $('#genderPopupDialog').popup('open');
+        });
+
+        // Save Gender 
+        $('#saveGenderBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var radioValueGender = $("input[name='gender']:checked").val();
+            app.UpdateUserGender(radioValueGender);
+        });
+
+        // Pop-up Birthday Dialog
+        $('#loged-in-user-birthday').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $('#birthdayPopupDialog').popup('open');
+        });
+
+        // Save Birthday 
+        $('#saveBirthdayBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var newBirthday = $("#userBirthDay").val();
+            app.UpdateUserBirthday(newBirthday);
+        });
+
+        // Pop-up First and Last Name Dialog
+        $('#loged-in-user-name').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $('#namePopupDialog').popup('open');
+        });
+
+        // Save Pop-up First and Last Name 
+        $('#saveNameBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var newBirthday = $("#userBirthDay").val();
+            app.UpdateUserBirthday(newBirthday);
+        });
+
+        $('#edit-icon').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $('#addressPopupDialog').popup('open');
+        });
 
         app.ShowPopUpDialogBox = function() {
             var modal = document.getElementById("myModal");
@@ -757,10 +804,7 @@ $(function() {
 
         ///////////////////////////// Address Appending /////////////////////////////////////////////////////
 
-
-
         app.GetUserSavedAddresses = function() {
-            // var fileName = "FlashDealItemList";
             var loggedInUser = app.GetCurrentUser();
             loggedInUser += '.json';
             var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(loggedInUser));
@@ -839,15 +883,20 @@ $(function() {
                         $("#loged-in-user-birthday").text(addressObject.BirthDay);
                     }
                     if (addressObject.Name != null) {
-                        var currentUser = app.GetCurrentUser();
-                        $("#loged-in-user-name").text(currentUser);
+                        if (addressObject.FirstName == null && addressObject.LastName == null) {
+                            var currentUser = app.GetCurrentUser();
+                            $("#loged-in-user-name").text(currentUser);
+                        } else {
+                            var fullName = addressObject.FirstName + " " + addressObject.LastName;
+                            $("#loged-in-user-name").text(fullName);
+                        }
                     }
-                    if (addressObject.BirthDay == null) {
+                    if (addressObject.BirthDay == null || addressObject.BirthDay == "") {
                         $("#loged-in-user-birthday").text("Add");
                     } else {
                         $("#loged-in-user-birthday").text(addressObject.BirthDay);
                     }
-                    if (addressObject.UserGender == null) {
+                    if (addressObject.UserGender == null || addressObject.UserGender == "") {
                         $("#loged-in-user-gender").text("Add");
                     } else {
                         $("#loged-in-user-gender").text(addressObject.UserGender);
@@ -858,6 +907,79 @@ $(function() {
             }
         };
 
+        app.UpdateUserGender = function(gender) {
+            var loggedInUser = app.GetCurrentUser();
+            loggedInUser += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(loggedInUser));
+            if (req.status == 200) {
+                try {
+                    var object = JSON.parse(req.responseText);
+                    if (gender != null) {
+                        object.UserGender = gender
+                    }
+                    var recordJSON = JSON.stringify(object);
+                    var reqe = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                    if (reqe.status == 200) {
+                        try {
+                            app.PopulateAllBacisInfo();
+                            app.MemberCenterDetails();
+                            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+                        } catch (e) {}
+                    }
+                } catch (e) {}
+            }
+        };
+
+        app.UpdateUserBirthday = function(birthday) {
+            var loggedInUser = app.GetCurrentUser();
+            loggedInUser += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(loggedInUser));
+            if (req.status == 200) {
+                try {
+                    var object = JSON.parse(req.responseText);
+                    if (birthday != null) {
+                        object.BirthDay = birthday
+                    }
+                    var recordJSON = JSON.stringify(object);
+                    var reqe = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                    if (reqe.status == 200) {
+                        try {
+                            app.PopulateAllBacisInfo();
+                            app.MemberCenterDetails();
+                            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+                        } catch (e) {}
+                    }
+                } catch (e) {}
+            }
+        };
+
+        app.UpdateUserNames = function(fName, lName, defaultName) {
+            var loggedInUser = app.GetCurrentUser();
+            loggedInUser += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(loggedInUser));
+            if (req.status == 200) {
+                try {
+                    var object = JSON.parse(req.responseText);
+                    object.FirstName = null;
+                    object.LastName = null;
+                    if (fName == null && lName == null) {
+                        object.Name = defaultName
+                    } else {
+                        object.FirstName = fName;
+                        object.LastName = lName;
+                    }
+                    var recordJSON = JSON.stringify(object);
+                    var reqe = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                    if (reqe.status == 200) {
+                        try {
+                            app.PopulateAllBacisInfo();
+                            app.MemberCenterDetails();
+                            $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
+                        } catch (e) {}
+                    }
+                } catch (e) {}
+            }
+        };
         ///////////////////////////// Flash Deals List View Item Appending /////////////////////////////////////////////////////
 
 
