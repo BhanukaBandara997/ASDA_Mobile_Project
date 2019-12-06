@@ -3,7 +3,14 @@ $(function() {
     var ASDA_Project = {};
     var pgtransition = 'slide';
     var currentLoggedUser = null;
-    var favouritesSelectorValue = null;
+    var favouritesSelectorValue = "ALL_PRODUCTS";
+    var deleteFavouriteItemsList = [];
+    var shareFavouriteItem = null;
+    var moveFavouriteItemsList = [];
+    var selectedItemId = null;
+    var selectedItemName = null;
+    var selectedFavouriteListName = "Default_Favourite_List";
+    var createNewFavouriteListName = '';
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -114,6 +121,7 @@ $(function() {
             e.preventDefault();
             e.stopImmediatePropagation();
             app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+            getFavouriteListsForUser();
             $.mobile.changePage('#pgFavourites');
         });
 
@@ -136,7 +144,7 @@ $(function() {
             //check password matching
             var passwordMatched = checkPasswordMatch($('#pgSignUpPassword').val().trim(), $('#pgSignUpConfirmPassword').val().trim());
             if (passwordMatched) {
-                //get form  contents into an object
+                //get form contents into an object
                 userRecObj = pgAddUserDetailsToObj();
                 //save object to JSON and return saved status
                 var userAddedSucce = app.addUser(userRecObj);
@@ -263,7 +271,6 @@ $(function() {
                 pgSignInClear();
                 currentLoggedUser = Email.split('@')[0];
                 // show the page to display after sign in
-                toastr.success('Login Success.', 'ASDA_Project');
                 $.mobile.changePage('#pgHome', { transition: pgtransition });
             }
         };
@@ -302,6 +309,22 @@ $(function() {
                     if (Email != userRec.Email) {
                         $('#pgForgetPassword').data('success', 'false');
                         toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                    } else {
+                        var fourDigitCode = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+                        localStorage.setItem("fourDigitCode", fourDigitCode);
+                        var recordJSON = {
+                            'Email': Email,
+                            'FourDigitCode': fourDigitCode
+                        }
+                        recordJSON = JSON.stringify(recordJSON);
+                        var req = Ajax("./controllers/ajaxSendResetCode.php", "POST", recordJSON);
+                        if (req.status == 200) {
+                            try {
+                                toastr.success('Verification Code Sended To Your - ' + Email + ' Address');
+                            } catch (e) {
+                                toastr.error('An Error Occured While Sending Verification Code');
+                            }
+                        }
                     }
                 } catch (e) {
                     //user file is not found
@@ -331,22 +354,23 @@ $(function() {
         $('#pgResetPasswordForm').submit(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            var fourDigitCode = localStorage.getItem("fourDigitCode");
             var passwordMatched = checkPasswordMatch($('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
             if (passwordMatched) {
-                app.PasswordReset($('#fourDigitCode').val().trim(), $('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
+                app.PasswordReset(fourDigitCode, $('#pgResetPasswordInput').val().trim(), $('#pgResetConfirmPassword').val().trim());
             } else {
                 toastr.error('Password mismatch. Re-enter the correct password again!');
             }
         });
 
-
         app.PasswordReset = function(fourDigitCode, newPassword, newConfirmPassword) {
             var Email = localStorage.getItem("currentLoggedInUser");
+            var fourLocalDigitCode = localStorage.getItem("fourDigitCode");
             $('#pgResetPassword').data('success', 'true');
             var userName = Email.trim();
             userName = userName.split('@')[0];
             userName += '.json';
-            if (fourDigitCode == 0000) {
+            if (fourDigitCode == fourLocalDigitCode) {
                 var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
                 if (req.status == 200) {
                     try {
@@ -387,11 +411,15 @@ $(function() {
 
         };
 
-        function pgForgetPasswordClear() {
+        function pgResetPasswordClear() {
             $('#fourDigitCode').val('');
             $('#pgResetPasswordInput').val('');
             $('#pgResetConfirmPassword').val('');
         }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
         ///////////////////////////// Update Address //////////////////////////////////////////
 
@@ -503,7 +531,7 @@ $(function() {
             $('#genderPopupDialog').popup('open');
         });
 
-        // Save Gender 
+        // Save Gender
         $('#saveGenderBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -518,7 +546,7 @@ $(function() {
             $('#birthdayPopupDialog').popup('open');
         });
 
-        // Save Birthday 
+        // Save Birthday
         $('#saveBirthdayBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -533,7 +561,7 @@ $(function() {
             $('#namePopupDialog').popup('open');
         });
 
-        // Save Pop-up First and Last Name 
+        // Save Pop-up First and Last Name
         $('#saveNameBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -643,7 +671,7 @@ $(function() {
             parentDiv.append(previousCategoryObj);
             parentDiv.append(newCategoryObj);
             if (categoryState == "parent") {
-                $('#shop-background').append(parentDiv);
+                $('#pgShopContent').append(parentDiv);
             } else {
                 $('#sub-category-background').append(parentDiv);
             }
@@ -710,10 +738,10 @@ $(function() {
         // }
 
 
-
         ///////////////////////////// Flash Deals Carousel Item Appending /////////////////////////////////////////////////////
 
         $(document).delegate('.ui-page', 'pageshow', function() {
+
             $('.fadeOut').owlCarousel({
                 items: 1,
                 animateOut: 'fadeOut',
@@ -727,7 +755,25 @@ $(function() {
                 margin: 0,
             });
 
+            $('.favourite-list-carousel').owlCarousel({
+                items: 2.5,
+                loop: true,
+                margin: 10,
+            });
+
             app.GetFlashDealsItems();
+
+            $('#favSelect-button').removeClass('ui-shadow');
+            $('#cancelFavouriteBtn').removeClass('ui-shadow');
+            $('#deleteFavouriteBtn').removeClass('ui-shadow');
+
+            if ($('#fav-footer').hasClass('slideup')) {
+                $('#fav-footer').removeClass("slideup");
+            }
+
+            if ($('#fav-header').hasClass('slidedown')) {
+                $('#fav-header').removeClass("slidedown");
+            }
 
         });
 
@@ -741,7 +787,9 @@ $(function() {
                     $.each(flashDealItemsList.FlashDealsList, function() {
                         appendFlashDealItems($('#owl-item-parent-div'), this);
                     });
-                } catch (e) {}
+                } catch (e) {
+                    toastr.success('An Error Occurred While Retrieving Flash Deals Item List');
+                }
             }
 
         };
@@ -750,7 +798,7 @@ $(function() {
 
             var parentDiv = $('<div>', {
                 'class': 'owl-item',
-                'style': 'width: 148px; margin-right: 10px;'
+                'style': 'width: 120px; margin-right: 10px;'
             });
 
             var carouselItem = $('<div>', {
@@ -1011,7 +1059,7 @@ $(function() {
 
                     });
                 } catch (e) {
-
+                    toastr.success('An Error Occurred While Retrieving Flash Deals Item List');
                 }
             }
 
@@ -1137,7 +1185,7 @@ $(function() {
                         });
                     }
                 } catch (e) {
-
+                    toastr.success('An Error Occurred While Retrieving Product Type Item List');
                 }
             }
 
@@ -1227,6 +1275,43 @@ $(function() {
             }
         });
 
+        ///////////////////////////////////// Edit Button View /////////////////////////////////////////
+
+        function editBtnFunctionalities() {
+            var X = 1;
+            var Y = 0;
+            var Z = 7;
+            $('.edit-check-box').css('display', 'none');
+            $('#edit-btn').attr('src', './assets/img/Navbar_Images/edit-black.png');
+            $('#favEditNavBar').css('display', 'none');
+            $('#favNavBar').css('display', 'block');
+            $('#fav-footer').css('border-width', X + 'px ' + Y + 'px');
+            $('#fav-footer').css('padding-top', Z + 'px');
+            deleteFavouriteItemsList = [];
+            moveFavouriteItemsList = [];
+            $('input:checkbox').removeAttr('checked');
+        }
+
+        function correctBtnFunctionalities() {
+            var X = 2;
+            var Y = 0;
+            $('.edit-check-box').css('display', 'block');
+            $('#edit-btn').attr('src', './assets/img/Navbar_Images/correct-signal.png');
+            $('#favNavBar').css('display', 'none');
+            $('#favEditNavBar').css('display', 'block');
+            $('#fav-footer').css('border-width', X + 'px ' + Y + 'px');
+            $('#fav-footer').css('padding-top', Y + 'px');
+        }
+
+        $('#edit-btn').on('click', function() {
+            if ($('#edit-btn').attr('src') == './assets/img/Navbar_Images/correct-signal.png') {
+                editBtnFunctionalities();
+            } else {
+                correctBtnFunctionalities();
+            }
+        });
+
+        //////////////////////// Get Favourite List According To User //////////////////////////////
 
         app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue) {
 
@@ -1240,52 +1325,34 @@ $(function() {
             if (req.status == 200) {
                 try {
                     var favouriteItemsList = JSON.parse(req.responseText);
-                    $('#pgFavouritesContent').empty();
-
+                    $('#favouriteItemListDiv').empty();
+                    topAlignPercentage = 23;
                     $.each(favouriteItemsList.FavouriteItemList, function() {
-                        appendFavouriteItemsToList($('#pgFavouritesContent'), this);
+                        appendFavouriteItemsToList($('#favouriteItemListDiv'), this, topAlignPercentage);
+                        topAlignPercentage += 18;
                     });
-                } catch (e) {}
+                } catch (e) {
+                    toastr.success('An Error Occurred While Retrieving Favourite Item List');
+                }
             }
 
         };
 
+        //////////////////////// Append Favourite List Items To List //////////////////////////////
+
         function appendFavouriteItemsToList(parent, dataObj) {
-
-            var contextMenuParentDiv = $('<div>', {
-                'id': 'context-menu-items',
-                'class': 'context-menu-container'
-            });
-
-            var contextMenuUl = $('<ul>', {});
-
-            var contextMenuLi1 = $('<li>', {});
-            contextMenuUl.text('Move to');
-
-            var contextMenuLi2 = $('<li>', {});
-            contextMenuUl.text('Delete');
-
-            var contextMenuLi3 = $('<li>', {});
-            contextMenuUl.text('Share via E-mail');
-
-            contextMenuUl.append(contextMenuLi1);
-            contextMenuUl.append(contextMenuLi2);
-            contextMenuUl.append(contextMenuLi3);
-
-            contextMenuParentDiv.append(contextMenuUl);
-
 
             var itemFavouriteListRow = $('<div>', {
                 'id': dataObj.Product_ID,
                 'border-bottom': '1px #C4C4C4 solid;',
                 'class': 'flashDealsRow',
-                'style': 'margin-bottom: 30px; margin-top: 30px;'
-            }).on('click', function() {
-                console.log(dataObj.Product_ID)
+                'style': 'margin-bottom: 15px; margin-top: 15px;'
             });
 
             var itemFavouriteImageParentDiv = $('<div>', {
                 'style': 'display: flex; margin-left: 5%;'
+            }).on('click', function() {
+                alert(dataObj.Product_ID + "ITEM CLICKED");
             });
 
             var itemFavouriteImg = $('<img>', {
@@ -1301,9 +1368,46 @@ $(function() {
 
             var itemFavouriteName = $('<span>', {
                 'class': 'flash-deals-item-details'
+            }).on('click', function() {
+                alert(dataObj.Product_ID + "ITEM CLICKED");
             });
 
             itemFavouriteName.text(dataObj.Product_Name);
+
+            var itemFavouriteEditCheckBox = $('<input>', {
+                'type': 'checkbox',
+                'class': 'edit-check-box',
+                'id': 'edit-check-box-' + dataObj.Product_ID,
+                'style': ' height: 30px; width: 20px; display: none; margin-left: 90%; margin-bottom: -15%;'
+            }).on('change', function(e) {
+                if ($(this).is(':checked')) {
+                    var selectedId = this.id.split('-')[3];
+                    deleteFavouriteItemsList.push(selectedId);
+                    moveFavouriteItemsList.push(selectedId);
+                } else {
+                    var selectedId = this.id.split('-')[3];
+                    deleteFavouriteItemsList = jQuery.grep(deleteFavouriteItemsList, function(value) {
+                        return value != selectedId;
+                    });
+
+                    moveFavouriteItemsList = jQuery.grep(moveFavouriteItemsList, function(value) {
+                        return value != selectedId;
+                    });
+                }
+            });
+
+            var myVar = setInterval(myTimer, 5);
+
+            function myTimer() {
+                if ($('#fav-header').hasClass('ui-fixed-hidden')) {
+                    $('#fav-header').removeClass("ui-fixed-hidden");
+                    $('#fav-header').removeClass("slidedown");
+                }
+                if ($('#fav-footer').hasClass('ui-fixed-hidden')) {
+                    $('#fav-footer').removeClass("ui-fixed-hidden");
+                    $('#fav-footer').removeClass("slideup");
+                }
+            }
 
             var itemFavouritePrice = $('<span>', {
                 'class': 'flash-deals-price'
@@ -1329,15 +1433,55 @@ $(function() {
             itemFavouriteRatingParentDiv.append(itemFavouriteRating);
             itemFavouriteRatingParentDiv.append(itemFavouriteImgRating);
 
-            var itemFavouriteContextMenu = $('<div>', {
-                'style': 'text-align: end; margin-top: -20px;',
-                'class': 'context-menu',
-                'data-container-id': 'context-menu-items'
+            var contextMenuParentDiv = $('<img>', {
+                'class': 'contextMenu iw-mTrigger',
+                'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
+                'src': ' ./assets/img/menu.png',
+                'id': 'context-menu-' + dataObj.Product_ID + "-" + dataObj.Product_Name,
+                'product-name': dataObj.Product_Name
+            }).on('click', function() {
+                selectedItemId = this.id.split('-')[2];
+                selectedItemName = this.id.split('-')[3].trim();
             });
 
-            var tableContextMenu = new ContextMenu("context-menu-items", menuItemClickListener);
+            var menu = [{
+                name: 'Move to',
+                fun: function(data, event) {
+                    $('#movePopupDialog').popup('open');
+                    moveFavouriteItemsList.push(selectedItemId);
+                    getFavouriteListsForUser();
+                }
+            }, {
+                name: 'Delete',
+                fun: function(data, event) {
+                    deleteFavouriteItemsList.push(selectedItemId);
+                    $('#deletePopupDialog').popup('open');
+                }
+            }, {
+                name: 'Share via E-mail',
+                fun: function(data, event) {
+                    shareFavouriteItem = {
+                        'productId': selectedItemId,
+                        'productName': selectedItemName
+                    };
+                    $('#sharePopupDialog').popup('open');
+                    $('#cancelFavouriteBtn').removeClass('ui-shadow');
+                    $('#shareFavouriteBtn').removeClass('ui-shadow');
+
+                }
+            }];
+
+            $('.contextMenu').contextMenu(menu);
+
+            var itemFavouriteContextMenu = $('<div>', {
+                'style': 'text-align: end; margin-top: 10px; margin-right: 5px;',
+                'class': 'context-menu'
+            });
+
+            itemFavouriteContextMenu.append(contextMenuParentDiv);
 
             itemFavouriteDetailsParentDiv.append(itemFavouriteName);
+            itemFavouriteDetailsParentDiv.append(itemFavouriteEditCheckBox);
             itemFavouriteDetailsParentDiv.append(itemFavouritePrice);
             itemFavouriteDetailsParentDiv.append(itemFavouriteRatingParentDiv);
             itemFavouriteDetailsParentDiv.append(itemFavouriteContextMenu);
@@ -1348,1685 +1492,692 @@ $(function() {
             parent.append(itemFavouriteListRow);
         }
 
-        function menuItemClickListener(menu_item, parent) {
-            alert("Menu Item Clicked: " + menu_item.text() + "\nRecord ID: " + parent.attr("data-row-id"));
+        ////////////////////////// Remove Favourite From List //////////////////////////////////////
+
+        function deleteFavouriteItems(deleteFavouriteItemsList) {
+            deleteFavouriteItemsList.forEach(element => {
+                $('#favouriteItemListDiv').find("div#" + element).remove();
+
+                if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
+                    favouritesSelectorValue = "defaultFavouriteList";
+                }
+                currentLoggedUser = "User_001";
+                var fileName = currentLoggedUser + "-" + favouritesSelectorValue;
+                fileName += '.json';
+                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                if (req.status == 200) {
+                    try {
+                        var favouriteItemsList = JSON.parse(req.responseText);
+                        $.each(favouriteItemsList.FavouriteItemList, function(index, val) {
+                            if (this.Product_ID === element) {
+                                delete favouriteItemsList.FavouriteItemList[index];
+                            }
+                        });
+                        var updatedFileName = currentLoggedUser + "-" + favouritesSelectorValue;
+                        updateFavouriteList(favouriteItemsList, updatedFileName);
+                    } catch (e) {
+                        toastr.success('An Error Occurred While Retrieving Favourite Item List');
+                    }
+                }
+                deleteFavouriteItemsList = [];
+                $('#deletePopupDialog').popup('close');
+            });
         }
 
-        // <div class="flashDealsRow">
-        //         <div style="display: flex; margin-left: 5%;">
-        //             <img style="height: 100px; width: 100px;" src="./assets/img/Item_Images/M&amp;M-Peanut-Butter-Chocolate-Candy.jpg">
-        //         </div>
-        //         <div style="display: grid; padding: 15px;">
-        //             <span class="flash-deals-item-details">M&amp;M'S Peanut Butter Chocolate Candy, Singles Size</span>
-        //             <span class="flash-deals-price" style="margin-top: 15px;">$17.76</span>
-        //             <div style="display: flex; margin-top: 7px; margin-left: 2px;">
-        //                 <span class="favourites-rating">4.0</span>
-        //                 <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/starRating.png">
-        //             </div>
-        //             <div class="context-menu" data-container-id="context-menu-items" style="text-align: end; margin-top: -20px;"></div>
-        //         </div>
-        //     </div>
+        ////////////////////////// Delete Popup Show Method /////////////////////////////////////////////////////
 
+        $('#favDeleteItemsBtn').on('click', function() {
+            $('#deletePopupDialog').popup('open');
+        });
 
+        ////////////////////////// Delete Multiple Items Once /////////////////////////////////////////////////////
 
+        $('#deleteFavouriteBtn').on('click', function() {
+            deleteFavouriteItems(deleteFavouriteItemsList);
+            editBtnFunctionalities();
+        });
 
+        /////////////////////////// Move Item To New Favourite Lists ////////////////////////////////////////////////
 
+        $('#favMoveToBtn').on('click', function() {
+            ////////////////////////// Move Popup need to add --- TODO //////////////////////////////////////
+            $('#movePopupDialog').popup('open');
+        });
 
+        ////////////////////////// Update Favourite Items List //////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // delete record from JSON
-        //delete a record from JSON using record key
-        app.deleteUser = function(Email) {
-            Email = Email.replace(/ /g, '-');
-            var req = Ajax("ajaxDeleteUser.php/?Email=" + Email);
-            if (req.status == 200) {
-                toastr.success('User record deleted.', 'ASDA_Project');
-            } else {
-                toastr.error('User record not deleted.', 'ASDA_Project');
+        function updateFavouriteList(updatedFavouriteList, fileName) {
+            updatedFavouriteList.FavouriteItemList.FileName = fileName;
+            var recordJSON = JSON.stringify(updatedFavouriteList);
+            var req = Ajax("./controllers/ajaxSaveFavouriteList.php", "POST", recordJSON);
+            if (req.status == 200) {} else {
+                toastr.success('An Error Occurred While Deleting Item');
+                $('#deletePopupDialog').popup('close');
             }
-            // show the page to display after a record is deleted, this case listing page
-            $.mobile.changePage('#pgUser', { transition: pgtransition });
         };
 
 
-        // variable definitions go here
-        var UserLi = '<li ><a href="#pgEditUser?Email=Z2"><h2>Z1</h2><p>DESCRIPTION</p></a></li>';
-        var UserHdr = '<li data-role="list-divider">Your Users</li>';
-        var noUser = '<li id="noUser">You have no users</li>';
-        //var pgUserListScroller = new IScroll('#pgUserList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
-        // variable definitions go here
-        var ProjectLi = '<li ><a href="#pgEditProject?ProjectName=Z2"><h2>Z1</h2><p>DESCRIPTION</p><span class="ui-li-count">COUNTBUBBLE</span></a></li>';
-        var ProjectHdr = '<li data-role="list-divider">Your Projects</li>';
-        var noProject = '<li id="noProject">You have no projects</li>';
-        //var pgProjectListScroller = new IScroll('#pgProjectList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
-        // variable definitions go here
-        var PersonLi = '<li ><a href="#pgEditPerson?FullName=Z2"><h2>Z1</h2><p>DESCRIPTION</p></a></li>';
-        var PersonHdr = '<li data-role="list-divider">Your People</li>';
-        var noPerson = '<li id="noPerson">You have no people</li>';
-        // var pgPersonListScroller = new IScroll('#pgPersonList', { mouseWheel: true, scrollbars: true, bounce: true, zoom: false });
-        app.init = function() {
-            //FastClick.attach(document.body);
-            app.UserBindings();
-            app.ProjectBindings();
-            app.PersonBindings();
-            // app.SignInBindings();
-            $('#msgboxyes').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var yesmethod = $('#msgboxyes').data('method');
-                var yesid = $('#msgboxyes').data('id');
-                app[yesmethod](yesid);
-            });
-            $('#msgboxno').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var nomethod = $('#msgboxno').data('method');
-                var noid = $('#msgboxno').data('id');
-                var toPage = $('#msgboxno').data('topage');
-                // show the page to display after a record is deleted
-                $.mobile.changePage('#' + toPage, { transition: pgtransition });
-                app[nomethod](noid);
-            });
-            $('#alertboxok').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var toPage = $('#alertboxok').data('topage');
-                // show the page to display after ok is clicked
-                $.mobile.changePage('#' + toPage, { transition: pgtransition });
-            });
-            $(document).on('click', '#sbItems a', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var href = $(this).attr('href');
-                $.mobile.changePage(href, { transition: pgtransition });
-            });
-        };
+        //////////// Share Favourite From List //////////////////////////////////////
 
-        function ValidatePassword(p1, p2) {
-            if (p1.value != p2.value ||
-                p1.value == "" ||
-                p2.value == "") {
-                return false;
+        function shareFavouriteItems(shareFavouriteItemsList) {
+            shareFavouriteItemsList.forEach(element => {
+                $('#favouriteItemListDiv').find("div#" + element.Product_ID).remove();
+                shareFavouriteItemsList = [];
+            });
+        }
+
+        $('#shareFavouriteBtn').on('click', function() {
+            var sEmail = $('#shareFavouriteViaEmail').val();
+            var itemURL = null;
+            // Checking Empty Fields
+            if ($.trim(sEmail).length == 0) {
+                $('#invalidEmailSpan').css('display', 'block');
             } else {
+                if (validateEmail(sEmail)) {
+                    $('#invalidEmailSpan').css('display', 'none');
+                    $('#shareContentSpan').text("Attached favourite item name");
+                    $('#shareContentSpan').css('padding', '37px');
+                    $('#shareContentSpan').css('margin-left', '-15px');
+                    $('input#shareFavouriteViaEmail').val(shareFavouriteItem.productName);
+                    $('#shareSubmitSpan').text("SEND");
+
+                    ////////////// Send Mail To Using Product Id and Name /////////////////////////////////
+                    itemURL = ""; //////////// TODO Set ITEM URL
+                    var recordJSON = {
+                        'Email': Email,
+                        'ItemURL': itemURL
+                    }
+                    recordJSON = JSON.stringify(recordJSON);
+                    var req = Ajax("./controllers/ajaxShareItem.php", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {
+                            toastr.success('Item Shared To Your - ' + Email + ' Address');
+                            $('#sharePopupDialog').popup('close');
+                        } catch (e) {
+                            toastr.error('An Error Occured While Sharing Item');
+                        }
+                    }
+
+                } else {
+                    $('#invalidEmailSpan').css('display', 'block');
+                }
+            }
+        });
+
+        //////////// Move Favourite From List //////////////////////////////////////
+
+        function moveFavouriteItems(moveFavouriteItemsList) {
+            moveFavouriteItemsList.forEach(element => {
+                $('#favouriteItemListDiv').find("div#" + element.Product_ID).remove();
+                moveFavouriteItemsList = [];
+            });
+        }
+
+        $('#add-img').on('click', function() {
+            $('#movePopupDialog').popup('close');
+            // if (moveFavouriteItemsList.length > 0) {
+            //     $('#createNewFavListPopupDialog').popup('open');
+            // }
+        });
+
+        $("#movePopupDialog").bind({
+            popupafterclose: function(event, ui) {
+                if (moveFavouriteItemsList.length > 0) {
+                    $('#createNewFavListPopupDialog').popup('open');
+                }
+            }
+        });
+
+        $('#cancelMoveFavouriteBtn', function() {
+            $.mobile.changePage('#pgFavourites');
+            moveFavouriteItemsList = [];
+        });
+
+        $("#sharePopupDialog").bind({
+            popupafterclose: function(event, ui) {
+                $('#shareFavouriteViaEmail').val('');
+                $('#invalidEmailSpan').css('display', 'none');
+            }
+        });
+
+        function getFavouriteListsForUser() {
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-favouriteLists";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var favouriteItemsList = JSON.parse(req.responseText);
+                    $('#favouriteListDiv').empty();
+                    $('#favSelect').empty();
+
+                    var favouriteListOptionParent = $('<option>', {
+                        'style': 'color: #333 !important;',
+                        'value': listName.replace(/_/g, ' ')
+                    });
+                    favouriteListOptionParent.text("ALL PRODUCTS");
+                    $('#favSelect').append(favouriteListOptionParent);
+
+                    $.each(favouriteItemsList.FavouriteLists, function(index, val) {
+                        appendFavouriteListsToDialog($('#favouriteListDiv'), val.Name);
+                        if (index >= 1) {
+                            appendToListNames($('#favSelect'), val.Name);
+                        }
+                    });
+
+                } catch (e) {
+                    toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                }
+            }
+            $("#Default_Favourite_List").prop("checked", true);
+        }
+
+
+        function appendFavouriteListsToDialog(parent, favouriteListName) {
+
+            var radioBtnId = favouriteListName;
+
+            var favouriteListParentDiv = $('<div>', {
+                'style': 'display: flex; margin-bottom: 20px; width: 100%'
+            });
+
+            var favouriteListVisibilityImg = $('<img>', {
+                'class': 'visibility-img',
+                'src': './assets/img/Navbar_Images/visibility.png'
+            });
+
+            var favouriteListTitleSpan = $('<span>', {
+                'class': 'popup-content',
+                'style': 'margin-left: 10px; margin-right: 10px;'
+            });
+            favouriteListName = favouriteListName.replace(/[^a-z0-9\s]/gi, ' ');
+            favouriteListTitleSpan.text(favouriteListName);
+
+            var favouriteListInput = $('<input>', {
+                'type': 'radio',
+                'class': 'radio-btn',
+                'id': radioBtnId,
+                'style': 'height: 25px; width: 25px; margin-top: -1px; right: 8%;  position: absolute;'
+            }).on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('.radio-btn').prop("checked", false);
+                    $("#" + radioBtnId).prop("checked", true);
+                    selectedFavouriteListName = $(this).attr('id');
+                }
+            });
+
+            favouriteListParentDiv.append(favouriteListVisibilityImg);
+            favouriteListParentDiv.append(favouriteListTitleSpan);
+            favouriteListParentDiv.append(favouriteListInput);
+
+            parent.append(favouriteListParentDiv);
+
+        }
+
+        /////////// Get Default Favourite List Item Details //////////////////////////
+
+        function getDefaultFavouriteListItems(moveFavouriteItemsList) {
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-defaultFavouriteList";
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var favouriteItemsList = JSON.parse(req.responseText);
+                    $.each(favouriteItemsList.FavouriteItemList, function(index, val) {
+                        $.each(moveFavouriteItemsList, function(val) {
+                            if (val.Product_ID != val) {
+                                delete favouriteItemsList.FavouriteItemList[index];
+                            }
+                        });
+                    });
+                } catch (e) {
+                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                }
+            } else {
+                toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
+            }
+            return favouriteItemsList;
+        }
+
+
+        $('#moveFavouriteBtn').on('click', function() {
+            if (moveFavouriteItemsList.length > 0) {
+                var favouriteListName = selectedFavouriteListName.replace(/ /g, '_');
+                //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+                var currentLoggedUser = "User_001";
+                var fileName = currentLoggedUser + "-favouriteLists";
+                fileName += '.json';
+                var validFavouriteListName = true;
+                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                if (req.status == 200) {
+                    try {
+                        var favouriteItemsList = JSON.parse(req.responseText);
+                        $.each(favouriteItemsList.FavouriteLists, function(index, val) {
+                            if (val.Name == favouriteListName) {
+                                var fileName = val.FileName;
+                                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                                if (req.status == 200) {
+                                    try {
+                                        var favouriteItemsList = JSON.parse(req.responseText);
+                                        var updatedFavouriteList = getDefaultFavouriteListItems(moveFavouriteItemsList);
+                                        var newFavouriteList = favouriteItemsList.FavouriteItemList.push(updatedFavouriteList.FavouriteItemList);
+                                        updateFavouriteListWithNewItems(updatedFavouriteList, fileName);
+
+                                        ////////// Logic to Move Items to New List //////////////////////////
+
+                                        ///////// Route to new page and update the selector /////////////
+
+                                    } catch (e) {
+
+                                    }
+                                }
+                            } else {
+                                validFavouriteListName = false;
+                            }
+                        });
+
+                    } catch (e) {
+                        toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                    }
+                }
+            }
+        });
+
+
+        $('#createFavouriteListBtn').on('click', function() {
+            var newFavouriteListName = $('#createFavouriteListName').val();
+            if (newFavouriteListName.length > 0) {
+                //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+                var currentLoggedUser = "User_001";
+                var fileName = currentLoggedUser + "-favouriteLists";
+                fileName += '.json';
+                var validFavouriteListName = true;
+                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                if (req.status == 200) {
+                    try {
+                        var favouriteItemsList = JSON.parse(req.responseText);
+                        $.each(favouriteItemsList.FavouriteLists, function(index, val) {
+                            if (val.Name == newFavouriteListName) {
+                                $('#invalidFavouriteListSpan').css('display', 'block');
+                                validFavouriteListName = false;
+                            } else {
+                                $('#invalidFavouriteListSpan').css('display', 'none');
+                            }
+                        });
+
+                        if (validFavouriteListName) {
+                            var fileName = currentLoggedUser + "-" + newFavouriteListName + "FavouriteList";
+                            var newFavouriteListObj = {
+                                "Name": newFavouriteListName,
+                                "FileName": currentLoggedUser + "-" + newFavouriteListName + "FavouriteList"
+                            }
+                            favouriteItemsList.FavouriteLists.push(newFavouriteListObj);
+                            var parentFileName = currentLoggedUser + "-favouriteLists";
+                            updateFavouriteListWithNew(favouriteItemsList, parentFileName, newFavouriteListObj);
+                            appendToListNames($('#favSelect'), newFavouriteListName);
+                            updateFavouriteListsWithNewItems(newFavouriteListObj.FileName);
+                        }
+
+                    } catch (e) {
+                        toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                    }
+                }
+            } else {
+                $('#invalidFavouriteListSpan').css('display', 'block');
+                $('#invalidFavouriteListSpan').text('Enter a name');
+            }
+        });
+
+
+        ///////////////////////// Update With New Favourite List Items  //////////////////////////////////////
+
+        function updateFavouriteListWithNewItems(updatedFavouriteItemList, parentFileName) {
+            var fileName = {
+                "ParentFileName": parentFileName
+            }
+            var newObj = $.extend(updatedFavouriteItemList, fileName);
+            var recordJSON = JSON.stringify(newObj);
+            var req = Ajax("./controllers/ajaxUpdateFavouriteListWithItems.php", "POST", recordJSON);
+            if (req.status == 200) {
                 return true;
+
+            } else {
+                toastr.success('An Error Occurred While Upating Favourite Lists');
+                return false;
+            }
+        };
+
+        /////////////// Append Values to Selector As Options ////////////////////////////////////////////
+
+        function appendToListNames(parent, listName) {
+
+            var favouriteListOptionParent = $('<option>', {
+                'style': 'color: #333 !important;',
+                'value': listName.replace(/_/g, ' ')
+            });
+            favouriteListOptionParent.text(listName);
+
+            parent.append(favouriteListOptionParent);
+
+        }
+
+
+        function appendFavouriteListsToParent(parent, listObj) {
+
+            var favouriteListParent = $('<div>', {
+                'style': 'margin-top: 3%;'
+            });
+
+            var favouriteListTitleDiv = $('<div>', {
+                'style': 'margin-left: 3%; margin-bottom: 1%; display: flex;'
+            });
+
+            var favouriteListTitleSpan = $('<span>', {
+                'class': 'favouriteListTitleSpan'
+            });
+
+            favouriteListTitleSpan.text(listObj.Name.replace(/_/g, ' '));
+
+            var favouriteListContextMenu = $('<img>', {
+                'src': './assets/img/menu.png',
+                'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
+                'id': 'context-menu-' + listObj.Name,
+                'class': 'favListContextMenu iw-mTrigger',
+            }).on('click', function() {
+                // selectedItemId = this.id.split('-')[2];
+                // selectedItemName = this.id.split('-')[3].trim();
+            });
+
+            var menu = [{
+                name: 'Delete',
+                fun: function(data, event) {
+                    // deleteFavouriteItemsList.push(selectedItemId);
+                    $('#deletePopupDialog').popup('open');
+                }
+            }, {
+                name: 'Share via E-mail',
+                fun: function(data, event) {
+                    shareFavouriteItem = {
+                        'productId': selectedItemId,
+                        'productName': selectedItemName
+                    };
+                    $('#sharePopupDialog').popup('open');
+                    $('#cancelFavouriteBtn').removeClass('ui-shadow');
+                    $('#shareFavouriteBtn').removeClass('ui-shadow');
+
+                }
+            }];
+
+            $('.favListContextMenu').contextMenu(menu);
+
+            var itemFavouriteContextMenu = $('<div>', {
+                'style': 'right: 4%; position: absolute;',
+                'class': 'context-menu'
+            });
+
+            itemFavouriteContextMenu.append(favouriteListContextMenu);
+
+            favouriteListTitleDiv.append(favouriteListTitleSpan);
+            favouriteListTitleDiv.append(itemFavouriteContextMenu);
+
+            parent.append(favouriteListTitleDiv);
+
+            var favouriteCarouselParent = $('<div>', {
+                'style': 'margin-bottom: 4%;  margin-left: 10px;'
+            });
+
+            var favouriteCarouselInner = $('<div>', {
+                'id': 'favourite-list-carousel' + listObj.Name,
+                'style': 'margin-left: 5px;'
+            });
+
+            var favouriteCarouselInnerItemParent = $('<div>', {
+                'id': 'favourite-list-carousel-div' + listObj.Name,
+                'style': 'margin-left: 5px;',
+                'class': 'owl-carousel owl-theme owl-loaded owl-drag favourite-list-carousel" style="text-align: center;'
+            });
+
+            var favouriteCarouselOuterItemParent = $('<div>', {
+                'class': 'owl-stage-outer'
+            });
+
+            var favouriteCarouselItemParent = $('<div>', {
+                'id': 'owl-item-favourite-parent-div' + listObj.Name,
+                'class': 'owl-stage',
+                'style': 'transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;'
+            });
+
+            favouriteCarouselOuterItemParent.append(favouriteCarouselItemParent);
+            favouriteCarouselInnerItemParent.append(favouriteCarouselOuterItemParent);
+            favouriteCarouselInner.append(favouriteCarouselInnerItemParent);
+            favouriteCarouselParent.append(favouriteCarouselInner);
+
+            parent.append(favouriteCarouselParent);
+
+            var favouriteItemsList = getDefaultFavouriteListDetails(listObj.FileName);
+
+            $.each(favouriteItemsList.FavouriteItemList, function() {
+                appendFavouriteListItemsToCarousel(favouriteCarouselInnerItemParent, this);
+            });
+
+            var favouriteCarouselDivider = $('<div>', {
+                'style': 'height:3px; background: #C4C4C4;'
+            });
+
+            parent.append(favouriteCarouselDivider);
+
+        }
+
+
+        function appendFavouriteListItemsToCarousel(parent, dataObj) {
+
+            var parentDiv = $('<div>', {
+                'class': 'owl-item',
+                'style': 'width: 145px; margin-left: 10px;'
+            });
+
+            var carouselItem = $('<div>', {
+                'class': 'item flash-deals-carousel-item-margin'
+            });
+
+            var carouselDiv = $('<div>', {
+                'style': 'background: #FFFFFF;height: 170px !important;display: flex;border-radius: 20px;border: 1px solid rgba(123, 123, 123, 0.8);box-sizing: border-box;'
+            });
+
+            var carouselItemParent = $('<div>', {
+                'style': 'width: 150px;'
+            });
+
+            var favouriteItemImg = $('<img>', {
+                'src': dataObj.Path,
+                'style': 'width: 80px !important;height: 80px !important; margin-top: 5%;margin-left: 20%;'
+            });
+
+            var productDetailsSpan = $('<span>', {
+                'style': 'font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 11px;display: flex;color: rgba(0, 0, 0, 0.6);margin-bottom: 5px; text-align: center;'
+            });
+
+            productDetailsSpan.text(dataObj.Product_Name);
+
+            var productPriceSpan = $('<span>', {
+                'style': 'font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 15px;letter-spacing: -0.02em;color: rgba(0, 0, 0, 0.8); margin-left: 25%;'
+            });
+
+            productPriceSpan.text(dataObj.Price);
+
+            carouselItemParent.append(favouriteItemImg);
+            carouselItemParent.append(productDetailsSpan);
+            carouselItemParent.append(productPriceSpan);
+
+            carouselDiv.append(carouselItemParent);
+
+            carouselItem.append(carouselDiv);
+
+            parentDiv.append(carouselItem);
+
+
+
+            jQuery("#" + parent.attr('id')).trigger('add.owl.carousel', parentDiv).trigger('refresh.owl.carousel');
+        }
+
+        ///////////////////////// Update With New Favourites Lists  //////////////////////////////////////
+
+        function updateFavouriteListWithNew(updatedFavouriteList, parentFileName, newFavouriteListObj) {
+            var fileName = {
+                "ParentFileName": parentFileName
+            }
+            updatedFavouriteList.FavouriteLists.push(fileName);
+            var recordJSON = JSON.stringify(updatedFavouriteList);
+            var req = Ajax("./controllers/ajaxUpdateFavouriteList.php", "POST", recordJSON);
+            if (req.status == 200) {
+                $.mobile.changePage('#pgFavourites');
+                $('#createFavouriteListName').val('');
+
+            } else {
+                toastr.success('An Error Occurred While Upating Favourite Lists');
+            }
+        };
+
+        $("#movePopupDialog").bind({
+            popupbeforeposition: function(event, ui) {
+                getFavouriteListsForUser();
+            }
+        });
+
+        $("#createNewFavListPopupDialog").bind({
+            popupafterclose: function(event, ui) {
+                $('#createFavouriteListName').val('');
+                $('#invalidFavouriteListSpan').css('display', 'none');
+            }
+        });
+
+
+
+        function updateFavouriteListsWithNewItems(fileName) {
+
+            var updatedFavouriteList = getDefaultFavouriteList(moveFavouriteItemsList);
+            var fileCreatedSuccess = updateFavouriteListWithNewItems(updatedFavouriteList, fileName);
+
+            if (fileCreatedSuccess) {
+                $('#favouriteItemListDiv').empty();
+
+                var favouriteLists = getFavouriteLists();
+                var i = 0;
+                $.each(favouriteLists, function(index, value) {
+                    var parent = $('#favouriteListParentDiv');
+                    parent.css('display', 'block');
+                    appendFavouriteListsToParent(parent, value[i]);
+                    i++;
+                });
+            }
+
+
+            ///////////// Append New Lists To The Main DIV ////////////////////////////////
+
+        }
+
+        /////////// Get Default Favourite List Item Details //////////////////////////
+
+        function getDefaultFavouriteList(moveFavouriteItemsList) {
+            var favouriteItemsList = null;
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-defaultFavouriteList.json";
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    favouriteItemsList = JSON.parse(req.responseText);
+                    $.each(favouriteItemsList.FavouriteItemList, function(index, value) {
+                        $.each(moveFavouriteItemsList, function(i, val) {
+                            if (index.split('-')[1] != val) {
+                                delete favouriteItemsList.FavouriteItemList[index];
+                            }
+                        });
+                    });
+                } catch (e) {
+                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                }
+            } else {
+                toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
+            }
+            return favouriteItemsList;
+        }
+
+
+
+
+        /////////// Get Default Favourite List Item Details //////////////////////////
+
+        function getDefaultFavouriteList(moveFavouriteItemsList) {
+            var favouriteItemsList = null;
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-defaultFavouriteList.json";
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    favouriteItemsList = JSON.parse(req.responseText);
+                    $.each(favouriteItemsList.FavouriteItemList, function(index, value) {
+                        $.each(moveFavouriteItemsList, function(i, val) {
+                            if (index.split('-')[1] != val) {
+                                delete favouriteItemsList.FavouriteItemList[index];
+                            }
+                        });
+                    });
+                } catch (e) {
+                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                }
+            } else {
+                toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
+            }
+            return favouriteItemsList;
+        }
+
+        function getFavouriteLists() {
+            var favouriteItemsList = null;
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-favouriteLists";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    favouriteItemsList = JSON.parse(req.responseText);
+                } catch (e) {
+                    toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                }
+            }
+            return favouriteItemsList;
+        }
+
+
+        function getDefaultFavouriteListDetails(fileName) {
+            var favouriteItemsList = null;
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName + ".json"));
+            if (req.status == 200) {
+                try {
+                    favouriteItemsList = JSON.parse(req.responseText);
+                } catch (e) {
+                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                }
+            } else {
+                toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
+            }
+            return favouriteItemsList;
+        }
+
+        // Function that validates email address through a regular expression.
+        function validateEmail(sEmail) {
+            var filter = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            if (filter.test(sEmail)) {
+                return true;
+            } else {
+                return false;
             }
         }
 
-        function passwordsMatch(password, passwordConfirm) {
-            return password === passwordConfirm;
-        };
 
-        // define events to be fired during app execution.
-        app.UserBindings = function() {
-            // code to run before showing the page that lists the records.
-            //run after the page has been displayed
-            $(document).on('pagecontainershow', function(e, ui) {
-                var pageId = $(':mobile-pagecontainer').pagecontainer('getActivePage').attr('id');
-                switch (pageId) {}
-            });
-            //before records listing is shown, check for storage
-            $(document).on('pagebeforechange', function(e, data) {
-                //get page to go to
-                var toPage = data.toPage[0].id;
-                switch (toPage) {
-                    case 'pgUser':
-                        $('#pgRptUserBack').data('from', 'pgUser');
-                        // restart the storage check
-                        app.checkForUserStorage();
-                        break;
-                    case 'pgReports':
-                        $('#pgRptUserBack').data('from', 'pgReports');
-                        break;
-                    case 'pgRptUser':
-                        app.UserRpt();
-                        break;
-                    case 'pgEditUser':
-                        $('#pgRptUserBack').data('from', 'pgEditUser');
-                        // clear the add page form fields
-                        pgEditUserClear();
-                        //load related select menus before the page shows
-                        break;
-                    case 'pgAddUser':
-                        $('#pgRptUserBack').data('from', 'pgAddUser');
-                        // clear the add page form fields
-                        pgAddUserClear();
-                        //load related select menus before the page shows
-                        break;
-                    default:
-                }
-            });
-            //***** Add Page *****
-            // code to run when back button is clicked on the add record page.
-            // Back click event from Add Page
-            $('#pgAddUserBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //which page are we coming from, if from sign in go back to it
-                var pgFrom = $('#pgAddUser').data('from');
-                switch (pgFrom) {
-                    case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
-                        break;
-                    default:
-                        // go back to the records listing screen
-                        $.mobile.changePage('#pgUser', { transition: pgtransition });
-                }
-            });
-            // code to run when the Save button is clicked on Add page.
-            // Save click event on Add page
-            $('#pgAddUserSave').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // save the User
-                var UserRec;
-                //get form contents into an object
-                UserRec = pgAddUserGetRec();
-                //save object to JSON
-                app.addUser(UserRec);
-            });
-            // code to run when a get location button is clicked on the Add page.
-            //***** Add Page - End *****
-            //***** Listing Page *****
-            // code to run when a listview item is clicked.
-            //listview item click eventt.
-            $(document).on('click', '#pgUserList a', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //get href of selected listview item and cleanse it
-                var href = $(this)[0].href.match(/\?.*$/)[0];
-                var Email = href.replace(/^\?Email=/, '');
-                //change page to edit page.
-                $.mobile.changePage('#pgEditUser', { transition: pgtransition });
-                //read record from JSON and update screen.
-                app.editUser(Email);
-            });
-            // code to run when back button of record listing is clicked.
-            // bind the back button of the records listing
-            $('#pgUserBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // move to the defined previous page with the defined transition
-                $.mobile.changePage('#pgMenu', { transition: pgtransition });
-            });
-            // code to run when New button on records listing is clicked.
-            // New button click on records listing page
-            $('#pgUserNew').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //we are accessing a new record from records listing
-                $('#pgAddUser').data('from', 'pgUser');
-                // show the active and user type elements
-                $('#pgAddUserheader h1').text('ASDA_Project > Add User');
-                $('#pgAddUserUserType').show();
-                $('#pgAddUserActive').show();
-                $('#pgAddUserMenu').show();
-                // move to the add page screen
-                $.mobile.changePage('#pgAddUser', { transition: pgtransition });
-            });
-            //***** Listing Page - End *****
-            //***** Edit Page *****
-            // code to run when the back button of the Edit Page is clicked.
-            // Back click event on Edit page
-            $('#pgEditUserBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // go back to the listing screen
-                $.mobile.changePage('#pgUser', { transition: pgtransition });
-            });
-            // code to run when the Update button is clicked in the Edit Page.
-            // Update click event on Edit Page
-            $('#pgEditUserUpdate').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // save the User
-                var UserRecNew;
-                //get contents of Edit page controls
-                UserRecNew = pgEditUserGetRec();
-                //save updated records to JSON
-                app.updateUser(UserRecNew);
-            });
-            // code to run when the Delete button is clicked in the Edit Page.
-            // delete button on Edit Page
-            $('#pgEditUserDelete').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //read the record key from form control
-                var Email = $('#pgEditUserEmail').val().trim();
-                //show a confirm message box
-                Email = Email.replace(/-/g, ' ');
-                $('#msgboxheader h1').text('Confirm Delete');
-                $('#msgboxtitle').text(Email);
-                $('#msgboxprompt').text('Are you sure that you want to delete this user? This action cannot be undone.');
-                $('#msgboxyes').data('method', 'deleteUser');
-                $('#msgboxno').data('method', 'editUser');
-                Email = Email.replace(/ /g, '-');
-                $('#msgboxyes').data('id', Email);
-                $('#msgboxno').data('id', Email);
-                $('#msgboxyes').data('topage', 'pgEditUser');
-                $('#msgboxno').data('topage', 'pgEditUser');
-                $.mobile.changePage('#msgbox', { transition: 'pop' });
-            });
-            //***** Edit Page - End *****
-            //***** Report Page *****
-            //back button on Report page
-            // Back click event on Report page
-            $('#pgRptUserBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var pgFrom = $('#pgRptUserBack').data('from');
-                switch (pgFrom) {
-                    case "pgAddUser":
-                        $.mobile.changePage('#pgUser', { transition: pgtransition });
-                        break;
-                    case "pgEditUser":
-                        $.mobile.changePage('#pgUser', { transition: pgtransition });
-                        break;
-                    case "pgUser":
-                        $.mobile.changePage('#pgUser', { transition: pgtransition });
-                        break;
-                    default:
-                        // go back to the listing screen
-                        $.mobile.changePage('#pgReports', { transition: pgtransition });
-                }
-            });
-            //add new record from report page
-            // New button click on records report page
-            $('#pgRptUserNew').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //we are accessing a new record from records report
-                $('#pgAddUser').data('from', 'pgRptUser');
-                // show the active and user type elements
-                $('#pgAddUserheader h1').text('ASDA_Project > Add User');
-                // move to the add page screen
-                $.mobile.changePage('#pgAddUser', { transition: pgtransition });
-            }); //***** Report Page - End *****
-            //Our events are now fully defined.
-        };
-        // this defines methods/procedures accessed by our events.
-        // get existing records from JSON
-        //get all existing records from JSON
-        app.getUser = function() {
-            // get User records
-            var UserObj = {};
-            var icnt, itot;
-            //get the list of files under directory
-            var req = Ajax("ajaxGetUser.php");
-            if (req.status == 200) {
-                var recFiles = req.responseText;
-                recFiles = recFiles.split('\n');
-                itot = recFiles.length - 1;
-                for (icnt = 0; icnt <= itot; icnt++) {
-                    var recFile = recFiles[icnt];
-                    if (recFile.length > 0) {
-                        // read the file contents and display them
-                        var req = Ajax("ajaxGetUser.php?file=" + encodeURIComponent(recFile));
-                        if (req.status == 200) {
-                            // parse string to json object
-                            var record = JSON.parse(req.responseText);
-                            var Email = record.Email;
-                            record.Email = record.Email.replace(/-/g, ' ');
-                            UserObj[Email] = record;
-                        }
-                    }
-                }
-                //sort the objects
-                var keys = Object.keys(UserObj);
-                keys.sort();
-                var sortedObject = Object();
-                var i;
-                for (i in keys) {
-                    key = keys[i];
-                    sortedObject[key] = UserObj[key];
-                }
-                UserObj = sortedObject;
-                return UserObj;
-            }
-        };
-        //display records in table during runtime.
-        app.UserRpt = function() {
-            //clear the table and leave the header
-            $('#RptUser tbody tr').remove();
-            // get User records.
-            var UserObj = app.getUser();
-            // create an empty string to contain all rows of the table
-            var newrows = '';
-            // make sure your iterators are properly scoped
-            var n;
-            // loop over records and create a new row for each
-            // and append the newrows with each table row.
-            for (n in UserObj) {
-                //get the record details
-                var UserRec = UserObj[n];
-                //clean primary keys
-                n = n.replace(/-/g, ' ');
-                //create each row
-                var eachrow = '<tr>';
-                eachrow += '<td class="ui-body-c">' + UserRec.FirstName + '</td>';
-                eachrow += '<td class="ui-body-c">' + UserRec.LastName + '</td>';
-                eachrow += '<td class="ui-body-c">' + UserRec.Email + '</td>';
-                eachrow += '<td class="ui-body-c">' + UserRec.UserRole + '</td>';
-                eachrow += '<td class="ui-body-c">' + UserRec.Active + '</td>';
-                eachrow += '</tr>';
-                //append each row to the newrows variable;
-                newrows += eachrow;
-            }
-            // update the table
-            $('#RptUser').append(newrows);
-            // refresh the table with new details
-            $('#RptUser').table('refresh');
-        };
-        // display existing records in listview of Records listing.
-        //***** List Page *****
-        //display records in listview during runtime.
-        app.displayUser = function(UserObj) {
-            // create an empty string to contain html
-            var html = '';
-            // make sure your iterators are properly scoped
-            var n;
-            // loop over records and create a new list item for each
-            //append the html to store the listitems.
-            for (n in UserObj) {
-                //get the record details
-                var UserRec = UserObj[n];
-                // clean the primary key
-                UserRec.Email = UserRec.Email.replace(/-/g, ' ');
-                //define a new line from what we have defined
-                var nItem = UserLi;
-                //update the href to the key
-                n = n.replace(/-/g, ' ');
-                nItem = nItem.replace(/Z2/g, n);
-                //update the title to display, this might be multi fields
-                var nTitle = '';
-                nTitle += UserRec.FirstName;
-                nTitle += ', ';
-                nTitle += UserRec.LastName;
-                //replace the title;
-                nItem = nItem.replace(/Z1/g, nTitle);
-                //there is a description, update the list item
-                var nDescription = '';
-                nDescription += UserRec.UserRole;
-                //replace the description;
-                nItem = nItem.replace(/DESCRIPTION/g, nDescription);
-                html += nItem;
-            }
-            //update the listview with the newly defined html structure.
-            $('#pgUserList').html(UserHdr + html).listview('refresh');
-        };
-        // check JSON for Records. This initializes JSON if there are no records
-        //display records if they exist or tell user no records exist.
-        app.checkForUserStorage = function() {
-            //get records from JSON.
-            var UserObj = app.getUser();
-            // are there existing User records?
-            if (!$.isEmptyObject(UserObj)) {
-                // yes there are. pass them off to be displayed
-                app.displayUser(UserObj);
-            } else {
-                // nope, just show the placeholder
-                $('#pgUserList').html(UserHdr + noUser).listview('refresh');
-            }
-        };
-        // ***** Edit Page *****
-        // clear the contents of the Edit Page controls
-        //clear the form controls for data entry
-        function pgEditUserClear() {
-            $('#pgEditUserFirstName').val('');
-            $('#pgEditUserLastName').val('');
-            $('#pgEditUserEmail').val('');
-            $('#pgEditUserPassword').val('');
-            $('#pgEditUserConfirmPassword').val('');
-            $('#pgEditUserUserRole').val('');
-            $('#pgEditUserUserRole').selectmenu('refresh');
-            $('#pgEditUserActive').prop('checked', false).checkboxradio('refresh');
-        }
-        // get the contents of the edit screen controls and store them in an object.
-        //get the record to be saved and put it in a record array
-        //read contents of each form input
-        function pgEditUserGetRec() {
-            //define the new record
-            var UserRec
-            UserRec = {};
-            UserRec.FirstName = $('#pgEditUserFirstName').val().trim();
-            UserRec.LastName = $('#pgEditUserLastName').val().trim();
-            UserRec.Email = $('#pgEditUserEmail').val().trim();
-            UserRec.Password = $('#pgEditUserPassword').val().trim();
-            UserRec.Password = sjcl.encrypt('MashJQMShow', UserRec.Password);
-            UserRec.ConfirmPassword = $('#pgEditUserConfirmPassword').val().trim();
-            UserRec.ConfirmPassword = sjcl.encrypt('MashJQMShow', UserRec.ConfirmPassword);
-            UserRec.UserRole = $('#pgEditUserUserRole').val().trim();
-            UserRec.Active = $('#pgEditUserActive').prop('checked');
-            return UserRec;
-        }
-        // display content of selected record on Edit Page
-        //read record from JSON and display it on edit page.
-        app.editUser = function(Email) {
-            // get User records.
-            var UserObj = app.getUser();
-            // lookup specific User
-            Email = Email.replace(/ /g, '-');
-            var UserRec = UserObj[Email];
-            //set data-url of the page to the read record key.
-            $('#pgEditUser').data('id', Email);
-            //update each control in the Edit page
-            $('#pgEditUserFirstName').val(UserRec.FirstName);
-            $('#pgEditUserLastName').val(UserRec.LastName);
-            //clean the primary key
-            UserRec.Email = UserRec.Email.replace(/-/g, ' ');
-            $('#pgEditUserEmail').val(UserRec.Email);
-            UserRec.Password = sjcl.decrypt('MashJQMShow', UserRec.Password);
-            $('#pgEditUserPassword').val(UserRec.Password);
-            UserRec.ConfirmPassword = sjcl.decrypt('MashJQMShow', UserRec.ConfirmPassword);
-            $('#pgEditUserConfirmPassword').val(UserRec.ConfirmPassword);
-            $('#pgEditUserUserRole').val(UserRec.UserRole);
-            $('#pgEditUserUserRole').selectmenu('refresh');
-            $('#pgEditUserActive').prop('checked', UserRec.Active);
-            $('#pgEditUserActive').checkboxradio('refresh');
-        };
-        // ***** Add Page *****
-        // get the contents of the add screen controls and store them in an object.
-        //get the record to be saved and put it in a record array
-        //read contents of each form input
-        function pgAddUserGetRec() {
-            //define the new record
-            var UserRec
-            UserRec = {};
-            UserRec.FirstName = $('#pgAddUserFirstName').val().trim();
-            UserRec.LastName = $('#pgAddUserLastName').val().trim();
-            UserRec.Email = $('#pgAddUserEmail').val().trim();
-            UserRec.Password = $('#pgAddUserPassword').val().trim();
-            UserRec.Password = sjcl.encrypt('MashJQMShow', UserRec.Password);
-            UserRec.ConfirmPassword = $('#pgAddUserConfirmPassword').val().trim();
-            UserRec.ConfirmPassword = sjcl.encrypt('MashJQMShow', UserRec.ConfirmPassword);
-            UserRec.UserRole = $('#pgAddUserUserRole').val().trim();
-            UserRec.Active = $('#pgAddUserActive').prop('checked');
-            return UserRec;
-        }
-        // clear the contents of the Add page controls
-        //clear the form controls for data entry
-        function pgAddUserClear() {
-            $('#pgAddUserFirstName').val('');
-            $('#pgAddUserLastName').val('');
-            $('#pgAddUserEmail').val('');
-            $('#pgAddUserPassword').val('');
-            $('#pgAddUserConfirmPassword').val('');
-            $('#pgAddUserUserRole').val('');
-            $('#pgAddUserUserRole').selectmenu('refresh');
-            $('#pgAddUserActive').prop('checked', false).checkboxradio('refresh');
-        }
-
-        // define events to be fired during app execution.
-        app.ProjectBindings = function() {
-            // code to run before showing the page that lists the records.
-            //run after the page has been displayed
-            $(document).on('pagecontainershow', function(e, ui) {
-                var pageId = $(':mobile-pagecontainer').pagecontainer('getActivePage').attr('id');
-                switch (pageId) {}
-            });
-            //before records listing is shown, check for storage
-            $(document).on('pagebeforechange', function(e, data) {
-                //get page to go to
-                var toPage = data.toPage[0].id;
-                switch (toPage) {
-                    case 'pgProject':
-                        $('#pgRptProjectBack').data('from', 'pgProject');
-                        // restart the storage check
-                        app.checkForProjectStorage();
-                        break;
-                    case 'pgReports':
-                        $('#pgRptProjectBack').data('from', 'pgReports');
-                        break;
-                    case 'pgRptProject':
-                        app.ProjectRpt();
-                        break;
-                    case 'pgEditProject':
-                        $('#pgRptProjectBack').data('from', 'pgEditProject');
-                        // clear the add page form fields
-                        pgEditProjectClear();
-                        //load related select menus before the page shows
-                        app.pgEditProjectLoadOwner();
-                        break;
-                    case 'pgAddProject':
-                        $('#pgRptProjectBack').data('from', 'pgAddProject');
-                        // clear the add page form fields
-                        pgAddProjectClear();
-                        //load related select menus before the page shows
-                        app.pgAddProjectLoadOwner();
-                        break;
-                    default:
-                }
-            });
-            //***** Add Page *****
-            // code to run when back button is clicked on the add record page.
-            // Back click event from Add Page
-            $('#pgAddProjectBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //which page are we coming from, if from sign in go back to it
-                var pgFrom = $('#pgAddProject').data('from');
-                switch (pgFrom) {
-                    case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
-                        break;
-                    default:
-                        // go back to the records listing screen
-                        $.mobile.changePage('#pgProject', { transition: pgtransition });
-                }
-            });
-            // code to run when the Save button is clicked on Add page.
-            // Save click event on Add page
-            $('#pgAddProjectSave').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // save the Project
-                var ProjectRec;
-                //get form contents into an object
-                ProjectRec = pgAddProjectGetRec();
-                //save object to JSON
-                app.addProject(ProjectRec);
-            });
-            // code to run when a get location button is clicked on the Add page.
-            //***** Add Page - End *****
-            //***** Listing Page *****
-            // code to run when a listview item is clicked.
-            //listview item click eventt.
-            $(document).on('click', '#pgProjectList a', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //get href of selected listview item and cleanse it
-                var href = $(this)[0].href.match(/\?.*$/)[0];
-                var ProjectName = href.replace(/^\?ProjectName=/, '');
-                //change page to edit page.
-                $.mobile.changePage('#pgEditProject', { transition: pgtransition });
-                //read record from JSON and update screen.
-                app.editProject(ProjectName);
-            });
-            // code to run when back button of record listing is clicked.
-            // bind the back button of the records listing
-            $('#pgProjectBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // move to the defined previous page with the defined transition
-                $.mobile.changePage('#pgMenu', { transition: pgtransition });
-            });
-            // code to run when New button on records listing is clicked.
-            // New button click on records listing page
-            $('#pgProjectNew').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //we are accessing a new record from records listing
-                $('#pgAddProject').data('from', 'pgProject');
-                // show the active and user type elements
-                $('#pgAddProjectheader h1').text('ASDA_Project > Add Project');
-                $('#pgAddProjectMenu').show();
-                // move to the add page screen
-                $.mobile.changePage('#pgAddProject', { transition: pgtransition });
-            });
-            //***** Listing Page - End *****
-            //***** Edit Page *****
-            // code to run when the back button of the Edit Page is clicked.
-            // Back click event on Edit page
-            $('#pgEditProjectBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // go back to the listing screen
-                $.mobile.changePage('#pgProject', { transition: pgtransition });
-            });
-            // code to run when the Update button is clicked in the Edit Page.
-            // Update click event on Edit Page
-            $('#pgEditProjectUpdate').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // save the Project
-                var ProjectRecNew;
-                //get contents of Edit page controls
-                ProjectRecNew = pgEditProjectGetRec();
-                //save updated records to JSON
-                app.updateProject(ProjectRecNew);
-            });
-            // code to run when the Delete button is clicked in the Edit Page.
-            // delete button on Edit Page
-            $('#pgEditProjectDelete').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //read the record key from form control
-                var ProjectName = $('#pgEditProjectProjectName').val().trim();
-                //show a confirm message box
-                ProjectName = ProjectName.replace(/-/g, ' ');
-                $('#msgboxheader h1').text('Confirm Delete');
-                $('#msgboxtitle').text(ProjectName);
-                $('#msgboxprompt').text('Are you sure that you want to delete this project? This action cannot be undone.');
-                $('#msgboxyes').data('method', 'deleteProject');
-                $('#msgboxno').data('method', 'editProject');
-                ProjectName = ProjectName.replace(/ /g, '-');
-                $('#msgboxyes').data('id', ProjectName);
-                $('#msgboxno').data('id', ProjectName);
-                $('#msgboxyes').data('topage', 'pgEditProject');
-                $('#msgboxno').data('topage', 'pgEditProject');
-                $.mobile.changePage('#msgbox', { transition: 'pop' });
-            });
-            //***** Edit Page - End *****
-            //***** Report Page *****
-            //back button on Report page
-            // Back click event on Report page
-            $('#pgRptProjectBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var pgFrom = $('#pgRptProjectBack').data('from');
-                switch (pgFrom) {
-                    case "pgAddProject":
-                        $.mobile.changePage('#pgProject', { transition: pgtransition });
-                        break;
-                    case "pgEditProject":
-                        $.mobile.changePage('#pgProject', { transition: pgtransition });
-                        break;
-                    case "pgProject":
-                        $.mobile.changePage('#pgProject', { transition: pgtransition });
-                        break;
-                    default:
-                        // go back to the listing screen
-                        $.mobile.changePage('#pgReports', { transition: pgtransition });
-                }
-            });
-            //add new record from report page
-            // New button click on records report page
-            $('#pgRptProjectNew').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //we are accessing a new record from records report
-                $('#pgAddProject').data('from', 'pgRptProject');
-                // show the active and user type elements
-                $('#pgAddProjectheader h1').text('ASDA_Project > Add Project');
-                // move to the add page screen
-                $.mobile.changePage('#pgAddProject', { transition: pgtransition });
-            }); //***** Report Page - End *****
-            //Our events are now fully defined.
-        };
-        // this defines methods/procedures accessed by our events.
-        // get existing records from JSON
-        //get all existing records from JSON
-        app.getProject = function() {
-            // get Project records
-            var ProjectObj = {};
-            var icnt, itot;
-            //get the list of files under directory
-            var req = Ajax("ajaxGetProject.php");
-            if (req.status == 200) {
-                var recFiles = req.responseText;
-                recFiles = recFiles.split('\n');
-                itot = recFiles.length - 1;
-                for (icnt = 0; icnt <= itot; icnt++) {
-                    var recFile = recFiles[icnt];
-                    if (recFile.length > 0) {
-                        // read the file contents and display them
-                        var req = Ajax("ajaxGetProject.php?file=" + encodeURIComponent(recFile));
-                        if (req.status == 200) {
-                            // parse string to json object
-                            var record = JSON.parse(req.responseText);
-                            var ProjectName = record.ProjectName;
-                            record.ProjectName = record.ProjectName.replace(/-/g, ' ');
-                            ProjectObj[ProjectName] = record;
-                        }
-                    }
-                }
-                //sort the objects
-                var keys = Object.keys(ProjectObj);
-                keys.sort();
-                var sortedObject = Object();
-                var i;
-                for (i in keys) {
-                    key = keys[i];
-                    sortedObject[key] = ProjectObj[key];
-                }
-                ProjectObj = sortedObject;
-                return ProjectObj;
-            }
-        };
-        //display records in table during runtime.
-        app.ProjectRpt = function() {
-            //clear the table and leave the header
-            $('#RptProject tbody tr').remove();
-            // get Project records.
-            var ProjectObj = app.getProject();
-            // create an empty string to contain all rows of the table
-            var newrows = '';
-            // make sure your iterators are properly scoped
-            var n;
-            // loop over records and create a new row for each
-            // and append the newrows with each table row.
-            for (n in ProjectObj) {
-                //get the record details
-                var ProjectRec = ProjectObj[n];
-                //clean primary keys
-                n = n.replace(/-/g, ' ');
-                //create each row
-                var eachrow = '<tr>';
-                eachrow += '<td class="ui-body-c">' + ProjectRec.ProjectName + '</td>';
-                eachrow += '<td class="ui-body-c">' + ProjectRec.Status + '</td>';
-                eachrow += '<td class="ui-body-c">' + ProjectRec.Priority + '</td>';
-                eachrow += '<td class="ui-body-c">' + ProjectRec.DueDate + '</td>';
-                eachrow += '<td class="ui-body-c">' + ProjectRec.PercentComplete + '</td>';
-                eachrow += '<td class="ui-body-c">' + ProjectRec.Owner + '</td>';
-                eachrow += '</tr>';
-                //append each row to the newrows variable;
-                newrows += eachrow;
-            }
-            // update the table
-            $('#RptProject').append(newrows);
-            // refresh the table with new details
-            $('#RptProject').table('refresh');
-        };
-        // save the defined Add page object to JSON
-        // add a new record to server storage.
-        app.addProject = function(ProjectRec) {
-            // define a record object to store the current details
-            var ProjectName = ProjectRec.ProjectName;
-            // cleanse the record key of spaces.
-            ProjectName = ProjectName.replace(/ /g, '-');
-            ProjectRec.ProjectName = ProjectName;
-            //convert record to json to write to server
-            var recordJSON = JSON.stringify(ProjectRec);
-            // save the data to a server file, use the post method as it has 8MB minimum data limitation
-            var req = Ajax("ajaxSaveProject.php", "POST", recordJSON);
-            if (req.status == 200) {
-                //show a toast message that the record has been saved
-                toastr.success('Project record saved.', 'ASDA_Project');
-                //find which page are we coming from, if from sign in go back to it
-                var pgFrom = $('#pgAddProject').data('from');
-                switch (pgFrom) {
-                    case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
-                        break;
-                    default:
-                        // clear the edit page form fields
-                        pgAddProjectClear();
-                        //stay in the same page to add more records
-                }
-            } else {
-                //show a toast message that the record has not been saved
-                toastr.error('Project record not saved. Please try again.', 'ASDA_Project');
-            }
-        };
-        // save the defined Edit page object to JSON
-        // update an existing record and save to server.
-        app.updateProject = function(ProjectRec) {
-            // define a record object to store the current details
-            var ProjectName = ProjectRec.ProjectName;
-            // cleanse the record key of spaces.
-            ProjectName = ProjectName.replace(/ /g, '-');
-            ProjectRec.ProjectName = ProjectName;
-            //convert record to json to write to server
-            var recordJSON = JSON.stringify(ProjectRec);
-            var req = Ajax("ajaxSaveProject.php", "POST", recordJSON);
-            if (req.status == 200) {
-                //show a toast message that the record has been saved
-                toastr.success('Project record updated.', 'ASDA_Project');
-                // clear the edit page form fields
-                pgEditProjectClear();
-                // show the records listing page.
-                $.mobile.changePage('#pgProject', { transition: pgtransition });
-            } else {
-                //show a toast message that the record has not been saved
-                toastr.error('Project record not updated. Please try again.', 'ASDA_Project');
-            }
-        };
-        // delete record from JSON
-        //delete a record from JSON using record key
-        app.deleteProject = function(ProjectName) {
-            ProjectName = ProjectName.replace(/ /g, '-');
-            var req = Ajax("ajaxDeleteProject.php/?ProjectName=" + ProjectName);
-            if (req.status == 200) {
-                toastr.success('Project record deleted.', 'ASDA_Project');
-            } else {
-                toastr.error('Project record not deleted.', 'ASDA_Project');
-            }
-            // show the page to display after a record is deleted, this case listing page
-            $.mobile.changePage('#pgProject', { transition: pgtransition });
-        };
-        // display existing records in listview of Records listing.
-        //***** List Page *****
-        //display records in listview during runtime.
-        app.displayProject = function(ProjectObj) {
-            // create an empty string to contain html
-            var html = '';
-            // make sure your iterators are properly scoped
-            var n;
-            // loop over records and create a new list item for each
-            //append the html to store the listitems.
-            for (n in ProjectObj) {
-                //get the record details
-                var ProjectRec = ProjectObj[n];
-                // clean the primary key
-                ProjectRec.ProjectName = ProjectRec.ProjectName.replace(/-/g, ' ');
-                //define a new line from what we have defined
-                var nItem = ProjectLi;
-                //update the href to the key
-                n = n.replace(/-/g, ' ');
-                nItem = nItem.replace(/Z2/g, n);
-                //update the title to display, this might be multi fields
-                var nTitle = '';
-                //assign cleaned title
-                nTitle = n.replace(/-/g, ' ');
-                //replace the title;
-                nItem = nItem.replace(/Z1/g, nTitle);
-                //there is a count bubble, update list item
-                var nCountBubble = '';
-                nCountBubble += ProjectRec.PercentComplete;
-                //replace the countbubble
-                nItem = nItem.replace(/COUNTBUBBLE/g, nCountBubble);
-                //there is a description, update the list item
-                var nDescription = '';
-                nDescription += ProjectRec.Status;
-                nDescription += ', ';
-                nDescription += ProjectRec.Priority;
-                //replace the description;
-                nItem = nItem.replace(/DESCRIPTION/g, nDescription);
-                html += nItem;
-            }
-            //update the listview with the newly defined html structure.
-            $('#pgProjectList').html(ProjectHdr + html).listview('refresh');
-        };
-        // check JSON for Records. This initializes JSON if there are no records
-        //display records if they exist or tell user no records exist.
-        app.checkForProjectStorage = function() {
-            //get records from JSON.
-            var ProjectObj = app.getProject();
-            // are there existing Project records?
-            if (!$.isEmptyObject(ProjectObj)) {
-                // yes there are. pass them off to be displayed
-                app.displayProject(ProjectObj);
-            } else {
-                // nope, just show the placeholder
-                $('#pgProjectList').html(ProjectHdr + noProject).listview('refresh');
-            }
-        };
-        // ***** Edit Page *****
-        // clear the contents of the Edit Page controls
-        //clear the form controls for data entry
-        function pgEditProjectClear() {
-            $('#pgEditProjectProjectName').val('');
-            $('input[name=pgEditProjectStatus]').prop('checked', false).checkboxradio('refresh');
-            $('input[name=pgEditProjectPriority]').prop('checked', false).checkboxradio('refresh');
-            $('#pgEditProjectDueDate').val('');
-            $('#pgEditProjectPercentComplete').val(0);
-            $('#pgEditProjectPercentComplete').slider('refresh');
-            $('#pgEditProjectOwner').val('');
-            $('#pgEditProjectOwner').selectmenu('refresh');
-            $('#pgEditProjectNotes').val('');
-        }
-        // get the contents of the edit screen controls and store them in an object.
-        //get the record to be saved and put it in a record array
-        //read contents of each form input
-        function pgEditProjectGetRec() {
-            //define the new record
-            var ProjectRec
-            ProjectRec = {};
-            ProjectRec.ProjectName = $('#pgEditProjectProjectName').val().trim();
-            ProjectRec.Status = $('input:radio[name=pgEditProjectStatus]:checked').val();
-            ProjectRec.Priority = $('input:radio[name=pgEditProjectPriority]:checked').val();
-            ProjectRec.DueDate = $('#pgEditProjectDueDate').val().trim();
-            ProjectRec.PercentComplete = $('#pgEditProjectPercentComplete').val().trim();
-            ProjectRec.Owner = $('#pgEditProjectOwner').val().trim();
-            ProjectRec.Notes = $('#pgEditProjectNotes').val().trim();
-            return ProjectRec;
-        }
-        // display content of selected record on Edit Page
-        //read record from JSON and display it on edit page.
-        app.editProject = function(ProjectName) {
-            // get Project records.
-            var ProjectObj = app.getProject();
-            // lookup specific Project
-            ProjectName = ProjectName.replace(/ /g, '-');
-            var ProjectRec = ProjectObj[ProjectName];
-            //set data-url of the page to the read record key.
-            $('#pgEditProject').data('id', ProjectName);
-            //update each control in the Edit page
-            //clean the primary key
-            ProjectRec.ProjectName = ProjectRec.ProjectName.replace(/-/g, ' ');
-            $('#pgEditProjectProjectName').val(ProjectRec.ProjectName);
-            //use the actual value of the radio button to set it
-            var opts = 'pgEditProjectStatus' + ProjectRec.Status;
-            $('#' + opts).prop('checked', true);
-            $('#' + opts).checkboxradio('refresh');
-            //use the actual value of the radio button to set it
-            var opts = 'pgEditProjectPriority' + ProjectRec.Priority;
-            $('#' + opts).prop('checked', true);
-            $('#' + opts).checkboxradio('refresh');
-            $('#pgEditProjectDueDate').val(ProjectRec.DueDate);
-            $('#pgEditProjectPercentComplete').val(ProjectRec.PercentComplete);
-            $('#pgEditProjectPercentComplete').slider('refresh');
-            $('#pgEditProjectOwner').val(ProjectRec.Owner);
-            $('#pgEditProjectOwner').selectmenu('refresh');
-            $('#pgEditProjectNotes').val(ProjectRec.Notes);
-        };
-        // ***** Add Page *****
-        // get the contents of the add screen controls and store them in an object.
-        //get the record to be saved and put it in a record array
-        //read contents of each form input
-        function pgAddProjectGetRec() {
-            //define the new record
-            var ProjectRec
-            ProjectRec = {};
-            ProjectRec.ProjectName = $('#pgAddProjectProjectName').val().trim();
-            ProjectRec.Status = $('input:radio[name=pgAddProjectStatus]:checked').val();
-            ProjectRec.Priority = $('input:radio[name=pgAddProjectPriority]:checked').val();
-            ProjectRec.DueDate = $('#pgAddProjectDueDate').val().trim();
-            ProjectRec.PercentComplete = $('#pgAddProjectPercentComplete').val().trim();
-            ProjectRec.Owner = $('#pgAddProjectOwner').val().trim();
-            ProjectRec.Notes = $('#pgAddProjectNotes').val().trim();
-            return ProjectRec;
-        }
-        // clear the contents of the Add page controls
-        //clear the form controls for data entry
-        function pgAddProjectClear() {
-            $('#pgAddProjectProjectName').val('');
-            $('input[name=pgAddProjectStatus]').prop('checked', false).checkboxradio('refresh');
-            $('input[name=pgAddProjectPriority]').prop('checked', false).checkboxradio('refresh');
-            $('#pgAddProjectDueDate').val('');
-            $('#pgAddProjectPercentComplete').val(0);
-            $('#pgAddProjectPercentComplete').slider('refresh');
-            $('#pgAddProjectOwner').val('');
-            $('#pgAddProjectOwner').selectmenu('refresh');
-            $('#pgAddProjectNotes').val('');
-        }
-        //get all existing Person-FullName
-        app.getPersonFullName = function() {
-            // get Project records
-            var ProjectObj = app.getPerson();
-            // loop through each record and get the fields we want
-            // make sure your iterators are properly scoped
-            var n;
-            var dsFields = [];
-            for (n in ProjectObj) {
-                //get the record details
-                var ProjectRec = ProjectObj[n];
-                var dsField = ProjectRec.FullName;
-                dsFields.push(dsField);
-            }
-            return dsFields;
-        };
-        //load the field names for data sources to control 
-        app.pgAddProjectLoadOwner = function() {
-            //read the data source data field combination array
-            var ProjectObj = app.getPersonFullName();
-            var dsdf;
-            //clear the select menu
-            $('#pgAddProjectOwner').empty();
-            //ensure its refreshed
-            $('#pgAddProjectOwner').selectmenu('refresh');
-            //loop through each item and load it.
-            var options = [];
-            options.push('<option value="null" data-placeholder="true">Select Owner</option>');
-            for (dsdf in ProjectObj) {
-                var Owner = ProjectObj[dsdf];
-                options.push("<option value='" + Owner + "'>" + Owner + "</option>");
-            }
-            $('#pgAddProjectOwner').append(options.join("")).selectmenu();
-            //refresh the select menu, just in case
-            $('#pgAddProjectOwner').selectmenu('refresh');
-        };
-        //load the field names for data sources to control 
-        app.pgEditProjectLoadOwner = function() {
-            //read the data source data field combination array
-            var ProjectObj = app.getPersonFullName();
-            var dsdf;
-            //clear the select menu
-            $('#pgEditProjectOwner').empty();
-            //ensure its refreshed
-            $('#pgEditProjectOwner').selectmenu('refresh');
-            //loop through each item and load it.
-            var options = [];
-            options.push('<option value="null" data-placeholder="true">Select Owner</option>');
-            for (dsdf in ProjectObj) {
-                var Owner = ProjectObj[dsdf];
-                options.push("<option value='" + Owner + "'>" + Owner + "</option>");
-            }
-            $('#pgEditProjectOwner').append(options.join("")).selectmenu();
-            //refresh the select menu, just in case
-            $('#pgEditProjectOwner').selectmenu('refresh');
-        };
-        // define events to be fired during app execution.
-        app.PersonBindings = function() {
-            // code to run before showing the page that lists the records.
-            //run after the page has been displayed
-            $(document).on('pagecontainershow', function(e, ui) {
-                var pageId = $(':mobile-pagecontainer').pagecontainer('getActivePage').attr('id');
-                switch (pageId) {
-                    case 'pgPersonMindReportsTo':
-                        app.PersonMindMapReportsTo();
-                        break;
-                }
-            });
-            //before records listing is shown, check for storage
-            $(document).on('pagebeforechange', function(e, data) {
-                //get page to go to
-                var toPage = data.toPage[0].id;
-                switch (toPage) {
-                    case 'pgPerson':
-                        $('#pgRptPersonBack').data('from', 'pgPerson');
-                        // restart the storage check
-                        app.checkForPersonStorage();
-                        break;
-                    case 'pgReports':
-                        $('#pgRptPersonBack').data('from', 'pgReports');
-                        break;
-                    case 'pgRptPerson':
-                        app.PersonRpt();
-                        break;
-                    case 'pgEditPerson':
-                        $('#pgRptPersonBack').data('from', 'pgEditPerson');
-                        // clear the add page form fields
-                        pgEditPersonClear();
-                        //load related select menus before the page shows
-                        app.pgEditPersonLoadReportsTo();
-                        break;
-                    case 'pgAddPerson':
-                        $('#pgRptPersonBack').data('from', 'pgAddPerson');
-                        // clear the add page form fields
-                        pgAddPersonClear();
-                        //load related select menus before the page shows
-                        app.pgAddPersonLoadReportsTo();
-                        break;
-                    default:
-                }
-            });
-            //***** Add Page *****
-            // code to run when back button is clicked on the add record page.
-            // Back click event from Add Page
-            $('#pgAddPersonBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //which page are we coming from, if from sign in go back to it
-                var pgFrom = $('#pgAddPerson').data('from');
-                switch (pgFrom) {
-                    case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
-                        break;
-                    default:
-                        // go back to the records listing screen
-                        $.mobile.changePage('#pgPerson', { transition: pgtransition });
-                }
-            });
-            // code to run when the Save button is clicked on Add page.
-            // Save click event on Add page
-            $('#pgAddPersonSave').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // save the Person
-                var PersonRec;
-                //get form contents into an object
-                PersonRec = pgAddPersonGetRec();
-                //save object to JSON
-                app.addPerson(PersonRec);
-            });
-            // code to run when a get location button is clicked on the Add page.
-            //***** Add Page - End *****
-            // export button click on records mindmap page
-            $('#PersonMindExportReportsTo').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                d3.selectAll('svg').attr('version', '1.1');
-                d3.selectAll('svg').attr('xmlns', 'http://www.w3.org/2000/svg');
-                var html = d3.select('svg').node().parentNode.innerHTML;
-                var imgsrc = 'data:image/svg+xml;base64,' + btoa(html);
-                var img = '<img src=' + imgsrc + '>';
-                //create a canvas to store the image
-                var canvas = document.createElement('canvas');
-                canvas.width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-                canvas.height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
-                var context = canvas.getContext('2d');
-                var image = new Image;
-                image.src = imgsrc;
-                image.onload = function() {
-                    context.drawImage(image, 0, 0);
-                    var canvasdata = canvas.toDataURL('image/png');
-                    var pngimg = '<img src=' + canvasdata + '>';
-                    var a = document.createElement('a');
-                    a.download = 'ReportsTo.png';
-                    a.href = canvasdata;
-                    a.click();
-                };
-            });
-            //***** Listing Page *****
-            // code to run when a listview item is clicked.
-            //listview item click eventt.
-            $(document).on('click', '#pgPersonList a', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //get href of selected listview item and cleanse it
-                var href = $(this)[0].href.match(/\?.*$/)[0];
-                var FullName = href.replace(/^\?FullName=/, '');
-                //change page to edit page.
-                $.mobile.changePage('#pgEditPerson', { transition: pgtransition });
-                //read record from JSON and update screen.
-                app.editPerson(FullName);
-            });
-            // code to run when back button of record listing is clicked.
-            // bind the back button of the records listing
-            $('#pgPersonBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // move to the defined previous page with the defined transition
-                $.mobile.changePage('#pgMenu', { transition: pgtransition });
-            });
-            // code to run when New button on records listing is clicked.
-            // New button click on records listing page
-            $('#pgPersonNew').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //we are accessing a new record from records listing
-                $('#pgAddPerson').data('from', 'pgPerson');
-                // show the active and user type elements
-                $('#pgAddPersonheader h1').text('ASDA_Project > Add Person');
-                $('#pgAddPersonMenu').show();
-                // move to the add page screen
-                $.mobile.changePage('#pgAddPerson', { transition: pgtransition });
-            });
-            //***** Listing Page - End *****
-            //***** Edit Page *****
-            // code to run when the back button of the Edit Page is clicked.
-            // Back click event on Edit page
-            $('#pgEditPersonBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // go back to the listing screen
-                $.mobile.changePage('#pgPerson', { transition: pgtransition });
-            });
-            // code to run when the Update button is clicked in the Edit Page.
-            // Update click event on Edit Page
-            $('#pgEditPersonUpdate').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                // save the Person
-                var PersonRecNew;
-                //get contents of Edit page controls
-                PersonRecNew = pgEditPersonGetRec();
-                //save updated records to JSON
-                app.updatePerson(PersonRecNew);
-            });
-            // code to run when the Delete button is clicked in the Edit Page.
-            // delete button on Edit Page
-            $('#pgEditPersonDelete').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //read the record key from form control
-                var FullName = $('#pgEditPersonFullName').val().trim();
-                //show a confirm message box
-                FullName = FullName.replace(/-/g, ' ');
-                $('#msgboxheader h1').text('Confirm Delete');
-                $('#msgboxtitle').text(FullName);
-                $('#msgboxprompt').text('Are you sure that you want to delete this person? This action cannot be undone.');
-                $('#msgboxyes').data('method', 'deletePerson');
-                $('#msgboxno').data('method', 'editPerson');
-                FullName = FullName.replace(/ /g, '-');
-                $('#msgboxyes').data('id', FullName);
-                $('#msgboxno').data('id', FullName);
-                $('#msgboxyes').data('topage', 'pgEditPerson');
-                $('#msgboxno').data('topage', 'pgEditPerson');
-                $.mobile.changePage('#msgbox', { transition: 'pop' });
-            });
-            //***** Edit Page - End *****
-            //***** Report Page *****
-            //back button on Report page
-            // Back click event on Report page
-            $('#pgRptPersonBack').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var pgFrom = $('#pgRptPersonBack').data('from');
-                switch (pgFrom) {
-                    case "pgAddPerson":
-                        $.mobile.changePage('#pgPerson', { transition: pgtransition });
-                        break;
-                    case "pgEditPerson":
-                        $.mobile.changePage('#pgPerson', { transition: pgtransition });
-                        break;
-                    case "pgPerson":
-                        $.mobile.changePage('#pgPerson', { transition: pgtransition });
-                        break;
-                    default:
-                        // go back to the listing screen
-                        $.mobile.changePage('#pgReports', { transition: pgtransition });
-                }
-            });
-            //add new record from report page
-            // New button click on records report page
-            $('#pgRptPersonNew').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                //we are accessing a new record from records report
-                $('#pgAddPerson').data('from', 'pgRptPerson');
-                // show the active and user type elements
-                $('#pgAddPersonheader h1').text('ASDA_Project > Add Person');
-                // move to the add page screen
-                $.mobile.changePage('#pgAddPerson', { transition: pgtransition });
-            }); //***** Report Page - End *****
-            //Our events are now fully defined.
-        };
-        // this defines methods/procedures accessed by our events.
-        // get existing records from JSON
-        //get all existing records from JSON
-        app.getPerson = function() {
-            // get Person records
-            var PersonObj = {};
-            var icnt, itot;
-            //get the list of files under directory
-            var req = Ajax("ajaxGetPerson.php");
-            if (req.status == 200) {
-                var recFiles = req.responseText;
-                recFiles = recFiles.split('\n');
-                itot = recFiles.length - 1;
-                for (icnt = 0; icnt <= itot; icnt++) {
-                    var recFile = recFiles[icnt];
-                    if (recFile.length > 0) {
-                        // read the file contents and display them
-                        var req = Ajax("ajaxGetPerson.php?file=" + encodeURIComponent(recFile));
-                        if (req.status == 200) {
-                            // parse string to json object
-                            var record = JSON.parse(req.responseText);
-                            var FullName = record.FullName;
-                            record.FullName = record.FullName.replace(/-/g, ' ');
-                            PersonObj[FullName] = record;
-                        }
-                    }
-                }
-                //sort the objects
-                var keys = Object.keys(PersonObj);
-                keys.sort();
-                var sortedObject = Object();
-                var i;
-                for (i in keys) {
-                    key = keys[i];
-                    sortedObject[key] = PersonObj[key];
-                }
-                PersonObj = sortedObject;
-                return PersonObj;
-            }
-        };
-        //display records in table during runtime.
-        app.PersonRpt = function() {
-            //clear the table and leave the header
-            $('#RptPerson tbody tr').remove();
-            // get Person records.
-            var PersonObj = app.getPerson();
-            // create an empty string to contain all rows of the table
-            var newrows = '';
-            // make sure your iterators are properly scoped
-            var n;
-            // loop over records and create a new row for each
-            // and append the newrows with each table row.
-            for (n in PersonObj) {
-                //get the record details
-                var PersonRec = PersonObj[n];
-                //clean primary keys
-                n = n.replace(/-/g, ' ');
-                //create each row
-                var eachrow = '<tr>';
-                eachrow += '<td class="ui-body-c">' + PersonRec.FullName + '</td>';
-                eachrow += '<td class="ui-body-c">' + PersonRec.EmailAddress + '</td>';
-                eachrow += '<td class="ui-body-c">' + PersonRec.ReportsTo + '</td>';
-                eachrow += '</tr>';
-                //append each row to the newrows variable;
-                newrows += eachrow;
-            }
-            // update the table
-            $('#RptPerson').append(newrows);
-            // refresh the table with new details
-            $('#RptPerson').table('refresh');
-        };
-        //display records in table during runtime.
-        app.PersonMindMapReportsTo = function() {
-            //create an array for flat records table with parent and child name
-            var data = [],
-                rec, n;
-            // get Person records.
-            var PersonObj = app.getPerson();
-            var parents = new Map();
-            var kids = new Map();
-            for (n in PersonObj) {
-                //get the record parent and child relationship
-                var PersonRec = PersonObj[n];
-                var parentn = PersonRec.ReportsTo;
-                var childn = PersonRec.FullName;
-                if (parentn == 'null') { parentn = '#ReportsTo' };
-                if (parentn == 'undefined') { parentn = '#ReportsTo' };
-                //clean the contents
-                childn = childn.replace(/-/g, ' ');
-                parentn = parentn.replace(/-/g, ' ');
-                // the child relationship used parent name and child name
-                rec = {};
-                rec.name = childn;
-                rec.parent = parentn;
-                data.push(rec);
-                //build up on all parents, we want to ensure that all parents are covered
-                parents.set(parentn, parentn);
-                //build up all kids, we want to ensure that nothing gets missed
-                //we will compare parents to kids to establish linkages
-                kids.set(childn, parentn);
-            };
-            //now we compare parents to kids, any parent not on kids
-            //will be added to the collection to ensure all bases are covered
-            for (var key of parents.keys()) {
-                if (kids.has(key)) {
-                    //this parent is also a kid, then everything is fine
-                } else {
-                    //this parent is not a kid, add to data collection
-                    if (key != '#ReportsTo') {
-                        rec = {};
-                        rec.name = key;
-                        rec.parent = '#ReportsTo';
-                        data.push(rec);
-                    }
-                }
-            }
-            //add the parent node, make it # for sorting purposes
-            rec = {};
-            rec.name = '#ReportsTo';
-            rec.parent = null;
-            data.push(rec);
-            //create a name based map for the nodes
-            var dataMap = data.reduce(function(map, node) {
-                map[node.name] = node;
-                return map;
-            }, {});
-            //iteratively add each child to its parent
-            var treeData = [];
-            data.forEach(function(node) {
-                // add to parent
-                var parent = dataMap[node.parent];
-                if (parent) {
-                    // create child array if it doesn't exist
-                    (parent.children || (parent.children = []))
-                    // add node to child array
-                    .push(node);
-                } else {
-                    // parent is null or missing
-                    treeData.push(node);
-                }
-            });
-            //draw the d3 tree
-            DrawTree(treeData, '#PersonMindReportsTo');
-        };
-        // save the defined Add page object to JSON
-        // add a new record to server storage.
-        app.addPerson = function(PersonRec) {
-            // define a record object to store the current details
-            var FullName = PersonRec.FullName;
-            // cleanse the record key of spaces.
-            FullName = FullName.replace(/ /g, '-');
-            PersonRec.FullName = FullName;
-            //convert record to json to write to server
-            var recordJSON = JSON.stringify(PersonRec);
-            // save the data to a server file, use the post method as it has 8MB minimum data limitation
-            var req = Ajax("ajaxSavePerson.php", "POST", recordJSON);
-            if (req.status == 200) {
-                //show a toast message that the record has been saved
-                toastr.success('Person record saved.', 'ASDA_Project');
-                //find which page are we coming from, if from sign in go back to it
-                var pgFrom = $('#pgAddPerson').data('from');
-                switch (pgFrom) {
-                    case "pgSignIn":
-                        $.mobile.changePage('#pgSignIn', { transition: pgtransition });
-                        break;
-                    default:
-                        // clear the edit page form fields
-                        pgAddPersonClear();
-                        //stay in the same page to add more records
-                }
-            } else {
-                //show a toast message that the record has not been saved
-                toastr.error('Person record not saved. Please try again.', 'ASDA_Project');
-            }
-        };
-        // save the defined Edit page object to JSON
-        // update an existing record and save to server.
-        app.updatePerson = function(PersonRec) {
-            // define a record object to store the current details
-            var FullName = PersonRec.FullName;
-            // cleanse the record key of spaces.
-            FullName = FullName.replace(/ /g, '-');
-            PersonRec.FullName = FullName;
-            //convert record to json to write to server
-            var recordJSON = JSON.stringify(PersonRec);
-            var req = Ajax("ajaxSavePerson.php", "POST", recordJSON);
-            if (req.status == 200) {
-                //show a toast message that the record has been saved
-                toastr.success('Person record updated.', 'ASDA_Project');
-                // clear the edit page form fields
-                pgEditPersonClear();
-                // show the records listing page.
-                $.mobile.changePage('#pgPerson', { transition: pgtransition });
-            } else {
-                //show a toast message that the record has not been saved
-                toastr.error('Person record not updated. Please try again.', 'ASDA_Project');
-            }
-        };
-        // delete record from JSON
-        //delete a record from JSON using record key
-        app.deletePerson = function(FullName) {
-            FullName = FullName.replace(/ /g, '-');
-            var req = Ajax("ajaxDeletePerson.php/?FullName=" + FullName);
-            if (req.status == 200) {
-                toastr.success('Person record deleted.', 'ASDA_Project');
-            } else {
-                toastr.error('Person record not deleted.', 'ASDA_Project');
-            }
-            // show the page to display after a record is deleted, this case listing page
-            $.mobile.changePage('#pgPerson', { transition: pgtransition });
-        };
-        // display existing records in listview of Records listing.
-        //***** List Page *****
-        //display records in listview during runtime.
-        app.displayPerson = function(PersonObj) {
-            // create an empty string to contain html
-            var html = '';
-            // make sure your iterators are properly scoped
-            var n;
-            // loop over records and create a new list item for each
-            //append the html to store the listitems.
-            for (n in PersonObj) {
-                //get the record details
-                var PersonRec = PersonObj[n];
-                // clean the primary key
-                PersonRec.FullName = PersonRec.FullName.replace(/-/g, ' ');
-                //define a new line from what we have defined
-                var nItem = PersonLi;
-                //update the href to the key
-                n = n.replace(/-/g, ' ');
-                nItem = nItem.replace(/Z2/g, n);
-                //update the title to display, this might be multi fields
-                var nTitle = '';
-                //assign cleaned title
-                nTitle = n.replace(/-/g, ' ');
-                //replace the title;
-                nItem = nItem.replace(/Z1/g, nTitle);
-                //there is a description, update the list item
-                var nDescription = '';
-                nDescription += PersonRec.EmailAddress;
-                //replace the description;
-                nItem = nItem.replace(/DESCRIPTION/g, nDescription);
-                html += nItem;
-            }
-            //update the listview with the newly defined html structure.
-            $('#pgPersonList').html(PersonHdr + html).listview('refresh');
-        };
-        // check JSON for Records. This initializes JSON if there are no records
-        //display records if they exist or tell user no records exist.
-        app.checkForPersonStorage = function() {
-            //get records from JSON.
-            var PersonObj = app.getPerson();
-            // are there existing Person records?
-            if (!$.isEmptyObject(PersonObj)) {
-                // yes there are. pass them off to be displayed
-                app.displayPerson(PersonObj);
-            } else {
-                // nope, just show the placeholder
-                $('#pgPersonList').html(PersonHdr + noPerson).listview('refresh');
-            }
-        };
-        // ***** Edit Page *****
-        // clear the contents of the Edit Page controls
-        //clear the form controls for data entry
-        function pgEditPersonClear() {
-            $('#pgEditPersonFullName').val('');
-            $('#pgEditPersonEmailAddress').val('');
-            $('#pgEditPersonReportsTo').val('');
-            $('#pgEditPersonReportsTo').selectmenu('refresh');
-        }
-        // get the contents of the edit screen controls and store them in an object.
-        //get the record to be saved and put it in a record array
-        //read contents of each form input
-        function pgEditPersonGetRec() {
-            //define the new record
-            var PersonRec
-            PersonRec = {};
-            PersonRec.FullName = $('#pgEditPersonFullName').val().trim();
-            PersonRec.EmailAddress = $('#pgEditPersonEmailAddress').val().trim();
-            PersonRec.ReportsTo = $('#pgEditPersonReportsTo').val().trim();
-            return PersonRec;
-        }
-        // display content of selected record on Edit Page
-        //read record from JSON and display it on edit page.
-        app.editPerson = function(FullName) {
-            // get Person records.
-            var PersonObj = app.getPerson();
-            // lookup specific Person
-            FullName = FullName.replace(/ /g, '-');
-            var PersonRec = PersonObj[FullName];
-            //set data-url of the page to the read record key.
-            $('#pgEditPerson').data('id', FullName);
-            //update each control in the Edit page
-            //clean the primary key
-            PersonRec.FullName = PersonRec.FullName.replace(/-/g, ' ');
-            $('#pgEditPersonFullName').val(PersonRec.FullName);
-            $('#pgEditPersonEmailAddress').val(PersonRec.EmailAddress);
-            $('#pgEditPersonReportsTo').val(PersonRec.ReportsTo);
-            $('#pgEditPersonReportsTo').selectmenu('refresh');
-        };
-        // ***** Add Page *****
-        // get the contents of the add screen controls and store them in an object.
-        //get the record to be saved and put it in a record array
-        //read contents of each form input
-        function pgAddPersonGetRec() {
-            //define the new record
-            var PersonRec
-            PersonRec = {};
-            PersonRec.FullName = $('#pgAddPersonFullName').val().trim();
-            PersonRec.EmailAddress = $('#pgAddPersonEmailAddress').val().trim();
-            PersonRec.ReportsTo = $('#pgAddPersonReportsTo').val().trim();
-            return PersonRec;
-        }
-        // clear the contents of the Add page controls
-        //clear the form controls for data entry
-        function pgAddPersonClear() {
-            $('#pgAddPersonFullName').val('');
-            $('#pgAddPersonEmailAddress').val('');
-            $('#pgAddPersonReportsTo').val('');
-            $('#pgAddPersonReportsTo').selectmenu('refresh');
-        }
-        //get all existing Person-FullName
-        app.getPersonFullName = function() {
-            // get Person records
-            var PersonObj = app.getPerson();
-            // loop through each record and get the fields we want
-            // make sure your iterators are properly scoped
-            var n;
-            var dsFields = [];
-            for (n in PersonObj) {
-                //get the record details
-                var PersonRec = PersonObj[n];
-                var dsField = PersonRec.FullName;
-                dsFields.push(dsField);
-            }
-            return dsFields;
-        };
-        //load the field names for data sources to control 
-        app.pgAddPersonLoadReportsTo = function() {
-            //read the data source data field combination array
-            var PersonObj = app.getPersonFullName();
-            var dsdf;
-            //clear the select menu
-            $('#pgAddPersonReportsTo').empty();
-            //ensure its refreshed
-            $('#pgAddPersonReportsTo').selectmenu('refresh');
-            //loop through each item and load it.
-            var options = [];
-            options.push('<option value="null" data-placeholder="true">Select ReportsTo</option>');
-            for (dsdf in PersonObj) {
-                var ReportsTo = PersonObj[dsdf];
-                options.push("<option value='" + ReportsTo + "'>" + ReportsTo + "</option>");
-            }
-            $('#pgAddPersonReportsTo').append(options.join("")).selectmenu();
-            //refresh the select menu, just in case
-            $('#pgAddPersonReportsTo').selectmenu('refresh');
-        };
-        //load the field names for data sources to control 
-        app.pgEditPersonLoadReportsTo = function() {
-            //read the data source data field combination array
-            var PersonObj = app.getPersonFullName();
-            var dsdf;
-            //clear the select menu
-            $('#pgEditPersonReportsTo').empty();
-            //ensure its refreshed
-            $('#pgEditPersonReportsTo').selectmenu('refresh');
-            //loop through each item and load it.
-            var options = [];
-            options.push('<option value="null" data-placeholder="true">Select ReportsTo</option>');
-            for (dsdf in PersonObj) {
-                var ReportsTo = PersonObj[dsdf];
-                options.push("<option value='" + ReportsTo + "'>" + ReportsTo + "</option>");
-            }
-            $('#pgEditPersonReportsTo').append(options.join("")).selectmenu();
-            //refresh the select menu, just in case
-            $('#pgEditPersonReportsTo').selectmenu('refresh');
-        };
-
-        app.init();
     })(ASDA_Project);
 });

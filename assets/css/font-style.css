@@ -245,7 +245,15 @@
     font-size: 16px;
     line-height: 19px;
     color: #000000;
+
+.default-profile-font-style {
+    font-family: Open Sans;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
 }
+
+
 
 .account-details-font-styles {
     font-family: Open Sans;
@@ -460,6 +468,46 @@
     margin-top: 4px;
 }
 
+.popup-cancel-btn {
+    font-size: 14px !important;
+    color: #FF0000 !important;
+    font-family: Open Sans;
+    font-weight: normal;
+}
+
+.popup-delete-btn {
+    font-size: 14px !important;
+    color: #FF0000 !important;
+    font-family: Open Sans !important;
+    font-weight: normal !important;
+}
+
+.popup-submit-btn {
+    font-size: 14px !important;
+    color: #5187D9 !important;
+    font-family: Open Sans !important;
+    font-weight: normal !important;
+}
+
+.popup-normal-btn {
+    font-size: 14px !important;
+    color: black !important;
+    font-family: Open Sans !important;
+    font-weight: normal !important;
+}
+
+.popup-content {
+    font-size: 15px !important;
+    font-family: Open Sans !important;
+    font-weight: normal;
+}
+
+.popup-header {
+    color: black !important;
+    font-size: 20px !important;
+    font-family: Open Sans !important;
+}
+
 
 /* iPad Pro */
 
@@ -503,6 +551,17 @@
     background: white !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
+}
+
+.favouriteListTitleSpan {
+    font-family: Open Sans !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    line-height: 16px !important;
+    align-items: center !important;
+    letter-spacing: -0.02em !important;
+    color: rgba(0, 0, 0, 0.8) !important;
 }
 
 

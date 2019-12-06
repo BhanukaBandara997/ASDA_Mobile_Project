@@ -34,6 +34,34 @@
     width: 22px;
 }
 
+.favourites-move-to-btn {
+    font-family: Open Sans !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-size: 15px !important;
+    line-height: 15px !important;
+    text-align: center !important;
+    color: black !important;
+    background: rgba(123, 123, 123, 0.8) !important;
+    border-radius: 8px !important;
+    height: 45px !important;
+    width: 210px !important;
+}
+
+.favourites-delete-btn {
+    font-family: Open Sans !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-size: 16px !important;
+    line-height: 15px !important;
+    text-align: center !important;
+    color: white !important;
+    background: #FF0000 !important;
+    border-radius: 8px !important;
+    height: 45px !important;
+    width: 110px !important;
+}
+
 .add-to-cart-btn-style {
     position: absolute;
     width: 154px;
