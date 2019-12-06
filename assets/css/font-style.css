@@ -245,6 +245,7 @@
     font-size: 16px;
     line-height: 19px;
     color: #000000;
+}
 
 .default-profile-font-style {
     font-family: Open Sans;
@@ -252,8 +253,6 @@
     line-height: 16px;
     color: rgba(0, 0, 0, 0.8);
 }
-
-
 
 .account-details-font-styles {
     font-family: Open Sans;
