@@ -674,6 +674,12 @@ $(function() {
                 margin: 0,
             });
 
+            $('.favourite-list-carousel').owlCarousel({
+                items: 2.5,
+                loop: true,
+                margin: 10,
+            });
+
             app.GetFlashDealsItems();
 
             $('#favSelect-button').removeClass('ui-shadow');
@@ -711,7 +717,7 @@ $(function() {
 
             var parentDiv = $('<div>', {
                 'class': 'owl-item',
-                'style': 'width: 148px; margin-right: 10px;'
+                'style': 'width: 120px; margin-right: 10px;'
             });
 
             var carouselItem = $('<div>', {
@@ -1061,10 +1067,10 @@ $(function() {
             if (req.status == 200) {
                 try {
                     var favouriteItemsList = JSON.parse(req.responseText);
-                    $('#pgFavouritesContent').empty();
+                    $('#favouriteItemListDiv').empty();
                     topAlignPercentage = 23;
                     $.each(favouriteItemsList.FavouriteItemList, function() {
-                        appendFavouriteItemsToList($('#pgFavouritesContent'), this, topAlignPercentage);
+                        appendFavouriteItemsToList($('#favouriteItemListDiv'), this, topAlignPercentage);
                         topAlignPercentage += 18;
                     });
                 } catch (e) {
@@ -1076,7 +1082,7 @@ $(function() {
 
         //////////////////////// Append Favourite List Items To List //////////////////////////////
 
-        function appendFavouriteItemsToList(parent, dataObj, topAlignPercentage) {
+        function appendFavouriteItemsToList(parent, dataObj) {
 
             var itemFavouriteListRow = $('<div>', {
                 'id': dataObj.Product_ID,
@@ -1232,7 +1238,7 @@ $(function() {
 
         function deleteFavouriteItems(deleteFavouriteItemsList) {
             deleteFavouriteItemsList.forEach(element => {
-                $('#pgFavouritesContent').find("div#" + element).remove();
+                $('#favouriteItemListDiv').find("div#" + element).remove();
 
                 if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
                     favouritesSelectorValue = "defaultFavouriteList";
@@ -1297,7 +1303,7 @@ $(function() {
 
         function shareFavouriteItems(shareFavouriteItemsList) {
             shareFavouriteItemsList.forEach(element => {
-                $('#pgFavouritesContent').find("div#" + element.Product_ID).remove();
+                $('#favouriteItemListDiv').find("div#" + element.Product_ID).remove();
                 shareFavouriteItemsList = [];
             });
         }
@@ -1344,7 +1350,7 @@ $(function() {
 
         function moveFavouriteItems(moveFavouriteItemsList) {
             moveFavouriteItemsList.forEach(element => {
-                $('#pgFavouritesContent').find("div#" + element.Product_ID).remove();
+                $('#favouriteItemListDiv').find("div#" + element.Product_ID).remove();
                 moveFavouriteItemsList = [];
             });
         }
@@ -1387,6 +1393,14 @@ $(function() {
                     var favouriteItemsList = JSON.parse(req.responseText);
                     $('#favouriteListDiv').empty();
                     $('#favSelect').empty();
+
+                    var favouriteListOptionParent = $('<option>', {
+                        'style': 'color: #333 !important;',
+                        'value': listName.replace(/_/g, ' ')
+                    });
+                    favouriteListOptionParent.text("ALL PRODUCTS");
+                    $('#favSelect').append(favouriteListOptionParent);
+
                     $.each(favouriteItemsList.FavouriteLists, function(index, val) {
                         appendFavouriteListsToDialog($('#favouriteListDiv'), val.Name);
                         if (index >= 1) {
@@ -1583,7 +1597,7 @@ $(function() {
 
             var favouriteListOptionParent = $('<option>', {
                 'style': 'color: #333 !important;',
-                'value': listName.replace(/ /g, '_')
+                'value': listName.replace(/_/g, ' ')
             });
             favouriteListOptionParent.text(listName);
 
@@ -1602,41 +1616,152 @@ $(function() {
                 'style': 'margin-left: 3%; margin-bottom: 1%; display: flex;'
             });
 
-            var favouriteListTitleDiv = $('<span>', {
+            var favouriteListTitleSpan = $('<span>', {
                 'class': 'favouriteListTitleSpan'
             });
 
+            favouriteListTitleSpan.text(listObj.Name.replace(/_/g, ' '));
+
             var favouriteListContextMenu = $('<img>', {
                 'src': './assets/img/menu.png',
-                'style': 'right: 4%; position: absolute;height: 18px; width: 18px; transform: rotate(90deg);'
+                'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
+                'id': 'context-menu-' + listObj.Name,
+                'class': 'favListContextMenu iw-mTrigger',
+            }).on('click', function() {
+                // selectedItemId = this.id.split('-')[2];
+                // selectedItemName = this.id.split('-')[3].trim();
             });
 
-            favouriteListTitleDiv.append(favouriteListTitleDiv);
-            favouriteListTitleDiv.append(favouriteListContextMenu);
+            var menu = [{
+                name: 'Delete',
+                fun: function(data, event) {
+                    // deleteFavouriteItemsList.push(selectedItemId);
+                    $('#deletePopupDialog').popup('open');
+                }
+            }, {
+                name: 'Share via E-mail',
+                fun: function(data, event) {
+                    shareFavouriteItem = {
+                        'productId': selectedItemId,
+                        'productName': selectedItemName
+                    };
+                    $('#sharePopupDialog').popup('open');
+                    $('#cancelFavouriteBtn').removeClass('ui-shadow');
+                    $('#shareFavouriteBtn').removeClass('ui-shadow');
 
-            //     <div style="margin-top: 3%;">
-            //     <div style="margin-left: 3%; margin-bottom: 1%; display: flex;">
-            //         <span style="font-family: Open Sans; font-style: normal;font-weight: 600;font-size: 15px;line-height: 16px; align-items: center; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.8);" id="favouriteListTitleSpan">Default Favourite List</span>
-            //         <img src="./assets/img/menu.png" style="">
-            //     </div>
-            //     <div style="margin-bottom: 4%;  margin-left: 10px;">
-            //         <div class="owl-item active" style="width: 148px;">
-            //             <div class="owl-item" style="width: 145px;margin-right: 10px;">
-            //                 <div class="item flash-deals-carousel-item-margin">
-            //                     <div style="background: #FFFFFF;height: 170px !important;display: flex;border-radius: 20px;border: 1px solid rgba(123, 123, 123, 0.8);box-sizing: border-box;">
-            //                         <div style="width: 150px;">
-            //                             <img src="./assets/img/Item_Images/Nature-Cookies.jpg" style="width: 80px !important;height: 80px !important;/* position: absolute; */margin-top: 5%;margin-left: 20%;">
-            //                             <span style="font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 11px;display: flex;color: rgba(0, 0, 0, 0.6);margin-bottom: 5px; text-align: center;"> Parle Monaco Cheeselings, Classic, 150g </span>
-            //                             <span style="font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 15px;letter-spacing: -0.02em;color: rgba(0, 0, 0, 0.8); margin-left: 25%;">US $3.40 </span>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            //     <div style="height:3px; background: #C4C4C4;"></div>
-            // </div>
+                }
+            }];
 
+            $('.favListContextMenu').contextMenu(menu);
+
+            var itemFavouriteContextMenu = $('<div>', {
+                'style': 'right: 4%; position: absolute;',
+                'class': 'context-menu'
+            });
+
+            itemFavouriteContextMenu.append(favouriteListContextMenu);
+
+            favouriteListTitleDiv.append(favouriteListTitleSpan);
+            favouriteListTitleDiv.append(itemFavouriteContextMenu);
+
+            parent.append(favouriteListTitleDiv);
+
+            var favouriteCarouselParent = $('<div>', {
+                'style': 'margin-bottom: 4%;  margin-left: 10px;'
+            });
+
+            var favouriteCarouselInner = $('<div>', {
+                'id': 'favourite-list-carousel' + listObj.Name,
+                'style': 'margin-left: 5px;'
+            });
+
+            var favouriteCarouselInnerItemParent = $('<div>', {
+                'id': 'favourite-list-carousel-div' + listObj.Name,
+                'style': 'margin-left: 5px;',
+                'class': 'owl-carousel owl-theme owl-loaded owl-drag favourite-list-carousel" style="text-align: center;'
+            });
+
+            var favouriteCarouselOuterItemParent = $('<div>', {
+                'class': 'owl-stage-outer'
+            });
+
+            var favouriteCarouselItemParent = $('<div>', {
+                'id': 'owl-item-favourite-parent-div' + listObj.Name,
+                'class': 'owl-stage',
+                'style': 'transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;'
+            });
+
+            favouriteCarouselOuterItemParent.append(favouriteCarouselItemParent);
+            favouriteCarouselInnerItemParent.append(favouriteCarouselOuterItemParent);
+            favouriteCarouselInner.append(favouriteCarouselInnerItemParent);
+            favouriteCarouselParent.append(favouriteCarouselInner);
+
+            parent.append(favouriteCarouselParent);
+
+            var favouriteItemsList = getDefaultFavouriteListDetails(listObj.FileName);
+
+            $.each(favouriteItemsList.FavouriteItemList, function() {
+                appendFavouriteListItemsToCarousel(favouriteCarouselInnerItemParent, this);
+            });
+
+            var favouriteCarouselDivider = $('<div>', {
+                'style': 'height:3px; background: #C4C4C4;'
+            });
+
+            parent.append(favouriteCarouselDivider);
+
+        }
+
+
+        function appendFavouriteListItemsToCarousel(parent, dataObj) {
+
+            var parentDiv = $('<div>', {
+                'class': 'owl-item',
+                'style': 'width: 145px; margin-left: 10px;'
+            });
+
+            var carouselItem = $('<div>', {
+                'class': 'item flash-deals-carousel-item-margin'
+            });
+
+            var carouselDiv = $('<div>', {
+                'style': 'background: #FFFFFF;height: 170px !important;display: flex;border-radius: 20px;border: 1px solid rgba(123, 123, 123, 0.8);box-sizing: border-box;'
+            });
+
+            var carouselItemParent = $('<div>', {
+                'style': 'width: 150px;'
+            });
+
+            var favouriteItemImg = $('<img>', {
+                'src': dataObj.Path,
+                'style': 'width: 80px !important;height: 80px !important; margin-top: 5%;margin-left: 20%;'
+            });
+
+            var productDetailsSpan = $('<span>', {
+                'style': 'font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 11px;display: flex;color: rgba(0, 0, 0, 0.6);margin-bottom: 5px; text-align: center;'
+            });
+
+            productDetailsSpan.text(dataObj.Product_Name);
+
+            var productPriceSpan = $('<span>', {
+                'style': 'font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 15px;letter-spacing: -0.02em;color: rgba(0, 0, 0, 0.8); margin-left: 25%;'
+            });
+
+            productPriceSpan.text(dataObj.Price);
+
+            carouselItemParent.append(favouriteItemImg);
+            carouselItemParent.append(productDetailsSpan);
+            carouselItemParent.append(productPriceSpan);
+
+            carouselDiv.append(carouselItemParent);
+
+            carouselItem.append(carouselDiv);
+
+            parentDiv.append(carouselItem);
+
+
+
+            jQuery("#" + parent.attr('id')).trigger('add.owl.carousel', parentDiv).trigger('refresh.owl.carousel');
         }
 
         ///////////////////////// Update With New Favourites Lists  //////////////////////////////////////
@@ -1676,19 +1801,18 @@ $(function() {
 
             var updatedFavouriteList = getDefaultFavouriteList(moveFavouriteItemsList);
             var fileCreatedSuccess = updateFavouriteListWithNewItems(updatedFavouriteList, fileName);
+
             if (fileCreatedSuccess) {
-                $('#pgFavouritesContent').empty();
+                $('#favouriteItemListDiv').empty();
 
-                var favouriteLists = getDefaultFavouriteListDetails();
-
+                var favouriteLists = getFavouriteLists();
+                var i = 0;
                 $.each(favouriteLists, function(index, value) {
-
-
+                    var parent = $('#favouriteListParentDiv');
+                    parent.css('display', 'block');
+                    appendFavouriteListsToParent(parent, value[i]);
+                    i++;
                 });
-
-
-
-
             }
 
 
@@ -1724,12 +1848,56 @@ $(function() {
         }
 
 
-        function getDefaultFavouriteListDetails() {
+
+
+        /////////// Get Default Favourite List Item Details //////////////////////////
+
+        function getDefaultFavouriteList(moveFavouriteItemsList) {
             var favouriteItemsList = null;
             //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
             var currentLoggedUser = "User_001";
             var fileName = currentLoggedUser + "-defaultFavouriteList.json";
             var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    favouriteItemsList = JSON.parse(req.responseText);
+                    $.each(favouriteItemsList.FavouriteItemList, function(index, value) {
+                        $.each(moveFavouriteItemsList, function(i, val) {
+                            if (index.split('-')[1] != val) {
+                                delete favouriteItemsList.FavouriteItemList[index];
+                            }
+                        });
+                    });
+                } catch (e) {
+                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                }
+            } else {
+                toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
+            }
+            return favouriteItemsList;
+        }
+
+        function getFavouriteLists() {
+            var favouriteItemsList = null;
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-favouriteLists";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    favouriteItemsList = JSON.parse(req.responseText);
+                } catch (e) {
+                    toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                }
+            }
+            return favouriteItemsList;
+        }
+
+
+        function getDefaultFavouriteListDetails(fileName) {
+            var favouriteItemsList = null;
+            var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName + ".json"));
             if (req.status == 200) {
                 try {
                     favouriteItemsList = JSON.parse(req.responseText);

@@ -248,14 +248,14 @@
 }
 
 .favouriteListTitleSpan {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 16px;
-    align-items: center;
-    letter-spacing: -0.02em;
-    color: rgba(0, 0, 0, 0.8);
+    font-family: Open Sans !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    line-height: 16px !important;
+    align-items: center !important;
+    letter-spacing: -0.02em !important;
+    color: rgba(0, 0, 0, 0.8) !important;
 }
 
 

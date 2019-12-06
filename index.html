@@ -536,32 +536,23 @@
                 </form>
             </div>
         </div>
-        <div id="pgFavouritesListContent" data-role="main" style="margin-top: 5px; " data-tap-toggle="false">
-
-            <div style="margin-top: 3%;">
-                <div style="margin-left: 3%; margin-bottom: 1%; display: flex;">
-                    <span style="font-family: Open Sans; font-style: normal;font-weight: 600;font-size: 15px;line-height: 16px; align-items: center; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.8);" id="favouriteListTitleSpan">Default Favourite List</span>
-                    <img src="./assets/img/menu.png" style="right: 4%; position: absolute;height: 18px; width: 18px; transform: rotate(90deg);">
-                </div>
-                <div style="margin-bottom: 4%;  margin-left: 10px;">
-                    <div class="owl-item active" style="width: 148px;">
-                        <div class="owl-item" style="width: 145px;margin-right: 10px;">
-                            <div class="item flash-deals-carousel-item-margin">
-                                <div style="background: #FFFFFF;height: 170px !important;display: flex;border-radius: 20px;border: 1px solid rgba(123, 123, 123, 0.8);box-sizing: border-box;">
-                                    <div style="width: 150px;">
-                                        <img src="./assets/img/Item_Images/Nature-Cookies.jpg" style="width: 80px !important;height: 80px !important;/* position: absolute; */margin-top: 5%;margin-left: 20%;">
-                                        <span style="font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 11px;display: flex;color: rgba(0, 0, 0, 0.6);margin-bottom: 5px; text-align: center;"> Parle Monaco Cheeselings, Classic, 150g </span>
-                                        <span style="font-family: Open Sans;font-style: normal;font-weight: 600;font-size: 15px;letter-spacing: -0.02em;color: rgba(0, 0, 0, 0.8); margin-left: 25%;">US $3.40 </span>
-                                    </div>
+        <div id="pgFavouritesContent" data-role="main" style="margin-top: 5px; " data-tap-toggle="false">
+            <div id="favouriteItemListDiv" style="display: block;">
+            </div>
+            <div style="margin-top: 3%; display: none;" id="favouriteListParentDiv">
+                <!-- <div style="margin-bottom: 4%;  margin-left: 10px;">
+                    <div id="favourite-list-carousel" style="margin-left: 5px;">
+                        <div id="favourite-list-carousel-div" class="owl-carousel owl-theme owl-loaded owl-drag favourite-list-carousel" style="text-align: center;">
+                            <div class="owl-stage-outer">
+                                <div id="owl-item-favourite-parent-div" class="owl-stage" style="transform: translate3d(-3196px, 0px, 0px); transition: all 0.25s ease 0s; width: 8525px;">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div style="height:3px; background: #C4C4C4;"></div>
+                </div> -->
             </div>
 
-            <button style="position: absolute;right: 3%;bottom: 8%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);" class="ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button"><i style="color: rgba(227, 9, 9, 0.9);" class="zmdi zmdi-plus zmd-2x"></i></button>
+            <button id="createFavListBtn" style="position: absolute; display: none; right: 3%;bottom: 8%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);" class="ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button"><i style="color: rgba(227, 9, 9, 0.9);" class="zmdi zmdi-plus zmd-2x"></i></button>
 
             <!-- Delete Popup Dialog -->
             <div data-role="popup" id="deletePopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
@@ -668,7 +659,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
         <div id="fav-footer" data-role="footer" style="padding-top: 7px;" data-position="fixed" data-tap-toggle="false">
             <div id="favNavBar" data-role="navbar" data-grid="d" style="display: block">
