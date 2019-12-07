@@ -355,6 +355,24 @@
     top: 400px;
 }
 
+.fav-list-carousel-price-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.fav-list-carousel-product-details-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    display: flex;
+    color: rgba(0, 0, 0, 0.6);
+}
+
 
 /* iPhone X */
 
