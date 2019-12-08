@@ -219,14 +219,6 @@
     color: rgba(0, 0, 0, 0.8);
 }
 
-.address-one-container-style {
-    position: absolute;
-    width: 375px;
-    height: 89px;
-    left: 14px;
-    top: 93px;
-}
-
 .address-one-style {
     margin-top: 10px;
     font-family: Open Sans;
@@ -523,6 +515,218 @@
     color: black !important;
     font-size: 20px !important;
     font-family: Open Sans !important;
+}
+
+.profile-text-possition {
+    position: absolute;
+    width: 42px;
+    height: 16px;
+    left: 11px;
+    top: 10px;
+}
+
+.shipping-address-text-possotion-settings {
+    position: absolute;
+    width: 130px;
+    height: 16px;
+    left: 11px;
+    top: 46px;
+}
+
+.currency-text-possition {
+    position: absolute;
+    width: 58px;
+    height: 16px;
+    left: 11px;
+    top: 105px;
+}
+
+.language-text-possition {
+    position: absolute;
+    width: 104px;
+    height: 16px;
+    left: 11px;
+    top: 141px;
+}
+
+.version-text-possition {
+    position: absolute;
+    width: 104px;
+    height: 16px;
+    left: 11px;
+    top: 236px;
+}
+
+.private-policy-text-possition {
+    position: absolute;
+    width: 104px;
+    height: 16px;
+    left: 11px;
+    top: 200px;
+}
+
+.settings-values-font {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.version-value-possition {
+    position: absolute;
+    width: 28px;
+    height: 16px;
+    left: 336px;
+    top: 236px;
+}
+
+.currency-value-possition {
+    position: absolute;
+    width: 28px;
+    height: 16px;
+    left: 336px;
+    top: 105px;
+}
+
+.language-value-possition {
+    position: absolute;
+    width: 41px;
+    height: 16px;
+    left: 323px;
+    top: 141px;
+}
+
+.asda-logo-settings-bottom {
+    position: absolute;
+    width: 63px;
+    height: 28px;
+    left: 155px;
+    top: 403px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+}
+
+.version-text-possition-bottom {
+    position: absolute;
+    width: 53px;
+    height: 15px;
+    left: 161px;
+    top: 446px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 8px;
+    line-height: 11px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.copy-rights-text-possition {
+    position: absolute;
+    width: 83px;
+    height: 19px;
+    left: 146px;
+    top: 466px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 7px;
+    line-height: 10px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.sign-out-text {
+    position: absolute;
+    width: 47.44px;
+    height: 16px;
+    left: 164.28px;
+    top: 290px;
+    font-family: Open Sans;
+    font-size: 10px;
+    line-height: 14px;
+    color: #FFFFFF;
+}
+
+.add-to-cart-font-style {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 15px;
+    text-align: center;
+}
+
+.buy-now-font-style {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 15px;
+    /* identical to box height */
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.item-desription-text-style {
+    position: absolute;
+    width: 177px;
+    height: 20px;
+    left: 15px;
+    top: 10px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 23px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.product-price-text-style {
+    position: absolute;
+    width: 109.76px;
+    height: 17.11px;
+    left: 25px;
+    top: 5px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 23px;
+    color: #000000;
+    /* border: 0.3px solid rgba(0, 0, 0, 0.8); */
+}
+
+.product-name-text-style {
+    position: absolute;
+    width: 309px;
+    height: 20px;
+    left: 25px;
+    top: 25px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.product-rating-text {
+    position: absolute;
+    width: 27px;
+    height: 15px;
+    left: 25px;
+    top: 40px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 

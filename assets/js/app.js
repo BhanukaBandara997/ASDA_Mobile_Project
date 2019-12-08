@@ -478,14 +478,14 @@ $(function() {
 
                     if (userRec.AddressTwo == null && userRec.AddressOne == null) {
                         userRec.AddressOne = newAddress;
+                    } else {
+                        if (userRec.AddressOne != null && userRec.AddressOne == null) {
+                            userRec.AddressTwo = newAddress;
+                        }
+                        if (userRec.AddressTwo != null && userRec.AddressOne != null) {
+                            toastr.error('You cannot add more Addresses');
+                        }
                     }
-                    if (userRec.AddressOne != null) {
-                        userRec.AddressTwo = newAddress;
-                    }
-                    if (userRec.AddressTwo != null && userRec.AddressOne != null) {
-                        toastr.error('You cannot add more Addresses');
-                    }
-
                     var recordJSON = JSON.stringify(userRec);
                     var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
                     if (req.status == 200) {
@@ -558,13 +558,6 @@ $(function() {
             $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
         });
 
-        $('#shipping-address-text').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            // app.GetUserSavedAddresses();
-            app.ShowPopUpDialogBox();
-        });
-
         // Pop-up Gender Dialog
         $('#loged-in-user-gender').on('click', function(e) {
             e.preventDefault();
@@ -610,34 +603,55 @@ $(function() {
             app.UpdateUserBirthday(newBirthday);
         });
 
+        // Edit selected Address
         $('#edit-icon').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            $('#addressPopupDialog').popup();
             $('#addressPopupDialog').popup('open');
         });
 
-        app.ShowPopUpDialogBox = function() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-            // When the user clicks anywhere outside of the modal, close it
-            $('#close-button').on('click', function(e) {
-                modal.style.display = "none";
-            });
+        // Save Editted Address
+        $('#saveAddressBtn').on('click', function(e) {
+            var selectedAddress = $("input[name='address']:checked").val();
+            var editedUserAddress = $("#editSavedAddress").val();
+            if (selectedAddress == null) {
+                toastr.error('Please select a address to be edited');
+            } else {
+                app.EditSavedAddress(selectedAddress, editedUserAddress);
+            }
+        });
 
-            $('#pgShippingAddress').on('click', function(e) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            });
+        $('#shipping-address-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            // app.GetUserSavedAddresses();
+            var firstAddress = $("#address-one").val();
+            var secondAddress = $("#address-two").val();
+            if ((firstAddress == null && secondAddress == null) || (firstAddress != null && secondAddress == null)) {
+                $('#newAddressPopupDialog').popup();
+                $('#newAddressPopupDialog').popup('open');
+            } else {
+                toastr.error('You can only add two addresses');
+            }
+        });
 
-            $('#save-address-button').on('click', function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                app.UpdateAddress($('#address-input').val().trim());
-                app.GetUserSavedAddresses();
+        // Save new Address
+        $('#newAddressSaveBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.UpdateAddress($('#addNewAddress').val().trim());
+            app.GetUserSavedAddresses();
+        });
 
-            });
-        };
+        // Navigate to settings
+        $('#settings-icon, #settings-icon-text').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.GetUserSavedAddresses();
+            $.mobile.changePage('#pgSettings', { transition: pgtransition });
+        });
+
 
         app.GetCurrentUser = function() {
             var Email = localStorage.getItem("currentLoggedInUser");
@@ -896,12 +910,15 @@ $(function() {
                     var addressObject = JSON.parse(req.responseText);
                     $('#existing-addresses').empty();
 
-                    if (addressObject.AddressOne == null) {
+                    if (addressObject.AddressOne == null || addressObject.AddressOne == "") {
                         $('#address-one-container').hide();
                         $('#address-two-container').hide();
+                        $('#address-one-radio').hide();
+                        $('#address-two-radio').hide();
                     }
-                    if (addressObject.AddressOne != null && addressObject.AddressTwo == null) {
+                    if (addressObject.AddressOne != null && (addressObject.AddressTwo == null || addressObject.AddressTwo == "")) {
                         $('#address-two-container').hide();
+                        $('#address-two-radio').hide();
                     }
 
                     $("#address-one").text(addressObject.AddressOne);
@@ -911,7 +928,6 @@ $(function() {
 
                 }
             }
-
         };
 
         app.MemberCenterDetails = function() {
@@ -1063,6 +1079,47 @@ $(function() {
                 } catch (e) {}
             }
         };
+
+        app.EditSavedAddress = function(selectedAddress, editedAddress) {
+            var loggedInUser = app.GetCurrentUser();
+            loggedInUser += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(loggedInUser));
+            if (req.status == 200) {
+                try {
+                    var object = JSON.parse(req.responseText);
+                    if (selectedAddress == null) {
+                        toastr.success('Please select the address which needs to be edited');
+                    } else {
+                        if (selectedAddress == "first-address" && editedAddress != null) {
+                            if (editedAddress == "") {
+                                object.AddressOne = null;
+                            } else {
+                                object.AddressOne = editedAddress;
+                            }
+                        }
+                        if (selectedAddress == "second-address") {
+                            if (editedAddress == "") {
+                                object.AddressTwo = null;
+                            } else {
+                                object.AddressTwo = editedAddress;
+                            }
+                        }
+                    }
+                    var recordJSON = JSON.stringify(object);
+                    var reqe = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                    if (reqe.status == 200) {
+                        try {
+                            app.GetUserSavedAddresses();
+                            $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+                        } catch (e) {}
+                    }
+                } catch (e) {
+
+                }
+            }
+        };
+
+
         ///////////////////////////// Flash Deals List View Item Appending /////////////////////////////////////////////////////
 
 

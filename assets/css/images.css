@@ -136,8 +136,8 @@
     position: absolute;
     width: 18px;
     height: 20px;
-    left: 342px;
-    top: auto;
+    left: 338px;
+    top: -4px;
 }
 
 .shopping-icon-item-view {
@@ -172,6 +172,17 @@
     width: 20px;
     height: 15px;
     margin-top: 3px;
+}
+
+.navigate-to-customer-review-style {
+    position: absolute;
+    left: 90.59%;
+    right: 6.81%;
+    top: 72.62%;
+    bottom: -11.9%;
+    /* Black — Inactive */
+    background: rgba(0, 0, 0, 0.54);
+    transform: rotate(-180deg);
 }
 
 

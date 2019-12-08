@@ -68,7 +68,7 @@
             </div>
             <div id="welcome-pg-buttons-layout" class="ui-content buttons-layout">
 
-                <a href="#homePage" id="continue-button" class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Continue
+                <a href="#pgHome" id="continue-button" class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Continue
                     As Guest</a>
 
                 <a href="#pgCreateAccount" id="create-button" class="startup-buttons iphone-large-font ui-btn ui-btn-raised clr-primary" data-role="button">Create
@@ -656,8 +656,9 @@
     </div>
 
     <!-- Sub Category View -->
+
     <div data-theme="a" id="pgSubCategory" data-role="page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
@@ -714,7 +715,7 @@
     <!-- Account Page -->
 
     <div data-theme="a" id="pgAccount" data-role="page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
@@ -759,7 +760,7 @@
                 </div>
                 <div>
                     <img id="settings-icon" class="settings-icon-account" src="./assets/img/Icons/settings.png"></img>
-                    <span class="edit-settings-basic-font-styles settings-possition">Settings</span>
+                    <span id="settings-icon-text" class="edit-settings-basic-font-styles settings-possition">Settings</span>
                 </div>
                 <div>
                     <img id="help-center-icon" class="help-center-icon-account" src="./assets/img/Icons/headset.png"></img>
@@ -813,7 +814,7 @@
     <!-- Edit Account -->
 
     <div data-theme="a" id="pgEditAccount" data-role="page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
@@ -860,122 +861,122 @@
                 </div>
                 <div id="shipping-address">
                     <span class="account-details-font-styles shipping-address-style">Shipping Address</span>
+                    <div style="position: absolute; width: 375px; height: 4px; left: 0px; top: 400px; background: #C4C4C4;"></div>
                 </div>
             </div>
 
             <!-- Add Gender -->
 
-            <div data-role="popup" id="genderPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
-                data-transition="none" data-position-to="origin">
-                <div id="addGenderDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
-                    <!-- <span class="ui-title popup-header" role="heading">Add Gender</span> -->
-                    <span role="heading">Add Gender</span>
-                    <!-- margin-left: 8%; -->
+            <div data-role="popup" id="genderPopupDialog" data-overlay-theme="a" data-theme="c" style="width: 104%; max-width:600px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+                data-corners="true" data-transition="none" data-position-to="origin">
+                <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <div style="display: flex;">
+                        <span id="genderTextTitle" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Add Gender</span>
+                    </div>
                 </div>
                 <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                    <!-- <span style="margin-left: 10px;" class="popup-content"></span> -->
+                    <span id="genderText" style="margin-left: 5px; padding: 10px;" class="popup-content">Input you Gender below </span>
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
 
-                    <input type="radio" name="gender" value="Male" style="position: absolute; width: 18px; height: 18.93px; top: 10px; left: 183px;"> Male<br>
-                    <input type="radio" name="gender" value="Female" style="position: absolute; width: 18px; height: 18.93px; top: 11px; left: 183px;"> Female<br>
-                    <a id="cancelSaveGenderBtn" href="#pgEditAccount" style="left: 46%; margin-top: 2%; margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
-                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                        <spantext class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                        <input type="radio" name="gender" value="Male" style="position: absolute; width: 18px; height: 18.93px; top: 10px; left: 170px;"> Male<br>
+                        <input type="radio" name="gender" value="Female" style="position: absolute; width: 18px; height: 18.93px; top: 11px; left: 170px;"> Female<br>
+
+                        <a id="cancelSaveGenderBtn" href="#pgFavourites" style="left: 15%; margin-top: 14.5%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                            <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
                             </span>
-                    </a>
-                    <a id="saveGenderBtn" href="#" style="position: absolute; left: 70%; margin-top: 2%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
-                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                        <span class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text popup-delete-btn">Save</span>
-                        </span>
-                    </a>
+                        </a>
+                        <a id="saveGenderBtn" style="position: absolute; left: 68%; margin-top: 10%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                            <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                        </a>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             <!-- Add Birthday -->
 
-            <div data-role="popup" id="birthdayPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+            <div data-role="popup" id="birthdayPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:600px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
                 data-corners="true" data-transition="none" data-position-to="origin">
-                <div id="addBirthdayDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
-                    <!-- <span class="ui-title popup-header" role="heading">Add Birthday</span> -->
-                    <span role="heading">Add Birthday</span>
-                    <!-- margin-left: 8%; -->
+                <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <div style="display: flex;">
+                        <span id="birthdayTextTitle" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Add Birthday</span>
+                    </div>
                 </div>
                 <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                    <input id="userBirthDay" type="date" name="birthday"><br>
+                    <span id="birthdayText" style="margin-left: 5px; padding: 10px;" class="popup-content">Input you Birthday below </span>
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                        <input id="userBirthDay" type="date" maxlength="30" style="width: 200px; margin-top: 5%;" name="birthday">
 
-                    <a id="cancelSaveBithdayBtn" href="#pgEditAccount" style="left: 46%; margin-top: 2%; margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
-                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                        <spantext class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                        <a id="cancelSaveBithdayBtn" href="#pgFavourites" style="left: 25%; margin-top: 12%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                            <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
                             </span>
-                    </a>
-                    <a id="saveBirthdayBtn" href="#" style="position: absolute; left: 70%; margin-top: 2%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
-                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                        <span class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text popup-delete-btn">Save</span>
-                        </span>
-                    </a>
+                        </a>
+                        <a id="saveBirthdayBtn" style="position: absolute; left: 68%; margin-top: 9%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                            <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                        </a>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             <!-- Add First and Last Names -->
 
-            <div data-role="popup" id="namePopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
+            <div data-role="popup" id="namePopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:600px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
                 data-transition="none" data-position-to="origin">
-                <div id="addNameDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
-                    <!-- <span class="ui-title popup-header" role="heading">Add Names</span> -->
-                    <span role="heading">Add Names</span>
-                    <!-- margin-left: 8%; -->
+                <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <div style="display: flex;">
+                        <span id="nameTextTitle" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Add Birthday</span>
+                    </div>
                 </div>
                 <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                    <!-- <input id="userName" type="date" name="birthday"><br> -->
-                    <span class="ui-btn-text clickable-font-styles"> First Name :</span>
-                    <input id="fname" type="text" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
-                    <span class="ui-btn-text clickable-font-styles"> Last Name :</span>
-                    <input id="lname" type="text" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
-                    <a id="cancelSaveNameBtn" href="#pgEditAccount" style="left: 46%; margin-top: 2%; margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
-                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                        <spantext class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                    <!-- <span id="fullNameText" style="margin-left: 5px; padding: 10px;" class="popup-content">Input you Birthday below </span> -->
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                        <!-- <input id="userFullName" type="date" style="width: 200px; margin-top: 5%;" name="birthday"> -->
+                        <span class="ui-btn-text clickable-font-styles" style="max-width: 200px;"> First Name :</span>
+                        <input id="fname" type="text" maxlength="30" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
+                        <span class="ui-btn-text clickable-font-styles"> Last Name :</span>
+                        <input id="lname" type="text" maxlength="30" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
+
+                        <a id="cancelSaveNameBtn" href="#pgFavourites" style="left: 36%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                            <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
                             </span>
-                    </a>
-                    <a id="saveNameBtn" href="#" style="position: absolute; left: 70%; margin-top: 2%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
-                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                        <span class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text popup-delete-btn">Save</span>
-                        </span>
-                    </a>
+                        </a>
+                        <a id="saveNameBtn" style="position: absolute; left: 70%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                            <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                        </a>
+                        </form>
+                    </div>
                 </div>
             </div>
 
-            <!-- Edit Shipping Address -->
 
-            <div data-role="popup" id="addressPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
-                data-corners="true" data-transition="none" data-position-to="origin">
-                <div id="addaddressDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
-                    <!-- <span class="ui-title popup-header" role="heading">Address</span> -->
-                    <span role="heading">Address</span>
-                    <!-- margin-left: 8%; -->
+            <div data-role="popup" id="addressPopupDialog" data-overlay-theme="a" data-theme="c" style="width: 260px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
+                data-transition="none" data-position-to="origin">
+                <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <div style="display: flex;">
+
+                        <span id="editAddressTitle" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
+                    </div>
                 </div>
                 <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                    <!-- <input id="userName" type="date" name="birthday"><br> -->
-                    <span class="ui-btn-text clickable-font-styles"> Address :</span>
-                    <input id="address" type="text" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
-                    <!-- <span class="ui-btn-text clickable-font-styles"> Last Name :</span>
-                    <input id="lname" type="text" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br> -->
-                    <a id="cancelSaveAddressBtn" href="#pgEditAccount" style="left: 46%; margin-top: 2%; margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
-                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                        <spantext class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                    <span id="editAddressSpan" style="margin-left: 5px; padding: 10px;" class="popup-content">Input your address below </span>
+                    <form action="#" method="post" id="shareFavouriteItem">
+                        <div data-role="fieldcontain" style="margin-left: 15px; margin-top: 5px; margin-bottom: -10px;">
+                            <input style="line-height: 20px!important;" maxlength="50" type="text" id="editSavedAddress"></input>
+                        </div>
+
+                        <a id="cancelSaveAddressBtn" href="#pgFavourites" style="left: 28%; margin-top: 11.5%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                            <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
                             </span>
-                    </a>
-                    <a id="saveAddressBtn" href="#" style="position: absolute; left: 70%; margin-top: 2%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
-                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                        <span class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text popup-delete-btn">Save</span>
-                        </span>
-                    </a>
+                        </a>
+                        <a id="saveAddressBtn" style="position: absolute; left: 70%; margin-top: 10%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                            <span class="ui-btn-inner ui-btn-corner-all"><span  class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                        </a>
+                    </form>
                 </div>
             </div>
 
@@ -985,7 +986,7 @@
     <!-- Contact Us -->
 
     <div data-theme="a" id="pgContactUs" data-role="page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
@@ -1017,7 +1018,7 @@
 
     <!-- Shipping Address -->
     <div data-theme="a" id="pgShippingAddress" data-role="page" class="ShippingAddress">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
@@ -1038,51 +1039,50 @@
                 </div>
                 <div id="address-container" class="address-container-style"></div>
                 <div id="address-one-container" class="address-one-container-style">
-                    <div id="address-one" class="address-one-style">
-                    </div>
-                    <input type="radio" class="address-one-radio" name="address" value="first-address"> <br>
-                    <div id="boder" calss="shipping-address-divider-two">
-                    </div>
-
+                    <div id="address-one" class="address-one-style"> </div>
+                    <input id="address-one-radio" type="radio" style="position: absolute; width: 18px; height: 18.93px; left: 331px; top: auto;" name="address" value="first-address"> <br>
+                    <div id="boder" calss="shipping-address-divider-two"> </div>
                 </div>
                 <div id="address-two-container" class="address-two-container-style">
-                    <div id="address-two" class="address-two-style">
-                    </div>
-                    <input type="radio" class="address-two-radio" name="address" value="second-address"> <br>
-                    <div id="boder" class="shipping-address-divider-three">
-                    </div>
+                    <div id="address-two" class="address-two-style"> </div>
+                    <input id="address-two-radio" type="radio" style="position: absolute; width: 18px; height: 18.93px; left: 331px; top: auto;" name="address" value="second-address"> <br>
+                    <div id="boder" class="shipping-address-divider-three"> </div>
+                </div>
 
-                </div>
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <span id="close-button" class="close">&times;</span>
-                        <span id="Address" style="position: absolute; top: 275px; left: 146px; width: 55px; height: 34.24px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 20px; line-height: 19px; color: #000000;">Address</span>
-                        <textarea id="address-input" rows="5" cols="50"></textarea>
-                        <span id="save-address-button" type="submit" style="position: absolute; height: 30px;  left: 248px; top: 403.94px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 14px; line-height: 15px; color: #5187D9;">Save
-                            Address</span>
+                <div data-role="popup" id="newAddressPopupDialog" data-overlay-theme="a" data-theme="c" style="width: 260px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+                    data-corners="true" data-transition="none" data-position-to="origin">
+                    <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                        <div style="display: flex;">
+
+                            <span id="newAddressTitle" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
+                        </div>
+                    </div>
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                        <span id="newAddressSpan" style="margin-left: 5px; padding: 10px;" class="popup-content">Input your address below </span>
+                        <form action="#" method="post" id="shareFavouriteItem">
+                            <div data-role="fieldcontain" style="margin-left: 15px; margin-top: 5px; margin-bottom: -10px;">
+                                <input style="line-height: 20px!important;" maxlength="50" type="text" id="addNewAddress"></input>
+                            </div>
+
+                            <a id="newAddressCancelBtn" href="#pgFavourites" style="left: 28%; margin-top: 11.5%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                                <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
+                                </span>
+                            </a>
+                            <a id="newAddressSaveBtn" style="position: absolute; left: 70%; margin-top: 10%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                                <span class="ui-btn-inner ui-btn-corner-all"><span  class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                            </a>
+                        </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <!-- Pop up Box for Address -->
-    <!-- <div id="popup-form-address" class="pop-up-box">
-        <form id="pop-up-form">
-            <span
-                style="position: absolute; width: 50px; height: 24px; left: 103px; top: 23px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 16px; line-height: 19px; color: #000000;">Address</span>
-            <input class="open-sans-font" style="line-height: 20px!important; top: 100px; left: 30px;" required
-                placeholder="Address" autocomplete="off" data-clear-btn="true"></input>
-            <button type="submit" style="position: absolute; top: 171px; left: 40px; width: 70% !important; height: 40px !important; align-items: center !important; display: flex !important; justify-content: center !important; text-align: center !important; background-image: linear-gradient(#F46B45, #EEA849) !important; text-transform: none !important;
-                    " class="iphone-large-font ui-btn-raised clr-primary ui-btn">Save Address</button>
-        </form>
-    </div> -->
-
     <!-- About Us -->
     <div data-theme="a" id="pgAboutUs" data-role="page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
@@ -1093,20 +1093,67 @@
         <div id="pgAboutUsContent" data-role="main">
             <div class="nav-bar">
                 <img id="back-icon-about-us" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="back-icon-about-us-text" class="open-sans-font sub-category-style">About
-                    Us</span>
+                <span id="back-icon-about-us-text" class="open-sans-font sub-category-style">About Us</span>
                 <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
                 </div>
             </div>
             <div>
                 <img id="about-us-image" style="position: absolute; width: 375px; height: 265px; left: 0px; top: 89px;" src="./assets/img/about-us.jpg"></img>
-                <span id="introducing-asda" style="position: absolute; width: 138px; height: 24px; left: 13px; top: 403px; font-family: Open Sans; font-size: 15px; line-height: 20px; color: rgba(0, 0, 0, 0.8);">Introducing
-                    ASDA
-                </span>
+                <span id="introducing-asda" style="position: absolute; width: 138px; height: 24px; left: 13px; top: 403px; font-family: Open Sans; font-size: 15px; line-height: 20px; color: rgba(0, 0, 0, 0.8);">Introducing ASDA </span>
                 <p id="about-us-para" style="position: absolute; width: 303px; height: 131px; left: 13px; top: 430px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 15px; color: rgba(0, 0, 0, 0.8);">
                     <br> By the mid-1960s, Britain was starting to swing. Rationing was ten years in the past; the economy was booming; ownership was growing; and there was shopping to be done.</br> <br>A great mood of optimism was sweeping the country,
                     and nowhere more so than at Queens, where something very, very exciting was about to happen.</br>
                 </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings -->
+    <div data-theme="a" id="pgSettings" data-role="page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="header-title">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+        </div>
+        <div id="pgSettingsContent" data-role="main">
+            <div class="nav-bar">
+                <img id="back-icon-about-us" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="back-icon-about-us-text" class="open-sans-font sub-category-style">Settings</span>
+                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
+                </div>
+            </div>
+            <div id="profileAndShippingContent" style="position: absolute;
+            width: 375px;
+            height: 75px;
+            left: 0px;
+            top: 95px;">
+                <span id="profileText" class="account-details-font-styles profile-text-possition">Profile</span>
+                <span id="shippingAddressText" class="account-details-font-styles shipping-address-text-possotion-settings">Shipping Address</span>
+                <div id="settingsDivider1" class="settings-devider-one"></div>
+
+            </div>
+            <div id="currencyAndLanguageContent" style="position: absolute;
+            width: 375px;
+            height: 147px;
+            left: 0px;
+            top: 105px;">
+                <span id="currencyeText" class="account-details-font-styles currency-text-possition">Currency</span>
+                <span id="currencyValue" class="settings-values-font currency-value-possition">USD</span>
+                <span id="languageText" class="account-details-font-styles language-text-possition">Language</span>
+                <span id="languageValue" class="settings-values-font language-value-possition">English</span>
+                <div id="settingsDivider2" class="settings-devider-two"></div>
+
+                <span id="privatePolicyText" class="account-details-font-styles private-policy-text-possition">Private Policy</span>
+                <span id="versionText" class="account-details-font-styles version-text-possition">Version</span>
+                <span id="version" class="settings-values-font version-value-possition">1.18</span>
+
+                <button type="submit" id="pgSignOutBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b" style="height: 27% !important; top: 300px; width: 300px; left: 37px;">SIGN OUT</button>
+                <span id="asdaLogoAccountPage" class="asda-logo-settings-bottom header-title-color">ASDA</span>
+                <span id="versionTextBottom" class="version-text-possition-bottom">Version 1.18</span>
+                <span id="copyRightsText" class="copy-rights-text-possition">2018-2019 ASDA.com All Rights Reserved</span>
             </div>
         </div>
     </div>
@@ -1297,6 +1344,7 @@
 
         </div>
     </div>
+
     <!-- Item View -->
 
     <div data-theme="a" id="pgItemView" data-role="page">
@@ -1310,11 +1358,28 @@
             </div>
         </div>
         <div id="pgAccountCreationSuccessContent" data-role="main">
+            <div id="itemImage" class="item-product-image">
 
+            </div>
+            <div id="itemMainDetails" class="item-product-main-details">
+                <span id="productPriceValue" class="product-price-text-style"></span>
+                <span id="productNameValue" class="product-name-text-style"></span>
+                <span id="productRating" class="product-rating-text"></span>
+            </div>
+            <div id="item-page-divider-1" class="item-page-first-divider-style"></div>
+            <div id="productDescription" class="product-description-block-style">
+                <div id="itemDescriptionText" class="item-desription-text-style"></div>
+                <div id="item-page-divider-2" class="item-page-second-divider-style"></div>
+            </div>
+            <div id="cusomerReviewNavigator" class="customer-review-nav-style">
+                <div id="customerReviewText" class="customer-review-text-style"></div>
+                <img id="navigateToIcon" class="navigate-to-customer-review-style"></img>
+            </div>
+            <div id="customerReviewBlock" class="customer-review-example-style"></div>
         </div>
-        <div data-role="footer" data-position="fixed" style="padding-top: 7px;" data-tap-toggle="false">
-            <button id="add-to-cart-btn" class="add-to-cart-btn-style"></button>
-            <button id="buy-now-byn" class="buy-now-btn-style"></button>
+        <div data-role="footer" data-position="fixed" style="position: absolute; width: 375px; height: 49px; left: -1px; top: 759px;" data-tap-toggle="false">
+            <button id="add-to-cart-btn" class="add-to-cart-btn-style add-to-cart-font-style">Add To Cart</button>
+            <button id="buy-now-btn" class="buy-now-btn-style buy-now-font-style">Buy Now</button>
         </div>
     </div>
 
