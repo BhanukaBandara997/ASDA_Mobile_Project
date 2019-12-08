@@ -275,6 +275,10 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     color: #467E9E;
 }
 
+#favSelect-button {
+    margin-left: 5px;
+}
+
 
 /* iPhone X Portrait */
 

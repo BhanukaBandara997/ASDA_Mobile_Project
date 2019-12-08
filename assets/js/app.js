@@ -133,12 +133,21 @@ $(function() {
                     appendFavouriteListsToParent(parent, this, index);
                 });
 
-                $('#favSelect').val('MY_LISTS');
+                var favouriteListOptionParent = $('<option>', {
+                    'style': 'color: #333 !important; font-size: 10px !important;',
+                    'value': 'MY_LISTS'
+                });
+                favouriteListOptionParent.text("MY LISTS");
+                $('#favSelect').append(favouriteListOptionParent);
+
+                // $('#favSelect option[value="MY_LISTS"]');
 
                 var createFavBtn = $('<button>', {
                     'id': 'createFavListBtn',
                     'class': 'ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button',
                     'style': 'position: absolute; display: block; right: 3%; width: 40px; top: -100%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);'
+                }).on('click', function() {
+                    $('#createNewFavListPopupDialog').popup('open');
                 });
 
                 var createFavBtnIcon = $('<i>', {
@@ -1672,7 +1681,7 @@ $(function() {
                     $('#favSelect').empty();
 
                     var favouriteListOptionParent = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 11px !important;',
+                        'style': 'color: #333 !important; font-size: 10px !important;',
                         'value': 'ALL_PRODUCTS'
                     });
                     favouriteListOptionParent.text("ALL PRODUCTS");
@@ -1682,7 +1691,7 @@ $(function() {
                         appendFavouriteListsToDialog($('#favouriteListSelectionDiv'), val.Name);
                     });
 
-                    appendToListNames($('#favSelect'), 'MY LISTS');
+                    appendToListNames($('#favSelect'), 'MY_LISTS');
 
                 } catch (e) {
                     toastr.error('An Error Occurred While Retrieving Favourite Lists');
@@ -1837,7 +1846,8 @@ $(function() {
                             updateFavouriteListsWithNewItems(newFavouriteListObj.FileName);
                             newListCreated = true;
                             localStorage.setItem("newListCreated", newListCreated);
-                            $('#favSelect').val('MY_LISTS');
+                            //$('select option[value="MY_LISTS"]:selected');
+                            //$('#favSelect select option[value="MY_LISTS"]:selected');
 
                             var createFavBtn = $('<button>', {
                                 'id': 'createFavListBtn',
@@ -1889,7 +1899,7 @@ $(function() {
         function appendToListNames(parent, listName) {
 
             var favouriteListOptionParent = $('<option>', {
-                'style': 'color: #333 !important; margin-right: 10px !important; padding-right: 20px !important; font-size: 11px !important;',
+                'style': 'color: #333 !important; margin-right: 10px !important; padding-right: 20px !important; font-size: 10px !important;',
                 'value': listName.replace(' ', /_/g)
             });
             favouriteListOptionParent.text(listName);
@@ -2120,12 +2130,6 @@ $(function() {
                 $('#invalidFavouriteListSpan').css('display', 'none');
             }
         });
-
-        $('#createFavListBtn').on('click', function() {
-            $('#createNewFavListPopupDialog').popup('open');
-        });
-
-
 
         function updateFavouriteListsWithNewItems(fileName) {
 
