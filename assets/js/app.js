@@ -145,7 +145,7 @@ $(function() {
                 var createFavBtn = $('<button>', {
                     'id': 'createFavListBtn',
                     'class': 'ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button',
-                    'style': 'position: absolute; display: block; right: 3%; width: 40px; top: -100%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);'
+                    'style': 'position: absolute; display: block; right: 3%; width: 40px; top: -100%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;'
                 }).on('click', function() {
                     $('#createNewFavListPopupDialog').popup('open');
                 });
@@ -1691,12 +1691,12 @@ $(function() {
 
         //////////// Move Favourite From List //////////////////////////////////////
 
-        function moveFavouriteItems(moveFavouriteItemsList) {
-            moveFavouriteItemsList.forEach(element => {
-                $('#favouriteItemListDiv').find("div#" + element.Product_ID).remove();
-                moveFavouriteItemsList = [];
-            });
-        }
+        // function moveFavouriteItems(moveFavouriteItemsList) {
+        //     moveFavouriteItemsList.forEach(element => {
+        //         $('#favouriteItemListDiv').find("div#" + element.Product_ID).remove();
+        //         moveFavouriteItemsList = [];
+        //     });
+        // }
 
         $('#add-img').on('click', function() {
             $('#movePopupDialog').popup('close');
@@ -1920,6 +1920,8 @@ $(function() {
                             createFavBtn.append(createFavBtnIcon);
 
                             $('#fav-footer').append(createFavBtn);
+
+                            moveFavouriteItemsList = [];
                         }
 
                     } catch (e) {
@@ -2196,6 +2198,7 @@ $(function() {
             if (fileCreatedSuccess) {
                 $('#favouriteItemListDiv').empty();
                 $('#favouriteItemListDiv').css('display', 'none');
+                $('#favouriteListParentDiv').empty();
                 $('#favouriteListParentDiv').css('display', 'block');
                 var favouriteLists = getFavouriteLists();
                 $.each(favouriteLists.FavouriteLists, function(index) {
