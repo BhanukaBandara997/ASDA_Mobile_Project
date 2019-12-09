@@ -77,12 +77,16 @@ span.select2 {
 
 #favSelect.select2 option {
     font-family: 'Open Sans', sans-serif !important;
-    font-size: 10px !important;
+    font-size: 9px !important;
+    padding-right: 10px !important;
+    margin-right: 10px !important;
 }
 
 #favListSelect.select2 option {
     font-family: 'Open Sans', sans-serif !important;
-    font-size: 10px !important;
+    font-size: 9px !important;
+    padding-right: 10px !important;
+    margin-right: 10px !important;
 }
 
 .asda-bar {
@@ -273,6 +277,10 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     font-size: 12px;
     line-height: 16px;
     color: #467E9E;
+}
+
+#favSelect-button {
+    margin-left: 5px;
 }
 
 

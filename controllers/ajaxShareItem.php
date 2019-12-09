@@ -14,9 +14,10 @@ $record = file_get_contents('php://input');
 $jsonrec = json_decode($record);
 // read the primary key
 $Email = $jsonrec->Email;
+print_r($jsonrec);
 $parts = explode('@', $Email);
 $UserName = $parts[0];
-$Code = $jsonrec->ItemURL;
+$ItemURL = $jsonrec->ItemURL;
 $Subject = "ASDA Share Item";
 $Content = "Hi {$UserName}, \r\n {$ItemURL}";
 

@@ -373,6 +373,19 @@
     color: rgba(0, 0, 0, 0.6);
 }
 
+.favourite-list-title-span {
+    position: absolute;
+    width: 100%;
+    left: 15%;
+    top: 30%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 17px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
 
 /* iPhone X */
 
