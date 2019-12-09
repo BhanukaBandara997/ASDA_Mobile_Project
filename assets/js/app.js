@@ -1356,17 +1356,7 @@ $(function() {
         }
 
 
-        ///////////// Favourite List Item Append //////////////////////////////////////////////////////////////
-
-        //var myVar = setInterval(myTimer, 10);
-
-        // function myTimer() {
-        //     if (favouritesSelectorValue == "ALL_PRODUCTS") {
-        //         $('#createFavListBtn').css('display', 'none');
-        //     } else {
-        //         $('#createFavListBtn').css('display', 'block');
-        //     }
-        // }
+        ///////////// Favourite Selector OnChange Event //////////////////////////////////////////////////////////////
 
         $('#favSelect').change(function() {
             var selectedValue = null;
@@ -1724,41 +1714,46 @@ $(function() {
         }
 
         $('#shareFavouriteBtn').on('click', function() {
-            var sEmail = $('#shareFavouriteViaEmail').val();
-            var itemURL = null;
-            // Checking Empty Fields
-            if ($.trim(sEmail).length == 0) {
-                $('#invalidEmailSpan').css('display', 'block');
-            } else {
-                if (validateEmail(sEmail)) {
-                    $('#invalidEmailSpan').css('display', 'none');
-                    $('#shareContentSpan').text("Attached favourite item name");
-                    $('#shareContentSpan').css('padding', '37px');
-                    $('#shareContentSpan').css('margin-left', '-15px');
-                    $('input#shareFavouriteViaEmail').val(shareFavouriteItem.productName);
-                    $('#shareSubmitSpan').text("SEND");
-
-                    ////////////// Send Mail To Using Product Id and Name /////////////////////////////////
-                    itemURL = ""; //////////// TODO Set ITEM URL
-                    var recordJSON = {
-                        'Email': Email,
-                        'ItemURL': itemURL
-                    }
-                    recordJSON = JSON.stringify(recordJSON);
-                    var req = Ajax("./controllers/ajaxShareItem.php", "POST", recordJSON);
-                    if (req.status == 200) {
-                        try {
-                            toastr.success('Item Shared To Your - ' + Email + ' Address');
-                            $('#sharePopupDialog').popup('close');
-                        } catch (e) {
-                            toastr.error('An Error Occured While Sharing Item');
-                        }
-                    }
-
-                } else {
+            if ($('#shareSubmitSpan').text() == "NEXT") {
+                var sEmail = $('#shareFavouriteViaEmail').val();
+                var itemURL = window.location.href.split('&')[0] + "?productId=" + shareFavouriteItem.productId;
+                if ($.trim(sEmail).length == 0) {
                     $('#invalidEmailSpan').css('display', 'block');
+                } else {
+                    if (validateEmail(sEmail)) {
+                        $('#invalidEmailSpan').css('display', 'none');
+                        $('#shareContentSpan').text("Attached favourite item name");
+                        $('#shareContentSpan').css('padding', '37px');
+                        $('#shareContentSpan').css('margin-left', '-15px');
+                        $('input#shareFavouriteViaEmail').val(shareFavouriteItem.productName);
+
+                        ////////////// Send Mail To Using Product Id and Name /////////////////////////////////
+                        recordJSON = {
+                            'Email': sEmail,
+                            'ItemURL': itemURL
+                        }
+                        var recordJSON = JSON.stringify(recordJSON);
+                        localStorage.setItem("shareItemDetails", recordJSON);
+                    } else {
+                        $('#invalidEmailSpan').css('display', 'block');
+                    }
+
                 }
             }
+
+            if ($('#shareSubmitSpan').text() == "SEND") {
+                var recordJSON = localStorage.getItem("shareItemDetails");
+                var req = Ajax("./controllers/ajaxShareItem.php", "POST", recordJSON);
+                if (req.status == 200) {
+                    try {
+                        toastr.success('Item Shared To Your - ' + sEmail + ' Address');
+                        $('#sharePopupDialog').popup('close');
+                    } catch (e) {
+                        toastr.error('An Error Occured While Sharing Item');
+                    }
+                }
+            }
+            $('#shareSubmitSpan').text("SEND");
         });
 
         $('#add-img').on('click', function() {
