@@ -677,7 +677,7 @@ $(function() {
             // var userName = Email.trim();
             // userName = userName.split('@')[0];
 
-            return userName;
+            //return userName;
         };
 
         function PopulateCategories(categoryState, categoriesObj) {
