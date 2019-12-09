@@ -511,10 +511,6 @@ $(function() {
                             toastr.error('Updating Password Error Occured!');
                         }
                     }
-                    if (Email != userRec.Email) {
-                        $('#pgShippingAddress').data('success', 'false');
-                        toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
-                    }
                 } catch (e) {
                     //user file is not found
                     $('#pgShippingAddress').data('success', 'false');
@@ -665,7 +661,6 @@ $(function() {
         });
 
         // Log out button
-        pgSignOutBtn
         $('#pgSignOutBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -674,9 +669,8 @@ $(function() {
 
         app.GetCurrentUser = function() {
             var Email = localStorage.getItem("currentLoggedInUser");
-            // var userName = Email.trim();
-            // userName = userName.split('@')[0];
-
+            var userName = Email.trim();
+            userName = userName.split('@')[0];
             return userName;
         };
 
