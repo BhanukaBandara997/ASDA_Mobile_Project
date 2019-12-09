@@ -127,6 +127,7 @@ $(function() {
                 $('#favouriteListParentDiv').empty();
                 $('#favouriteItemListDiv').css('display', 'none');
                 $('#favouriteListParentDiv').css('display', 'block');
+                $('#createFavListBtn').remove();
                 var favouriteLists = getFavouriteLists();
                 $.each(favouriteLists.FavouriteLists, function(index) {
                     var parent = $('#favouriteListParentDiv');
@@ -139,8 +140,6 @@ $(function() {
                 });
                 favouriteListOptionParent.text("MY LISTS");
                 $('#favSelect').append(favouriteListOptionParent);
-
-                // $('#favSelect option[value="MY_LISTS"]');
 
                 var createFavBtn = $('<button>', {
                     'id': 'createFavListBtn',
@@ -1359,6 +1358,16 @@ $(function() {
 
         ///////////// Favourite List Item Append //////////////////////////////////////////////////////////////
 
+        //var myVar = setInterval(myTimer, 10);
+
+        // function myTimer() {
+        //     if (favouritesSelectorValue == "ALL_PRODUCTS") {
+        //         $('#createFavListBtn').css('display', 'none');
+        //     } else {
+        //         $('#createFavListBtn').css('display', 'block');
+        //     }
+        // }
+
         $('#favSelect').change(function() {
             var selectedValue = null;
             var selectedoptions = $(this).find('option:selected');
@@ -1374,12 +1383,14 @@ $(function() {
                     $('#favouriteListParentDiv').empty();
                     $('#favouriteListParentDiv').css('display', 'none');
                     $('#createFavListBtn').css('display', 'none');
+                    $('#favSelect').css('width', '80%');
                 } else {
                     $('#favSelect').empty();
                     $('#favouriteItemListDiv').empty();
                     $('#favouriteListParentDiv').empty();
                     $('#favouriteItemListDiv').css('display', 'none');
                     $('#favouriteListParentDiv').css('display', 'block');
+                    $('#createFavListBtn').remove();
                     var favouriteLists = getFavouriteLists();
                     $.each(favouriteLists.FavouriteLists, function(index) {
                         var parent = $('#favouriteListParentDiv');
@@ -1398,10 +1409,10 @@ $(function() {
                     });
                     favouriteListOptionParent.text("MY LISTS");
 
+                    $('#favSelect').css('width', '100%');
+
                     $('#favSelect').append(favouriteListOptionParent);
                     $('#favSelect').append(favouriteListOptionAllProducts);
-
-                    // $('#favSelect option[value="MY_LISTS"]');
 
                     var createFavBtn = $('<button>', {
                         'id': 'createFavListBtn',
@@ -1750,20 +1761,8 @@ $(function() {
             }
         });
 
-        //////////// Move Favourite From List //////////////////////////////////////
-
-        // function moveFavouriteItems(moveFavouriteItemsList) {
-        //     moveFavouriteItemsList.forEach(element => {
-        //         $('#favouriteItemListDiv').find("div#" + element.Product_ID).remove();
-        //         moveFavouriteItemsList = [];
-        //     });
-        // }
-
         $('#add-img').on('click', function() {
             $('#movePopupDialog').popup('close');
-            // if (moveFavouriteItemsList.length > 0) {
-            //     $('#createNewFavListPopupDialog').popup('open');
-            // }
         });
 
         $("#movePopupDialog").bind({
@@ -1809,7 +1808,7 @@ $(function() {
                         appendFavouriteListsToDialog($('#favouriteListSelectionDiv'), val.Name);
                     });
 
-                    appendToListNames($('#favSelect'), 'MY_LISTS');
+                    appendToListNames($('#favSelect'), 'MY LISTS');
 
                 } catch (e) {
                     toastr.error('An Error Occurred While Retrieving Favourite Lists');
@@ -1966,7 +1965,7 @@ $(function() {
                             localStorage.setItem("newListCreated", newListCreated);
                             //$('select option[value="MY_LISTS"]:selected');
                             //$('#favSelect select option[value="MY_LISTS"]:selected');
-
+                            $('#createFavListBtn').remove();
                             var createFavBtn = $('<button>', {
                                 'id': 'createFavListBtn',
                                 'class': 'ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button',
@@ -1997,6 +1996,58 @@ $(function() {
             $('#createNewFavListPopupDialog').popup('close');
             $.mobile.changePage('#pgFavourites');
         });
+
+
+        $('#backBtnFavouritesList').on('click', function() {
+            $('#favSelect').empty();
+            $('#favouriteItemListDiv').empty();
+            $('#favouriteListParentDiv').empty();
+            $('#favouriteListSelectorDiv').css('display', 'block');
+            $('#favouriteListNameParentDiv').css('display', 'none');
+            $('#favouriteItemListDiv').css('display', 'none');
+            $('#favouriteListParentDiv').css('display', 'block');
+            $('#createFavListBtn').remove();
+            var favouriteLists = getFavouriteLists();
+            $.each(favouriteLists.FavouriteLists, function(index) {
+                var parent = $('#favouriteListParentDiv');
+                appendFavouriteListsToParent(parent, this, index);
+            });
+
+            var favouriteListOptionAllProducts = $('<option>', {
+                'style': 'color: #333 !important; font-size: 9px !important;',
+                'value': 'ALL_PRODUCTS'
+            });
+            favouriteListOptionAllProducts.text("ALL PRODUCTS");
+
+            var favouriteListOptionParent = $('<option>', {
+                'style': 'color: #333 !important; font-size: 9px !important;',
+                'value': 'MY_LISTS'
+            });
+            favouriteListOptionParent.text("MY LISTS");
+
+            $('#favSelect').css('width', '100%');
+
+            $('#favSelect').append(favouriteListOptionParent);
+            $('#favSelect').append(favouriteListOptionAllProducts);
+
+            var createFavBtn = $('<button>', {
+                'id': 'createFavListBtn',
+                'class': 'ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button',
+                'style': 'position: absolute; display: block; right: 3%; width: 40px; top: -100%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;'
+            }).on('click', function() {
+                $('#createNewFavListPopupDialog').popup('open');
+            });
+
+            var createFavBtnIcon = $('<i>', {
+                'class': 'zmdi zmdi-plus zmd-2x',
+                'style': 'color: rgba(227, 9, 9, 0.9);'
+            });
+
+            createFavBtn.append(createFavBtnIcon);
+
+            $('#fav-footer').append(createFavBtn);
+        });
+
 
 
         ///////////////////////// Update With New Favourite List Items  //////////////////////////////////////
@@ -2055,6 +2106,10 @@ $(function() {
                     $('#favouriteListParentDiv').empty();
                     $('#favouriteListParentDiv').css('display', 'none');
                     $('#createFavListBtn').css('display', 'none');
+                    $('#favouriteListSelectorDiv').css('display', 'none');
+                    $('#favouriteListNameParentDiv').css('display', 'block');
+                    $('#favouriteListTitleSpan').text(listObj.Name.replace(/_/g, ' '));
+
                 });
             } else {
                 var favouriteListTitleSpan = $('<span>', {
@@ -2068,6 +2123,9 @@ $(function() {
                     $('#favouriteListParentDiv').empty();
                     $('#favouriteListParentDiv').css('display', 'none');
                     $('#createFavListBtn').css('display', 'none');
+                    $('#favouriteListSelectorDiv').css('display', 'none');
+                    $('#favouriteListNameParentDiv').css('display', 'block');
+                    $('#favouriteListTitleSpan').text(listObj.Name.replace(/_/g, ' '));
                 });
             }
 

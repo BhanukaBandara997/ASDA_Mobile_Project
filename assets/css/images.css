@@ -185,6 +185,14 @@
     transform: rotate(-180deg);
 }
 
+.back-icon-favourite-list {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 5%;
+    top: 35%;
+}
+
 
 /* iPhone X Portrait */
 
