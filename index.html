@@ -604,8 +604,8 @@
 
     <!-- Shop - Category View -->
 
-    <div data-theme="a" id="pgShop" data-role="page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;">
+    <div data-theme="a" id="pgShop" data-role="page" style="padding-bottom: 49px;">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
 
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -617,35 +617,35 @@
         <div id="pgShopContent" data-role="main">
 
         </div>
-        <div data-role="footer" data-position="fixed">
+        <div data-role="footer" data-position="fixed" style="padding-top: 7px;">
             <div data-role="navbar" data-grid="d">
                 <ul>
                     <li class="navbar-align">
-                        <div id="favHomeBtn">
+                        <div id="shopHomeBtn">
                             <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
                             <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favShoppingBtn">
-                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
-                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        <div id="shopShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop_selected.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font selected-Text">Shop</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favSearch">
+                        <div id="shopSearch">
                             <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
                             <div class="iphone-bottom-navbar-font">Search</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favFavouritesBtn">
-                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png" class="icon">
-                            <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
+                        <div id="shopFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favAccountBtn">
+                        <div id="shopAccountBtn">
                             <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
                             <div class="iphone-bottom-navbar-font">Account</div>
                         </div>
@@ -657,7 +657,7 @@
 
     <!-- Sub Category View -->
 
-    <div data-theme="a" id="pgSubCategory" data-role="page">
+    <div data-theme="a" id="pgSubCategory" data-role="page" style="padding-top: 7px;">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -673,35 +673,35 @@
             </div>
             <div id="sub-category-background" class="sub-category-background-content open-sans-font"></div>
         </div>
-        <div data-role="footer" data-position="fixed">
+        <div data-role="footer" data-position="fixed" style="padding-top: 7px;">
             <div data-role="navbar" data-grid="d">
                 <ul>
                     <li class="navbar-align">
-                        <div id="favHomeBtn">
+                        <div id="shopHomeBtn">
                             <img id="home-img" src="./assets/img/Navbar_Images/home.png" class="icon icon-home">
                             <div id="home-text" class="iphone-bottom-navbar-font">Home</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favShoppingBtn">
-                            <img id="shop-img" src="./assets/img/Navbar_Images/shop.png" class="icon icon-shop">
-                            <div class="iphone-bottom-navbar-font">Shop</div>
+                        <div id="shopShoppingBtn">
+                            <img id="shop-img" src="./assets/img/Navbar_Images/shop_selected.png" class="icon icon-shop">
+                            <div class="iphone-bottom-navbar-font selected-Text">Shop</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favSearch">
+                        <div id="shopSearch">
                             <img id="search-img" src="./assets/img/Navbar_Images/search.png" class="icon icon-search">
                             <div class="iphone-bottom-navbar-font">Search</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favFavouritesBtn">
-                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites_selected.png" class="icon">
-                            <div class="iphone-bottom-navbar-font selected-Text">Favourites</div>
+                        <div id="shopFavouritesBtn">
+                            <img id="favourites-img" src="./assets/img/Navbar_Images/favourites.png" class="icon">
+                            <div class="iphone-bottom-navbar-font">Favourites</div>
                         </div>
                     </li>
                     <li class="navbar-align">
-                        <div id="favAccountBtn">
+                        <div id="shopAccountBtn">
                             <img id="account-img" src="./assets/img/Navbar_Images/account.png" class="icon">
                             <div class="iphone-bottom-navbar-font">Account</div>
                         </div>
@@ -860,8 +860,8 @@
                 <div style="position: absolute; width: 375px; height: 4px; left: 0px; top: 378px; background: #C4C4C4;">
                 </div>
                 <div id="shipping-address">
-                    <span class="account-details-font-styles shipping-address-style">Shipping Address</span>
-                    <div style="position: absolute; width: 375px; height: 4px; left: 0px; top: 400px; background: #C4C4C4;"></div>
+                    <span id="shippingAddressTextInEditAccount" class="account-details-font-styles shipping-address-style">Shipping Address</span>
+                    <div style="position: absolute; width: 375px; height: 4px; left: 0px; top: 433px; background: #C4C4C4;"></div>
                 </div>
             </div>
 
@@ -876,21 +876,21 @@
                 </div>
                 <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
                     <span id="genderText" style="margin-left: 5px; padding: 10px;" class="popup-content">Input you Gender below </span>
-                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                    <!-- <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;"> -->
 
-                        <input type="radio" name="gender" value="Male" style="position: absolute; width: 18px; height: 18.93px; top: 10px; left: 170px;"> Male<br>
-                        <input type="radio" name="gender" value="Female" style="position: absolute; width: 18px; height: 18.93px; top: 11px; left: 170px;"> Female<br>
+                    <input type="radio" name="gender" value="Male" style="position: absolute; width: 18px; height: 18.93px; top: 10px; left: 170px;"> Male<br>
+                    <input type="radio" name="gender" value="Female" style="position: absolute; width: 18px; height: 18.93px; top: 11px; left: 170px;"> Female<br>
 
-                        <a id="cancelSaveGenderBtn" href="#pgFavourites" style="left: 15%; margin-top: 14.5%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                            <span class="ui-btn-inner ui-btn-corner-all">
+                    <a id="cancelSaveGenderBtn" href="#pgFavourites" style="left: 15%; margin-top: 14.5%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <span class="ui-btn-inner ui-btn-corner-all">
                             <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
-                            </span>
-                        </a>
-                        <a id="saveGenderBtn" style="position: absolute; left: 68%; margin-top: 10%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                            <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
-                        </a>
-                        </form>
-                    </div>
+                        </span>
+                    </a>
+                    <a id="saveGenderBtn" style="position: absolute; left: 68%; margin-top: 10%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                    </a>
+                    </form>
+                    <!-- </div> -->
                 </div>
             </div>
 
@@ -905,19 +905,19 @@
                 </div>
                 <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
                     <span id="birthdayText" style="margin-left: 5px; padding: 10px;" class="popup-content">Input you Birthday below </span>
-                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                        <input id="userBirthDay" type="date" maxlength="30" style="width: 200px; margin-top: 5%;" name="birthday">
+                    <!-- <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;"> -->
+                    <input id="userBirthDay" type="date" maxlength="30" style="width: 200px; margin-top: 5%;" name="birthday">
 
-                        <a id="cancelSaveBithdayBtn" href="#pgFavourites" style="left: 25%; margin-top: 12%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                            <span class="ui-btn-inner ui-btn-corner-all">
+                    <a id="cancelSaveBithdayBtn" href="#pgFavourites" style="left: 25%; margin-top: 12%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <span class="ui-btn-inner ui-btn-corner-all">
                             <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
-                            </span>
-                        </a>
-                        <a id="saveBirthdayBtn" style="position: absolute; left: 68%; margin-top: 9%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                            <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
-                        </a>
-                        </form>
-                    </div>
+                        </span>
+                    </a>
+                    <a id="saveBirthdayBtn" style="position: absolute; left: 68%; margin-top: 9%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                    </a>
+                    </form>
+                    <!-- </div> -->
                 </div>
             </div>
 
@@ -932,53 +932,27 @@
                 </div>
                 <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
                     <!-- <span id="fullNameText" style="margin-left: 5px; padding: 10px;" class="popup-content">Input you Birthday below </span> -->
-                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                        <!-- <input id="userFullName" type="date" style="width: 200px; margin-top: 5%;" name="birthday"> -->
-                        <span class="ui-btn-text clickable-font-styles" style="max-width: 200px;"> First Name :</span>
-                        <input id="fname" type="text" maxlength="30" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
-                        <span class="ui-btn-text clickable-font-styles"> Last Name :</span>
-                        <input id="lname" type="text" maxlength="30" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
+                    <!-- <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;"> -->
+                    <!-- <input id="userFullName" type="date" style="width: 200px; margin-top: 5%;" name="birthday"> -->
+                    <span class="ui-btn-text clickable-font-styles" style="max-width: 200px;"> First Name :</span>
+                    <input id="fname" type="text" maxlength="30" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
+                    <span class="ui-btn-text clickable-font-styles"> Last Name :</span>
+                    <input id="lname" type="text" maxlength="30" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
 
-                        <a id="cancelSaveNameBtn" href="#pgFavourites" style="left: 36%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                            <span class="ui-btn-inner ui-btn-corner-all">
+                    <a id="cancelSaveNameBtn" href="#pgFavourites" style="left: 36%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <span class="ui-btn-inner ui-btn-corner-all">
                             <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
-                            </span>
-                        </a>
-                        <a id="saveNameBtn" style="position: absolute; left: 70%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                            <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
-                        </a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-            <div data-role="popup" id="addressPopupDialog" data-overlay-theme="a" data-theme="c" style="width: 260px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
-                data-transition="none" data-position-to="origin">
-                <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
-                    <div style="display: flex;">
-
-                        <span id="editAddressTitle" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
-                    </div>
-                </div>
-                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                    <span id="editAddressSpan" style="margin-left: 5px; padding: 10px;" class="popup-content">Input your address below </span>
-                    <form action="#" method="post" id="shareFavouriteItem">
-                        <div data-role="fieldcontain" style="margin-left: 15px; margin-top: 5px; margin-bottom: -10px;">
-                            <input style="line-height: 20px!important;" maxlength="50" type="text" id="editSavedAddress"></input>
-                        </div>
-
-                        <a id="cancelSaveAddressBtn" href="#pgFavourites" style="left: 28%; margin-top: 11.5%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                            <span class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
-                            </span>
-                        </a>
-                        <a id="saveAddressBtn" style="position: absolute; left: 70%; margin-top: 10%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                            <span class="ui-btn-inner ui-btn-corner-all"><span  class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
-                        </a>
+                        </span>
+                    </a>
+                    <a id="saveNameBtn" style="position: absolute; left: 70%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                    </a>
                     </form>
+                    <!-- </div> -->
                 </div>
             </div>
+
+
 
         </div>
     </div>
@@ -1039,37 +1013,70 @@
                 </div>
                 <div id="address-container" class="address-container-style"></div>
                 <div id="address-one-container" class="address-one-container-style">
-                    <div id="address-one" class="address-one-style"> </div>
-                    <input id="address-one-radio" type="radio" style="position: absolute; width: 18px; height: 18.93px; left: 331px; top: auto;" name="address" value="first-address"> <br>
+                    <span id="address-one" class="address-one-style"> </span>
+                    <input id="address-one-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; top: auto;" name="address" value="first-address"> <br>
                     <div id="boder" calss="shipping-address-divider-two"> </div>
                 </div>
                 <div id="address-two-container" class="address-two-container-style">
-                    <div id="address-two" class="address-two-style"> </div>
-                    <input id="address-two-radio" type="radio" style="position: absolute; width: 18px; height: 18.93px; left: 331px; top: auto;" name="address" value="second-address"> <br>
+                    <span id="address-two" class="address-two-style"> </span>
+                    <input id="address-two-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; top: auto;" name="address" value="second-address"> <br>
                     <div id="boder" class="shipping-address-divider-three"> </div>
                 </div>
+
+                <!-- Add new address -->
 
                 <div data-role="popup" id="newAddressPopupDialog" data-overlay-theme="a" data-theme="c" style="width: 260px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
                     data-corners="true" data-transition="none" data-position-to="origin">
                     <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
                         <div style="display: flex;">
-
                             <span id="newAddressTitle" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
                         </div>
                     </div>
                     <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
                         <span id="newAddressSpan" style="margin-left: 5px; padding: 10px;" class="popup-content">Input your address below </span>
                         <form action="#" method="post" id="shareFavouriteItem">
-                            <div data-role="fieldcontain" style="margin-left: 15px; margin-top: 5px; margin-bottom: -10px;">
-                                <input style="line-height: 20px!important;" maxlength="50" type="text" id="addNewAddress"></input>
+
+                            <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: 5%;">
+                                <input id="addNewAddress" type="text" maxlength="30" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
                             </div>
 
-                            <a id="newAddressCancelBtn" href="#pgFavourites" style="left: 28%; margin-top: 11.5%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                            <a id="newAddressCancelBtn" href="#pgFavourites" style="left: 28%; margin-top: 0%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
                                 <span class="ui-btn-inner ui-btn-corner-all">
                             <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
                                 </span>
                             </a>
-                            <a id="newAddressSaveBtn" style="position: absolute; left: 70%; margin-top: 10%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                            <a id="newAddressSaveBtn" style="position: absolute; left: 70%; margin-top: 0%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                                <span class="ui-btn-inner ui-btn-corner-all"><span  class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Edit existing addresses -->
+
+                <div data-role="popup" id="addressPopupDialog" data-overlay-theme="a" data-theme="c" style="width: 260px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true"
+                    data-transition="none" data-position-to="origin">
+                    <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                        <div style="display: flex;">
+
+                            <span id="editAddressTitle" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
+                        </div>
+                    </div>
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                        <span id="editAddressSpan" style="margin-left: 5px; padding: 10px;" class="popup-content">Input your address below </span>
+                        <form action="#" method="post" id="editExistingAddress">
+                            <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: 5%;">
+                                <input id="editSavedAddress" type="text" maxlength="30" class="open-sans-font" style="line-height: 20px!important; width: 250px"><br>
+                            </div>
+
+                            <a id="cancelSaveAddressBtn" href="#pgShippingAddress" style="border-style: hidden !important; left: 28%; margin-top: 0%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true"
+                                data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                                <span class="ui-btn-inner ui-btn-corner-all">
+                        <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
+                                </span>
+                            </a>
+                            <a id="saveAddressBtn" style="border-style: hidden !important; position: absolute; left: 70%; margin-top: 0%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                                class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
                                 <span class="ui-btn-inner ui-btn-corner-all"><span  class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
                             </a>
                         </form>
@@ -1125,21 +1132,13 @@
                 <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
                 </div>
             </div>
-            <div id="profileAndShippingContent" style="position: absolute;
-            width: 375px;
-            height: 75px;
-            left: 0px;
-            top: 95px;">
+            <div id="profileAndShippingContent" style="position: absolute; width: 375px; height: 75px; left: 0px; top: 95px;">
                 <span id="profileText" class="account-details-font-styles profile-text-possition">Profile</span>
-                <span id="shippingAddressText" class="account-details-font-styles shipping-address-text-possotion-settings">Shipping Address</span>
+                <span id="shippingAddressTextInSettings" class="account-details-font-styles shipping-address-text-possotion-settings">Shipping Address</span>
                 <div id="settingsDivider1" class="settings-devider-one"></div>
 
             </div>
-            <div id="currencyAndLanguageContent" style="position: absolute;
-            width: 375px;
-            height: 147px;
-            left: 0px;
-            top: 105px;">
+            <div id="currencyAndLanguageContent" style="position: absolute; width: 375px; height: 147px; left: 0px; top: 180px;">
                 <span id="currencyeText" class="account-details-font-styles currency-text-possition">Currency</span>
                 <span id="currencyValue" class="settings-values-font currency-value-possition">USD</span>
                 <span id="languageText" class="account-details-font-styles language-text-possition">Language</span>
@@ -1150,7 +1149,7 @@
                 <span id="versionText" class="account-details-font-styles version-text-possition">Version</span>
                 <span id="version" class="settings-values-font version-value-possition">1.18</span>
 
-                <button type="submit" id="pgSignOutBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b" style="height: 27% !important; top: 300px; width: 300px; left: 37px;">SIGN OUT</button>
+                <button type="submit" id="pgSignOutBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b" style="height: 27% !important; top: 210px; width: 300px; left: 37px;">SIGN OUT</button>
                 <span id="asdaLogoAccountPage" class="asda-logo-settings-bottom header-title-color">ASDA</span>
                 <span id="versionTextBottom" class="version-text-possition-bottom">Version 1.18</span>
                 <span id="copyRightsText" class="copy-rights-text-possition">2018-2019 ASDA.com All Rights Reserved</span>
@@ -1358,13 +1357,19 @@
             </div>
         </div>
         <div id="pgAccountCreationSuccessContent" data-role="main">
-            <div id="itemImage" class="item-product-image">
-
-            </div>
+            <img id="itemImage" class="item-product-image"> </img>
             <div id="itemMainDetails" class="item-product-main-details">
                 <span id="productPriceValue" class="product-price-text-style"></span>
                 <span id="productNameValue" class="product-name-text-style"></span>
                 <span id="productRating" class="product-rating-text"></span>
+                <!-- <div id="ratingStars" class="rating-stars-style"> -->
+                <img id="oneStarRating" class="one-star-rating-style" src="./assets/img/Icons/star.png"></img>
+                <img id="twoStarRating" class="two-star-rating-style" src="./assets/img/Icons/star.png"></img>
+                <img id="threeStarRating" class="three-star-rating-style" src="./assets/img/Icons/star.png"></img>
+                <img id="fourStarRating" class="four-star-rating-style" src="./assets/img/Icons/star.png"></img>
+                <img id="fiveStarRating" class="five-star-rating-style" src="./assets/img/Icons/star.png"></img>
+                <!-- </div> -->
+                <img id="favouriteHeart" class="favourite-heart-icon-style" src="./assets/img/Icons/not_favourite.png"></img>
             </div>
             <div id="item-page-divider-1" class="item-page-first-divider-style"></div>
             <div id="productDescription" class="product-description-block-style">

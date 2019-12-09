@@ -467,14 +467,18 @@ $(function() {
                 try {
                     var userRec = JSON.parse(req.responseText);
 
-                    if (userRec.AddressTwo == null && userRec.AddressOne == null) {
+                    if ((userRec.AddressTwo == null && userRec.AddressOne == null) || (userRec.AddressTwo == "" && userRec.AddressOne == "")) {
                         userRec.AddressOne = newAddress;
                     } else {
-                        if (userRec.AddressOne != null && userRec.AddressOne == null) {
+                        if (userRec.AddressOne != null && (userRec.AddressTwo == null || userRec.AddressTwo == "")) {
                             userRec.AddressTwo = newAddress;
-                        }
-                        if (userRec.AddressTwo != null && userRec.AddressOne != null) {
-                            toastr.error('You cannot add more Addresses');
+                        } else {}
+                        if (userRec.AddressTwo != null && (userRec.AddressOne == null || userRec.AddressOne == "")) {
+                            userRec.AddressOne = newAddress;
+                        } else {
+                            if ((userRec.AddressTwo != null && userRec.AddressOne != null)) {
+                                toastr.error('You cannot add more Addresses');
+                            }
                         }
                     }
                     var recordJSON = JSON.stringify(userRec);
@@ -513,7 +517,7 @@ $(function() {
             $.mobile.changePage('#pgShop', { transition: pgtransition });
         });
 
-        $('#user-name, #profile-pic').on('click', function(e) {
+        $('#user-name, #profile-pic, #profileText').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             app.PopulateAllBacisInfo();
@@ -542,7 +546,7 @@ $(function() {
             $.mobile.changePage('#pgAccount', { transition: pgtransition });
         });
 
-        $('#location-icon, #location-text').on('click', function(e) {
+        $('#location-icon, #location-text, #shippingAddressTextInSettings, #shippingAddressTextInEditAccount').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             app.GetUserSavedAddresses();
@@ -619,12 +623,8 @@ $(function() {
             // app.GetUserSavedAddresses();
             var firstAddress = $("#address-one").val();
             var secondAddress = $("#address-two").val();
-            if ((firstAddress == null && secondAddress == null) || (firstAddress != null && secondAddress == null)) {
-                $('#newAddressPopupDialog').popup();
-                $('#newAddressPopupDialog').popup('open');
-            } else {
-                toastr.error('You can only add two addresses');
-            }
+            $('#newAddressPopupDialog').popup();
+            $('#newAddressPopupDialog').popup('open');
         });
 
         // Save new Address
@@ -643,6 +643,20 @@ $(function() {
             $.mobile.changePage('#pgSettings', { transition: pgtransition });
         });
 
+        // Tempory Item view page
+        $('#bell-icon').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgItemView', { transition: pgtransition });
+        });
+
+        // Log out button
+        pgSignOutBtn
+        $('#pgSignOutBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
+        });
 
         app.GetCurrentUser = function() {
             var Email = localStorage.getItem("currentLoggedInUser");
@@ -711,7 +725,7 @@ $(function() {
         function appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj) {
 
             var parentDiv = $('<div>', {
-                'style': 'display: flex; margin-bottom: 20px; margin-top: 10px;'
+                'style': 'display: flex; margin-top: 15px;'
             });
 
             parentDiv.append(previousCategoryObj);

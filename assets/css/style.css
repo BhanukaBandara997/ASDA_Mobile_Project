@@ -738,7 +738,7 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     width: 375px;
     height: 3px;
     left: 0px;
-    top: 177px;
+    top: 87px;
     background: #C4C4C4;
 }
 
@@ -747,7 +747,7 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     width: 374px;
     height: 308px;
     left: 0px;
-    top: 90px;
+    top: 86px;
 }
 
 .item-product-main-details {
@@ -755,7 +755,7 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     width: 374px;
     height: 100.17px;
     left: 0px;
-    top: 327.83px;
+    top: 401px;
 }
 
 .item-page-first-divider-style {
@@ -763,7 +763,7 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     width: 374px;
     height: 3px;
     left: 0px;
-    top: 425px;
+    top: 503px;
     background: #C4C4C4;
 }
 
@@ -772,7 +772,7 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     width: 375px;
     height: 47px;
     left: 0px;
-    top: 433px;
+    top: 505px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -790,7 +790,7 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     width: 375px;
     height: 42px;
     left: 0px;
-    top: 490px;
+    top: 555px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -814,5 +814,12 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     width: 375px;
     height: 137px;
     left: 0px;
-    top: 537px
+    top: 600px
+}
+
+.rating-stars-style {
+    width: 89px;
+    height: 17px;
+    left: 51.82px;
+    top: 394px;
 }

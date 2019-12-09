@@ -538,7 +538,7 @@
     width: 58px;
     height: 16px;
     left: 11px;
-    top: 105px;
+    top: 15px;
 }
 
 .language-text-possition {
@@ -546,7 +546,7 @@
     width: 104px;
     height: 16px;
     left: 11px;
-    top: 141px;
+    top: 51px;
 }
 
 .version-text-possition {
@@ -554,7 +554,7 @@
     width: 104px;
     height: 16px;
     left: 11px;
-    top: 236px;
+    top: 146px;
 }
 
 .private-policy-text-possition {
@@ -562,7 +562,7 @@
     width: 104px;
     height: 16px;
     left: 11px;
-    top: 200px;
+    top: 110px;
 }
 
 .settings-values-font {
@@ -579,7 +579,7 @@
     width: 28px;
     height: 16px;
     left: 336px;
-    top: 236px;
+    top: 146px;
 }
 
 .currency-value-possition {
@@ -587,7 +587,7 @@
     width: 28px;
     height: 16px;
     left: 336px;
-    top: 105px;
+    top: 15px;
 }
 
 .language-value-possition {
@@ -595,7 +595,7 @@
     width: 41px;
     height: 16px;
     left: 323px;
-    top: 141px;
+    top: 51px;
 }
 
 .asda-logo-settings-bottom {
@@ -603,7 +603,7 @@
     width: 63px;
     height: 28px;
     left: 155px;
-    top: 403px;
+    top: 313px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: bold;
@@ -616,7 +616,7 @@
     width: 53px;
     height: 15px;
     left: 161px;
-    top: 446px;
+    top: 356px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
@@ -630,7 +630,7 @@
     width: 83px;
     height: 19px;
     left: 146px;
-    top: 466px;
+    top: 376px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
