@@ -757,9 +757,13 @@
             </div>
             <div id="notification-block">
                 <div>
-                    <img id="bell-icon" class="bell-icon-account" src="./assets/img/Icons/bell.png"></img>
-                    <span class="edit-settings-basic-font-styles notifictions-possition">Notifications</span>
-                    <input type='checkbox' class='ios8-switch' id='checkbox-1'>
+                    <div style="display: flex;">
+                        <img id="bell-icon" class="bell-icon-account" src="./assets/img/Icons/bell.png"></img>
+                        <span class="edit-settings-basic-font-styles notifictions-possition">Notifications</span>
+                        <div style="right: 2%; position: absolute; top: 42.5%;">
+                            <input type="checkbox" class='ios8-switch' data-role="flipswitch" name="flip-checkbox-1" id="flip-checkbox-1">
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <img id="settings-icon" class="settings-icon-account" src="./assets/img/Icons/settings.png"></img>
@@ -1090,29 +1094,72 @@
     </div>
 
     <!-- About Us -->
-    <div data-theme="a" id="pgAboutUs" data-role="page" data-title="About Us Page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
-            <div id="header-title">
+    <div data-theme="a" id="pgAboutUs" style="padding-top: 5px;" data-role="page" data-title="About Us Page">
+        <div id="fav-header" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF; height: 95px !important; box-shadow: none !important; border: none !important;" data-tap-toggle="false">
+            <div id="header-title" style="top: -8% !important;">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
             </div>
-            <div id="header-" class="header-cart-navbar">
+            <div id="header-" class="header-cart-navbar" style="top: 15% !important;">
                 <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
             </div>
-        </div>
-        <div id="pgAboutUsContent" data-role="main">
-            <div class="nav-bar">
-                <img id="back-icon-about-us" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="back-icon-about-us-text" class="open-sans-font sub-category-style">About Us</span>
-                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
-                </div>
+            <div style="position: absolute; width: 100%; margin-top: 51px; margin-left: -5px; border-bottom: 1px rgba(125, 101, 101, 0.34) solid;"></div>
+            <div class="nav-bar-fonts" style="width: 100%; height: 50px; border-bottom: 1px #C4C4C4 solid; position:fixed; top: 6.5%; margin-left: -2px;">
+                <img id="back-icon-about-us" src="./assets/img/back_grey.png" class="back-icon-favourite-list"></img>
+                <span id="back-icon-about-us-text" class="favourite-list-title-span">About Us</span>
             </div>
-            <div>
-                <img id="about-us-image" style="position: absolute; width: 375px; height: 265px; left: 0px; top: 89px;" src="./assets/img/about-us.jpg"></img>
-                <span id="introducing-asda" style="position: absolute; width: 138px; height: 24px; left: 13px; top: 403px; font-family: Open Sans; font-size: 15px; line-height: 20px; color: rgba(0, 0, 0, 0.8);">Introducing ASDA </span>
-                <p id="about-us-para" style="position: absolute; width: 303px; height: 131px; left: 13px; top: 430px; font-family: Open Sans; font-style: normal; font-weight: normal; font-size: 13px; line-height: 15px; color: rgba(0, 0, 0, 0.8);">
+        </div>
+        <div id="pgAboutUsContent" data-role="main" style="margin-top: 5px; " data-tap-toggle="false">
+            <img id="about-us-image" style="width: 375px; height: 265px; margin-top: -3px;" src="./assets/img/Account/About_US.jpg"></img>
+            <div style="margin: 15px;">
+                <span id="introducing-asda" style="font-family: Open Sans; font-size: 17px; line-height: 20px; color: rgba(0, 0, 0, 0.8);">Introducing ASDA </span>
+                <p id="about-us-para" style="font-family: Open Sans; font-size: 13px; line-height: 15px; color: rgba(0, 0, 0, 0.8); margin-top: 0px;">
                     <br> By the mid-1960s, Britain was starting to swing. Rationing was ten years in the past; the economy was booming; ownership was growing; and there was shopping to be done.</br> <br>A great mood of optimism was sweeping the country,
                     and nowhere more so than at Queens, where something very, very exciting was about to happen.</br>
                 </p>
+            </div>
+            <div class="ui-grid-b" style="margin-left: 15%; margin-top: 30px;">
+                <div class="ui-block-a" style="display: flex; margin-bottom: 12%;">
+                    <img src="./assets/img/Account/data.png" style="height: 40px; width: 40px;">
+                    <div style="margin-left: 10px;">
+                        <span style="font-size: 13px;">Bhanuka</span>
+                        <span style="font-size: 11px;">Coding</span>
+                    </div>
+                </div>
+                <div class="ui-block-b" style="display: flex; margin-left: 18%;">
+                    <img src="./assets/img/Account/data.png" style="height: 40px; width: 40px;">
+                    <div style="margin-left: 10px;">
+                        <span style="font-size: 13px;">Ishka</span>
+                        <span style="font-size: 11px;">Coding</span>
+                    </div>
+                </div>
+                <div class="ui-block-a" style="display: flex; margin-bottom: 12%;">
+                    <img src="./assets/img/Account/tools.png" style="height: 40px; width: 40px;">
+                    <div style="margin-left: 10px;">
+                        <span style="font-size: 13px;">Lkshan</span>
+                        <span style="font-size: 11px;">Designer</span>
+                    </div>
+                </div>
+                <div class="ui-block-b" style="display: flex; margin-left: 18%;">
+                    <img src="./assets/img/Account/tools.png" style="height: 40px; width: 40px;">
+                    <div style="margin-left: 10px;">
+                        <span style="font-size: 13px;">Dharna</span>
+                        <span style="font-size: 11px;">Designer</span>
+                    </div>
+                </div>
+                <div class="ui-block-a" style="display: flex; margin-bottom: 12%; width: 38% !important;">
+                    <img src="./assets/img/Account/content.png" style="height: 40px; width: 40px;">
+                    <div style="margin-left: 10px;">
+                        <span style="font-size: 13px;">James</span>
+                        <span style="font-size: 11px;">Content Writer</span>
+                    </div>
+                </div>
+                <div class="ui-block-b" style="display: flex; margin-left: 14%;">
+                    <img src="./assets/img/Account/editor.png" style="height: 40px; width: 40px;">
+                    <div style="margin-left: 10px;">
+                        <span style="font-size: 13px;">Thomas</span>
+                        <span style="font-size: 11px;">Editor</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
