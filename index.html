@@ -61,7 +61,7 @@
 
     <!-- Welcome Page  -->
 
-    <div data-theme="a" id="pgWelcome" data-role="page">
+    <div data-theme="a" id="pgWelcome" data-role="page" data-title="Welcome Page">
         <div id="pgWelcomeContent" data-role="main">
             <div id="welcome-pg-background-image-layout" class="ui-content background-image-layout">
                 <img id="welcome-img">
@@ -86,7 +86,7 @@
 
     <!-- Create Account Page -->
 
-    <div data-theme="a" id="pgCreateAccount" data-role="page">
+    <div data-theme="a" id="pgCreateAccount" data-role="page" data-title="Create Account">
         <div id="pgCreateAccountContent" data-role="main">
             <div id="create-acc-pg-background-image-layout" class="ui-content background-image-layout container">
                 <div id="createAccountBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
@@ -122,7 +122,7 @@
 
     <!-- Login Page -->
 
-    <div data-theme="a" id="pgLoginIn" data-role="page">
+    <div data-theme="a" id="pgLoginIn" data-role="page" data-title="Login Page">
         <div id="pgLoginInContent" data-role="main">
             <div id="sign-in-pg-background-image-layout" class="ui-content background-image-layout container">
                 <div id="logInBackBtn" class="btn_grey" style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
@@ -153,7 +153,7 @@
 
     <!-- Forget Password -->
 
-    <div data-theme="a" id="pgForgetPassword" data-role="page">
+    <div data-theme="a" id="pgForgetPassword" data-role="page" data-title="Forget Password Page">
         <div id="pgForgetPasswordContent" data-role="main">
             <div id="forget-password-pg-background-image-layout" class="ui-content background-image-layout container">
                 <div id="forgetPasswordBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
@@ -175,7 +175,7 @@
 
     <!-- Reset Password -->
 
-    <div data-theme="a" id="pgResetPassword" data-role="page">
+    <div data-theme="a" id="pgResetPassword" data-role="page" data-title="Reset Password Page">
         <div id="pgResetPasswordContent" data-role="main">
             <div id="reset-password-pg-background-image-layout" class="ui-content background-image-layout container">
                 <div id="resetPasswordBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
@@ -206,7 +206,7 @@
 
     <!-- Reset Password Success -->
 
-    <div data-theme="a" id="pgResetPasswordSuccess" data-role="page">
+    <div data-theme="a" id="pgResetPasswordSuccess" data-role="page" data-title="Reset Password Success Page">
         <div id="pgResetPasswordSuccessContent" data-role="main">
             <div id="reset-password-success-pg-background-image-layout" class="ui-content background-image-layout container">
                 <div id="resetPasswordSuccessBackBtn" class="btn" style="position: fixed;top: 5%; left: 8%; height: 40px; width: 40px;"></div>
@@ -230,7 +230,7 @@
 
     <!-- Account Creation Successfully -->
 
-    <div data-theme="a" id="pgAccountCreationSuccess" data-role="page">
+    <div data-theme="a" id="pgAccountCreationSuccess" data-role="page" data-title="Account Creation Success Page">
         <div id="pgAccountCreationSuccessContent" data-role="main">
             <div id="account-creation-success-pg-background-image-layout" class="ui-content background-image-layout container">
                 <div id="accountCreationSuccessBackBtn" class="btn_grey" style="position: fixed; top: 3%; left: 4%; height: 40px; width: 40px;"></div>
@@ -254,7 +254,7 @@
 
     <!-- Home Page -->
 
-    <div data-theme="a" id="pgHome" data-role="page">
+    <div data-theme="a" id="pgHome" data-role="page" data-title="Home Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -360,7 +360,7 @@
 
     <!-- Search Page -->
 
-    <div data-theme="a" id="pgSearch" data-role="page" style="padding-top: 5px;">
+    <div data-theme="a" id="pgSearch" data-role="page" style="padding-top: 5px;" data-title="Search Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -413,7 +413,7 @@
 
 
     <!-- Favourites Page -->
-    <div data-theme="a" id="pgFavourites" data-role="page" style="padding-top: 5px;">
+    <div data-theme="a" id="pgFavourites" data-role="page" style="padding-top: 5px;" data-title="Favourites Page">
         <div id="fav-header" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF; height: 95px !important; box-shadow: none !important; border: none !important;" data-tap-toggle="false">
             <div id="header-title" style="top: -8% !important;">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -543,7 +543,8 @@
                          <span class="ui-btn-text popup-normal-btn">Cancel</span>
                             </span>
                         </a>
-                        <a id="createFavouriteListBtn" style="position: absolute; left: 72%; margin-top: -1%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <a id="createFavouriteListBtn" style="position: absolute; left: 72%; margin-top: -1%;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                            class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
                             <span class="ui-btn-inner ui-btn-corner-all"><span id="shareSubmitSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">NEXT</span></span>
                         </a>
                     </form>
@@ -604,7 +605,7 @@
 
     <!-- Shop - Category View -->
 
-    <div data-theme="a" id="pgShop" data-role="page">
+    <div data-theme="a" id="pgShop" data-role="page" data-title="Category Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -655,7 +656,7 @@
 
     <!-- Sub Category View -->
 
-    <div data-theme="a" id="pgSubCategory" data-role="page">
+    <div data-theme="a" id="pgSubCategory" data-role="page" data-title="Sub-Category Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -712,7 +713,7 @@
 
     <!-- Account Page -->
 
-    <div data-theme="a" id="pgAccount" data-role="page">
+    <div data-theme="a" id="pgAccount" data-role="page" data-title="Account Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -810,7 +811,7 @@
 
     <!-- Edit Account -->
 
-    <div data-theme="a" id="pgEditAccount" data-role="page">
+    <div data-theme="a" id="pgEditAccount" data-role="page" data-title="Edit Account Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -982,7 +983,7 @@
 
     <!-- Contact Us -->
 
-    <div data-theme="a" id="pgContactUs" data-role="page">
+    <div data-theme="a" id="pgContactUs" data-role="page" data-title="Contact Us Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -1014,7 +1015,7 @@
 
 
     <!-- Shipping Address -->
-    <div data-theme="a" id="pgShippingAddress" data-role="page" class="ShippingAddress">
+    <div data-theme="a" id="pgShippingAddress" data-role="page" class="ShippingAddress" data-title="Shipping Details Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -1078,7 +1079,7 @@
     </div>
 
     <!-- About Us -->
-    <div data-theme="a" id="pgAboutUs" data-role="page">
+    <div data-theme="a" id="pgAboutUs" data-role="page" data-title="About Us Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -1106,7 +1107,7 @@
     </div>
 
     <!-- Settings -->
-    <div data-theme="a" id="pgSettings" data-role="page">
+    <div data-theme="a" id="pgSettings" data-role="page" data-title="Settings Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -1157,7 +1158,7 @@
 
     <!-- Flash Deals Page -->
 
-    <div data-theme="a" id="pgFlashDeals" data-role="page">
+    <div data-theme="a" id="pgFlashDeals" data-role="page" data-title="Flash Deals Page">
         <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar" data-tap-toggle="false">
             <div style="display: flex;">
                 <img id="flashDealsBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
@@ -1209,7 +1210,7 @@
 
     <!-- New Products Page -->
 
-    <div data-theme="a" id="pgNewProducts" data-role="page">
+    <div data-theme="a" id="pgNewProducts" data-role="page" data-title="New Products Page">
         <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar" data-tap-toggle="false">
             <div style="display: flex;">
                 <img id="newProductsBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
@@ -1261,7 +1262,7 @@
 
     <!-- Top Selection Page -->
 
-    <div data-theme="a" id="pgTopSelection" data-role="page">
+    <div data-theme="a" id="pgTopSelection" data-role="page" data-title="Top Selection Page">
         <div data-role="header" data-position="fixed" class="header-navbar flash-deals-navbar" data-tap-toggle="false">
             <div style="display: flex;">
                 <img id="topSelectionBackBtn" class="flash-deals-back-btn" src="./assets/img/back.png">
@@ -1312,7 +1313,7 @@
 
     <!-- Find Stores Page -->
 
-    <div data-theme="a" id="pgFindStores" data-role="page">
+    <div data-theme="a" id="pgFindStores" data-role="page" data-title="Find Stores Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -1328,7 +1329,7 @@
 
     <!-- Play and Win Page -->
 
-    <div data-theme="a" id="pgPlayAndWin" data-role="page">
+    <div data-theme="a" id="pgPlayAndWin" data-role="page" data-title="Play and Win Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
                 <h1 class="header-title-color" id="header-title">ASDA</h1>
@@ -1344,7 +1345,7 @@
 
     <!-- Item View -->
 
-    <div data-theme="a" id="pgItemView" data-role="page">
+    <div data-theme="a" id="pgItemView" data-role="page" data-title="Item Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div class="nav-bar">
                 <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
