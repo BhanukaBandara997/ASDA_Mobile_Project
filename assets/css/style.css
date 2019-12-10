@@ -123,7 +123,7 @@ span.select2 {
     width: 375px;
     height: 42px;
     left: 0px;
-    top: 46px;
+    top: 1px;
     background: #FFFFFF;
 }
 
@@ -753,17 +753,17 @@ input[type="checkbox"].ios8-switch:checked+label:before {
 .item-product-image {
     position: absolute;
     width: 374px;
-    height: 308px;
+    height: 350px;
     left: 0px;
-    top: 86px;
+    top: 43px;
 }
 
 .item-product-main-details {
     position: absolute;
     width: 374px;
-    height: 100.17px;
+    height: 113.17px;
     left: 0px;
-    top: 401px;
+    top: 393px;
 }
 
 .item-page-first-divider-style {
@@ -800,21 +800,6 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     left: 0px;
     top: 555px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.customer-review-text-style {
-    position: absolute;
-    width: 177px;
-    height: 24px;
-    left: 15px;
-    top: 10px;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 17px;
-    line-height: 23px;
-    /* identical to box height */
-    color: rgba(0, 0, 0, 0.8);
 }
 
 .customer-review-example-style {

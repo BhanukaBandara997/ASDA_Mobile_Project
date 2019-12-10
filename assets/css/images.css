@@ -176,12 +176,11 @@
 
 .navigate-to-customer-review-style {
     position: absolute;
-    left: 90.59%;
-    right: 6.81%;
-    top: 72.62%;
+    width: 18px;
+    height: 18px;
+    left: 88.59%;
+    top: 28.62%;
     bottom: -11.9%;
-    /* Black — Inactive */
-    background: rgba(0, 0, 0, 0.54);
     transform: rotate(-180deg);
 }
 
@@ -198,7 +197,7 @@
     width: 17px;
     height: 17px;
     left: 51.82px;
-    top: 40px;
+    top: 75px;
 }
 
 .two-star-rating-style {
@@ -206,7 +205,7 @@
     width: 17px;
     height: 17px;
     left: 69.82px;
-    top: 40px;
+    top: 75px;
 }
 
 .three-star-rating-style {
@@ -214,7 +213,7 @@
     width: 17px;
     height: 17px;
     left: 87.82px;
-    top: 40px;
+    top: 75px;
 }
 
 .four-star-rating-style {
@@ -222,7 +221,7 @@
     width: 17px;
     height: 17px;
     left: 105.82px;
-    top: 40px;
+    top: 75px;
 }
 
 .five-star-rating-style {
@@ -230,17 +229,24 @@
     width: 17px;
     height: 17px;
     left: 123.82px;
-    top: 40px;
+    top: 75px;
 }
 
 .favourite-heart-icon-style {
     position: absolute;
-    left: 85.95%;
-    right: 7.65%;
+    left: 87.95%;
     top: 5px;
     bottom: 57.98%;
     width: 24px;
     height: 22px;
+}
+
+.item-product-image-view {
+    position: absolute;
+    width: 250px;
+    height: 254px;
+    left: 55px;
+    top: 101px;
 }
 
 

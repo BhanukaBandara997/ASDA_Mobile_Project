@@ -486,12 +486,13 @@ $(function() {
                     } else {
                         if (userRec.AddressOne != null && (userRec.AddressTwo == null || userRec.AddressTwo == "")) {
                             userRec.AddressTwo = newAddress;
-                        } else {}
-                        if (userRec.AddressTwo != null && (userRec.AddressOne == null || userRec.AddressOne == "")) {
-                            userRec.AddressOne = newAddress;
                         } else {
-                            if ((userRec.AddressTwo != null && userRec.AddressOne != null)) {
-                                toastr.error('You cannot add more Addresses');
+                            if (userRec.AddressTwo != null && (userRec.AddressOne == null || userRec.AddressOne == "")) {
+                                userRec.AddressOne = newAddress;
+                            } else {
+                                if ((userRec.AddressTwo != null && userRec.AddressOne != null)) {
+                                    toastr.error('You cannot add more Addresses');
+                                }
                             }
                         }
                     }
@@ -642,6 +643,7 @@ $(function() {
             e.preventDefault();
             e.stopImmediatePropagation();
             app.UpdateAddress($('#addNewAddress').val().trim());
+            $('#newAddressPopupDialog').popup('close');
             app.GetUserSavedAddresses();
         });
 
@@ -924,14 +926,13 @@ $(function() {
                     $('#existing-addresses').empty();
 
                     if (addressObject.AddressOne == null || addressObject.AddressOne == "") {
-                        $('#address-one-container').hide();
-                        $('#address-two-container').hide();
-                        $('#address-one-radio').hide();
-                        $('#address-two-radio').hide();
+                        $('#address-one-container').css('display', 'none');
+                        $('#address-one-radio').css('display', 'none');
                     }
                     if (addressObject.AddressOne != null && (addressObject.AddressTwo == null || addressObject.AddressTwo == "")) {
-                        $('#address-two-container').hide();
-                        $('#address-two-radio').hide();
+                        $('#address-two-container').css('display', 'none');
+                        $('#address-two-radio').css('display', 'none');
+
                     }
 
                     $("#address-one").text(addressObject.AddressOne);
@@ -1188,6 +1189,9 @@ $(function() {
                 'id': dataObj.Product_ID,
                 'class': 'flashDealsColomn',
                 'product-type': dataObj.Product_Type
+            }).on('click', function() {
+                app.PopulateSelectedItemDetals(dataObj.Product_ID, "Flash_Deals", dataObj);
+                $.mobile.changePage('#pgItemView', { transition: pgtransition });
             });
 
             var flashDealsItemImg = $('<img>', {
@@ -1258,7 +1262,7 @@ $(function() {
                         $.each(itemsList.NewProductsList, function() {
 
                             count += 1;
-                            var newColumnObj = appendItemsToList(this);
+                            var newColumnObj = appendItemsToList(this, "New_Products");
 
                             if (count == 1 && previousColumnObj === null) {
                                 previousColumnObj = newColumnObj;
@@ -1275,7 +1279,7 @@ $(function() {
                         $.each(itemsList.TopSelectionList, function() {
 
                             count += 1;
-                            var newColumnObj = appendItemsToList(this);
+                            var newColumnObj = appendItemsToList(this, "Top_Selection");
 
                             if (count == 1 && previousColumnObj === null) {
                                 previousColumnObj = newColumnObj;
@@ -1308,12 +1312,15 @@ $(function() {
             parent.append(itemsRow);
         }
 
-        function appendItemsToList(dataObj) {
+        function appendItemsToList(dataObj, Type) {
 
             var itemListColumn = $('<div>', {
                 'id': dataObj.Product_ID,
                 'class': 'productTypesColomn',
                 'product-type': dataObj.Product_Type
+            }).on('click', function() {
+                app.PopulateSelectedItemDetals(dataObj.Product_ID, Type, dataObj);
+                $.mobile.changePage('#pgItemView', { transition: pgtransition });
             });
 
             var itemImageParentDiv = $('<div>', {
@@ -1507,7 +1514,9 @@ $(function() {
             var itemFavouriteImageParentDiv = $('<div>', {
                 'style': 'display: flex; margin-left: 5%;'
             }).on('click', function() {
-                alert(dataObj.Product_ID + "ITEM CLICKED");
+                // alert(dataObj.Product_ID + "ITEM CLICKED");
+                app.PopulateSelectedItemDetals(dataObj.Product_ID, "From_Favourite_List", dataObj);
+                $.mobile.changePage('#pgItemView', { transition: pgtransition });
             });
 
             var itemFavouriteImg = $('<img>', {
@@ -2431,6 +2440,74 @@ $(function() {
             }
         }
 
+        app.PopulateSelectedItemDetals = function(itemNumber, source, dataObj) {
+            // Item view for favourite list items
+            if (source == "From_Favourite_List") {
+                $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
+                $("#productPriceValue").text(dataObj.Price);
+            }
+
+            if (source == "Top_Selection") {
+                $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                $("#productPriceValue").text(dataObj.Price);
+            }
+
+            if (source == "New_Products") {
+                $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                $("#productPriceValue").text(dataObj.Price);
+            }
+
+            if (source == "Flash_Deals") {
+                $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                $("#reducedProductPriceValue").text(dataObj.Price);
+            }
+            $("#productNameValue").text(dataObj.Product_Name);
+
+            $("#productRating").text(dataObj.Product_Rating + ".0");
+            $("#itemImage").attr("src", dataObj.Path);
+
+            $('#favouriteItemListDiv').css('display', 'none');
+
+            if (dataObj.Product_Rating >= 1) {
+                $("#oneStarRating").attr("src", "./assets/img/Icons/star.png");
+            } else {
+                $('#oneStarRating').css('display', 'none');
+                $('#twoStarRating').css('display', 'none');
+                $('#threeStarRating').css('display', 'none');
+                $('#fourStarRating').css('display', 'none');
+                $('#fiveStarRating').css('display', 'none');
+            }
+            if (dataObj.Product_Rating >= 2) {
+                $("#twoStarRating").attr("src", "./assets/img/Icons/star.png");
+            } else {
+                $('#twoStarRating').css('display', 'none');
+                $('#threeStarRating').css('display', 'none');
+                $('#fourStarRating').css('display', 'none');
+                $('#fiveStarRating').css('display', 'none');
+            }
+            if (dataObj.Product_Rating >= 3) {
+                $("#threeStarRating").attr("src", "./assets/img/Icons/star.png");
+            } else {
+                $('#threeStarRating').css('display', 'none');
+                $('#fourStarRating').css('display', 'none');
+                $('#fiveStarRating').css('display', 'none');
+            }
+            if (dataObj.Product_Rating >= 4) {
+                $("#fourStarRating").attr("src", "./assets/img/Icons/star.png");
+            } else {
+                $('#fourStarRating').css('display', 'none');
+                $('#fiveStarRating').css('display', 'none');
+            }
+            if (dataObj.Product_Rating >= 5) {
+                $("#fiveStarRating").attr("src", "./assets/img/Icons/star.png");
+            } else {
+                $('#fiveStarRating').css('display', 'none');
+            }
+            // $("#productNameValue").text(dataObj.Product_Name);
+            // $("#productNameValue").text(dataObj.Product_Name);
+
+
+        };
 
     })(ASDA_Project);
 });

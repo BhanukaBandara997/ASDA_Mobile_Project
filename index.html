@@ -1005,88 +1005,92 @@
             <div id="header-" class="header-cart-navbar">
                 <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
             </div>
-        </div>
-        <div id="shippingAddressContent" data-role="main">
             <div class="nav-bar">
                 <img id="back-icon-shipping" src="./assets/img/back_grey.png" class="back-icon"></img>
                 <span id="back-icon-shipping-text" class="open-sans-font sub-category-style">Shipping Address</span>
-                <img id="edit-icon" class="edit-icon-style" src="./assets/img/Navbar_Images/edit-black.png"></img>
-                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
-                </div>
-                <div id="add-new-address" style="position: absolute; width: 375px; height: 45px; left: 0px; top: 42px;">
-                    <a href="#" class="add-new-shipping-address-style" id="shipping-address-text">Add a new address</a>
-                    <div class="shipping-address-divider"> </div>
-                </div>
-                <div id="address-container" class="address-container-style"></div>
-                <div id="address-one-container" class="address-one-container-style">
-                    <span id="address-one" class="address-one-style"> </span>
-                    <input id="address-one-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; margin-top: -10%;" name="address" value="first-address"> <br>
-                </div>
-                <div id="boderOne" calss="shipping-address-divider-two" style="width: 375px; height: 1px; left: -14px; top: auto; background: #C4C4C4;"> </div>
-                <div id="address-two-container" class="address-two-container-style">
-                    <span id="address-two" class="address-two-style"> </span>
-                    <input id="address-two-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; margin-top: -10%;" name="address" value="second-address"> <br>
-                    <div id="boderTwo" class="shipping-address-divider-three"> </div>
-                </div>
-
-                <!-- Add new address -->
-
-                <div data-role="popup" id="newAddressPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:600px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
-                    data-corners="true" data-transition="none" data-position-to="origin">
-                    <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
-                        <div style="display: flex;">
-                            <span id="editAddress" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
-                        </div>
-                    </div>
-                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                        <span id="newShippingContentSpan" style="margin-left: -7px; padding: 20px;" class="popup-content">Insert a new address to your profile</span>
-                        <form action="#" method="post" id="newAddressForm">
-                            <div data-role="fieldcontain" style="margin-left: 15px; margin-top: 5px; margin-bottom: -10px;">
-                                <input style="line-height: 20px!important;" type="text" id="addNewAddress" autocomplete="off"></input>
-                            </div>
-
-                            <a id="newAddressCancelBtn" href="#pgFavourites" style="left: 39%; margin-top: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                                <span class="ui-btn-inner ui-btn-corner-all">
-                        <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
-                                </span>
-                            </a>
-                            <a id="newAddressSaveBtn" style="position: absolute; left: 71%; margin-top: -2%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                                <span class="ui-btn-inner ui-btn-corner-all"><span id="editAddressSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
-                            </a>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Edit existing addresses -->
-
-                <div data-role="popup" id="addressPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:600px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
-                    data-corners="true" data-transition="none" data-position-to="origin">
-                    <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
-                        <div style="display: flex;">
-                            <span id="editAddress" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
-                        </div>
-                    </div>
-                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
-                        <span id="shippingContentSpan" style="margin-left: 5px; padding: 10px;" class="popup-content">Edit the selected existing address </span>
-                        <form action="#" method="post" id="editAddressForm">
-                            <div data-role="fieldcontain" style="margin-left: 15px; margin-top: 5px; margin-bottom: -10px;">
-                                <input style="line-height: 20px!important;" type="text" id="editSavedAddress" autocomplete="off"></input>
-                            </div>
-                            <a id="cancelSaveAddressBtn" href="#pgFavourites" style="left: 35%; margin-top: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
-                                <span class="ui-btn-inner ui-btn-corner-all">
-                            <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
-                                </span>
-                            </a>
-                            <a id="saveAddressBtn" style="position: absolute; left: 70%; margin-top: -2%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
-                                <span class="ui-btn-inner ui-btn-corner-all"><span id="editAddressSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
-                            </a>
-                        </form>
-                    </div>
-                </div>
-
             </div>
         </div>
+        <div id="shippingAddressContent" data-role="main">
+
+
+
+            <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
+            </div>
+            <div id="add-new-address" style="position: absolute; width: 375px; height: 45px; left: 0px; top: 42px;">
+                <a href="#" class="add-new-shipping-address-style" id="shipping-address-text">Add a new address</a>
+                <img id="edit-icon" class="edit-icon-style" src="./assets/img/Navbar_Images/edit-black.png"></img>
+                <div class="shipping-address-divider"> </div>
+            </div>
+            <div id="address-container" class="address-container-style"></div>
+            <div id="address-one-container" class="address-one-container-style">
+                <span id="address-one" class="address-one-style"> </span>
+                <input id="address-one-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; margin-top: -10%;" name="address" value="first-address"> <br>
+            </div>
+            <div id="boderOne" calss="shipping-address-divider-two" style="width: 375px; height: 1px; left: -14px; top: auto; background: #C4C4C4;"> </div>
+            <div id="address-two-container" class="address-two-container-style">
+                <span id="address-two" class="address-two-style"> </span>
+                <input id="address-two-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; margin-top: -10%;" name="address" value="second-address"> <br>
+                <div id="boderTwo" class="shipping-address-divider-three"> </div>
+            </div>
+
+            <!-- Add new address -->
+
+            <div data-role="popup" id="newAddressPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:600px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+                data-corners="true" data-transition="none" data-position-to="origin">
+                <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <div style="display: flex;">
+                        <span id="editAddress" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
+                    </div>
+                </div>
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                    <span id="newShippingContentSpan" style="margin-left: -7px; padding: 20px;" class="popup-content">Insert a new address to your profile</span>
+                    <form action="#" method="post" id="newAddressForm">
+                        <div data-role="fieldcontain" style="margin-left: 15px; margin-top: 5px; margin-bottom: -10px;">
+                            <input style="line-height: 20px!important;" type="text" id="addNewAddress" autocomplete="off"></input>
+                        </div>
+
+                        <a id="newAddressCancelBtn" href="#pgFavourites" style="left: 39%; margin-top: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                            <span class="ui-btn-inner ui-btn-corner-all">
+                        <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
+                            </span>
+                        </a>
+                        <a id="newAddressSaveBtn" style="position: absolute; left: 71%; margin-top: -2%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                            <span class="ui-btn-inner ui-btn-corner-all"><span id="editAddressSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Edit existing addresses -->
+
+            <div data-role="popup" id="addressPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:600px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+                data-corners="true" data-transition="none" data-position-to="origin">
+                <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <div style="display: flex;">
+                        <span id="editAddress" class="ui-title popup-header" role="heading" style="margin-left: 10%; width: 100%; font-size: 18px !important;">Address</span>
+                    </div>
+                </div>
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%;">
+                    <span id="shippingContentSpan" style="margin-left: 5px; padding: 10px;" class="popup-content">Edit the selected existing address </span>
+                    <form action="#" method="post" id="editAddressForm">
+                        <div data-role="fieldcontain" style="margin-left: 15px; margin-top: 5px; margin-bottom: -10px;">
+                            <input style="line-height: 20px!important;" type="text" id="editSavedAddress" autocomplete="off"></input>
+                        </div>
+                        <a id="cancelSaveAddressBtn" href="#pgFavourites" style="left: 35%; margin-top: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                            <span class="ui-btn-inner ui-btn-corner-all">
+                            <span class="ui-btn-text" style=" font-size: 14px;">Cancel</span>
+                            </span>
+                        </a>
+                        <a id="saveAddressBtn" style="position: absolute; left: 70%; margin-top: -2%;" data-role="button" data-inline="true" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                            <span class="ui-btn-inner ui-btn-corner-all"><span id="editAddressSpan" class="ui-btn-text popup-submit-btn" style="font-size: 15px !important;">Save</span></span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </div>
+
 
     <!-- About Us -->
     <div data-theme="a" id="pgAboutUs" style="padding-top: 5px;" data-role="page" data-title="About Us Page">
@@ -1390,39 +1394,42 @@
 
     <!-- Item View -->
 
-    <div data-theme="a" id="pgItemView" data-role="page" data-title="Item Page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
-            <div class="nav-bar">
-                <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Profile</span>
-                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;"></div>
-                <img id="shopping-cart-icon" class="shopping-icon-item-view" src="./assets/img/Navbar_Images/cart.png" class="cart-icon"></img>
-                <img id="share-item-icon" class="share-icon-item-view" src="./assets/img/Navbar_Images/share.png" class="share-icon"></img>
-            </div>
+    <div data-theme="a" id="pgItemView" data-role="page" data-title="Item Page" style="overflow-x: unset;">
+        <div class="nav-bar" data-tap-toggle="false">
+            <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
+            <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Item View</span>
+            <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;"></div>
+            <img id="shopping-cart-icon" class="shopping-icon-item-view" src="./assets/img/Navbar_Images/cart.png" class="cart-icon"></img>
+            <img id="share-item-icon" class="share-icon-item-view" src="./assets/img/Navbar_Images/share.png" class="share-icon"></img>
         </div>
         <div id="pgAccountCreationSuccessContent" data-role="main">
-            <img id="itemImage" class="item-product-image"> </img>
+            <div id="itemImageContainer" class="item-product-image"></div>
+            <img id="itemImage" class="item-product-image-view"> </img>
             <div id="itemMainDetails" class="item-product-main-details">
                 <span id="productPriceValue" class="product-price-text-style"></span>
+                <span id="reducedProductPriceValue" class="reduced-product-price-text-style"></span>
                 <span id="productNameValue" class="product-name-text-style"></span>
+                <span id="productNameValue2" class="product-name-text-style-2"></span>
+                <span id="discountPersentage" class="discount_persentage_style"></span>
+
                 <span id="productRating" class="product-rating-text"></span>
                 <!-- <div id="ratingStars" class="rating-stars-style"> -->
-                <img id="oneStarRating" class="one-star-rating-style" src="./assets/img/Icons/star.png"></img>
-                <img id="twoStarRating" class="two-star-rating-style" src="./assets/img/Icons/star.png"></img>
-                <img id="threeStarRating" class="three-star-rating-style" src="./assets/img/Icons/star.png"></img>
-                <img id="fourStarRating" class="four-star-rating-style" src="./assets/img/Icons/star.png"></img>
-                <img id="fiveStarRating" class="five-star-rating-style" src="./assets/img/Icons/star.png"></img>
-                <!-- </div> -->
-                <img id="favouriteHeart" class="favourite-heart-icon-style" src="./assets/img/Icons/not_favourite.png"></img>
+                <img id="oneStarRating" class="one-star-rating-style"></img>
+                <img id="twoStarRating" class="two-star-rating-style"></img>
+                <img id="threeStarRating" class="three-star-rating-style"></img>
+                <img id="fourStarRating" class="four-star-rating-style"></img>
+                <img id="fiveStarRating" class="five-star-rating-style"></img>
+
+                <img id="favouriteHeart" class="favourite-heart-icon-style"></img>
             </div>
             <div id="item-page-divider-1" class="item-page-first-divider-style"></div>
             <div id="productDescription" class="product-description-block-style">
-                <div id="itemDescriptionText" class="item-desription-text-style"></div>
-                <div id="item-page-divider-2" class="item-page-second-divider-style"></div>
+                <span id="itemDescriptionText" class="item-desription-text-style">Item Description</span>
+                <!-- <div id="item-page-divider-2" class="item-page-second-divider-style"></div> -->
             </div>
             <div id="cusomerReviewNavigator" class="customer-review-nav-style">
-                <div id="customerReviewText" class="customer-review-text-style"></div>
-                <img id="navigateToIcon" class="navigate-to-customer-review-style"></img>
+                <span id="customerReviewText" class="customer-review-text-style">Customer Reviews</span>
+                <img id="navigateToIcon" class="navigate-to-customer-review-style" src="./assets/img/back_grey.png"></img>
             </div>
             <div id="customerReviewBlock" class="customer-review-example-style"></div>
         </div>

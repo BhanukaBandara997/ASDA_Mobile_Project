@@ -672,6 +672,9 @@
     font-size: 11px;
     line-height: 15px;
     text-align: center;
+    background: -webkit-linear-gradient(#F46B45, #EEA849) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 .buy-now-font-style {
@@ -682,14 +685,28 @@
     line-height: 15px;
     /* identical to box height */
     text-align: center;
-    color: #FFFFFF;
+    color: white !important;
 }
 
 .item-desription-text-style {
     position: absolute;
     width: 177px;
     height: 20px;
-    left: 15px;
+    left: 25px;
+    top: 10px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 23px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.customer-review-text-style {
+    position: absolute;
+    width: 177px;
+    height: 24px;
+    left: 25px;
     top: 10px;
     font-family: Open Sans;
     font-style: normal;
@@ -701,12 +718,12 @@
 
 .product-price-text-style {
     position: absolute;
-    width: 109.76px;
+    width: 50px;
     height: 17.11px;
     left: 25px;
-    top: 5px;
+    top: 4px;
     font-family: Open Sans;
-    font-style: normal;
+    font-style: bold;
     font-weight: normal;
     font-size: 17px;
     line-height: 23px;
@@ -714,16 +731,59 @@
     /* border: 0.3px solid rgba(0, 0, 0, 0.8); */
 }
 
+.discount-product-price-text-style {
+    position: absolute;
+    width: 50px;
+    height: 17.11px;
+    left: 90px;
+    top: 25px;
+    font-family: Open Sans;
+    font-style: italic;
+    font-weight: normal;
+    text-decoration: line-through;
+    font-size: 13px;
+    line-height: 23px;
+    color: #000000;
+}
+
+.discount_persentage_style {
+    position: absolute;
+    width: 50px;
+    height: 17.11px;
+    left: 140px;
+    top: 25px;
+    font-family: Open Sans;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 23px;
+    color: #F24242;
+}
+
 .product-name-text-style {
     position: absolute;
-    width: 309px;
+    width: 300px;
     height: 20px;
     left: 25px;
     top: 25px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 15px;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.product-name-text-style-2 {
+    position: absolute;
+    width: 300px;
+    height: 20px;
+    left: 25px;
+    top: 40px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
     line-height: 20px;
     color: rgba(0, 0, 0, 0.8);
 }
@@ -733,7 +793,7 @@
     width: 27px;
     height: 15px;
     left: 25px;
-    top: 40px;
+    top: 75px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
