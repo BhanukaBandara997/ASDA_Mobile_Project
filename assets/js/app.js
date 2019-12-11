@@ -500,12 +500,7 @@ $(function() {
                     var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
                     if (req.status == 200) {
                         try {
-                            var succ = $('#pgShippingAddress').data('success');
-                            if (succ == 'true') {
-                                pgResetPasswordClear();
-                                // show the page to display after forget password
-                                $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
-                            }
+                            app.GetUserSavedAddresses();
                         } catch (e) {
                             //user file is not found
                             $('#pgShippingAddress').data('success', 'false');
@@ -644,7 +639,6 @@ $(function() {
             e.stopImmediatePropagation();
             app.UpdateAddress($('#addNewAddress').val().trim());
             $('#newAddressPopupDialog').popup('close');
-            app.GetUserSavedAddresses();
         });
 
         // Navigate to settings
@@ -2442,31 +2436,59 @@ $(function() {
 
         app.PopulateSelectedItemDetals = function(itemNumber, source, dataObj) {
             // Item view for favourite list items
-            if (source == "From_Favourite_List") {
-                $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
-                $("#productPriceValue").text(dataObj.Price);
-            }
-
-            if (source == "Top_Selection") {
-                $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
-                $("#productPriceValue").text(dataObj.Price);
-            }
-
-            if (source == "New_Products") {
-                $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
-                $("#productPriceValue").text(dataObj.Price);
-            }
 
             if (source == "Flash_Deals") {
                 $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                var price = dataObj.Price;
+                var discountPrice = dataObj.Discount_Price;
+
+                var priceNew = price.substr(price.indexOf("$") + 1);
+                var discountPriceNew = discountPrice.substr(discountPrice.indexOf("$") + 1);
+
+                var newPrice = priceNew - discountPriceNew;
+                var newPriceTwoPlaces = newPrice.toFixed(2);
+
+                $("#productPriceValue").text("$" + newPriceTwoPlaces);
                 $("#reducedProductPriceValue").text(dataObj.Price);
+                $("#productNameValue2").text(dataObj.Product_Name);
+                $("#discountPersentage").text(dataObj.Discount_Percentage + " off");
+                $('#itemTypeIcon').css('display', 'none');
+            } else {
+                if (source == "From_Favourite_List") {
+                    $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
+                    $("#productPriceValue").text(dataObj.Price);
+                    $("#productNameValue").text(dataObj.Product_Name);
+                    $('#reducedProductPriceValue').css('display', 'none');
+                    $('#discountPersentage').css('display', 'none');
+                    $('#productNameValue2').css('display', 'none');
+                    $('#itemTypeIcon').css('display', 'none');
+                }
+
+                if (source == "Top_Selection") {
+                    $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    $("#productPriceValue").text(dataObj.Price);
+                    $("#productNameValue").text(dataObj.Product_Name);
+                    $('#reducedProductPriceValue').css('display', 'none');
+                    $('#discountPersentage').css('display', 'none');
+                    $('#productNameValue2').css('display', 'none');
+                    $("#itemTypeIcon").attr("src", dataObj.Product_Type_Image);
+                }
+
+                if (source == "New_Products") {
+                    $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    $("#productPriceValue").text(dataObj.Price);
+                    $("#productNameValue").text(dataObj.Product_Name);
+                    $('#reducedProductPriceValue').css('display', 'none');
+                    $('#discountPersentage').css('display', 'none');
+                    $('#productNameValue2').css('display', 'none');
+                    $("#itemTypeIcon").attr("src", dataObj.Product_Type_Image);
+                }
             }
-            $("#productNameValue").text(dataObj.Product_Name);
 
             $("#productRating").text(dataObj.Product_Rating + ".0");
             $("#itemImage").attr("src", dataObj.Path);
 
-            $('#favouriteItemListDiv').css('display', 'none');
+            // $('#favouriteItemListDiv').css('display', 'none');
 
             if (dataObj.Product_Rating >= 1) {
                 $("#oneStarRating").attr("src", "./assets/img/Icons/star.png");
@@ -2503,10 +2525,6 @@ $(function() {
             } else {
                 $('#fiveStarRating').css('display', 'none');
             }
-            // $("#productNameValue").text(dataObj.Product_Name);
-            // $("#productNameValue").text(dataObj.Product_Name);
-
-
         };
 
     })(ASDA_Project);

@@ -197,7 +197,7 @@
     width: 17px;
     height: 17px;
     left: 51.82px;
-    top: 75px;
+    top: 80px;
 }
 
 .two-star-rating-style {
@@ -205,7 +205,7 @@
     width: 17px;
     height: 17px;
     left: 69.82px;
-    top: 75px;
+    top: 80px;
 }
 
 .three-star-rating-style {
@@ -213,7 +213,7 @@
     width: 17px;
     height: 17px;
     left: 87.82px;
-    top: 75px;
+    top: 80px;
 }
 
 .four-star-rating-style {
@@ -221,7 +221,7 @@
     width: 17px;
     height: 17px;
     left: 105.82px;
-    top: 75px;
+    top: 80px;
 }
 
 .five-star-rating-style {
@@ -229,7 +229,7 @@
     width: 17px;
     height: 17px;
     left: 123.82px;
-    top: 75px;
+    top: 80px;
 }
 
 .favourite-heart-icon-style {
@@ -242,11 +242,19 @@
 }
 
 .item-product-image-view {
-    position: absolute;
+    position: relative;
     width: 250px;
     height: 254px;
-    left: 55px;
-    top: 101px;
+    left: 17%;
+    top: 16%;
+}
+
+.item-type-icon-style {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 9%;
+    left: 75%;
 }
 
 

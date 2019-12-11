@@ -997,6 +997,7 @@
 
 
     <!-- Shipping Address -->
+
     <div data-theme="a" id="pgShippingAddress" data-role="page" class="ShippingAddress" data-title="Shipping Details Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title">
@@ -1005,34 +1006,30 @@
             <div id="header-" class="header-cart-navbar">
                 <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
             </div>
-            <div class="nav-bar">
+            <div class="nav-bar" data-tap-toggle="false">
                 <img id="back-icon-shipping" src="./assets/img/back_grey.png" class="back-icon"></img>
                 <span id="back-icon-shipping-text" class="open-sans-font sub-category-style">Shipping Address</span>
+                <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;"></div>
             </div>
-        </div>
-        <div id="shippingAddressContent" data-role="main">
-
-
-
-            <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;">
-            </div>
-            <div id="add-new-address" style="position: absolute; width: 375px; height: 45px; left: 0px; top: 42px;">
+            <div id="add-new-address" class="add-new-address-bar" data-tap-toggle="false">
                 <a href="#" class="add-new-shipping-address-style" id="shipping-address-text">Add a new address</a>
                 <img id="edit-icon" class="edit-icon-style" src="./assets/img/Navbar_Images/edit-black.png"></img>
                 <div class="shipping-address-divider"> </div>
             </div>
-            <div id="address-container" class="address-container-style"></div>
-            <div id="address-one-container" class="address-one-container-style">
-                <span id="address-one" class="address-one-style"> </span>
-                <input id="address-one-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; margin-top: -10%;" name="address" value="first-address"> <br>
+        </div>
+        <div id="shippingAddressContent" data-role="main" style="margin-top: 91px;">
+            <div id="address-container" class="address-container-style">
+                <div id="address-one-container" class="address-one-container-style">
+                    <span id="address-one" class="address-one-style"> </span>
+                    <input id="address-one-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; margin-top: -10%;" name="address" value="first-address"> <br>
+                </div>
+                <div id="boderOne" calss="shipping-address-divider-two"> </div>
+                <div id="address-two-container" class="address-two-container-style">
+                    <span id="address-two" class="address-two-style"> </span>
+                    <input id="address-two-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; margin-top: -10%;" name="address" value="second-address"> <br>
+                    <div id="boderTwo" class="shipping-address-divider-three"> </div>
+                </div>
             </div>
-            <div id="boderOne" calss="shipping-address-divider-two" style="width: 375px; height: 1px; left: -14px; top: auto; background: #C4C4C4;"> </div>
-            <div id="address-two-container" class="address-two-container-style">
-                <span id="address-two" class="address-two-style"> </span>
-                <input id="address-two-radio" type="radio" style="position: absolute; vertical-align: baseline; width: 18px; height: 18.93px; left: 331px; margin-top: -10%;" name="address" value="second-address"> <br>
-                <div id="boderTwo" class="shipping-address-divider-three"> </div>
-            </div>
-
             <!-- Add new address -->
 
             <div data-role="popup" id="newAddressPopupDialog" data-overlay-theme="a" data-theme="c" style="max-width:600px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
@@ -1395,7 +1392,7 @@
     <!-- Item View -->
 
     <div data-theme="a" id="pgItemView" data-role="page" data-title="Item Page" style="overflow-x: unset;">
-        <div class="nav-bar" data-tap-toggle="false">
+        <div class="nav-bar-2" data-tap-toggle="false">
             <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
             <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Item View</span>
             <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;"></div>
@@ -1403,11 +1400,14 @@
             <img id="share-item-icon" class="share-icon-item-view" src="./assets/img/Navbar_Images/share.png" class="share-icon"></img>
         </div>
         <div id="pgAccountCreationSuccessContent" data-role="main">
-            <div id="itemImageContainer" class="item-product-image"></div>
-            <img id="itemImage" class="item-product-image-view"> </img>
+            <div id="itemImageContainer" class="item-product-image">
+
+                <img id="itemImage" class="item-product-image-view"> </img>
+                <img id="itemTypeIcon" class="item-type-icon-style">
+            </div>
             <div id="itemMainDetails" class="item-product-main-details">
                 <span id="productPriceValue" class="product-price-text-style"></span>
-                <span id="reducedProductPriceValue" class="reduced-product-price-text-style"></span>
+                <span id="reducedProductPriceValue" class="discount-product-price-text-style"></span>
                 <span id="productNameValue" class="product-name-text-style"></span>
                 <span id="productNameValue2" class="product-name-text-style-2"></span>
                 <span id="discountPersentage" class="discount_persentage_style"></span>

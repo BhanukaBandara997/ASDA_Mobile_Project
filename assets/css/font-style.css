@@ -723,8 +723,8 @@
     left: 25px;
     top: 4px;
     font-family: Open Sans;
-    font-style: bold;
-    font-weight: normal;
+    font-style: normal;
+    font-weight: bold;
     font-size: 17px;
     line-height: 23px;
     color: #000000;
@@ -735,7 +735,7 @@
     position: absolute;
     width: 50px;
     height: 17.11px;
-    left: 90px;
+    left: 25px;
     top: 25px;
     font-family: Open Sans;
     font-style: italic;
@@ -750,7 +750,7 @@
     position: absolute;
     width: 50px;
     height: 17.11px;
-    left: 140px;
+    left: 72px;
     top: 25px;
     font-family: Open Sans;
     font-style: italic;
@@ -762,10 +762,10 @@
 
 .product-name-text-style {
     position: absolute;
-    width: 300px;
+    width: 250px;
     height: 20px;
     left: 25px;
-    top: 25px;
+    top: 27px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
@@ -779,11 +779,11 @@
     width: 300px;
     height: 20px;
     left: 25px;
-    top: 40px;
+    top: 42px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 20px;
     color: rgba(0, 0, 0, 0.8);
 }
@@ -793,7 +793,7 @@
     width: 27px;
     height: 15px;
     left: 25px;
-    top: 75px;
+    top: 80px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
