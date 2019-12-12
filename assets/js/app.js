@@ -676,6 +676,8 @@ $(function() {
             // var userName = Email.trim();
             // userName = userName.split('@')[0];
             // return userName;
+            var userName = "ishika"
+            return userName;
         };
 
         function PopulateCategories(categoryState, categoriesObj) {
@@ -1383,6 +1385,7 @@ $(function() {
                 favouritesSelectorValue = selectedoptions.val();
                 if (favouritesSelectorValue == "ALL_PRODUCTS") {
                     //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
+                    favouriteListName = favouritesSelectorValue;
                     var currentLoggedUser = "User_001";
                     app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                     getFavouriteListsForUser();
@@ -1884,21 +1887,22 @@ $(function() {
         function getDefaultFavouriteListItems(moveFavouriteItemsList) {
             //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
             var currentLoggedUser = "User_001";
-            var fileName = currentLoggedUser + "-defaultFavouriteList";
+            var fileName = currentLoggedUser + "-defaultFavouriteList.json";
             var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
                     var favouriteItemsList = JSON.parse(req.responseText);
                     $.each(favouriteItemsList.FavouriteItemList, function(index, val) {
-                        $.each(moveFavouriteItemsList, function(val) {
-                            if (val.Product_ID != val) {
-                                delete favouriteItemsList.FavouriteItemList[index];
-                            }
-                        });
+                        // var itemFound = false;
+                        var itemFound = jQuery.inArray(val.Product_ID, moveFavouriteItemsList);
+                        if (itemFound == -1) {
+                            delete favouriteItemsList.FavouriteItemList[index];
+                        }
                     });
                 } catch (e) {
                     toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
                 }
+                moveFavouriteItemsList = [];
             } else {
                 toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
             }
@@ -1921,12 +1925,17 @@ $(function() {
                         $.each(favouriteItemsList.FavouriteLists, function(index, val) {
                             if (val.Name == favouriteListName) {
                                 var fileName = val.FileName;
-                                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName + ".json"));
                                 if (req.status == 200) {
                                     try {
                                         var favouriteItemsList = JSON.parse(req.responseText);
+                                        $.each(favouriteItemsList.FavouriteItemList, function() {
+                                            moveFavouriteItemsList.push(this.Product_ID);
+                                        });
+
                                         var updatedFavouriteList = getDefaultFavouriteListItems(moveFavouriteItemsList);
-                                        var newFavouriteList = favouriteItemsList.FavouriteItemList.push(updatedFavouriteList.FavouriteItemList);
+                                        //var newFavouriteList = favouriteItemsList.FavouriteItemList.push(updatedFavouriteList.FavouriteItemList);
+
                                         updateFavouriteListWithNewItems(updatedFavouriteList, fileName);
 
                                         ////////// Logic to Move Items to New List //////////////////////////
@@ -1941,6 +1950,8 @@ $(function() {
                                 validFavouriteListName = false;
                             }
                         });
+
+                        moveFavouriteItemsList = [];
 
                     } catch (e) {
                         toastr.error('An Error Occurred While Retrieving Favourite Lists');
