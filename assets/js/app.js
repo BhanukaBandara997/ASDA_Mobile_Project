@@ -125,6 +125,7 @@ $(function() {
             if (localStorage.getItem('newListCreated') === "true") {
                 $('#favouriteItemListDiv').empty();
                 $('#favouriteListParentDiv').empty();
+                $('#favSelect').empty();
                 $('#favouriteItemListDiv').css('display', 'none');
                 $('#favouriteListParentDiv').css('display', 'block');
                 $('#createFavListBtn').remove();
@@ -140,6 +141,13 @@ $(function() {
                 });
                 favouriteListOptionParent.text("MY LISTS");
                 $('#favSelect').append(favouriteListOptionParent);
+
+                var favouriteListOptionParent2 = $('<option>', {
+                    'style': 'color: #333 !important; font-size: 9px !important;',
+                    'value': 'ALL_PRODUCTS'
+                });
+                favouriteListOptionParent2.text("ALL PRODUCTS");
+                $('#favSelect').append(favouriteListOptionParent2);
 
                 var createFavBtn = $('<button>', {
                     'id': 'createFavListBtn',
@@ -161,7 +169,7 @@ $(function() {
             } else {
                 //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
                 var currentLoggedUser = "User_001";
-                app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+                app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                 getFavouriteListsForUser();
                 $('#favouriteItemListDiv').css('display', 'block');
                 $('#favouriteListParentDiv').empty();
@@ -665,9 +673,9 @@ $(function() {
 
         app.GetCurrentUser = function() {
             var Email = localStorage.getItem("currentLoggedInUser");
-            var userName = Email.trim();
-            userName = userName.split('@')[0];
-            return userName;
+            // var userName = Email.trim();
+            // userName = userName.split('@')[0];
+            // return userName;
         };
 
         function PopulateCategories(categoryState, categoriesObj) {
@@ -1376,7 +1384,7 @@ $(function() {
                 if (favouritesSelectorValue == "ALL_PRODUCTS") {
                     //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
                     var currentLoggedUser = "User_001";
-                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                     getFavouriteListsForUser();
                     $('#favouriteItemListDiv').css('display', 'block');
                     $('#favouriteListParentDiv').empty();
@@ -1471,13 +1479,19 @@ $(function() {
 
         //////////////////////// Get Favourite List According To User //////////////////////////////
 
-        app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue) {
+        app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue, favouriteListName) {
 
-            if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
-                favouritesSelectorValue = "defaultFavouriteList"
+            var fileName = '';
+            if ((favouritesSelectorValue == "ALL_PRODUCTS") || (favouritesSelectorValue == null)) {
+                favouritesSelectorValue = "defaultFavouriteList";
+                fileName = currentLoggedUser + "-" + favouritesSelectorValue;
+            } else if ((favouritesSelectorValue == "MY_LISTS") && (favouriteListName != "Default Favourite List")) {
+                fileName = currentLoggedUser + "-" + favouriteListName + "FavouriteList";
+            } else {
+                favouritesSelectorValue = "defaultFavouriteList";
+                fileName = currentLoggedUser + "-" + favouritesSelectorValue;
             }
             currentLoggedUser = "User_001";
-            var fileName = currentLoggedUser + "-" + favouritesSelectorValue;
             fileName += '.json';
             var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
@@ -2103,10 +2117,12 @@ $(function() {
                 var favouriteListTitleSpan = $('<span>', {
                     'class': 'favouriteListTitleSpan',
                     'style': 'margin-top: 15px;'
-                }).on('click', function() {
+                }).on('click', function(e) {
                     //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
+                    var favouritesSelectorValue = $('#favSelect').find('option:selected').val();
                     var currentLoggedUser = "User_001";
-                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+                    var favouriteListName = this.textContent;
+                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                     getFavouriteListsForUser();
                     $('#favouriteItemListDiv').css('display', 'block');
                     $('#favouriteListParentDiv').empty();
@@ -2122,8 +2138,10 @@ $(function() {
                     'class': 'favouriteListTitleSpan'
                 }).on('click', function() {
                     //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
+                    var favouritesSelectorValue = $('#favSelect').find('option:selected').val();
                     var currentLoggedUser = "User_001";
-                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+                    var favouriteListName = this.textContent;
+                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                     getFavouriteListsForUser();
                     $('#favouriteItemListDiv').css('display', 'block');
                     $('#favouriteListParentDiv').empty();
@@ -2434,8 +2452,35 @@ $(function() {
             }
         }
 
+        $('#itemViewBackBtn').on('click', function() {
+            var productType = $('#itemImageContainer').attr('productType');
+            if (productType == "Flash_Deals") {
+                $.mobile.changePage('#pgFlashDeals');
+            } else if (productType == "Top_Selection") {
+                app.GetTopSelectionOrNewProductsListItems("TopSelection");
+                $.mobile.changePage('#pgTopSelection');
+            } else {
+                app.GetTopSelectionOrNewProductsListItems("NewProducts");
+                $.mobile.changePage('#pgNewProducts');
+            }
+        });
+
+        $('#productDescription').on('click', function() {
+            $("#itemDescriptionPopup").popup('open');
+            $("#pgItemViewContent").css('opacity', '0.2');
+        });
+
+        $("#itemDescriptionPopup").bind({
+            popupafterclose: function(event, ui) {
+                $("#pgItemViewContent").css('opacity', '1');
+            }
+        });
+
         app.PopulateSelectedItemDetals = function(itemNumber, source, dataObj) {
-            // Item view for favourite list items
+            $('#itemImageContainer').attr('productType', source);
+
+            $('#productDescriptionTitle').text(dataObj.Product_Name);
+            $('#productDescriptionSpan').text(dataObj.Description);
 
             if (source == "Flash_Deals") {
                 $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
@@ -2448,11 +2493,16 @@ $(function() {
                 var newPrice = priceNew - discountPriceNew;
                 var newPriceTwoPlaces = newPrice.toFixed(2);
 
-                $("#productPriceValue").text("$" + newPriceTwoPlaces);
+                $("#productPriceValue").text("US $" + newPriceTwoPlaces);
+                $("#reducedProductPriceValue").css('display', 'block');
                 $("#reducedProductPriceValue").text(dataObj.Price);
+                $("#productNameValue2").css('display', 'block');
+                $("#productNameValue").css('display', 'none');
                 $("#productNameValue2").text(dataObj.Product_Name);
+                $("#discountPersentage").css('display', 'block');
                 $("#discountPersentage").text(dataObj.Discount_Percentage + " off");
                 $('#itemTypeIcon').css('display', 'none');
+
             } else {
                 if (source == "From_Favourite_List") {
                     $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
@@ -2461,54 +2511,97 @@ $(function() {
                     $('#reducedProductPriceValue').css('display', 'none');
                     $('#discountPersentage').css('display', 'none');
                     $('#productNameValue2').css('display', 'none');
+                    $('#productNameValue').css('display', 'block');
                     $('#itemTypeIcon').css('display', 'none');
                 }
 
                 if (source == "Top_Selection") {
                     $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
-                    $("#productPriceValue").text(dataObj.Price);
+                    $("#productPriceValue").text("US " + dataObj.Price);
                     $("#productNameValue").text(dataObj.Product_Name);
                     $('#reducedProductPriceValue').css('display', 'none');
                     $('#discountPersentage').css('display', 'none');
                     $('#productNameValue2').css('display', 'none');
+                    $('#productNameValue').css('display', 'block');
                     $("#itemTypeIcon").attr("src", dataObj.Product_Type_Image);
+                    $('#itemTypeIcon').css('display', 'block');
                 }
 
                 if (source == "New_Products") {
                     $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
-                    $("#productPriceValue").text(dataObj.Price);
+                    $("#productPriceValue").text("US " + dataObj.Price);
                     $("#productNameValue").text(dataObj.Product_Name);
                     $('#reducedProductPriceValue').css('display', 'none');
                     $('#discountPersentage').css('display', 'none');
                     $('#productNameValue2').css('display', 'none');
+                    $('#productNameValue').css('display', 'block');
                     $("#itemTypeIcon").attr("src", dataObj.Product_Type_Image);
+                    $('#itemTypeIcon').css('display', 'block');
                 }
             }
 
             $("#productRating").text(dataObj.Product_Rating + ".0");
+            if (source == "Flash_Deals") {
+                $('#productRating').css('margin-top', '13px');
+            } else {
+                $('#productRating').css('margin-top', '5px');
+            }
             $("#itemImage").attr("src", dataObj.Path);
-
-            // $('#favouriteItemListDiv').css('display', 'none');
 
             if (dataObj.Product_Rating >= 1) {
                 $("#oneStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#oneStarRating').css('margin-top', '13px');
+                    $('#twoStarRating').css('margin-top', '13px');
+                    $('#threeStarRating').css('margin-top', '13px');
+                    $('#fourStarRating').css('margin-top', '13px');
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#oneStarRating').css('margin-top', '5px');
+                    $('#twoStarRating').css('margin-top', '5px');
+                    $('#threeStarRating').css('margin-top', '5px');
+                    $('#fourStarRating').css('margin-top', '5px');
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#oneStarRating').css('display', 'none');
                 $('#twoStarRating').css('display', 'none');
                 $('#threeStarRating').css('display', 'none');
                 $('#fourStarRating').css('display', 'none');
                 $('#fiveStarRating').css('display', 'none');
+
             }
             if (dataObj.Product_Rating >= 2) {
                 $("#twoStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#twoStarRating').css('margin-top', '13px');
+                    $('#threeStarRating').css('margin-top', '13px');
+                    $('#fourStarRating').css('margin-top', '13px');
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#twoStarRating').css('margin-top', '5px');
+                    $('#threeStarRating').css('margin-top', '5px');
+                    $('#fourStarRating').css('margin-top', '5px');
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#twoStarRating').css('display', 'none');
                 $('#threeStarRating').css('display', 'none');
                 $('#fourStarRating').css('display', 'none');
                 $('#fiveStarRating').css('display', 'none');
+
             }
             if (dataObj.Product_Rating >= 3) {
                 $("#threeStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#threeStarRating').css('margin-top', '13px');
+                    $('#fourStarRating').css('margin-top', '13px');
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#threeStarRating').css('margin-top', '5px');
+                    $('#fourStarRating').css('margin-top', '5px');
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#threeStarRating').css('display', 'none');
                 $('#fourStarRating').css('display', 'none');
@@ -2516,12 +2609,25 @@ $(function() {
             }
             if (dataObj.Product_Rating >= 4) {
                 $("#fourStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#fourStarRating').css('margin-top', '13px');
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#fourStarRating').css('margin-top', '5px');
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#fourStarRating').css('display', 'none');
                 $('#fiveStarRating').css('display', 'none');
+
             }
             if (dataObj.Product_Rating >= 5) {
                 $("#fiveStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#fiveStarRating').css('display', 'none');
             }

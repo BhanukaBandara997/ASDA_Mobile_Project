@@ -1393,52 +1393,70 @@
 
     <div data-theme="a" id="pgItemView" data-role="page" data-title="Item Page" style="overflow-x: unset;">
         <div class="nav-bar-2" data-tap-toggle="false">
-            <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
-            <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Item View</span>
-            <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;"></div>
+            <img id="itemViewBackBtn" src="./assets/img/back_grey.png" class="back-icon"></img>
+            <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 45px; background: #C4C4C4;"></div>
             <img id="shopping-cart-icon" class="shopping-icon-item-view" src="./assets/img/Navbar_Images/cart.png" class="cart-icon"></img>
             <img id="share-item-icon" class="share-icon-item-view" src="./assets/img/Navbar_Images/share.png" class="share-icon"></img>
         </div>
-        <div id="pgAccountCreationSuccessContent" data-role="main">
+        <div id="pgItemViewContent" data-role="main">
             <div id="itemImageContainer" class="item-product-image">
-
                 <img id="itemImage" class="item-product-image-view"> </img>
                 <img id="itemTypeIcon" class="item-type-icon-style">
             </div>
             <div id="itemMainDetails" class="item-product-main-details">
                 <span id="productPriceValue" class="product-price-text-style"></span>
                 <span id="reducedProductPriceValue" class="discount-product-price-text-style"></span>
-                <span id="productNameValue" class="product-name-text-style"></span>
-                <span id="productNameValue2" class="product-name-text-style-2"></span>
+                <span id="productNameValue" class="product-name-text-style" style="margin-top: 6px !important;"></span>
+                <span id="productNameValue2" class="product-name-text-style-2" style="margin-top: 6px !important;"></span>
                 <span id="discountPersentage" class="discount_persentage_style"></span>
 
-                <span id="productRating" class="product-rating-text"></span>
+                <span id="productRating" class="product-rating-text" style="margin-top: 5px !important;"></span>
                 <!-- <div id="ratingStars" class="rating-stars-style"> -->
-                <img id="oneStarRating" class="one-star-rating-style"></img>
-                <img id="twoStarRating" class="two-star-rating-style"></img>
-                <img id="threeStarRating" class="three-star-rating-style"></img>
-                <img id="fourStarRating" class="four-star-rating-style"></img>
-                <img id="fiveStarRating" class="five-star-rating-style"></img>
+                <img id="oneStarRating" class="one-star-rating-style" style="margin-top: 5px"></img>
+                <img id="twoStarRating" class="two-star-rating-style" style="margin-top: 5px"></img>
+                <img id="threeStarRating" class="three-star-rating-style" style="margin-top: 5px"></img>
+                <img id="fourStarRating" class="four-star-rating-style" style="margin-top: 5px"></img>
+                <img id="fiveStarRating" class="five-star-rating-style" style="margin-top: 5px"></img>
 
                 <img id="favouriteHeart" class="favourite-heart-icon-style"></img>
             </div>
-            <div id="item-page-divider-1" class="item-page-first-divider-style"></div>
-            <div id="productDescription" class="product-description-block-style">
-                <span id="itemDescriptionText" class="item-desription-text-style">Item Description</span>
+            <div id="item-page-divider-1" class="item-page-first-divider-style" style="margin-top: 5px !important;"></div>
+            <div id="productDescription" class="product-description-block-style" style="margin-top: 3px !important;">
+                <span id="itemDescriptionText" class="item-desription-text-style" style="margin-top: 5px;">Item Description</span>
                 <!-- <div id="item-page-divider-2" class="item-page-second-divider-style"></div> -->
             </div>
             <div id="cusomerReviewNavigator" class="customer-review-nav-style">
-                <span id="customerReviewText" class="customer-review-text-style">Customer Reviews</span>
+                <span id="customerReviewText" class="customer-review-text-style" style="margin-top: 5px;">Customer Reviews</span>
                 <img id="navigateToIcon" class="navigate-to-customer-review-style" src="./assets/img/back_grey.png"></img>
             </div>
             <div id="customerReviewBlock" class="customer-review-example-style"></div>
         </div>
-        <div data-role="footer" data-position="fixed" style="position: absolute; width: 375px; height: 49px; left: -1px; top: 759px;" data-tap-toggle="false">
-            <button id="add-to-cart-btn" class="add-to-cart-btn-style add-to-cart-font-style">Add To Cart</button>
-            <button id="buy-now-btn" class="buy-now-btn-style buy-now-font-style">Buy Now</button>
+        <div id="itemDetailsDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 746px;" data-tap-toggle="false">
+            <button id="add-to-cart-btn" class="add-to-cart-btn-style add-to-cart-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Add To Cart</button>
+            <button id="buy-now-btn" class="buy-now-btn-style buy-now-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Buy Now</button>
         </div>
-    </div>
 
+        <!-- Item Description Popup Dialog -->
+        <div data-role="popup" id="itemDescriptionPopup" data-overlay-theme="a" data-theme="c" style="max-width: 375px !important;;background: white; position: fixed !important;; left: 0% !important;;
+        bottom: -5%;background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true" data-transition="none" data-position-to="origin">
+            <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+            </div>
+            <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="height: 330px !important;">
+                <div id="itemDescriptionDiv" data-role="footer" style="height: 100%; flex-direction: row;" data-tap-toggle="false">
+                    <div style="text-align: center; margin-bottom: 10px;  margin-top: 10px;">
+                        <span class="item-description-title">Description</span>
+                    </div>
+                    <div style="margin-left: 25px; margin-right: 25px; margin-bottom: 10px; margin-top: 10px;">
+                        <span id="productDescriptionTitle" class="item-title"></span>
+                    </div>
+                    <div style="margin-left: 25px; margin-right: 25px; margin-bottom: 10px; margin-top: 10px;">
+                        <p id="productDescriptionSpan" class="item-details"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
 
 </html>

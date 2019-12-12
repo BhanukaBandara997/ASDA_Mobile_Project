@@ -667,9 +667,8 @@
 
 .add-to-cart-font-style {
     font-family: Open Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 11px;
+    font-weight: 600;
+    font-size: 14px !important;
     line-height: 15px;
     text-align: center;
     background: -webkit-linear-gradient(#F46B45, #EEA849) !important;
@@ -679,13 +678,39 @@
 
 .buy-now-font-style {
     font-family: Open Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 11px;
+    font-size: 14px !important;
     line-height: 15px;
-    /* identical to box height */
     text-align: center;
     color: white !important;
+}
+
+.item-description-title {
+    text-align: center;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.item-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: start;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.item-details {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 .item-desription-text-style {
@@ -707,7 +732,7 @@
     width: 177px;
     height: 24px;
     left: 25px;
-    top: 10px;
+    top: 15px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
@@ -718,7 +743,7 @@
 
 .product-price-text-style {
     position: absolute;
-    width: 50px;
+    width: 100px;
     height: 17.11px;
     left: 25px;
     top: 4px;

@@ -781,7 +781,7 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     width: 374px;
     height: 113.17px;
     left: 0px;
-    top: 393px;
+    top: 390px;
 }
 
 .item-page-first-divider-style {
@@ -796,10 +796,10 @@ input[type="checkbox"].ios8-switch:checked+label:before {
 .product-description-block-style {
     position: absolute;
     width: 375px;
-    height: 47px;
+    height: 52px;
     left: 0px;
     top: 505px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .item-page-second-divider-style {
@@ -814,10 +814,10 @@ input[type="checkbox"].ios8-switch:checked+label:before {
 .customer-review-nav-style {
     position: absolute;
     width: 375px;
-    height: 42px;
+    height: 57px;
     left: 0px;
     top: 555px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .customer-review-example-style {
@@ -833,4 +833,16 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     height: 17px;
     left: 51.82px;
     top: 394px;
+}
+
+#popup {
+    position: absolute;
+    transform: translate(-50%, 0);
+    bottom: 24px;
+    /* don't use top. Use bottom */
+    left: 50%;
+    width: 300px;
+    height: 160px;
+    background: red;
+    display: none;
 }

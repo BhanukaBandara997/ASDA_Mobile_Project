@@ -22,10 +22,10 @@
 
 .back-icon {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 16px;
     left: 15px;
-    top: 10px;
+    top: 14px;
 }
 
 .account-crown-icon {
@@ -142,18 +142,18 @@
 
 .shopping-icon-item-view {
     position: absolute;
-    width: 22px;
-    height: 22px;
-    left: 303px;
-    top: 10px;
+    width: 20px;
+    height: 20px;
+    left: 300px;
+    top: 13px;
 }
 
 .share-icon-item-view {
     position: absolute;
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 20px;
     left: 335px;
-    top: 10px;
+    top: 13px;
 }
 
 .icon-popup-nav {
@@ -179,7 +179,7 @@
     width: 18px;
     height: 18px;
     left: 88.59%;
-    top: 28.62%;
+    top: 40.62%;
     bottom: -11.9%;
     transform: rotate(-180deg);
 }
@@ -251,8 +251,8 @@
 
 .item-type-icon-style {
     position: absolute;
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     top: 9%;
     left: 75%;
 }
