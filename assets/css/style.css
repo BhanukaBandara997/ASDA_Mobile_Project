@@ -137,11 +137,7 @@ span.select2 {
 }
 
 .add-new-address-bar {
-    position: absolute;
-    width: 375px;
-    height: 45px;
-    left: 0px;
-    top: 95px;
+    margin-top: -1%;
 }
 
 .sub-category-background-content {
@@ -283,21 +279,25 @@ input[type="checkbox"].ios8-switch:checked+label:before {
 }
 
 .add-new-shipping-address-style {
-    position: absolute;
-    width: 121px;
-    height: 18px;
-    left: 13px;
-    top: 11px;
     font-family: Open Sans;
     font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
+    font-size: 15px;
     line-height: 16px;
     color: #467E9E;
+    margin-left: 5%;
 }
 
 #favSelect-button {
     margin-left: 5px;
+}
+
+.default-shipping-address-div {
+    margin-bottom: 15px;
+    margin-top: 5px;
+    background: rgba(162, 67, 13, 0.44);
+    border-radius: 2px;
+    width: 60px;
+    text-align: center;
 }
 
 
@@ -634,12 +634,9 @@ input[type="checkbox"].ios8-switch:checked+label:before {
 }
 
 .shipping-address-divider {
-    position: absolute;
-    width: 375px;
-    height: 5px;
-    left: 0px;
-    top: 40px;
     background: #C4C4C4;
+    height: 6px;
+    margin-top: 3%;
 }
 
 .shipping-address-divider-two {

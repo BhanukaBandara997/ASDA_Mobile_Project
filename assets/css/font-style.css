@@ -883,6 +883,66 @@
     color: rgba(0, 0, 0, 0.8) !important;
 }
 
+.shipping-details-title {
+    position: absolute;
+    left: 12%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.default-shipping-font {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 10px;
+    color: #C56018;
+}
+
+.address-contact-name {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 11px;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.address-details {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 11px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 8px;
+}
+
+.address-postal-code {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 11px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 8px;
+}
+
+.address-mobile-number {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 11px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 8px;
+}
+
 
 /* iPhone X Portrait */
 

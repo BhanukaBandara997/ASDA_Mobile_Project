@@ -18,6 +18,14 @@
     text-transform: none !important;
 }
 
+.save-button {
+    height: 4% !important;
+    background-image: linear-gradient(#F46B45, #EEA849) !important;
+    text-transform: none !important;
+    text-align: center;
+    border-radius: 5px;
+}
+
 #continue-button {
     top: 6% !important;
 }
