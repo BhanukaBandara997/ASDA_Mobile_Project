@@ -1697,6 +1697,7 @@ $(function() {
                 if (moveFavouriteItemsList.length > 0) {
                     $('#createNewFavListPopupDialog').popup('open');
                 }
+                moveFavouriteItemsList = [];
             }
         });
 
@@ -1838,13 +1839,7 @@ $(function() {
                                         });
 
                                         var updatedFavouriteList = getDefaultFavouriteListItems(moveFavouriteItemsList);
-                                        //var newFavouriteList = favouriteItemsList.FavouriteItemList.push(updatedFavouriteList.FavouriteItemList);
-
                                         updateFavouriteListWithNewItems(updatedFavouriteList, fileName);
-
-                                        ////////// Logic to Move Items to New List //////////////////////////
-
-                                        ///////// Route to new page and update the selector /////////////
 
                                     } catch (e) {
 
@@ -2072,7 +2067,7 @@ $(function() {
 
             var favouriteListContextMenu = $('<img>', {
                 'src': './assets/img/menu.png',
-                'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
+                'style': 'height: 18px; width: 18px; transform: rotate(90deg); display: none',
                 'id': 'context-menu-' + listObj.Name,
                 'class': 'contextMenu iw-mTrigger',
             }).on('click', function() {});
@@ -2356,6 +2351,36 @@ $(function() {
             }
             return favouriteItemsList;
         }
+
+
+        /////////////////////////////////////  Shared Item Open Using URL  ///////////////////////////////////////////
+
+        // if (window.location.href.indexOf('OscarIntegrationView.jspa') >= 0) {
+        //     setTimeout(() => {
+        //         testCaseId = getParameterByName('testcase');
+        //     });
+        // }
+
+
+        ///////////////////////////////////  Add To Favourites  ///////////////////////////////////////////////////
+        $('favouriteHeart').on('click', function() {
+            var productId = $("#itemMainDetails").attr('productId');
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Function that validates email address through a regular expression.
         function validateEmail(sEmail) {
@@ -2721,6 +2746,7 @@ $(function() {
 
             $('#productDescriptionTitle').text(dataObj.Product_Name);
             $('#productDescriptionSpan').text(dataObj.Description);
+            $("#itemMainDetails").attr('productId', dataObj.Product_ID);
 
             if (source == "Flash_Deals") {
                 $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
