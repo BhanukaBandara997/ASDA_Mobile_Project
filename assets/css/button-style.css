@@ -102,6 +102,14 @@
     border-radius: 5px;
 }
 
+.save-review-btn {
+    height: 6% !important;
+    top: 57% !important;
+    width: 283px !important;
+    left: 42px !important;
+    position: absolute !important;
+}
+
 
 /* iPhone X Portrait */
 

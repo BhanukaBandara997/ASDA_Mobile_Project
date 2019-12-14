@@ -583,6 +583,13 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     clear: both;
 }
 
+.reviewContainerStyle {
+    clear: both;
+    background: #FFFCFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
 .flashDealsColomn {
     float: left;
     width: 50%;
@@ -592,6 +599,16 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25), inset 1px 1px 1px rgba(0, 0, 0, 0.25);
     margin: 7px;
     text-align: center;
+}
+
+.itemReviewColomn {
+    float: left;
+    width: 91.5%;
+    padding: 10px;
+    height: auto;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 6px;
 }
 
 .productTypesColomn {
@@ -842,4 +859,43 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     height: 160px;
     background: red;
     display: none;
+}
+
+.review-nav-bar-text-style {
+    /* position: absolute; */
+    /* width: 180px; */
+    /* height: 20px; */
+    /* left: 3%; */
+    /* top: 2%; */
+    /* font-family: Open Sans; */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.add-review-style {
+    position: absolute;
+    left: 0%;
+    top: 9%;
+    font-size: 30px;
+}
+
+.star-holder-style {
+    position: absolute;
+    width: 48%;
+    top: 28.5%;
+    margin-left: 34%;
+}
+
+.item-rating-comment-container-styles {
+    position: absolute !important;
+    width: 85% !important;
+    height: 20% !important;
+    top: 34% !important;
+    margin-left: 7% !important;
+    /* border:solid 1px orange !important; */
+    border: 0.5px solid rgba(105, 105, 105, 0.7) !important;
+    box-sizing: border-box !important;
 }

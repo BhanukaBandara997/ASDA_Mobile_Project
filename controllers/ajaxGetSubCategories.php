@@ -2,9 +2,9 @@
 //get the file contents from the server
 If (isset($_REQUEST['file'])) {
 $file = basename($_REQUEST['file']);
-echo file_get_contents('../models/'.$file);
+echo file_get_contents('../models/SubCategories/'.$file);
 } Else {
-If (is_dir('../models/') && $handle = opendir('../models/')) {
+If (is_dir('../models/SubCategories/') && $handle = opendir('../models/SubCategories/')) {
 While (False !== ($entry = readdir($handle))) {
 If (!is_dir($entry)) {
 echo basename($entry)."\n";

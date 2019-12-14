@@ -15,6 +15,7 @@ $(function() {
     var editShippingAddressSelected = '';
     var defaultAddress = false;
     var addDefaultAddress = false;
+    var objectValue = null;
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -2998,6 +2999,9 @@ $(function() {
             $('#productDescriptionSpan').text(dataObj.Description);
             $("#itemMainDetails").attr('productId', dataObj.Product_ID);
 
+            // Item view for favourite list items
+            objectValue = null;
+            objectValue = dataObj;
             if (source == "Flash_Deals") {
                 if (dataObj.isFavourite) {
                     $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
@@ -3161,5 +3165,433 @@ $(function() {
             }
         };
 
+        // One star clicked
+        $('#oneStarRatingHolder').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.DisplayStars(1);
+        });
+
+        // two stars clicked
+        $('#twoStarRatingHolder').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.DisplayStars(2);
+        });
+
+        // three stars clicked
+        $('#threeStarRatingHolder').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.DisplayStars(3);
+        });
+
+        // four stars clicked
+        $('#fourStarRatingHolder').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.DisplayStars(4);
+        });
+
+        // five stars clicked
+        $('#fiveStarRatingHolder').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.DisplayStars(5);
+        });
+
+        $('#back-icon-review-page').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgItemView', { transition: pgtransition });
+        });
+
+        $('#navigateToIcon').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.PopulateCustomerReviews(objectValue);
+            $.mobile.changePage('#pgReview', { transition: pgtransition });
+        });
+
+        $('#saveReviewBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var reviewRating = $('#reviewRatingValue').val().trim();
+            var reviewContent = $('#reviewContent').val().trim();
+            app.SaveReview(objectValue, reviewRating, reviewContent);
+        });
+
+        app.DisplayStars = function(rating) {
+            if (rating == 1) {
+                $("#twoStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+                $("#threeStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+                $("#fourStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+                $("#fiveStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+
+                $("#oneStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#reviewRatingValue").val(1.0);
+            }
+            if (rating == 2) {
+                $("#threeStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+                $("#fourStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+                $("#fiveStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+
+                $("#oneStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#twoStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#reviewRatingValue").val(2.0);
+            }
+            if (rating == 3) {
+                $("#fourStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+                $("#fiveStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+
+                $("#oneStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#twoStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#threeStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#reviewRatingValue").val(3.0);
+            }
+            if (rating == 4) {
+                $("#fiveStarRatingHolder").attr("src", "./assets/img/Icons/gray_star.png");
+
+                $("#oneStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#twoStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#threeStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#fourStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#reviewRatingValue").val(4.0);
+            }
+            if (rating == 5) {
+                $("#oneStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#twoStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#threeStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#fourStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#fiveStarRatingHolder").attr("src", "./assets/img/Icons/star.png");
+                $("#reviewRatingValue").val(5.0);
+            }
+        };
+
+        app.SaveReview = function(dataObj, newReview, reviewContent) {
+            var productId = dataObj.Product_ID;
+            var reviewNo = 0;
+            var fileName = "Reviews";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetReviewLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var d = new Date();
+                    var month = d.getMonth() + 1;
+                    var day = d.getDate();
+
+                    var fullDate = d.getFullYear() + '/' +
+                        (month < 10 ? '0' : '') + month + '/' +
+                        (day < 10 ? '0' : '') + day;
+
+                    var loggedInUser = app.GetCurrentUser();
+
+                    if (newReview == null || newReview == "") {
+                        newReview = 0
+                    }
+                    var reviewList = JSON.parse(req.responseText);
+                    $.each(reviewList.ItemReviews, function(index, val) {
+                        reviewNo = val.ReviewNo;
+                    });
+                    reviewNo += 1;
+                    var newReviewObj = {
+                        "ReviewNo": reviewNo,
+                        "ProductID": productId,
+                        "NewReview": newReview,
+                        "ReviewContent": reviewContent,
+                        "Date": fullDate,
+                        "User": loggedInUser
+                    }
+                    reviewList.ItemReviews.push(newReviewObj);
+                    var recordJSON = JSON.stringify(reviewList);
+                    var req = Ajax("./controllers/ajaxUpdateReviewsList.php", "POST", recordJSON);
+                    if (req.status == 200) {
+
+                    } else {
+                        toastr.success('An Error Occurred While Upating Review Lists');
+                    }
+                } catch (e) {
+
+                }
+            }
+        };
+
+        // TODO - Update all ratings based on reviews.
+
+        // Populate customer review
+        app.PopulateCustomerReviews = function(dataObj) {
+            var fileName = "Reviews";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetReviewLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var reviewList = JSON.parse(req.responseText);
+                    var count = 0;
+                    var previousColumnObj = null;
+                    var productId = dataObj.Product_ID;
+
+                    $.each(reviewList.ItemReviews, function(index, val) {
+                        if (productId == val.ProductID) {
+                            count += 1;
+                            var newColumnObj = appendReviewsToList(this);
+
+                            if (count == 1 && previousColumnObj === null) {
+                                previousColumnObj = newColumnObj;
+                            }
+                            // if (count == 2) {
+                            appendReviewsToColumnsParent(previousColumnObj, newColumnObj);
+                            count = 0;
+                            previousColumnObj = null;
+                            // }
+                        } else {
+                            $('#createReviewBtn2').on('click', function(e) {
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
+                                $("#selectedImageForReview").attr("src", dataObj.Path);
+                                $("#selectedItemName").text(dataObj.Product_Name);
+                                $.mobile.changePage('#pgAddNewReview', { transition: pgtransition });
+                            });
+                        }
+
+                    });
+
+                } catch (e) {
+
+                }
+            }
+        };
+
+        function appendReviewsToList(dataObj) {
+            var reviewContinerDiv = $('<div>', {
+                'id': dataObj.ReviewNo + '-ReviewNo',
+                'class': 'itemReviewColomn',
+                'style': 'margin-bottom: 2px; margin-top: 2px;'
+            });
+
+            var reviewRatingHolderDiv = $('<div>', {
+                'style': 'display: grid; padding: 5px;'
+            });
+
+            var reviewRatingStarDiv = $('<div>', {
+                'style': 'display: flex; margin-top: 7px; margin-left: 2px;'
+            });
+
+            var reviewRating = $('<span>', {
+                'class': 'review-rating-card-text-font-style',
+            });
+
+
+
+            var itemRating = dataObj.NewReview;
+            if (itemRating == 0) {
+                var ratingStarOneImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarTwoImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarThreeImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarFourImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarFiveImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+            }
+            if (itemRating == 1) {
+                var ratingStarOneImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarTwoImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarThreeImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarFourImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarFiveImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+            }
+            if (itemRating == 2) {
+                var ratingStarOneImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarTwoImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarThreeImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarFourImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarFiveImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+            }
+            if (itemRating == 3) {
+                var ratingStarOneImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarTwoImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarThreeImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarFourImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+                var ratingStarFiveImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+            }
+            if (itemRating == 4) {
+                var ratingStarOneImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarTwoImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarThreeImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarFourImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarFiveImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/gray_star.png"
+                });
+            }
+            if (itemRating == 5) {
+                var ratingStarOneImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarTwoImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarThreeImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarFourImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+                var ratingStarFiveImg = $('<img>', {
+                    'style': 'height: 20px; width: 20px;',
+                    'src': "./assets/img/Icons/star.png"
+                });
+            }
+
+            var reviewAddedDate = $('<span>', {
+                'class': 'review-added-date',
+            });
+
+            reviewAddedDate.text(dataObj.Date);
+
+            reviewRating.text(dataObj.NewReview);
+
+            var reviewAddedUserDiv = $('<div>', {
+                'style': 'display: grid; padding: 5px;'
+            });
+
+            var reviewAddedUserName = $('<span>', {
+                'class': 'review-added-user-style',
+            });
+
+            reviewAddedUserName.text("User Name - " + dataObj.User);
+
+            var reviewTextHolderDiv = $('<div>', {
+                'style': 'display: grid; padding: 5px;'
+            });
+
+            var reviewContent = $('<span>', {
+                'class': 'review-text-card-text-font-style',
+            });
+
+            var createNewReviewBtn = $('<button>', {
+                'id': 'createReviewBtn',
+                'class': 'ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button',
+                'style': 'position: absolute; display: block; right: 5%; width: 53px; top: 87%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;'
+            }).on('click', function() {
+                $("#selectedImageForReview").attr("src", objectValue.Path);
+                $("#selectedItemName").text(objectValue.Product_Name);
+                $.mobile.changePage('#pgAddNewReview', { transition: pgtransition });
+            });
+
+            var createNewReviewBtnIcon = $('<i>', {
+                'class': 'zmdi zmdi-plus zmd-2x',
+                'style': 'color: rgba(227, 9, 9, 0.9);'
+            });
+
+
+            reviewContent.text(dataObj.ReviewContent);
+
+            reviewTextHolderDiv.append(reviewContent);
+            reviewAddedUserDiv.append(reviewAddedUserName);
+
+            reviewRatingStarDiv.append(reviewRating);
+            reviewRatingStarDiv.append(ratingStarOneImg);
+            reviewRatingStarDiv.append(ratingStarTwoImg);
+            reviewRatingStarDiv.append(ratingStarThreeImg);
+            reviewRatingStarDiv.append(ratingStarFourImg);
+            reviewRatingStarDiv.append(ratingStarFiveImg);
+            reviewRatingStarDiv.append(reviewAddedDate);
+
+            reviewRatingHolderDiv.append(reviewRatingStarDiv);
+
+            createNewReviewBtn.append(createNewReviewBtnIcon);
+
+            reviewContinerDiv.append(reviewRatingHolderDiv);
+            reviewContinerDiv.append(reviewAddedUserDiv);
+            reviewContinerDiv.append(reviewTextHolderDiv);
+            reviewContinerDiv.append(createNewReviewBtn);
+
+            return reviewContinerDiv;
+        }
+
+        function appendReviewsToColumnsParent(previousColumnObj, newColumnObj) {
+            var itemsRow = $('<div>', {
+                'class': 'reviewContainerStyle'
+            });
+
+            itemsRow.append(previousColumnObj);
+            itemsRow.append(newColumnObj);
+
+            $('#reviewDiv').append(itemsRow);
+        }
     })(ASDA_Project);
 });

@@ -1,5 +1,5 @@
 ﻿{
-  "Drinks": [
+  "subCategories": [
     {
       "TopCategoryName": "Soft Drinks",
       "Path": "./assets/img/SubCategory/SoftDrinks.jpg",

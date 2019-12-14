@@ -953,6 +953,81 @@
     margin-bottom: 8px;
 }
 
+.review-item-name {
+    position: absolute;
+    margin-right: 4%;
+    top: 11%;
+    left: 50%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.review-rating-text {
+    margin-left: 7%;
+    top: 29%;
+    position: absolute;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.review-rating-value {
+    top: 28.5%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 27px;
+    color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    margin-left: 76%;
+}
+
+.review-rating-card-text-font-style {
+    padding-right: 7px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.review-text-card-text-font-style {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.review-added-date {
+    padding-left: 43%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.review-added-user-style {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
 
 /* iPhone X Portrait */
 
