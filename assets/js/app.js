@@ -328,6 +328,7 @@ $(function() {
                 pgSignInClear();
                 currentLoggedUser = Email.split('@')[0];
                 localStorage.setItem("currentLoggedInUser", Email);
+                createDefaultFavList();
                 // show the page to display after sign in
                 $.mobile.changePage('#pgHome', { transition: pgtransition });
             }
@@ -1447,8 +1448,6 @@ $(function() {
 
             var itemFavouriteName = $('<span>', {
                 'class': 'flash-deals-item-details'
-            }).on('click', function() {
-                alert(dataObj.Product_ID + "ITEM CLICKED");
             });
 
             itemFavouriteName.text(dataObj.Product_Name);
@@ -2361,26 +2360,277 @@ $(function() {
         //     });
         // }
 
-
         ///////////////////////////////////  Add To Favourites  ///////////////////////////////////////////////////
-        $('favouriteHeart').on('click', function() {
+
+        function addToDefaultFavouriteList(currentLoggedUser, productId) {
+            var fileName = 'Items.json';
+            var req = Ajax("./controllers/ajaxGetAllItems.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.ItemList, function(index) {
+                        if (this.Product_ID == productId) {
+                            addToFavouriteList = allItems.ItemList[index];
+                        }
+                    });
+                    var fileName = currentLoggedUser + "-defaultFavouriteList";
+                    var defaultFavouriteList = getDefaultFavouriteListDetails(fileName);
+                    var productKey = 'Product_ID-' + addToFavouriteList.Product_ID;
+                    var productKey = 'Product_ID-' + addToFavouriteList.Product_ID,
+                        obj = {
+                            [productKey]: addToFavouriteList
+                        };
+                    var updatedFavouriteList = $.extend(true, defaultFavouriteList.FavouriteItemList, obj);
+                    var fileNameObj = { "FileName": fileName };
+                    var updatedFavouriteListObj = { "FavouriteItemList": updatedFavouriteList };
+                    var recordObj = $.extend(true, updatedFavouriteListObj.FavouriteItemList, fileNameObj);
+                    var updatedRecordObj = { "FavouriteItemList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveFavouriteList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Adding To Favourites');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items');
+                }
+            }
+        }
+
+        function deleteFromDefaultFavouriteList(currentLoggedUser, productId) {
+            var fileName = 'Items.json';
+            var req = Ajax("./controllers/ajaxGetAllItems.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.ItemList, function(index) {
+                        if (this.Product_ID == productId) {
+                            removeFromFavouriteList = allItems.ItemList[index];
+                        }
+                    });
+                    var fileName = currentLoggedUser + "-defaultFavouriteList";
+                    var defaultFavouriteList = getDefaultFavouriteListDetails(fileName);
+
+                    $.each(defaultFavouriteList.FavouriteItemList, function(index) {
+                        if (removeFromFavouriteList.Product_ID == this.Product_ID) {
+                            delete defaultFavouriteList.FavouriteItemList[index];
+                        }
+                    });
+                    var fileNameObj = { "FileName": fileName };
+                    var updatedFavouriteListObj = defaultFavouriteList;
+                    var recordObj = $.extend(true, updatedFavouriteListObj.FavouriteItemList, fileNameObj);
+                    var updatedRecordObj = { "FavouriteItemList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveFavouriteList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Adding To Favourites');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items');
+                }
+            }
+        }
+
+        $('#favouriteHeart').on('click', function() {
+            var addToFavouriteList = null;
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
             var productId = $("#itemMainDetails").attr('productId');
+            var productType = $("#itemImageContainer").attr('producttype');
+
+            if ($('#favouriteHeart').attr("src") == "./assets/img/Icons/favourite.png") {
+                $('#favouriteHeart').attr("src", "./assets/img/Icons/not_favourite.png");
+                deleteFromDefaultFavouriteList(currentLoggedUser, productId);
+                deleteItemToFavouritesProductTypeFile(productType, productId);
+            } else {
+                $('#favouriteHeart').attr("src", "./assets/img/Icons/favourite.png");
+                addToDefaultFavouriteList(currentLoggedUser, productId);
+                addItemToFavouritesProductTypeFile(productType, productId);
+            }
+
         });
 
+        ///////////////////////////////////  Update File Related To Add To Favourites  ////////////////////////////////////////
+
+        function updateFlashDealsItemsFavorouriteStatus(isFavourite, productId) {
+            var addToFavouriteList = null;
+            var fileName = 'FlashDealItemList.json';
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.FlashDealsList, function(index, value) {
+                        if (value.Product_ID == productId) {
+                            if (isFavourite) {
+                                allItems.FlashDealsList[index].isFavourite = true;
+                            } else {
+                                allItems.FlashDealsList[index].isFavourite = false;
+                            }
+                        }
+                    });
+                    var fileName = 'FlashDealItemList';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, allItems.FlashDealsList, fileNameObj);
+                    var updatedRecordObj = { "FlashDealsList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveFlashDealsList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items From Flash Deal List');
+                }
+            }
+        }
+
+        function updateTopSelectionItemsFavorouriteStatus(isFavourite, productId) {
+            var addToFavouriteList = null;
+            var fileName = 'TopSelectionItemList.json';
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.TopSelectionList, function(index, value) {
+                        if (value.Product_ID == productId) {
+                            if (isFavourite) {
+                                allItems.TopSelectionList[index].isFavourite = true;
+                            } else {
+                                allItems.TopSelectionList[index].isFavourite = false;
+                            }
+                        }
+                    });
+                    var fileName = 'TopSelectionItemList';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, allItems.TopSelectionList, fileNameObj);
+                    var updatedRecordObj = { "TopSelectionList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveTopSelectionList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items From Flash Deal List');
+                }
+            }
+        }
+
+        function updateNewProductsItemsFavorouriteStatus(isFavourite, productId) {
+            var addToFavouriteList = null;
+            var fileName = 'NewProductsItemList.json';
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.NewProductsList, function(index, value) {
+                        if (value.Product_ID == productId) {
+                            if (isFavourite) {
+                                allItems.NewProductsList[index].isFavourite = true;
+                            } else {
+                                allItems.NewProductsList[index].isFavourite = false;
+                            }
+                        }
+                    });
+                    var fileName = 'NewProductsItemList';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, allItems.NewProductsList, fileNameObj);
+                    var updatedRecordObj = { "NewProductsList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveNewProductList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items From Flash Deal List');
+                }
+            }
+        }
+
+        function addItemToFavouritesProductTypeFile(productType, productId) {
+            if (productType == "Flash_Deals") {
+                updateFlashDealsItemsFavorouriteStatus(true, productId);
+            } else if (productType == "Top_Selection") {
+                updateTopSelectionItemsFavorouriteStatus(true, productId);
+            } else if (productType == "New_Products") {
+                updateNewProductsItemsFavorouriteStatus(true, productId);
+            } else {
+
+            }
+        }
+
+        function deleteItemToFavouritesProductTypeFile(productType, productId) {
+            if (productType == "Flash_Deals") {
+                updateFlashDealsItemsFavorouriteStatus(false, productId);
+            } else if (productType == "Top_Selection") {
+                updateTopSelectionItemsFavorouriteStatus(false, productId);
+            } else if (productType == "New_Products") {
+                updateNewProductsItemsFavorouriteStatus(false, productId);
+            } else {
+
+            }
+        }
+
+        function updateFileAccordingToProductType(fileName) {
+            var addToFavouriteList = null;
+            var fileName = 'FlashDealItemList.json';
+            var req = Ajax("./controllers/ajaxGetAllItems.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.FlashDealsList, function(index) {
+                        if (this.Product_ID == productId) {
+                            allItems.ItemList[index].isFavourite = true;
+                        }
+                    });
+                    var fileName = 'FlashDealItemList';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, allItems.FlashDealsList, fileNameObj);
+                    var recordJSON = JSON.stringify(recordObj);
+                    var req = Ajax("./controllers/ajaxSaveFavouriteList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items From Flash Deal List');
+                }
+            }
+        }
 
 
 
 
+        ////////////////////////// Create Default Favourite List //////////////////////////////////
 
+        function createDefaultFavList() {
+            var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var fileName = currentLoggedUser + "-defaultFavouriteList";
+            var dataObj = {
+                'FileName': fileName,
+                'FavouriteItemList': {}
+            }
+            var recordJSON = JSON.stringify(dataObj);
+            var req = Ajax("./controllers/ajaxSaveDefaultFavouriteList.php?", "POST", recordJSON);
+            if (req.status == 200) {
+                try {
+                    var defaultList = JSON.parse(req.responseText);
+                    if (defaultList != null) {
+                        console.log("Default Favourite List Created!!!");
+                    }
+                } catch (e) {
 
-
-
-
-
-
-
-
-
+                }
+            }
+        }
 
         // Function that validates email address through a regular expression.
         function validateEmail(sEmail) {
@@ -2749,7 +2999,11 @@ $(function() {
             $("#itemMainDetails").attr('productId', dataObj.Product_ID);
 
             if (source == "Flash_Deals") {
-                $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                if (dataObj.isFavourite) {
+                    $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
+                } else {
+                    $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                }
                 var price = dataObj.Price;
                 var discountPrice = dataObj.Discount_Price;
 
@@ -2782,7 +3036,11 @@ $(function() {
                 }
 
                 if (source == "Top_Selection") {
-                    $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    if (dataObj.isFavourite) {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
+                    } else {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    }
                     $("#productPriceValue").text("US " + dataObj.Price);
                     $("#productNameValue").text(dataObj.Product_Name);
                     $('#reducedProductPriceValue').css('display', 'none');
@@ -2794,7 +3052,11 @@ $(function() {
                 }
 
                 if (source == "New_Products") {
-                    $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    if (dataObj.isFavourite) {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
+                    } else {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    }
                     $("#productPriceValue").text("US " + dataObj.Price);
                     $("#productNameValue").text(dataObj.Product_Name);
                     $('#reducedProductPriceValue').css('display', 'none');
