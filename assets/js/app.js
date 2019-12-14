@@ -173,6 +173,7 @@ $(function() {
             } else {
                 //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
                 var currentLoggedUser = "User_001";
+                var favouriteListName = "ALL_PRODUCTS";
                 app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                 getFavouriteListsForUser();
                 $('#favouriteItemListDiv').css('display', 'block');
@@ -612,7 +613,7 @@ $(function() {
 
         app.GetCurrentUser = function() {
             var Email = localStorage.getItem("currentLoggedInUser");
-            userName = Email.split('@')[0];
+            var userName = Email.split('@')[0];
             return userName;
         };
 
