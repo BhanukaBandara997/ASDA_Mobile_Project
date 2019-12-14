@@ -26,9 +26,8 @@
 
 .clickable-font-styles {
     font-family: Open Sans;
-    font-style: normal;
     font-weight: normal;
-    font-size: 11px;
+    font-size: 13px;
     line-height: 15px;
     color: rgba(0, 0, 0, 0.9);
 }
@@ -269,33 +268,37 @@
 
 .contact-name-style {
     position: absolute;
-    width: 87px;
+    width: 100px;
     height: 16px;
     left: 23px;
     top: auto;
+    font-weight: 600;
 }
 
 .user-name-text-possition {
     position: absolute;
-    width: 89px;
+    text-align: end;
+    width: 91px;
     height: 16px;
-    left: 256px;
+    right: 10%;
     top: auto;
 }
 
 .member-center-style {
     position: absolute;
-    width: 100px;
+    width: 110px;
     height: 16px;
     left: 23px;
     top: auto;
+    font-weight: 600;
 }
 
 .user-full-name-style {
     position: absolute;
     width: 85px;
     height: 15px;
-    left: 256px;
+    right: 11%;
+    text-align: end;
     top: auto;
 }
 
@@ -305,6 +308,7 @@
     height: 16px;
     left: 23px;
     top: auto;
+    font-weight: 600;
 }
 
 .gender-style {
@@ -313,6 +317,7 @@
     height: 16px;
     left: 23px;
     top: auto;
+    font-weight: 600;
 }
 
 .birthday-style {
@@ -321,13 +326,15 @@
     height: 16px;
     left: 23px;
     top: auto;
+    font-weight: 600;
 }
 
 .logged-in-user-name-style {
     position: absolute;
     width: 102px;
     height: 16px;
-    left: 256px;
+    right: 5%;
+    text-align: end;
     top: auto;
 }
 
@@ -335,7 +342,8 @@
     position: absolute;
     width: 29px;
     height: 16px;
-    left: 256px;
+    right: 5%;
+    text-align: end;
     top: auto;
 }
 
@@ -343,7 +351,8 @@
     position: absolute;
     width: 100px;
     height: 16px;
-    left: 256px;
+    right: 5%;
+    text-align: end;
     top: auto;
 }
 
@@ -351,8 +360,9 @@
     position: absolute;
     width: 200px;
     height: 16px;
-    left: 23px;
+    left: 33px;
     top: 400px;
+    font-weight: 600;
 }
 
 .fav-list-carousel-price-text {

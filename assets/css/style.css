@@ -726,7 +726,7 @@ input[type="checkbox"].ios8-switch:checked+label:before {
 
 .customer-name-block-style {
     position: absolute;
-    width: 353px;
+    width: 100%;
     height: 16px;
     left: 11px;
     top: 193px;
