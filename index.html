@@ -1393,7 +1393,7 @@
 
     <div data-theme="a" id="pgItemView" data-role="page" data-title="Item Page" style="overflow-x: unset;">
         <div class="nav-bar-2" data-tap-toggle="false">
-            <img id="back-icon-edit-profile" src="./assets/img/back_grey.png" class="back-icon"></img>
+            <img id="back-icon-view-item" src="./assets/img/back_grey.png" class="back-icon"></img>
             <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Item View</span>
             <div style="position: absolute; width: 375px; height: 1.5px; left: 0px; top: 41px; background: #C4C4C4;"></div>
             <img id="shopping-cart-icon" class="shopping-icon-item-view" src="./assets/img/Navbar_Images/cart.png" class="cart-icon"></img>
@@ -1439,6 +1439,51 @@
         </div>
     </div>
 
+    <!--Add New Review -->
+    <div data-theme="a" id="pgAddNewReview" data-role="page" data-title="Add New Review Page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="header-title-add-review" class="add-review-style">
+                <img id="back-icon-view-item" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Item View</span>
+            </div>
+
+        </div>
+        <div id="pgAddNewReviewContent" data-role="main">
+            <div id="itemDetalsContainer" class="item-detals-container-styles">
+                <img id="selectedImageForReview" class="review-image"></img>
+                <span id="selectedItemName" class="review-item-name"></span>
+            </div>
+            <div id="itemRatingContainer" class="item-rating-container-styles">
+                <span id="reviewRatingText" class="review-rating-text">Your Rating: </span>
+                <div id="StarHolder" class="star-holder-style">
+                    <img id="oneStarRatingHolder" class="gray-star" src="./assets/img/Icons/gray_star.png"></img>
+                    <img id="twoStarRatingHolder" class="gray-star" src="./assets/img/Icons/gray_star.png"></img>
+                    <img id="threeStarRatingHolder" class="gray-star" src="./assets/img/Icons/gray_star.png"></img>
+                    <img id="fourStarRatingHolder" class="gray-star" src="./assets/img/Icons/gray_star.png"></img>
+                    <img id="fiveStarRatingHolder" class="gray-star" src="./assets/img/Icons/gray_star.png"></img>
+                </div>
+                <span id="reviewRatingValue" class="review-rating-value"></span>
+            </div>
+            <textarea rows="4" cols="50" id="reviewContent" class="item-rating-comment-container-styles"></textarea>
+            <button type="submit" id="saveReviewBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b save-review-btn">Save Review</button>
+        </div>
+    </div>
+
+    <!-- Customer Review -->
+    <div data-theme="a" id="pgReview" data-role="page" data-title="Review Page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="header-title-review" class="add-review-style">
+                <img id="back-icon-review-page" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="back-icon-review" class="open-sans-font sub-category-style">Customer Review</span>
+            </div>
+
+        </div>
+        <div id="reviewDiv" data-role="main">
+            <button id="createReviewBtn2" class="ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button" style="position: absolute; display: block; right: 5%; width: 53px; top: 87%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;">
+            <i class ="zmdi zmdi-plus zmd-2x" style="color: rgba(227, 9, 9, 0.9);"></i>
+            </button>
+        </div>
+    </div>
 </body>
 
 </html>
