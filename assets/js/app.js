@@ -12,6 +12,9 @@ $(function() {
     var selectedFavouriteListName = "Default_Favourite_List";
     var createNewFavouriteListName = '';
     var newListCreated = false;
+    var editShippingAddressSelected = '';
+    var defaultAddress = false;
+    var addDefaultAddress = false;
     var objectValue = null;
     (function(app) {
 
@@ -126,6 +129,7 @@ $(function() {
             if (localStorage.getItem('newListCreated') === "true") {
                 $('#favouriteItemListDiv').empty();
                 $('#favouriteListParentDiv').empty();
+                $('#favSelect').empty();
                 $('#favouriteItemListDiv').css('display', 'none');
                 $('#favouriteListParentDiv').css('display', 'block');
                 $('#createFavListBtn').remove();
@@ -141,6 +145,13 @@ $(function() {
                 });
                 favouriteListOptionParent.text("MY LISTS");
                 $('#favSelect').append(favouriteListOptionParent);
+
+                var favouriteListOptionParent2 = $('<option>', {
+                    'style': 'color: #333 !important; font-size: 9px !important;',
+                    'value': 'ALL_PRODUCTS'
+                });
+                favouriteListOptionParent2.text("ALL PRODUCTS");
+                $('#favSelect').append(favouriteListOptionParent2);
 
                 var createFavBtn = $('<button>', {
                     'id': 'createFavListBtn',
@@ -162,7 +173,7 @@ $(function() {
             } else {
                 //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
                 var currentLoggedUser = "User_001";
-                app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+                app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                 getFavouriteListsForUser();
                 $('#favouriteItemListDiv').css('display', 'block');
                 $('#favouriteListParentDiv').empty();
@@ -317,6 +328,8 @@ $(function() {
                 // setUserName(userName);
                 pgSignInClear();
                 currentLoggedUser = Email.split('@')[0];
+                localStorage.setItem("currentLoggedInUser", Email);
+                createDefaultFavList();
                 // show the page to display after sign in
                 $.mobile.changePage('#pgHome', { transition: pgtransition });
             }
@@ -467,55 +480,6 @@ $(function() {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-        ///////////////////////////// Update Address //////////////////////////////////////////
-
-        app.UpdateAddress = function(newAddress) {
-            var Email = localStorage.getItem("currentLoggedInUser");
-            // $('#pgShippingAddress').data('success', 'true');
-            var userName = Email.trim();
-            userName = userName.split('@')[0];
-            userName += '.json';
-
-            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
-            if (req.status == 200) {
-                try {
-                    var userRec = JSON.parse(req.responseText);
-
-                    if ((userRec.AddressTwo == null && userRec.AddressOne == null) || (userRec.AddressTwo == "" && userRec.AddressOne == "")) {
-                        userRec.AddressOne = newAddress;
-                    } else {
-                        if (userRec.AddressOne != null && (userRec.AddressTwo == null || userRec.AddressTwo == "")) {
-                            userRec.AddressTwo = newAddress;
-                        } else {
-                            if (userRec.AddressTwo != null && (userRec.AddressOne == null || userRec.AddressOne == "")) {
-                                userRec.AddressOne = newAddress;
-                            } else {
-                                if ((userRec.AddressTwo != null && userRec.AddressOne != null)) {
-                                    toastr.error('You cannot add more Addresses');
-                                }
-                            }
-                        }
-                    }
-                    var recordJSON = JSON.stringify(userRec);
-                    var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
-                    if (req.status == 200) {
-                        try {
-                            app.GetUserSavedAddresses();
-                        } catch (e) {
-                            //user file is not found
-                            $('#pgShippingAddress').data('success', 'false');
-                            toastr.error('Updating Password Error Occured!');
-                        }
-                    }
-                } catch (e) {
-                    //user file is not found
-                    $('#pgShippingAddress').data('success', 'false');
-                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
-                }
-            }
-        };
-
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         $('#back-icon-sub-category').on('click', function(e) {
@@ -556,7 +520,7 @@ $(function() {
         $('#location-icon, #location-text, #shippingAddressTextInSettings, #shippingAddressTextInEditAccount').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            app.GetUserSavedAddresses();
+            getShippingAddressDetails();
             $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
         });
 
@@ -624,24 +588,6 @@ $(function() {
             }
         });
 
-        $('#shipping-address-text').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            // app.GetUserSavedAddresses();
-            var firstAddress = $("#address-one").val();
-            var secondAddress = $("#address-two").val();
-            $('#newAddressPopupDialog').popup();
-            $('#newAddressPopupDialog').popup('open');
-        });
-
-        // Save new Address
-        $('#newAddressSaveBtn').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            app.UpdateAddress($('#addNewAddress').val().trim());
-            $('#newAddressPopupDialog').popup('close');
-        });
-
         // Navigate to settings
         $('#settings-icon, #settings-icon-text').on('click', function(e) {
             e.preventDefault();
@@ -665,11 +611,8 @@ $(function() {
         });
 
         app.GetCurrentUser = function() {
-            var Email = localStorage.getItem("currentLoggedUser");
-            // Hard coded user name - ishika
-            // var userName = Email.trim();
-            // userName = userName.split('@')[0];
-            var userName = "ishika"
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
             return userName;
         };
 
@@ -910,36 +853,6 @@ $(function() {
             jQuery("#home-carousel-div").trigger('add.owl.carousel', parentDiv).trigger('refresh.owl.carousel');
 
         }
-
-        ///////////////////////////// Address Appending /////////////////////////////////////////////////////
-
-        app.GetUserSavedAddresses = function() {
-            var loggedInUser = app.GetCurrentUser();
-            loggedInUser += '.json';
-            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(loggedInUser));
-            if (req.status == 200) {
-                try {
-                    var addressObject = JSON.parse(req.responseText);
-                    $('#existing-addresses').empty();
-
-                    if (addressObject.AddressOne == null || addressObject.AddressOne == "") {
-                        $('#address-one-container').css('display', 'none');
-                        $('#address-one-radio').css('display', 'none');
-                    }
-                    if (addressObject.AddressOne != null && (addressObject.AddressTwo == null || addressObject.AddressTwo == "")) {
-                        $('#address-two-container').css('display', 'none');
-                        $('#address-two-radio').css('display', 'none');
-
-                    }
-
-                    $("#address-one").text(addressObject.AddressOne);
-                    $("#address-two").text(addressObject.AddressTwo);
-
-                } catch (e) {
-
-                }
-            }
-        };
 
         app.MemberCenterDetails = function() {
             var loggedInUser = app.GetCurrentUser();
@@ -1378,8 +1291,9 @@ $(function() {
                 favouritesSelectorValue = selectedoptions.val();
                 if (favouritesSelectorValue == "ALL_PRODUCTS") {
                     //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
+                    favouriteListName = favouritesSelectorValue;
                     var currentLoggedUser = "User_001";
-                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                     getFavouriteListsForUser();
                     $('#favouriteItemListDiv').css('display', 'block');
                     $('#favouriteListParentDiv').empty();
@@ -1474,13 +1388,19 @@ $(function() {
 
         //////////////////////// Get Favourite List According To User //////////////////////////////
 
-        app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue) {
+        app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue, favouriteListName) {
 
-            if (favouritesSelectorValue == "REDUCED_PRICE_PRODUCTS" || "ALL_PRODUCTS" || null) {
-                favouritesSelectorValue = "defaultFavouriteList"
+            var fileName = '';
+            if ((favouritesSelectorValue == "ALL_PRODUCTS") || (favouritesSelectorValue == null)) {
+                favouritesSelectorValue = "defaultFavouriteList";
+                fileName = currentLoggedUser + "-" + favouritesSelectorValue;
+            } else if ((favouritesSelectorValue == "MY_LISTS") && (favouriteListName != "Default Favourite List")) {
+                fileName = currentLoggedUser + "-" + favouriteListName + "FavouriteList";
+            } else {
+                favouritesSelectorValue = "defaultFavouriteList";
+                fileName = currentLoggedUser + "-" + favouritesSelectorValue;
             }
             currentLoggedUser = "User_001";
-            var fileName = currentLoggedUser + "-" + favouritesSelectorValue;
             fileName += '.json';
             var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
@@ -1504,6 +1424,7 @@ $(function() {
             var itemFavouriteListRow = $('<div>', {
                 'id': dataObj.Product_ID,
                 'border-bottom': '1px #C4C4C4 solid;',
+                'class': 'flashDealsRow',
                 'style': 'margin-bottom: 15px; margin-top: 15px;'
             });
 
@@ -1528,8 +1449,6 @@ $(function() {
 
             var itemFavouriteName = $('<span>', {
                 'class': 'flash-deals-item-details'
-            }).on('click', function() {
-                alert(dataObj.Product_ID + "ITEM CLICKED");
             });
 
             itemFavouriteName.text(dataObj.Product_Name);
@@ -1778,6 +1697,7 @@ $(function() {
                 if (moveFavouriteItemsList.length > 0) {
                     $('#createNewFavListPopupDialog').popup('open');
                 }
+                moveFavouriteItemsList = [];
             }
         });
 
@@ -1872,28 +1792,29 @@ $(function() {
         function getDefaultFavouriteListItems(moveFavouriteItemsList) {
             //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
             var currentLoggedUser = "User_001";
-            var fileName = currentLoggedUser + "-defaultFavouriteList";
+            var fileName = currentLoggedUser + "-defaultFavouriteList.json";
             var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
                     var favouriteItemsList = JSON.parse(req.responseText);
                     $.each(favouriteItemsList.FavouriteItemList, function(index, val) {
-                        $.each(moveFavouriteItemsList, function(val) {
-                            if (val.Product_ID != val) {
-                                delete favouriteItemsList.FavouriteItemList[index];
-                            }
-                        });
+                        // var itemFound = false;
+                        var itemFound = jQuery.inArray(val.Product_ID, moveFavouriteItemsList);
+                        if (itemFound == -1) {
+                            delete favouriteItemsList.FavouriteItemList[index];
+                        }
                     });
                 } catch (e) {
                     toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
                 }
+                moveFavouriteItemsList = [];
             } else {
                 toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
             }
             return favouriteItemsList;
         }
 
-        //////
+
         $('#moveFavouriteBtn').on('click', function() {
             if (moveFavouriteItemsList.length > 0) {
                 var favouriteListName = selectedFavouriteListName.replace(/ /g, '_');
@@ -1909,17 +1830,16 @@ $(function() {
                         $.each(favouriteItemsList.FavouriteLists, function(index, val) {
                             if (val.Name == favouriteListName) {
                                 var fileName = val.FileName;
-                                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                                var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName + ".json"));
                                 if (req.status == 200) {
                                     try {
                                         var favouriteItemsList = JSON.parse(req.responseText);
+                                        $.each(favouriteItemsList.FavouriteItemList, function() {
+                                            moveFavouriteItemsList.push(this.Product_ID);
+                                        });
+
                                         var updatedFavouriteList = getDefaultFavouriteListItems(moveFavouriteItemsList);
-                                        var newFavouriteList = favouriteItemsList.FavouriteItemList.push(updatedFavouriteList.FavouriteItemList);
                                         updateFavouriteListWithNewItems(updatedFavouriteList, fileName);
-
-                                        ////////// Logic to Move Items to New List //////////////////////////
-
-                                        ///////// Route to new page and update the selector /////////////
 
                                     } catch (e) {
 
@@ -1929,6 +1849,8 @@ $(function() {
                                 validFavouriteListName = false;
                             }
                         });
+
+                        moveFavouriteItemsList = [];
 
                     } catch (e) {
                         toastr.error('An Error Occurred While Retrieving Favourite Lists');
@@ -2105,10 +2027,12 @@ $(function() {
                 var favouriteListTitleSpan = $('<span>', {
                     'class': 'favouriteListTitleSpan',
                     'style': 'margin-top: 15px;'
-                }).on('click', function() {
+                }).on('click', function(e) {
                     //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
+                    var favouritesSelectorValue = $('#favSelect').find('option:selected').val();
                     var currentLoggedUser = "User_001";
-                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+                    var favouriteListName = this.textContent;
+                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                     getFavouriteListsForUser();
                     $('#favouriteItemListDiv').css('display', 'block');
                     $('#favouriteListParentDiv').empty();
@@ -2124,8 +2048,10 @@ $(function() {
                     'class': 'favouriteListTitleSpan'
                 }).on('click', function() {
                     //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
+                    var favouritesSelectorValue = $('#favSelect').find('option:selected').val();
                     var currentLoggedUser = "User_001";
-                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue);
+                    var favouriteListName = this.textContent;
+                    app.GetFavouriteListForUser(currentLoggedUser, favouritesSelectorValue, favouriteListName);
                     getFavouriteListsForUser();
                     $('#favouriteItemListDiv').css('display', 'block');
                     $('#favouriteListParentDiv').empty();
@@ -2141,7 +2067,7 @@ $(function() {
 
             var favouriteListContextMenu = $('<img>', {
                 'src': './assets/img/menu.png',
-                'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
+                'style': 'height: 18px; width: 18px; transform: rotate(90deg); display: none',
                 'id': 'context-menu-' + listObj.Name,
                 'class': 'contextMenu iw-mTrigger',
             }).on('click', function() {});
@@ -2426,6 +2352,287 @@ $(function() {
             return favouriteItemsList;
         }
 
+
+        /////////////////////////////////////  Shared Item Open Using URL  ///////////////////////////////////////////
+
+        // if (window.location.href.indexOf('OscarIntegrationView.jspa') >= 0) {
+        //     setTimeout(() => {
+        //         testCaseId = getParameterByName('testcase');
+        //     });
+        // }
+
+        ///////////////////////////////////  Add To Favourites  ///////////////////////////////////////////////////
+
+        function addToDefaultFavouriteList(currentLoggedUser, productId) {
+            var fileName = 'Items.json';
+            var req = Ajax("./controllers/ajaxGetAllItems.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.ItemList, function(index) {
+                        if (this.Product_ID == productId) {
+                            addToFavouriteList = allItems.ItemList[index];
+                        }
+                    });
+                    var fileName = currentLoggedUser + "-defaultFavouriteList";
+                    var defaultFavouriteList = getDefaultFavouriteListDetails(fileName);
+                    var productKey = 'Product_ID-' + addToFavouriteList.Product_ID;
+                    var productKey = 'Product_ID-' + addToFavouriteList.Product_ID,
+                        obj = {
+                            [productKey]: addToFavouriteList
+                        };
+                    var updatedFavouriteList = $.extend(true, defaultFavouriteList.FavouriteItemList, obj);
+                    var fileNameObj = { "FileName": fileName };
+                    var updatedFavouriteListObj = { "FavouriteItemList": updatedFavouriteList };
+                    var recordObj = $.extend(true, updatedFavouriteListObj.FavouriteItemList, fileNameObj);
+                    var updatedRecordObj = { "FavouriteItemList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveFavouriteList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Adding To Favourites');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items');
+                }
+            }
+        }
+
+        function deleteFromDefaultFavouriteList(currentLoggedUser, productId) {
+            var fileName = 'Items.json';
+            var req = Ajax("./controllers/ajaxGetAllItems.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.ItemList, function(index) {
+                        if (this.Product_ID == productId) {
+                            removeFromFavouriteList = allItems.ItemList[index];
+                        }
+                    });
+                    var fileName = currentLoggedUser + "-defaultFavouriteList";
+                    var defaultFavouriteList = getDefaultFavouriteListDetails(fileName);
+
+                    $.each(defaultFavouriteList.FavouriteItemList, function(index) {
+                        if (removeFromFavouriteList.Product_ID == this.Product_ID) {
+                            delete defaultFavouriteList.FavouriteItemList[index];
+                        }
+                    });
+                    var fileNameObj = { "FileName": fileName };
+                    var updatedFavouriteListObj = defaultFavouriteList;
+                    var recordObj = $.extend(true, updatedFavouriteListObj.FavouriteItemList, fileNameObj);
+                    var updatedRecordObj = { "FavouriteItemList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveFavouriteList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Adding To Favourites');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items');
+                }
+            }
+        }
+
+        $('#favouriteHeart').on('click', function() {
+            var addToFavouriteList = null;
+            //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var currentLoggedUser = "User_001";
+            var productId = $("#itemMainDetails").attr('productId');
+            var productType = $("#itemImageContainer").attr('producttype');
+
+            if ($('#favouriteHeart').attr("src") == "./assets/img/Icons/favourite.png") {
+                $('#favouriteHeart').attr("src", "./assets/img/Icons/not_favourite.png");
+                deleteFromDefaultFavouriteList(currentLoggedUser, productId);
+                deleteItemToFavouritesProductTypeFile(productType, productId);
+            } else {
+                $('#favouriteHeart').attr("src", "./assets/img/Icons/favourite.png");
+                addToDefaultFavouriteList(currentLoggedUser, productId);
+                addItemToFavouritesProductTypeFile(productType, productId);
+            }
+
+        });
+
+        ///////////////////////////////////  Update File Related To Add To Favourites  ////////////////////////////////////////
+
+        function updateFlashDealsItemsFavorouriteStatus(isFavourite, productId) {
+            var addToFavouriteList = null;
+            var fileName = 'FlashDealItemList.json';
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.FlashDealsList, function(index, value) {
+                        if (value.Product_ID == productId) {
+                            if (isFavourite) {
+                                allItems.FlashDealsList[index].isFavourite = true;
+                            } else {
+                                allItems.FlashDealsList[index].isFavourite = false;
+                            }
+                        }
+                    });
+                    var fileName = 'FlashDealItemList';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, allItems.FlashDealsList, fileNameObj);
+                    var updatedRecordObj = { "FlashDealsList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveFlashDealsList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items From Flash Deal List');
+                }
+            }
+        }
+
+        function updateTopSelectionItemsFavorouriteStatus(isFavourite, productId) {
+            var addToFavouriteList = null;
+            var fileName = 'TopSelectionItemList.json';
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.TopSelectionList, function(index, value) {
+                        if (value.Product_ID == productId) {
+                            if (isFavourite) {
+                                allItems.TopSelectionList[index].isFavourite = true;
+                            } else {
+                                allItems.TopSelectionList[index].isFavourite = false;
+                            }
+                        }
+                    });
+                    var fileName = 'TopSelectionItemList';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, allItems.TopSelectionList, fileNameObj);
+                    var updatedRecordObj = { "TopSelectionList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveTopSelectionList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items From Flash Deal List');
+                }
+            }
+        }
+
+        function updateNewProductsItemsFavorouriteStatus(isFavourite, productId) {
+            var addToFavouriteList = null;
+            var fileName = 'NewProductsItemList.json';
+            var req = Ajax("./controllers/ajaxGetProductTypeLists.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.NewProductsList, function(index, value) {
+                        if (value.Product_ID == productId) {
+                            if (isFavourite) {
+                                allItems.NewProductsList[index].isFavourite = true;
+                            } else {
+                                allItems.NewProductsList[index].isFavourite = false;
+                            }
+                        }
+                    });
+                    var fileName = 'NewProductsItemList';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, allItems.NewProductsList, fileNameObj);
+                    var updatedRecordObj = { "NewProductsList": recordObj };
+                    var recordJSON = JSON.stringify(updatedRecordObj);
+                    var req = Ajax("./controllers/ajaxSaveNewProductList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items From Flash Deal List');
+                }
+            }
+        }
+
+        function addItemToFavouritesProductTypeFile(productType, productId) {
+            if (productType == "Flash_Deals") {
+                updateFlashDealsItemsFavorouriteStatus(true, productId);
+            } else if (productType == "Top_Selection") {
+                updateTopSelectionItemsFavorouriteStatus(true, productId);
+            } else if (productType == "New_Products") {
+                updateNewProductsItemsFavorouriteStatus(true, productId);
+            } else {
+
+            }
+        }
+
+        function deleteItemToFavouritesProductTypeFile(productType, productId) {
+            if (productType == "Flash_Deals") {
+                updateFlashDealsItemsFavorouriteStatus(false, productId);
+            } else if (productType == "Top_Selection") {
+                updateTopSelectionItemsFavorouriteStatus(false, productId);
+            } else if (productType == "New_Products") {
+                updateNewProductsItemsFavorouriteStatus(false, productId);
+            } else {
+
+            }
+        }
+
+        function updateFileAccordingToProductType(fileName) {
+            var addToFavouriteList = null;
+            var fileName = 'FlashDealItemList.json';
+            var req = Ajax("./controllers/ajaxGetAllItems.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var allItems = JSON.parse(req.responseText);
+                    $.each(allItems.FlashDealsList, function(index) {
+                        if (this.Product_ID == productId) {
+                            allItems.ItemList[index].isFavourite = true;
+                        }
+                    });
+                    var fileName = 'FlashDealItemList';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, allItems.FlashDealsList, fileNameObj);
+                    var recordJSON = JSON.stringify(recordObj);
+                    var req = Ajax("./controllers/ajaxSaveFavouriteList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured While Getting All Items From Flash Deal List');
+                }
+            }
+        }
+
+
+
+
+        ////////////////////////// Create Default Favourite List //////////////////////////////////
+
+        function createDefaultFavList() {
+            var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+            var fileName = currentLoggedUser + "-defaultFavouriteList";
+            var dataObj = {
+                'FileName': fileName,
+                'FavouriteItemList': {}
+            }
+            var recordJSON = JSON.stringify(dataObj);
+            var req = Ajax("./controllers/ajaxSaveDefaultFavouriteList.php?", "POST", recordJSON);
+            if (req.status == 200) {
+                try {
+                    var defaultList = JSON.parse(req.responseText);
+                    if (defaultList != null) {
+                        console.log("Default Favourite List Created!!!");
+                    }
+                } catch (e) {
+
+                }
+            }
+        }
+
         // Function that validates email address through a regular expression.
         function validateEmail(sEmail) {
             var filter = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -2436,12 +2643,371 @@ $(function() {
             }
         }
 
+        /////////////////// Shipping Address ////////////////////////////////////////////////////
+
+        $('#addNewShippingAddress').on('click', function() {
+            if (($('#addressOneParentDiv').css('display') == 'block') && ($('#addressTwoParentDiv').css('display') == 'block')) {
+                toastr.error('You cannot add more than address');
+            } else {
+                $('#contactName').val('');
+                $('#mobileNumber').val('');
+                $('#streetAddress').val('');
+                $('#postalCode').val('');
+                $.mobile.changePage('#pgAddShippingAddress');
+            }
+        });
+
+        $('#backBtnShippingAddress').on('click', function() {
+            $.mobile.changePage('#pgAccount');
+        });
+
+        $('#backBtnAddShippingAddress').on('click', function() {
+            getShippingAddressDetails();
+            $('.address-radio-btns').prop("checked", false);
+            $.mobile.changePage('#pgShippingAddress');
+        });
+
+        $('#backBtnEditShippingAddress').on('click', function() {
+            getShippingAddressDetails();
+            $('.address-radio-btns').prop("checked", false);
+            $.mobile.changePage('#pgShippingAddress');
+        });
+
+        $('#addNewAddressForm').submit(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var contactName = $('#contactName').val().trim();
+            var mobileNo = $('#mobileNumber').val().trim();
+            var streetAddress = $('#streetAddress').val().trim();
+            var postalCode = $('#postalCode').val().trim();
+            var address = {
+                'contactName': contactName,
+                'mobileNo': mobileNo,
+                'streetAddress': streetAddress,
+                'postalCode': postalCode,
+                'defaultAddress': addDefaultAddress
+            }
+            app.UpdateAddress(address);
+            getShippingAddressDetails();
+            $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+        });
+
+        $('#editSetAsDefaultSwitch').on('change', function() {
+            if ($("#editSetAsDefaultSwitch").prop("checked")) {
+                defaultAddress = true;
+            } else {
+                defaultAddress = false;
+            }
+        });
+
+
+        $('#setAsDefaultSwitch').on('change', function() {
+            if ($("#setAsDefaultSwitch").prop("checked")) {
+                addDefaultAddress = true;
+            } else {
+                addDefaultAddress = false;
+            }
+        });
+
+        $('#editAddressForm').submit(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var contactName = $('#editContactName').val().trim();
+            var mobileNo = $('#editMobileNumber').val().trim();
+            var streetAddress = $('#editStreetAddress').val().trim();
+            var postalCode = $('#editPostalCode').val().trim();
+            var address = {
+                'contactName': contactName,
+                'mobileNo': mobileNo,
+                'streetAddress': streetAddress,
+                'postalCode': postalCode,
+                'defaultAddress': defaultAddress
+            }
+            var selectedAddress = "";
+            if (editShippingAddressSelected == "addressOneRadio") {
+                selectedAddress = "AddressOne";
+            } else {
+                selectedAddress = "AddressTwo";
+            }
+            app.UpdateSelectedAddress(address, selectedAddress);
+            getShippingAddressDetails();
+            $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+        });
+
+        function getShippingAddressDetails() {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            userName += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                try {
+                    var userRec = JSON.parse(req.responseText);
+                    if ((userRec.AddressOne != null) && (userRec.AddressOne != "")) {
+                        $('#addressOneParentDiv').css('display', 'block');
+                        appendFirstShippingAddressDetails(userRec.AddressOne);
+                    } else {
+                        $('#addressOneParentDiv').css('display', 'none');
+                    }
+                    if ((userRec.AddressTwo != null) && (userRec.AddressTwo != "")) {
+                        $('#addressTwoParentDiv').css('display', 'block');
+                        appendSecondShippingAddressDetails(userRec.AddressTwo);
+                    } else {
+                        $('#addressTwoParentDiv').css('display', 'none');
+                    }
+                } catch (e) {
+                    $('#pgAddShippingAddress').data('success', 'false');
+                    toastr.error('This User - ' + userName.split('.')[0] + ' is NOT registered in this App!');
+                }
+            }
+        }
+
+        function appendFirstShippingAddressDetails(dataObj) {
+            if (dataObj.defaultAddress) {
+                $('#addressOneDefaultDiv').css('display', 'block');
+            } else {
+                $('#addressOneDefaultDiv').css('display', 'none');
+                $('#addressOneRadioBtn').css('margin-top', '10%');
+            }
+            $('#addressOneContactName').text(dataObj.contactName);
+            $('#addressOneAddress').text(dataObj.streetAddress.split(',')[0]);
+            $('#addressOneAddress2').text(dataObj.streetAddress.split(',')[1]);
+            $('#addressOnePostalCode').text(dataObj.postalCode);
+            $('#addressOneMobileNo').text(dataObj.mobileNo);
+        }
+
+        function appendSecondShippingAddressDetails(dataObj) {
+            if (dataObj.defaultAddress) {
+                $('#addressTwoDefaultDiv').css('display', 'block');
+            } else {
+                $('#addressTwoDefaultDiv').css('display', 'none');
+                $('#addressTwoRadioBtn').css('margin-top', '10%');
+            }
+            $('#addressTwoContactName').text(dataObj.contactName);
+            $('#addressTwoAddress').text(dataObj.streetAddress.split(',')[0]);
+            $('#addressTwoAddress2').text(dataObj.streetAddress.split(',')[1]);
+            $('#addressTwoPostalCode').text(dataObj.postalCode);
+            $('#addressTwoMobileNo').text(dataObj.mobileNo);
+        }
+
+
+        //clear the forms for new data entry
+        function addNewAddressClear() {
+            $('#contactName').val('');
+            $('#mobileNumber').val('');
+            $('#streetAddress').val('');
+            $('#postalCode').val('');
+        }
+
+        ///////////////////////////// Update Address //////////////////////////////////////////
+
+        app.UpdateAddress = function(newAddress) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            $('#pgShippingAddress').data('success', 'true');
+            userName = Email.split('@')[0];
+            userName += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                try {
+                    var userRec = JSON.parse(req.responseText);
+                    if ((userRec.AddressOne == null) && (userRec.AddressTwo == null) && (userRec.AddressTwo != "") && (userRec.AddressOne != "")) {
+                        userRec.AddressOne = newAddress;
+                        if (newAddress.defaultAddress) {
+                            if (userRec.AddressTwo != null) {
+                                if (userRec.AddressTwo.defaultAddress) {
+                                    userRec.AddressOne.defaultAddress = true;
+                                    userRec.AddressTwo.defaultAddress = false;
+                                }
+                            }
+                        }
+                        var recordJSON = JSON.stringify(userRec);
+                        var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                        if (req.status == 200) {
+                            try {
+                                toastr.success('Shipping Details Updated Successfully');
+                            } catch (e) {
+                                $('#pgAddShippingAddress').data('success', 'false');
+                                toastr.error('Updating Shipping Address Error Occured!');
+                            }
+                        }
+                        return;
+                    } else if ((userRec.AddressTwo == null) && (userRec.AddressOne != "") && (userRec.AddressTwo != "")) {
+                        userRec.AddressTwo = newAddress;
+                        if (newAddress.defaultAddress) {
+                            if (userRec.AddressOne != null) {
+                                if (userRec.AddressOne.defaultAddress) {
+                                    userRec.AddressTwo.defaultAddress = true;
+                                    userRec.AddressOne.defaultAddress = false;
+                                }
+                            }
+                        }
+                        var recordJSON = JSON.stringify(userRec);
+                        var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                        if (req.status == 200) {
+                            try {
+                                toastr.success('Shipping Details Updated Successfully');
+                            } catch (e) {
+                                $('#pgAddShippingAddress').data('success', 'false');
+                                toastr.error('Updating Shipping Address Error Occured!');
+                            }
+                        }
+                        return;
+                    }
+                } catch (e) {
+                    $('#pgAddShippingAddress').data('success', 'false');
+                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                }
+            }
+            var succ = $('#pgAddShippingAddress').data('success');
+            if (succ == 'true') {
+                addNewAddressClear();
+                $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+            }
+        };
+
+        $('#editShippingBtn').on('click', function() {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            userName += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                try {
+                    var userRec = JSON.parse(req.responseText);
+                    if (editShippingAddressSelected == "addressOneRadio") {
+                        $('#editContactName').val(userRec.AddressOne.contactName);
+                        $('#editMobileNumber').val(userRec.AddressOne.mobileNo);
+                        $('#editStreetAddress').val(userRec.AddressOne.streetAddress);
+                        $('#editPostalCode').val(userRec.AddressOne.postalCode);
+                        if (userRec.AddressOne.defaultAddress) {
+                            $("#editSetAsDefaultSwitch").prop("checked", true).flipswitch("refresh");
+                        } else {
+                            $("#editSetAsDefaultSwitch").prop("checked", false).flipswitch("refresh");
+                        }
+                    } else {
+                        $('#editContactName').val(userRec.AddressTwo.contactName);
+                        $('#editMobileNumber').val(userRec.AddressTwo.mobileNo);
+                        $('#editStreetAddress').val(userRec.AddressTwo.streetAddress);
+                        $('#editPostalCode').val(userRec.AddressTwo.postalCode);
+                        if (userRec.AddressTwo.defaultAddress) {
+                            $("#editSetAsDefaultSwitch").prop("checked", true).flipswitch("refresh");
+                        } else {
+                            $("#editSetAsDefaultSwitch").prop("checked", false).flipswitch("refresh");
+                        }
+                    }
+                } catch (e) {}
+            }
+            $.mobile.changePage('#pgEditShippingAddress');
+        });
+
+        ///////////////////////////// Update Selected Address //////////////////////////////////////////
+
+        app.UpdateSelectedAddress = function(newAddress, selectedAddress) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            $('#pgShippingAddress').data('success', 'true');
+            userName = Email.split('@')[0];
+            userName += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                try {
+                    var userRec = JSON.parse(req.responseText);
+                    if (selectedAddress == "AddressOne") {
+                        userRec.AddressOne = newAddress;
+                        if (newAddress.defaultAddress) {
+                            if (userRec.AddressTwo != null) {
+                                if (userRec.AddressTwo.defaultAddress) {
+                                    userRec.AddressOne.defaultAddress = true;
+                                    userRec.AddressTwo.defaultAddress = false;
+                                }
+                            }
+                        }
+
+                    } else {
+                        userRec.AddressTwo = newAddress;
+                        if (newAddress.defaultAddress) {
+                            if (userRec.AddressOne != null) {
+                                if (userRec.AddressOne.defaultAddress) {
+                                    userRec.AddressTwo.defaultAddress = true;
+                                    userRec.AddressOne.defaultAddress = false;
+                                }
+                            }
+                        }
+                    }
+                    var recordJSON = JSON.stringify(userRec);
+                    var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {} catch (e) {
+                            $('#pgAddShippingAddress').data('success', 'false');
+                            toastr.error('Updating Shipping Address Error Occured!');
+                        }
+                    }
+                } catch (e) {
+                    $('#pgAddShippingAddress').data('success', 'false');
+                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                }
+            }
+            var succ = $('#pgAddShippingAddress').data('success');
+            if (succ == 'true') {
+                addNewAddressClear();
+                $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+            }
+        };
+
+        $('#addressOneRadio').on('change', function() {
+            if ($('#addressOneRadio').prop("checked")) {
+                editShippingAddressSelected = this.id;
+                $('#addressTwoRadio').prop("checked", false);
+            }
+        });
+
+        $('#addressTwoRadio').on('change', function() {
+            if ($('#addressTwoRadio').prop("checked")) {
+                editShippingAddressSelected = this.id;
+                $('#addressOneRadio').prop("checked", false);
+            }
+        });
+
+
+        //////////////////////// Item View /////////////////////////////////////////////////////
+
+        $('#itemViewBackBtn').on('click', function() {
+            var productType = $('#itemImageContainer').attr('productType');
+            if (productType == "Flash_Deals") {
+                $.mobile.changePage('#pgFlashDeals');
+            } else if (productType == "Top_Selection") {
+                app.GetTopSelectionOrNewProductsListItems("TopSelection");
+                $.mobile.changePage('#pgTopSelection');
+            } else {
+                app.GetTopSelectionOrNewProductsListItems("NewProducts");
+                $.mobile.changePage('#pgNewProducts');
+            }
+        });
+
+        $('#productDescription').on('click', function() {
+            $("#itemDescriptionPopup").popup('open');
+            $("#pgItemViewContent").css('opacity', '0.2');
+        });
+
+        $("#itemDescriptionPopup").bind({
+            popupafterclose: function(event, ui) {
+                $("#pgItemViewContent").css('opacity', '1');
+            }
+        });
+
         app.PopulateSelectedItemDetals = function(itemNumber, source, dataObj) {
+            $('#itemImageContainer').attr('productType', source);
+
+            $('#productDescriptionTitle').text(dataObj.Product_Name);
+            $('#productDescriptionSpan').text(dataObj.Description);
+            $("#itemMainDetails").attr('productId', dataObj.Product_ID);
+
             // Item view for favourite list items
             objectValue = null;
             objectValue = dataObj;
             if (source == "Flash_Deals") {
-                $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                if (dataObj.isFavourite) {
+                    $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
+                } else {
+                    $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                }
                 var price = dataObj.Price;
                 var discountPrice = dataObj.Discount_Price;
 
@@ -2451,11 +3017,16 @@ $(function() {
                 var newPrice = priceNew - discountPriceNew;
                 var newPriceTwoPlaces = newPrice.toFixed(2);
 
-                $("#productPriceValue").text("$" + newPriceTwoPlaces);
+                $("#productPriceValue").text("US $" + newPriceTwoPlaces);
+                $("#reducedProductPriceValue").css('display', 'block');
                 $("#reducedProductPriceValue").text(dataObj.Price);
+                $("#productNameValue2").css('display', 'block');
+                $("#productNameValue").css('display', 'none');
                 $("#productNameValue2").text(dataObj.Product_Name);
+                $("#discountPersentage").css('display', 'block');
                 $("#discountPersentage").text(dataObj.Discount_Percentage + " off");
                 $('#itemTypeIcon').css('display', 'none');
+
             } else {
                 if (source == "From_Favourite_List") {
                     $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
@@ -2464,54 +3035,105 @@ $(function() {
                     $('#reducedProductPriceValue').css('display', 'none');
                     $('#discountPersentage').css('display', 'none');
                     $('#productNameValue2').css('display', 'none');
+                    $('#productNameValue').css('display', 'block');
                     $('#itemTypeIcon').css('display', 'none');
                 }
 
                 if (source == "Top_Selection") {
-                    $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
-                    $("#productPriceValue").text(dataObj.Price);
+                    if (dataObj.isFavourite) {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
+                    } else {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    }
+                    $("#productPriceValue").text("US " + dataObj.Price);
                     $("#productNameValue").text(dataObj.Product_Name);
                     $('#reducedProductPriceValue').css('display', 'none');
                     $('#discountPersentage').css('display', 'none');
                     $('#productNameValue2').css('display', 'none');
+                    $('#productNameValue').css('display', 'block');
                     $("#itemTypeIcon").attr("src", dataObj.Product_Type_Image);
+                    $('#itemTypeIcon').css('display', 'block');
                 }
 
                 if (source == "New_Products") {
-                    $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
-                    $("#productPriceValue").text(dataObj.Price);
+                    if (dataObj.isFavourite) {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/favourite.png");
+                    } else {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    }
+                    $("#productPriceValue").text("US " + dataObj.Price);
                     $("#productNameValue").text(dataObj.Product_Name);
                     $('#reducedProductPriceValue').css('display', 'none');
                     $('#discountPersentage').css('display', 'none');
                     $('#productNameValue2').css('display', 'none');
+                    $('#productNameValue').css('display', 'block');
                     $("#itemTypeIcon").attr("src", dataObj.Product_Type_Image);
+                    $('#itemTypeIcon').css('display', 'block');
                 }
             }
 
             $("#productRating").text(dataObj.Product_Rating + ".0");
+            if (source == "Flash_Deals") {
+                $('#productRating').css('margin-top', '13px');
+            } else {
+                $('#productRating').css('margin-top', '5px');
+            }
             $("#itemImage").attr("src", dataObj.Path);
-
-            // $('#favouriteItemListDiv').css('display', 'none');
 
             if (dataObj.Product_Rating >= 1) {
                 $("#oneStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#oneStarRating').css('margin-top', '13px');
+                    $('#twoStarRating').css('margin-top', '13px');
+                    $('#threeStarRating').css('margin-top', '13px');
+                    $('#fourStarRating').css('margin-top', '13px');
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#oneStarRating').css('margin-top', '5px');
+                    $('#twoStarRating').css('margin-top', '5px');
+                    $('#threeStarRating').css('margin-top', '5px');
+                    $('#fourStarRating').css('margin-top', '5px');
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#oneStarRating').css('display', 'none');
                 $('#twoStarRating').css('display', 'none');
                 $('#threeStarRating').css('display', 'none');
                 $('#fourStarRating').css('display', 'none');
                 $('#fiveStarRating').css('display', 'none');
+
             }
             if (dataObj.Product_Rating >= 2) {
                 $("#twoStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#twoStarRating').css('margin-top', '13px');
+                    $('#threeStarRating').css('margin-top', '13px');
+                    $('#fourStarRating').css('margin-top', '13px');
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#twoStarRating').css('margin-top', '5px');
+                    $('#threeStarRating').css('margin-top', '5px');
+                    $('#fourStarRating').css('margin-top', '5px');
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#twoStarRating').css('display', 'none');
                 $('#threeStarRating').css('display', 'none');
                 $('#fourStarRating').css('display', 'none');
                 $('#fiveStarRating').css('display', 'none');
+
             }
             if (dataObj.Product_Rating >= 3) {
                 $("#threeStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#threeStarRating').css('margin-top', '13px');
+                    $('#fourStarRating').css('margin-top', '13px');
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#threeStarRating').css('margin-top', '5px');
+                    $('#fourStarRating').css('margin-top', '5px');
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#threeStarRating').css('display', 'none');
                 $('#fourStarRating').css('display', 'none');
@@ -2519,12 +3141,25 @@ $(function() {
             }
             if (dataObj.Product_Rating >= 4) {
                 $("#fourStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#fourStarRating').css('margin-top', '13px');
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#fourStarRating').css('margin-top', '5px');
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#fourStarRating').css('display', 'none');
                 $('#fiveStarRating').css('display', 'none');
+
             }
             if (dataObj.Product_Rating >= 5) {
                 $("#fiveStarRating").attr("src", "./assets/img/Icons/star.png");
+                if (source == "Flash_Deals") {
+                    $('#fiveStarRating').css('margin-top', '13px');
+                } else {
+                    $('#fiveStarRating').css('margin-top', '5px');
+                }
             } else {
                 $('#fiveStarRating').css('display', 'none');
             }
