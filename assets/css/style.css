@@ -89,6 +89,15 @@ span.select2 {
     margin-right: 10px !important;
 }
 
+.bullet {
+    border-radius: 50%;
+    width: 125px;
+    height: 15px;
+    background: #FFFFFF;
+    border: 0.6px solid rgba(0, 0, 0, 0.8);
+    box-sizing: border-box;
+}
+
 .asda-bar {
     position: absolute;
     width: 375px;

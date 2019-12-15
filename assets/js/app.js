@@ -5,9 +5,11 @@ $(function() {
     var currentLoggedUser = null;
     var favouritesSelectorValue = "ALL_PRODUCTS";
     var deleteFavouriteItemsList = [];
+    var deleteFavouriteItemsListName = '';
     var shareFavouriteItem = null;
     var moveFavouriteItemsList = [];
     var selectedItemId = null;
+    var selectedListName = null;
     var selectedItemName = null;
     var selectedFavouriteListName = "Default_Favourite_List";
     var createNewFavouriteListName = '';
@@ -77,10 +79,25 @@ $(function() {
             $.mobile.changePage('#pgPlayAndWin');
         });
 
-        $('#backBtnPlayAndWin').on('click', function(e) {
+        $('#backBtnPlayAndWin, #newGameBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            var gameScore = $('.score').text();
+            updateLoyaltyPoints(gameScore);
             $.mobile.changePage('#pgHome');
+        });
+
+        $('#back-icon-member-center').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgAccount');
+        });
+
+        $('#member-type, #drop_down_icon, #crown-membership').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgMemberCenter');
+            getCurrentLoggedUser();
         });
 
         $('#findStoresBtn').on('click', function(e) {
@@ -503,12 +520,6 @@ $(function() {
             $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
         });
 
-        // $('#user-name, #profile-pic').on('click', function(e) {
-        //     e.preventDefault();
-        //     e.stopImmediatePropagation();
-        //     $.mobile.changePage('#pgEditAccount', { transition: pgtransition });
-        // });
-
         $('#about-us-icon, #about-us-text').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -785,6 +796,8 @@ $(function() {
             if ($('#fav-header').hasClass('slidedown')) {
                 $('#fav-header').removeClass("slidedown");
             }
+
+            //$(".ui-rangeslider").rangeslider("disable");
 
         });
 
@@ -1578,7 +1591,7 @@ $(function() {
             parent.append(itemFavouriteListRow);
         }
 
-        ////////////////////////// Remove Favourite From List //////////////////////////////////////
+        ////////////////////////// Remove Favourite Item From List //////////////////////////////////////
 
         function deleteFavouriteItems(deleteFavouriteItemsList) {
             deleteFavouriteItemsList.forEach(element => {
@@ -1610,6 +1623,32 @@ $(function() {
             });
         }
 
+
+        ////////////////////////// Delete Favourite List //////////////////////////////////////
+
+        function deleteFavouriteList(deleteFavouriteListName) {
+            $('#favouriteListParentDiv').find("div#" + deleteFavouriteListName + "-parent-div").remove();
+            $('#favouriteListParentDiv').find("div#" + deleteFavouriteListName + "-carousel-parent-div").remove();
+
+            //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
+            currentLoggedUser = "User_001";
+            var fileName = currentLoggedUser + "-" + deleteFavouriteListName + "FavouriteList";
+            var recordObj = {
+                "FileName": fileName
+            };
+            var recordJSON = JSON.stringify(recordObj);
+            var req = Ajax("./controllers/ajaxDeleteFavouriteList.php?", "POST", recordJSON);
+            if (req.status == 200) {
+                try {
+                    //toastr.success('Favourite List Deleted');
+                } catch (e) {
+                    toastr.error('An Error Occurred While Deleting Favourite List');
+                }
+            }
+            deleteFavouriteItemsList = [];
+            $('#deletePopupDialog').popup('close');
+        }
+
         ////////////////////////// Delete Popup Show Method /////////////////////////////////////////////////////
 
         $('#favDeleteItemsBtn').on('click', function() {
@@ -1621,6 +1660,12 @@ $(function() {
         $('#deleteFavouriteBtn').on('click', function() {
             deleteFavouriteItems(deleteFavouriteItemsList);
             editBtnFunctionalities();
+        });
+
+        ////////////////////////// Delete Favourite List  /////////////////////////////////////////////////////
+
+        $('#deleteFavouriteListBtn').on('click', function() {
+            deleteFavouriteList(deleteFavouriteItemsListName);
         });
 
         /////////////////////////// Move Item To New Favourite Lists ////////////////////////////////////////////////
@@ -2027,7 +2072,8 @@ $(function() {
             });
 
             var favouriteListTitleDiv = $('<div>', {
-                'style': 'margin-left: 3%; margin-bottom: 1%; display: flex;'
+                'style': 'margin-left: 3%; margin-bottom: 1%; display: flex;',
+                'id': listObj.Name + '-parent-div'
             });
 
             if (index >= 1) {
@@ -2072,30 +2118,32 @@ $(function() {
 
             favouriteListTitleSpan.text(listObj.Name.replace(/_/g, ' '));
 
-            var favouriteListContextMenu = $('<img>', {
-                'src': './assets/img/menu.png',
-                'style': 'height: 18px; width: 18px; transform: rotate(90deg); display: none',
-                'id': 'context-menu-' + listObj.Name,
-                'class': 'contextMenu iw-mTrigger',
-            }).on('click', function() {});
+            var favouriteListContextMenu = null;
+            if (listObj.Name == "Default_Favourite_List") {
+                favouriteListContextMenu = $('<img>', {
+                    'src': './assets/img/menu.png',
+                    'style': 'height: 18px; width: 18px; transform: rotate(90deg); display: none',
+                    'id': 'context-menu-' + listObj.Name,
+                    'class': 'contextMenu iw-mTrigger',
+                }).on('click', function() {
+                    selectedListName = this.id.split('-')[2];
+                });
+            } else {
+                favouriteListContextMenu = $('<img>', {
+                    'src': './assets/img/menu.png',
+                    'style': 'height: 18px; width: 18px; transform: rotate(90deg); display: block',
+                    'id': 'context-menu-' + listObj.Name,
+                    'class': 'contextMenu iw-mTrigger',
+                }).on('click', function() {
+                    selectedListName = this.id.split('-')[2];
+                });
+            }
 
             var menu = [{
-                name: 'Delete List',
+                name: 'Delete Favourite List',
                 fun: function(data, event) {
-                    deleteFavouriteItemsList.push(selectedItemId);
-                    $('#deletePopupDialog').popup('open');
-                }
-            }, {
-                name: 'Share List via E-mail',
-                fun: function(data, event) {
-                    shareFavouriteItem = {
-                        'productId': selectedItemId,
-                        'productName': selectedItemName
-                    };
-                    $('#sharePopupDialog').popup('open');
-                    $('#cancelFavouriteBtn').removeClass('ui-shadow');
-                    $('#shareFavouriteBtn').removeClass('ui-shadow');
-
+                    deleteFavouriteItemsListName = selectedListName;
+                    $('#deleteListPopupDialog').popup('open');
                 }
             }];
 
@@ -2123,7 +2171,8 @@ $(function() {
             parent.append(favouriteListTitleDiv);
 
             var favouriteCarouselParent = $('<div>', {
-                'style': 'margin-bottom: 5%;  margin-left: 10px;'
+                'style': 'margin-bottom: 5%;  margin-left: 10px;',
+                'id': listObj.Name + '-carousel-parent-div'
             });
 
             var favouriteCarouselInner = $('<div>', {
@@ -2355,7 +2404,7 @@ $(function() {
                         favouriteItemsList = JSON.parse(req.responseText);
                     }
                 } catch (e) {
-                    toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
+                    //toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
                 }
             } else {
                 toastr.error('An Error Occurred While Retrieving Default Favourite Lists');
@@ -2908,6 +2957,90 @@ $(function() {
             }
             $.mobile.changePage('#pgEditShippingAddress');
         });
+
+        ///////////////////////////// Update Loyalty Points ////////////////////////////////////////////
+
+        function updateLoyaltyPoints(gameScore) {
+            var gameScore = gameScore.split(':')[1];
+            var loyaltyPoints = calculateLoyaltyPoints(gameScore.trim());
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            userName += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                try {
+                    var userRec = JSON.parse(req.responseText);
+                    if (userRec != null) {
+                        userRec.LoyaltyPoints = loyaltyPoints;
+                        var recordJSON = JSON.stringify(userRec);
+                        var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
+                        if (req.status == 200) {
+                            try {
+                                updateMemberCenter(userRec);
+                            } catch (e) {
+                                toastr.error('Updating Shipping Address Error Occured!');
+                            }
+                        }
+                    }
+                } catch (e) {}
+            }
+        }
+
+        function calculateLoyaltyPoints(gameScore) {
+            var loyaltyPoints = gameScore / 100;
+            return loyaltyPoints;
+        }
+
+        function getCurrentLoggedUser() {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            userName += '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
+            if (req.status == 200) {
+                try {
+                    var userRec = JSON.parse(req.responseText);
+                    if (userRec != null) {
+                        updateMemberCenter(userRec);
+                        $(".slider").change();
+                    }
+                } catch (e) {}
+            }
+        }
+
+        function updateMemberCenter(userRec) {
+            $('#loyaltyPointAmount').text(userRec.LoyaltyPoints);
+            if (userRec.LoyaltyPoints >= 1 && userRec.LoyaltyPoints <= 100) {
+                $('#startingMemberLevel').text("Silver");
+                $('#endingMemberLevel').text("Gold");
+                var pointLeftToNextLevel = 100 - userRec.LoyaltyPoints;
+                $('#loyaltyPointAmountLeftToNextLevel').text(pointLeftToNextLevel + " points to reach Gold");
+                var sliderPercentage = (userRec.LoyaltyPoints / 100) * 100;
+                $(".slider").val(sliderPercentage).slider("refresh");
+                $(".slider").change();
+            } else if (userRec.LoyaltyPoints >= 101 && userRec.LoyaltyPoints <= 500) {
+                $('#startingMemberLevel').text("Gold");
+                $('#endingMemberLevel').text("Platinum");
+                var pointLeftToNextLevel = 500 - userRec.LoyaltyPoints;
+                $('#loyaltyPointAmountLeftToNextLevel').text(pointLeftToNextLevel + " points to reach Platinum");
+                var sliderPercentage = (userRec.LoyaltyPoints / 400) * 100;
+                $(".slider").val(sliderPercentage).slider("refresh");
+                $(".slider").change();
+            } else if (userRec.LoyaltyPoints >= 501 && userRec.LoyaltyPoints <= 1500) {
+                $('#startingMemberLevel').text("Platinum");
+                $('#endingMemberLevel').text("Diamond");
+                var pointLeftToNextLevel = 1500 - userRec.LoyaltyPoints;
+                $('#loyaltyPointAmountLeftToNextLevel').text(pointLeftToNextLevel + " points to reach Diamond");
+                var sliderPercentage = (userRec.LoyaltyPoints / 1000) * 100;
+                $(".slider").val(sliderPercentage).slider("refresh");
+                $(".slider").change();
+            } else {
+                $('#startingMemberLevel').text("Diamond");
+                $('#loyaltyPointAmountLeftToNextLevel').text("You are in highest member level");
+                $(".slider").val(100).slider("refresh");
+                $(".slider").change();
+            }
+        }
+
 
         ///////////////////////////// Update Selected Address //////////////////////////////////////////
 

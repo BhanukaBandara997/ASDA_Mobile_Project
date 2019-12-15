@@ -856,7 +856,7 @@
 #header-title {
     position: absolute;
     left: 35%;
-    top: -20%;
+    top: 20%;
     font-size: 30px;
 }
 
@@ -1026,6 +1026,138 @@
     color: rgba(0, 0, 0, 0.8);
 }
 
+.member-center-my-points-title {
+    text-align: center;
+    font-family: Open Sans;
+    font-size: 13px;
+    line-height: 15px;
+    color: #FFFFFF;
+    margin-top: 20px;
+}
+
+.member-center-my-points {
+    font-family: Open Sans;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 27px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 10px;
+}
+
+.member-center-date {
+    font-family: Open Sans;
+    font-size: 10px;
+    line-height: 14px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#startingMemberLevel {
+    position: absolute;
+    left: 15%;
+    top: 60%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 11px;
+    line-height: 14px;
+    color: #FFFFFF;
+}
+
+#endingMemberLevel {
+    position: absolute;
+    right: 15%;
+    top: 60%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 11px;
+    line-height: 14px;
+    color: #FFFFFF;
+}
+
+.member-center-left-points {
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 11px;
+    line-height: 11px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.ui-slider-track .ui-btn.ui-slider-handle {
+    width: 15px !important;
+    height: 15px !important;
+    margin-top: -8px !important;
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.points-work-title {
+    font-family: Open Sans;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 14px;
+    color: #000000;
+}
+
+.member-center-titles {
+    font-family: Open Sans;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    color: #000000;
+    margin-left: 15px;
+    margin-top: 9px;
+}
+
+.member-center-content {
+    font-family: Open Sans;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    margin-left: 15px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.member-level-guide-title {
+    font-family: Open Sans;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 16px;
+    color: #000000;
+    margin-left: 10px;
+    margin-top: 9px;
+}
+
+.member-level-guide {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 15px;
+    color: rgba(0, 0, 0, 1.6);
+}
+
+.member-type-titles {
+    font-family: Open Sans;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+    margin-left: 15px;
+    margin-top: 7px;
+}
+
+.member-type-values {
+    font-family: Open Sans;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+    margin-left: 15px;
+    margin-top: 7px;
+}
+
 
 /* iPhone X Portrait */
 
@@ -1050,7 +1182,7 @@
     #flash-deals-header-title {
         position: absolute;
         left: 33%;
-        top: 12%;
+        top: 29%;
         font-size: 23px;
     }
 }
