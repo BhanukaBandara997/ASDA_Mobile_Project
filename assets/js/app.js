@@ -1622,7 +1622,7 @@ $(function() {
             });
         }
 
-
+        ////// TODOD
         ////////////////////////// Delete Favourite List //////////////////////////////////////
 
         function deleteFavouriteList(deleteFavouriteListName) {
@@ -1630,7 +1630,7 @@ $(function() {
             $('#favouriteListParentDiv').find("div#" + deleteFavouriteListName + "-carousel-parent-div").remove();
 
             //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
-            currentLoggedUser = "User_001";
+            var currentLoggedUser = "User_001";
             var fileName = currentLoggedUser + "-" + deleteFavouriteListName + "FavouriteList";
             var recordObj = {
                 "FileName": fileName
@@ -1639,6 +1639,35 @@ $(function() {
             var req = Ajax("./controllers/ajaxDeleteFavouriteList.php?", "POST", recordJSON);
             if (req.status == 200) {
                 try {
+                    //var currentLoggedUser = localStorage.getItem("currentLoggedInUser");
+                    var currentLoggedUser = "User_001";
+                    var fileName = currentLoggedUser + "-favouriteLists.json";
+                    var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName));
+                    if (req.status == 200) {
+                        try {
+                            var favouriteItemsList = JSON.parse(req.responseText);
+                            $.each(favouriteItemsList.FavouriteLists, function(index, val) {
+                                favouriteItemsList.FavouriteLists = jQuery.grep(favouriteItemsList.FavouriteLists, function(value) {
+                                    return value.Name != deleteFavouriteListName;
+                                });
+                            });
+                            var fileName = currentLoggedUser + "-favouriteLists";
+                            var fileName = {
+                                "ParentFileName": fileName
+                            }
+                            favouriteItemsList.FavouriteLists.push(fileName);
+                            var recordJSON = JSON.stringify(favouriteItemsList);
+                            var req = Ajax("./controllers/ajaxUpdateFavouriteList.php", "POST", recordJSON);
+                            if (req.status == 200) {
+                                $.mobile.changePage('#pgFavourites');
+                            } else {
+                                toastr.success('An Error Occurred While Upating Favourite Lists');
+                            }
+
+                        } catch (e) {
+                            toastr.error('An Error Occurred While Retrieving Favourite Lists');
+                        }
+                    }
                     //toastr.success('Favourite List Deleted');
                 } catch (e) {
                     toastr.error('An Error Occurred While Deleting Favourite List');

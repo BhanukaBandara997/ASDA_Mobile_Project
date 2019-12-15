@@ -16,6 +16,7 @@ foreach ($array as $value) {
 }
 
 $jsonRec->FavouriteLists = $array;
+print_r($jsonRec);
 $jsonUpdatedRec = json_encode($jsonRec);
 
 //write the data out to a file on the server
