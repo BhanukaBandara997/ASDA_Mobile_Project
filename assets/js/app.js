@@ -77,6 +77,12 @@ $(function() {
             $.mobile.changePage('#pgPlayAndWin');
         });
 
+        $('#backBtnPlayAndWin').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgHome');
+        });
+
         $('#findStoresBtn').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -2151,25 +2157,27 @@ $(function() {
             var favouriteItemsList = getDefaultFavouriteListDetails(listObj.FileName);
 
             var count = 0;
-            $.each(favouriteItemsList.FavouriteItemList, function() {
+            if (favouriteItemsList != null) {
+                $.each(favouriteItemsList.FavouriteItemList, function() {
 
-                if (count >= 2) {
-                    $('.favourite-list-carousel').owlCarousel({
-                        items: 2.5,
-                        loop: true,
-                        margin: 10,
-                    });
-                } else {
-                    $('.favourite-list-carousel').owlCarousel({
-                        items: 2.5,
-                        loop: false,
-                        margin: 10,
-                    });
-                }
+                    if (count >= 2) {
+                        $('.favourite-list-carousel').owlCarousel({
+                            items: 2.5,
+                            loop: true,
+                            margin: 10,
+                        });
+                    } else {
+                        $('.favourite-list-carousel').owlCarousel({
+                            items: 2.5,
+                            loop: false,
+                            margin: 10,
+                        });
+                    }
 
-                appendFavouriteListItemsToCarousel(favouriteCarouselInnerItemParent, this);
-                count++;
-            });
+                    appendFavouriteListItemsToCarousel(favouriteCarouselInnerItemParent, this);
+                    count++;
+                });
+            }
 
             $('#' + favouriteCarouselInnerItemParent.attr('id') + '>div.owl-dots').css('display', 'none');
 
@@ -2343,7 +2351,9 @@ $(function() {
             var req = Ajax("./controllers/ajaxGetFavouriteLists.php?file=" + encodeURIComponent(fileName + ".json"));
             if (req.status == 200) {
                 try {
-                    favouriteItemsList = JSON.parse(req.responseText);
+                    if (req.responseText != null && req.responseText != "") {
+                        favouriteItemsList = JSON.parse(req.responseText);
+                    }
                 } catch (e) {
                     toastr.error('An Error Occurred While Converting Default Favourite Lists To JSON');
                 }
@@ -2966,6 +2976,18 @@ $(function() {
             }
         });
 
+        /////////////////////////// Play and Win //////////////////////////////////////////////
+
+        $(function() {
+            new JSGame.Game($(".game"));
+        });
+
+        $(function() {
+            $(".game").swipe({
+                swipe: function(event, direction, distance, duration, fingerCount, fingerData) {},
+                threshold: 0
+            });
+        });
 
         //////////////////////// Item View /////////////////////////////////////////////////////
 
