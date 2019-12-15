@@ -797,7 +797,7 @@ $(function() {
                 $('#fav-header').removeClass("slidedown");
             }
 
-            //$(".ui-rangeslider").rangeslider("disable");
+            $(".ui-rangeslider").rangeslider("disable");
 
         });
 
@@ -881,29 +881,28 @@ $(function() {
             if (req.status == 200) {
                 try {
                     var addressObject = JSON.parse(req.responseText);
-                    if ((addressObject.LoyaltyPoints >= 0 && LoyaltyPoints <= 75) || addressObject.LoyaltyPoints == null) {
-                        $("#loged-in-member-center").text("Silver Member");
-                        $("#member-center-icon").attr("src", "./assets/img/Member_Types/silver_crown.png");
-                        $("#member-type").text("Silver Member");
-                        $("#crown-membership").attr("src", "./assets/img/Member_Types/silver_crown.png");
-                    }
-                    if (addressObject.LoyaltyPoints >= 75 && addressObject.LoyaltyPoints <= 200) {
-                        $("#loged-in-member-center").text("Gold Member");
-                        $("#member-center-icon").attr("src", "./assets/img/Member_Types/gold_crown.png");
-                        $("#member-type").text("Gold Member");
-                        $("#crown-membership").attr("src", "./assets/img/Member_Types/gold_crown.png");
-                    }
-                    if (addressObject.LoyaltyPoints >= 200 && addressObject.LoyaltyPoints <= 400) {
-                        $("#loged-in-member-center").text("Platinum Member");
-                        $("#member-center-icon").attr("src", "./assets/img/Member_Types/platinum_crown.png");
-                        $("#member-type").text("Platinum Member");
-                        $("#crown-membership").attr("src", "./assets/img/Member_Types/platinum_crown.png");
-                    }
-                    if (addressObject.LoyaltyPoints >= 400 && (addressObject.LoyaltyPoints <= 600 || addressObject.LoyaltyPoints > 600)) {
-                        $("#loged-in-member-center").text("Diamond Member");
-                        $("#member-center-icon").attr("src", "./assets/img/Member_Types/diamond_crown.png");
-                        $("#member-type").text("Diamond Member");
-                        $("#crown-membership").attr("src", "./assets/img/Member_Types/diamond_crown.png");
+                    if (addressObject.LoyaltyPoints != null) {
+                        if ((addressObject.LoyaltyPoints >= 0) && (addressObject.LoyaltyPoints <= 100)) {
+                            $("#loged-in-member-center").text("Silver Member");
+                            $("#member-center-icon").attr("src", "./assets/img/Member_Types/silver_crown.png");
+                            $("#member-type").text("Silver Member");
+                            $("#crown-membership").attr("src", "./assets/img/Member_Types/silver_crown.png");
+                        } else if ((addressObject.LoyaltyPoints >= 101) && (addressObject.LoyaltyPoints <= 500)) {
+                            $("#loged-in-member-center").text("Gold Member");
+                            $("#member-center-icon").attr("src", "./assets/img/Member_Types/crown.png");
+                            $("#member-type").text("Gold Member");
+                            $("#crown-membership").attr("src", "./assets/img/Member_Types/crown.png");
+                        } else if ((addressObject.LoyaltyPoints >= 501) && (addressObject.LoyaltyPoints <= 1500)) {
+                            $("#loged-in-member-center").text("Platinum Member");
+                            $("#member-center-icon").attr("src", "./assets/img/Member_Types/platinum_crown.png");
+                            $("#member-type").text("Platinum Member");
+                            $("#crown-membership").attr("src", "./assets/img/Member_Types/platinum_crown.png");
+                        } else if ((addressObject.LoyaltyPoints >= 1501)) {
+                            $("#loged-in-member-center").text("Diamond Member");
+                            $("#member-center-icon").attr("src", "./assets/img/Member_Types/diamond_crown.png");
+                            $("#member-type").text("Diamond Member");
+                            $("#crown-membership").attr("src", "./assets/img/Member_Types/diamond_crown.png");
+                        }
                     }
                 } catch (e) {
 
