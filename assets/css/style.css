@@ -659,6 +659,10 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+#itemDetailsDiv.ui-footer {
+    border-style: none !important;
+}
+
 .shipping-address-divider {
     background: #C4C4C4;
     height: 6px;

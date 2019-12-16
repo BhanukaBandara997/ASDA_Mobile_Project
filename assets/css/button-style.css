@@ -157,7 +157,7 @@
         height: 2px !important;
     }
     .owl-theme .owl-nav.disabled+.owl-dots {
-        margin-top: 0px !important;
+        margin-top: -10px !important;
     }
 }
 

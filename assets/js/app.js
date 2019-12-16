@@ -369,25 +369,20 @@ $(function() {
 
 
         ///////////////////////  Forget Password  ////////////////////////////////////////////////////////////////
-        // TODO - Send Mail Function Can Be Added
-        // bind the login in click event
         $('#pgForgetPasswordForm').submit(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            // verify the user details
             app.ForgetPassword($('#pgForgetPasswordEmail').val().trim());
         });
 
 
         app.ForgetPassword = function(Email) {
-            // get users
             $('#pgForgetPassword').data('success', 'true');
             var userName = Email.trim();
             userName = userName.split('@')[0];
             userName += '.json';
             var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(userName));
             if (req.status == 200) {
-                // parse string to json object
                 try {
                     var userRec = JSON.parse(req.responseText);
                     if (Email != userRec.Email) {
@@ -540,6 +535,12 @@ $(function() {
             e.stopImmediatePropagation();
             getShippingAddressDetails();
             $.mobile.changePage('#pgShippingAddress', { transition: pgtransition });
+        });
+
+        $('#back-icon-view-item').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgReview', { transition: pgtransition });
         });
 
         // Pop-up Gender Dialog
@@ -759,12 +760,6 @@ $(function() {
             $("#sub-category-name-text").text(parentCategoryName);
             $.mobile.changePage('#pgSubCategory', { transition: pgtransition });
         }
-
-        // function setUserName(userName) {
-        //     var newUserName = userName.substr(0, userName.indexOf('.'));
-        //     $("#user-name").text(newUserName);
-        // }
-
 
         ///////////////////////////// Flash Deals Carousel Item Appending /////////////////////////////////////////////////////
 
@@ -2441,13 +2436,10 @@ $(function() {
         }
 
 
-        /////////////////////////////////////  Shared Item Open Using URL  ///////////////////////////////////////////
-
-        // if (window.location.href.indexOf('OscarIntegrationView.jspa') >= 0) {
-        //     setTimeout(() => {
-        //         testCaseId = getParameterByName('testcase');
-        //     });
-        // }
+        /////////////////////////////////////  Shared Item Open Using URL  //////////////////////////////////////////
+        jQuery(window).on('hashchange', function() {
+            var hash = window.location.hash;
+        });
 
         ///////////////////////////////////  Add To Favourites  ///////////////////////////////////////////////////
 
@@ -3490,7 +3482,7 @@ $(function() {
                     var recordJSON = JSON.stringify(reviewList);
                     var req = Ajax("./controllers/ajaxUpdateReviewsList.php", "POST", recordJSON);
                     if (req.status == 200) {
-
+                        $.mobile.changePage('#pgReview');
                     } else {
                         toastr.success('An Error Occurred While Upating Review Lists');
                     }
@@ -3513,7 +3505,7 @@ $(function() {
                     var count = 0;
                     var previousColumnObj = null;
                     var productId = dataObj.Product_ID;
-
+                    $('#reviewDiv').empty();
                     $.each(reviewList.ItemReviews, function(index, val) {
                         if (productId == val.ProductID) {
                             count += 1;
@@ -3726,20 +3718,20 @@ $(function() {
                 'class': 'review-text-card-text-font-style',
             });
 
-            var createNewReviewBtn = $('<button>', {
-                'id': 'createReviewBtn',
-                'class': 'ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button',
-                'style': 'position: absolute; display: block; right: 5%; width: 53px; top: 87%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;'
-            }).on('click', function() {
-                $("#selectedImageForReview").attr("src", objectValue.Path);
-                $("#selectedItemName").text(objectValue.Product_Name);
-                $.mobile.changePage('#pgAddNewReview', { transition: pgtransition });
-            });
+            // var createNewReviewBtn = $('<button>', {
+            //     'id': 'createReviewBtn',
+            //     'class': 'ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button',
+            //     'style': 'height: 53px; position: absolute; display: block; right: 5%; width: 53px; top: 87%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;'
+            // }).on('click', function() {
+            //     $("#selectedImageForReview").attr("src", objectValue.Path);
+            //     $("#selectedItemName").text(objectValue.Product_Name);
+            //     $.mobile.changePage('#pgAddNewReview', { transition: pgtransition });
+            // });
 
-            var createNewReviewBtnIcon = $('<i>', {
-                'class': 'zmdi zmdi-plus zmd-2x',
-                'style': 'color: rgba(227, 9, 9, 0.9);'
-            });
+            // var createNewReviewBtnIcon = $('<i>', {
+            //     'class': 'zmdi zmdi-plus zmd-2x',
+            //     'style': 'color: rgba(227, 9, 9, 0.9);'
+            // });
 
 
             reviewContent.text(dataObj.ReviewContent);
@@ -3757,12 +3749,12 @@ $(function() {
 
             reviewRatingHolderDiv.append(reviewRatingStarDiv);
 
-            createNewReviewBtn.append(createNewReviewBtnIcon);
+            //createNewReviewBtn.append(createNewReviewBtnIcon);
 
             reviewContinerDiv.append(reviewRatingHolderDiv);
             reviewContinerDiv.append(reviewAddedUserDiv);
             reviewContinerDiv.append(reviewTextHolderDiv);
-            reviewContinerDiv.append(createNewReviewBtn);
+            //reviewContinerDiv.append(createNewReviewBtn);
 
             return reviewContinerDiv;
         }

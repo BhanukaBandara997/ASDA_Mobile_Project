@@ -258,8 +258,8 @@
 }
 
 .review-image {
-    width: 27%;
-    height: 17%;
+    width: 30%;
+    height: 20%;
     margin-left: 11%;
     margin-top: 13px;
     padding: 10px;
@@ -300,7 +300,7 @@
         height: 600px !important;
     }
     img.carousel-img {
-        height: 150px !important;
+        height: 160px !important;
         border-radius: 25px !important;
     }
     img.flash-deal-img {
