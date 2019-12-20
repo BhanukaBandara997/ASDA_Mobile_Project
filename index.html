@@ -431,7 +431,7 @@
             <div class="nav-bar-fonts" style="width: 100%; height: 50px; border-bottom: 1.5px #C4C4C4 solid; position:fixed; top: 6.5%; margin-left: -2px;">
                 <form id="favouriteListSelectorDiv" style="margin-top: -11px; -webkit-box-shadow: none !important; box-shadow: none ; display: block;" class="nav-bar-fonts">
                     <div class="ui-field-contain" style=" display: flex; color: #333 !important; -webkit-box-shadow: none !important; box-shadow: none ;">
-                        <select id="favSelect" class="select2" style="width: 80%; padding: 15px; color: #333 !important; -webkit-box-shadow: none !important; box-shadow: none ;">
+                        <select id="favSelect" class="select2" style="width: 80%; padding: 20px; color: #333 !important; -webkit-box-shadow: none !important; box-shadow: none ;">
                             <option value="ALL_PRODUCTS" style="color: #333 !important; font-size: 10px !important;">ALL PRODUCTS</option>
                         </select>
                         <img id="edit-btn" src="./assets/img/Navbar_Images/edit-black.png" class="icon-header-nav" style="height: 20px !important; width: 20px !important; position: absolute; top: 34%; right: 5%;">
@@ -620,15 +620,15 @@
                 </ul>
             </div>
             <div id="favEditNavBar" data-grid="d" style="display: none">
-                <ul style="margin-bottom: 1%;">
+                <ul style="margin-bottom: 2%; margin-top: 5px;">
                     <li class="navbar-align">
                         <div id="favMoveToBtn" style="margin-left: -20%;">
-                            <button class="favourites-move-to-btn"> MOVE TO ANOTHER LIST </button>
+                            <button class="favourites-move-to-btn" style="margin-right: 12%;"> MOVE TO ANOTHER LIST </button>
                         </div>
                     </li>
                     <li class="navbar-align">
                         <div id="favDeleteItemsBtn" style="margin-left: -15%;">
-                            <button class="favourites-delete-btn"> DELETE </button>
+                            <button class="favourites-delete-btn" style="margin-right: 10%;"> DELETE </button>
                         </div>
                     </li>
                 </ul>
@@ -1305,30 +1305,30 @@
                         <img src="./assets/img/Account/member_levels.png" style="height: 35px;width: 35px;">
                         <span class="member-center-titles">Member Levels</span>
                     </div>
-                    <div style="display: flex;margin-top: 15px;">
+                    <div style="display: flex;margin-top: 20px;">
                         <div class="bullet"></div>
                         <span class="member-center-content">The first member level upgrade will occur on Dec 8, 2017 PT. Your Member Level is based on the number of reward points you have accumulated over the past 12 months, we calculate the points on the last day of each month. You can reach higher levels by collecting the number of points required by shopping, interacting and just visiting daily, and new points and level will be effective on 8th of next month. Remember that you must collect enough points each month to avoid dropping down a level!</span>
                     </div>
                 </div>
-                <div style="margin-top: 15px;">
+                <div style="margin-top: 20px;">
                     <div style="display: flex;">
                         <img src="./assets/img/Account/shopping_cart_points.png" style="height: 35px;width: 35px;">
                         <span class="member-center-titles">Shopping Points</span>
                     </div>
-                    <div style="display: flex;margin-top: 15px;">
+                    <div style="display: flex;margin-top: 20px;">
                         <div class="bullet" style="width: 25px !important;"></div>
                         <span class="member-center-content">Earn 5 points for each day that you buy items above or equal to US $2 (max 5 points per day)</span>
                     </div>
-                    <div style="display: flex;margin-top: 15px;">
+                    <div style="display: flex;margin-top: 20px; margin-bottom: 20px;">
                         <div class="bullet" style="width: 25px !important;"></div>
                         <span class="member-center-content">You can earn bonus points by shopping in multiple categories each day (up to 5 points per day)</span>
                     </div>
                 </div>
             </div>
             <div style="height:3px; background: #C4C4C4;"></div>
-            <div style="margin-top: 15px;">
+            <div style="margin-top: 20px;">
                 <span class="member-level-guide-title">Member Level Guide</span>
-                <div style="display: flex;margin-top: 15px;margin-left: 20px;">
+                <div style="display: flex;margin-top: 20px;margin-left: 20px;">
                     <div style="display: grid;position: absolute;left: 5%;">
                         <span class="member-level-guide">Member Levels</span>
                         <div style="display: flex;margin-top: 15px;">
@@ -1733,25 +1733,45 @@
         <div id="pgCartDiv" data-role="main">
             <div id="shoppingCartDiv"></div>
         </div>
-        <div id="shoppingCartBtnDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 93%;" data-tap-toggle="false">
-            <div id="paymentNavBar" data-grid="d">
-                <ul style="margin-bottom: 1%;">
-                    <li class="navbar-align">
-                        <div id="totlaLebel" style="margin-left: -20%;">
-                            <span id="totalCostText" class="flash-deals-item-details" style="font-size: 13px; font-weight: 600;">Total > </span>
+        <div id="shoppingCartBtnDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px;">
+            <div id="summaryParentDiv" style="display: grid; display: none; margin: 10px; margin-bottom: 10px;">
+                <div style="display: flex;">
+                    <img id="closeBtn" src="./assets/img/Navbar_Images/close.png" style="height: 15px; width: 15px; margin-top: 5px;">
+                    <span style="margin-left: 20px; font-size: 18px;">Summary</span>
+                </div>
+                <div style="margin-top: 20px; margin-bottom: 15px;">
+                    <span id="orderSummarySpan" style="font-size: 15px;">Order Summary (3 items)</span>
+                </div>
+                <div style="display: flex; margin-bottom: 7px;">
+                    <span style="font-size: 11px;font-weight: 500;">Subtotal:</span>
+                    <span id="subTotalSpan" style="font-size: 11px; position: absolute; right: 3%;font-weight: 500;">US $22.91</span>
+                </div>
+                <div style="display: flex; margin-bottom: 7px;">
+                    <span style="font-size: 11px;font-weight: 500;">Store Discount:</span>
+                    <span id="storeDiscountSpan" style="font-size: 11px; position: absolute; right: 3%;font-weight: 500;">-US $1.00</span>
+                </div>
+                <div style="display: flex; margin-bottom: 7px;">
+                    <span style="font-size: 12px;">All Total:</span>
+                    <span id="allTotalSpan" style="font-size: 12px; position: absolute; right: 3%;">US $22.91</span>
+                </div>
+            </div>
+            <div id="paymentNavBar" style="display: flex; height: 55px; border-top: 1px #C4C4C4 solid;">
+                <div id="checkItems" style="display: flex; width: 20%;">
+                    <input type="checkbox">
+                    <span style="font-size: 12px; margin-left: 36px;  margin-top: 21px;">All</span>
+                </div>
+                <div style="display: flex; left: 39%; position: absolute;">
+                    <div id="totalParent" style="display: grid; margin-right: 15px; margin-top: 10px;">
+                        <span style="font-size: 11px;">Total</span>
+                        <div style="display: flex;">
+                            <span id="cartTotalAmount">US $20.00</span>
+                            <img id="priceExpander" src="./assets/img/back_grey.png" style="height: 15px; width: 15px;transform: rotate(270deg);margin-left: 8px;">
                         </div>
-                    </li>
-                    <li class="navbar-align">
-                        <div id="totalCostLabel" style="margin-left: -10%;">
-                            <span id="totalCost" class="flash-deals-item-details" style="font-size: 17px; font-weight: 600;"></span>
-                        </div>
-                    </li>
-                    <li class="navbar-align">
-                        <div id="buyItmesBtn" style="margin-left: -15%;">
-                            <button class="favourites-delete-btn" style="left: 65%; margin-top: -10px;"> buy </button>
-                        </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div id="buyItmesBtn">
+                        <button class="favourites-delete-btn" id="buyShopping">Buy</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

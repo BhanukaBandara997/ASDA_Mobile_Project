@@ -164,14 +164,14 @@ $(function() {
                 });
 
                 var favouriteListOptionParent = $('<option>', {
-                    'style': 'color: #333 !important; font-size: 11px !important;',
+                    'style': 'color: #333 !important; font-size: 14px !important;  padding-right: 20px !important; width: 80%; ',
                     'value': 'MY_LISTS'
                 });
                 favouriteListOptionParent.text("MY LISTS");
                 $('#favSelect').append(favouriteListOptionParent);
 
                 var favouriteListOptionParent2 = $('<option>', {
-                    'style': 'color: #333 !important; font-size: 11px !important;',
+                    'style': 'color: #333 !important; font-size: 14px !important;  padding-right: 20px !important; width: 80%;',
                     'value': 'ALL_PRODUCTS'
                 });
                 favouriteListOptionParent2.text("ALL PRODUCTS");
@@ -1322,13 +1322,13 @@ $(function() {
                     });
 
                     var favouriteListOptionAllProducts = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 11px !important;',
+                        'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%; ',
                         'value': 'ALL_PRODUCTS'
                     });
                     favouriteListOptionAllProducts.text("ALL PRODUCTS");
 
                     var favouriteListOptionParent = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 11px !important;',
+                        'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%;',
                         'value': 'MY_LISTS'
                     });
                     favouriteListOptionParent.text("MY LISTS");
@@ -1794,7 +1794,7 @@ $(function() {
                     $('#favSelect').empty();
 
                     var favouriteListOptionParent = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 11px !important;',
+                        'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%;',
                         'value': 'ALL_PRODUCTS'
                     });
                     favouriteListOptionParent.text("ALL PRODUCTS");
@@ -2012,13 +2012,13 @@ $(function() {
             });
 
             var favouriteListOptionAllProducts = $('<option>', {
-                'style': 'color: #333 !important; font-size: 11px !important;',
+                'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%;',
                 'value': 'ALL_PRODUCTS'
             });
             favouriteListOptionAllProducts.text("ALL PRODUCTS");
 
             var favouriteListOptionParent = $('<option>', {
-                'style': 'color: #333 !important; font-size: 11px !important;',
+                'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%; ',
                 'value': 'MY_LISTS'
             });
             favouriteListOptionParent.text("MY LISTS");
@@ -2071,7 +2071,7 @@ $(function() {
         function appendToListNames(parent, listName) {
 
             var favouriteListOptionParent = $('<option>', {
-                'style': 'color: #333 !important; margin-right: 10px !important; padding-right: 20px !important; font-size: 11px !important;',
+                'style': 'color: #333 !important; margin-right: 10px !important; padding-right: 20px !important; font-size: 14px !important; width: 80%;',
                 'value': listName.replace(' ', /_/g)
             });
             favouriteListOptionParent.text(listName);
@@ -3516,7 +3516,7 @@ $(function() {
                     if (req.status == 200) {
                         $.mobile.changePage('#pgReview');
                     } else {
-                        toastr.success('An Error Occurred While Upating Review Lists');
+                        toastr.error('An Error Occurred While Upating Review Lists');
                     }
                 } catch (e) {
 
@@ -3784,6 +3784,16 @@ $(function() {
             $('#reviewDiv').append(itemsRow);
         }
 
+        $('#priceExpander').on('click', function() {
+            $('#summaryParentDiv').css('display', 'block');
+            $('#priceExpander').css('transform', 'rotate(90deg)');
+        });
+
+        $('#closeBtn').on('click', function() {
+            $('#summaryParentDiv').css('display', 'none');
+            $('#priceExpander').css('transform', 'rotate(270deg)');
+        });
+
         app.AddItemToTheShoppingCart = function(dataObj) {
             var fileName = "ShoppingCart";
             fileName += '.json';
@@ -3840,7 +3850,7 @@ $(function() {
                         appendShoppingCartItemsToList(this);
                     });
                 } catch (e) {
-                    toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+                    toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
                 }
             }
         };
@@ -3982,17 +3992,17 @@ $(function() {
                         var req = Ajax("./controllers/ajaxUpdateShoppingCartList.php", "POST", recordJSON);
                         if (req.status == 200) {
                             if (plus == true) {
-                                toastr.success('Item added to the shopping cart successfully');
+                                //toastr.success('Item added to the shopping cart successfully');
                             } else {
-                                toastr.success('Item removed from the shopping cart successfully');
+                                //toastr.success('Item removed from the shopping cart successfully');
                             }
                         } else {
-                            toastr.error('An Error Occurred While Upating Review Lists');
+                            //toastr.error('An Error Occurred While Upating Review Lists');
                         }
                         return itemCount;
                     }
                 } catch (e) {
-                    toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+                    //toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
                 }
             }
 
@@ -4037,7 +4047,7 @@ $(function() {
                     var newFinalPrice = totalPrice.toFixed(2);
                     $('#totalCost').text('US $' + newFinalPrice);
                 } catch (e) {
-                    toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+                    //toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
                 }
             }
         };
@@ -4055,7 +4065,7 @@ $(function() {
                         appendShoppingCartItemsToList(this);
                     });
                 } catch (e) {
-                    toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+                    //toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
                 }
             }
         };

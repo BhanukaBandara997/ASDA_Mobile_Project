@@ -78,15 +78,13 @@ span.select2 {
 #favSelect.select2 option {
     font-family: 'Open Sans', sans-serif !important;
     font-size: 9px !important;
-    padding-right: 10px !important;
-    margin-right: 10px !important;
+    padding: 40px !important;
 }
 
 #favListSelect.select2 option {
     font-family: 'Open Sans', sans-serif !important;
     font-size: 9px !important;
-    padding-right: 10px !important;
-    margin-right: 10px !important;
+    padding: 40px !important;
 }
 
 .bullet {
