@@ -16,6 +16,7 @@ $(function() {
     var defaultAddress = false;
     var addDefaultAddress = false;
     var objectValue = null;
+    var totalPrice = 0;
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -592,15 +593,8 @@ $(function() {
         $('#settings-icon, #settings-icon-text').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            app.GetUserSavedAddresses();
+            // app.GetUserSavedAddresses();
             $.mobile.changePage('#pgSettings', { transition: pgtransition });
-        });
-
-        // Tempory Item view page
-        $('#bell-icon').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            $.mobile.changePage('#pgItemView', { transition: pgtransition });
         });
 
         // Log out button
@@ -1386,7 +1380,7 @@ $(function() {
             }
         });
 
-        //////////////////////// Get Favourite List According To User //////////////////////////////
+        //////////////////////// Get Favourite List According To User ////////////////////////////////
 
         app.GetFavouriteListForUser = function(currentLoggedUser, favouritesSelectorValue, favouriteListName) {
 
@@ -3200,7 +3194,7 @@ $(function() {
             app.DisplayStars(5);
         });
 
-        $('#back-icon-review-page').on('click', function(e) {
+        $('#backIconReviewPage').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             $.mobile.changePage('#pgItemView', { transition: pgtransition });
@@ -3209,6 +3203,7 @@ $(function() {
         $('#navigateToIcon').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            $('#reviewDiv').empty();
             app.PopulateCustomerReviews(objectValue);
             $.mobile.changePage('#pgReview', { transition: pgtransition });
         });
@@ -3219,6 +3214,44 @@ $(function() {
             var reviewRating = $('#reviewRatingValue').val().trim();
             var reviewContent = $('#reviewContent').val().trim();
             app.SaveReview(objectValue, reviewRating, reviewContent);
+        });
+
+        $('#backIconViewItem').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $('#reviewDiv').empty();
+            app.PopulateCustomerReviews(objectValue);
+            $.mobile.changePage('#pgReview', { transition: pgtransition });
+        });
+
+        $('#addToCartBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            app.AddItemToTheShoppingCart(objectValue);
+        });
+
+        $('#shopping-cart-icon, #cart-img, #backIconPayPalPage').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $('#shoppingCartDiv').empty();
+            totalPrice = 0;
+            app.PopulateShoppingCart();
+            app.CalculateTheTotalAmount(null, null);
+            $.mobile.changePage('#pgShoppingCart', { transition: pgtransition });
+        });
+
+        $('#backIconShoppingCartPage').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgHome', { transition: pgtransition });
+        });
+
+        $('#buyItmesBtn').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var totalPriceTemp = totalPrice.toFixed(2);
+            $('#totalPayPalCost').text(totalPriceTemp);
+            $.mobile.changePage('#frmPayPalForm', { transition: pgtransition });
         });
 
         app.DisplayStars = function(rating) {
@@ -3379,8 +3412,6 @@ $(function() {
             var reviewRating = $('<span>', {
                 'class': 'review-rating-card-text-font-style',
             });
-
-
 
             var itemRating = dataObj.NewReview;
             if (itemRating == 0) {
@@ -3593,5 +3624,281 @@ $(function() {
 
             $('#reviewDiv').append(itemsRow);
         }
+
+        app.AddItemToTheShoppingCart = function(dataObj) {
+            var fileName = "ShoppingCart";
+            fileName += '.json';
+            var cartItemNo = 0;
+            var itemCount = 1;
+            var productAlreadyIntheCart = false;
+            var productId = dataObj.Product_ID;
+            var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var shoppingCartList = JSON.parse(req.responseText);
+                    $.each(shoppingCartList.ShoppingCart, function(index, val) {
+                        cartItemNo = val.Cart_Item_NO;
+                        if (productId == val.Product_ID) {
+                            productAlreadyIntheCart = true;
+                            itemCount = val.Item_Count;
+                            itemCount += 1;
+                            val.Item_Count = itemCount;
+                        }
+                    });
+                    cartItemNo += 1;
+                    if (productAlreadyIntheCart == false) {
+                        var newCartObj = {
+                            "Cart_Item_NO": cartItemNo,
+                            "Item_Count": itemCount,
+                            "Product_ID": dataObj.Product_ID,
+                            "Product_Name": dataObj.Product_Name,
+                            "Path": dataObj.Path,
+                            "Price": dataObj.Price
+                        }
+                        shoppingCartList.ShoppingCart.push(newCartObj);
+                    }
+                    var recordJSON = JSON.stringify(shoppingCartList);
+                    var req = Ajax("./controllers/ajaxUpdateShoppingCartList.php", "POST", recordJSON);
+                    if (req.status == 200) {} else {
+                        toastr.error('An Error Occurred While Upating Review Lists');
+                    }
+                } catch (e) {
+
+                }
+            }
+        };
+
+        app.PopulateShoppingCart = function() {
+            var fileName = "ShoppingCart";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var shoppingListList = JSON.parse(req.responseText);
+
+                    $('#ShoppingCartDiv').empty();
+                    $.each(shoppingListList.ShoppingCart, function() {
+                        appendShoppingCartItemsToList(this);
+                    });
+                } catch (e) {
+                    toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+                }
+            }
+        };
+
+        function appendShoppingCartItemsToList(dataObj) {
+
+            var cartItemListRow = $('<div>', {
+                'id': dataObj.Product_ID,
+                'border-bottom': '5px #C4C4C4 solid;',
+                'class': 'flashDealsRow',
+                'style': 'margin-bottom: 20px; margin-top: 15px;'
+            });
+
+            var cartItemImageParentDiv = $('<div>', {
+                'style': 'display: flex; margin-left: 10%;'
+            });
+
+            var cartItemMainImg = $('<img>', {
+                'style': 'height: 90px; width: 90px;',
+                'src': dataObj.Path
+            });
+
+            cartItemImageParentDiv.append(cartItemMainImg);
+
+            var cartItemDetailsParentDiv = $('<div>', {
+                'style': 'display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px;'
+            });
+
+            var cartItemName = $('<span>', {
+                'class': 'flash-deals-item-details'
+            });
+
+            cartItemName.text(dataObj.Product_Name);
+
+            var cartItemSelectCheckBox = $('<input>', {
+                'type': 'checkbox',
+                'class': 'edit-check-box',
+                'id': 'edit-check-box-' + dataObj.Product_ID,
+                'style': 'height: 66px; width: 20px; margin-left: -72%; margin-bottom: -15%;',
+                'checked': 'true'
+            }).on('change', function(e) {
+                if ($(this).is(':checked')) {
+                    app.CalculateTheTotalAmount(dataObj.Product_ID, true);
+                } else {
+                    app.CalculateTheTotalAmount(dataObj.Product_ID, false);
+                }
+            });
+
+            var priceAndCountDiv = $('<div>', {
+                'style': 'display: flex; margin-top: 1px; margin-left: 1px;'
+            });
+
+            var cartItemPrice = $('<span>', {
+                'class': 'flash-deals-price',
+                'style': 'width: 100px;'
+            });
+
+            cartItemPrice.text(dataObj.Price);
+
+
+            var addOrRemoveFormShoppingList = $('<div>', {
+                'style': 'display: flex; margin-left: 13%;'
+            });
+
+            var itemCountInCartForProduct = $('<span>', {
+                'class': 'favourites-rating',
+                'style': 'margin-left: 10px;  margin-right: 6px;'
+            });
+
+            itemCountInCartForProduct.text(dataObj.Item_Count);
+
+            var shoppingCartMinus = $('<img>', {
+                'style': 'height: 15px; width: 15px; margin-left: 5px;',
+                'src': './assets/img/Icons/minus.png',
+                'id': 'minus-' + dataObj.Product_ID,
+            }).on('click', function(e) {
+                selectedProductId = this.id.split('-')[1];
+                totalPrice = 0;
+                var itemCountMinus = app.EditTheItemCountInCart(dataObj, false);
+                app.CalculateTheTotalAmount(null, null);
+                itemCountInCartForProduct.text(itemCountMinus);
+            });
+
+            var shoppingCartPlus = $('<img>', {
+                'style': 'height: 15px; width: 15px; margin-left: 5px;',
+                'src': './assets/img/Icons/plus.png',
+                'id': 'plus-' + dataObj.Product_ID,
+            }).on('click', function(e) {
+                selectedProductId = this.id.split('-')[1];
+                totalPrice = 0;
+                var itemCountPlus = app.EditTheItemCountInCart(dataObj, true);
+                app.CalculateTheTotalAmount(null, null);
+                itemCountInCartForProduct.text(itemCountPlus);
+            });
+
+            addOrRemoveFormShoppingList.append(shoppingCartMinus);
+            addOrRemoveFormShoppingList.append(itemCountInCartForProduct);
+            addOrRemoveFormShoppingList.append(shoppingCartPlus);
+
+            priceAndCountDiv.append(cartItemPrice);
+            priceAndCountDiv.append(addOrRemoveFormShoppingList);
+
+            cartItemDetailsParentDiv.append(cartItemSelectCheckBox);
+            cartItemDetailsParentDiv.append(cartItemName);
+            cartItemDetailsParentDiv.append(priceAndCountDiv);
+
+            cartItemListRow.append(cartItemImageParentDiv);
+            cartItemListRow.append(cartItemDetailsParentDiv);
+
+            $('#shoppingCartDiv').append(cartItemListRow);
+        }
+
+        app.EditTheItemCountInCart = function(dataObj, plus) {
+            var fileName = "ShoppingCart";
+            fileName += '.json';
+            var itemCount = 0;
+            var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var shoppingCartList = JSON.parse(req.responseText);
+                    var count = 0;
+                    $.each(shoppingCartList.ShoppingCart, function(index, val) {
+                        if (dataObj.Product_ID == val.Product_ID) {
+                            if (plus == true) {
+                                itemCount = val.Item_Count;
+                                itemCount += 1;
+                                val.Item_Count = itemCount;
+                            } else {
+                                itemCount = val.Item_Count;
+                                itemCount -= 1;
+                                val.Item_Count = itemCount;
+                            }
+                        }
+                    });
+                    if (itemCount == 0) {
+                        toastr.error('You cannot have zero items for this product. You can only remove an items from cart by usibg the Delete button.');
+                    } else {
+                        var recordJSON = JSON.stringify(shoppingCartList);
+                        var req = Ajax("./controllers/ajaxUpdateShoppingCartList.php", "POST", recordJSON);
+                        if (req.status == 200) {
+                            if (plus == true) {
+                                toastr.success('Item added to the shopping cart successfully');
+                            } else {
+                                toastr.success('Item removed from the shopping cart successfully');
+                            }
+                        } else {
+                            toastr.error('An Error Occurred While Upating Review Lists');
+                        }
+                        return itemCount;
+                    }
+                } catch (e) {
+                    toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+                }
+            }
+
+        };
+
+        app.CalculateTheTotalAmount = function(productId, isChecked, currentPrice) {
+            var fileName = "ShoppingCart";
+            fileName += '.json';
+            var itemCount = 0;
+            var priceInNumb = 0;
+            var tempPrice = 0;
+            var price;
+            var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var shoppingCartList = JSON.parse(req.responseText);
+                    var count = 0;
+                    $.each(shoppingCartList.ShoppingCart, function(index, val) {
+                        if (productId == null && isChecked == null) {
+                            price = val.Price;
+                            itemCount = val.Item_Count;
+                            priceInNumb = price.substr(price.indexOf("$") + 1);
+                            tempPrice = priceInNumb * itemCount;
+                            totalPrice = totalPrice + tempPrice;
+                        }
+                        if (val.Product_ID == productId && isChecked == true) {
+                            price = val.Price;
+                            itemCount = val.Item_Count;
+                            priceInNumb = price.substr(price.indexOf("$") + 1);
+                            tempPrice = priceInNumb * itemCount;
+                            totalPrice = totalPrice + tempPrice;
+                        }
+                        if (val.Product_ID == productId && isChecked == false) {
+                            price = val.Price;
+                            itemCount = val.Item_Count;
+                            priceInNumb = price.substr(price.indexOf("$") + 1);
+                            tempPrice = priceInNumb * itemCount;
+                            totalPrice = totalPrice - tempPrice;
+                        }
+
+                    });
+                    var newFinalPrice = totalPrice.toFixed(2);
+                    $('#totalCost').text('US $' + newFinalPrice);
+                } catch (e) {
+                    toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+                }
+            }
+        };
+
+        app.PopulateSubCategoryItems = function() {
+            var fileName = "Items";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetSubCategoryItemList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var subCategoryItemListList = JSON.parse(req.responseText);
+
+                    $('#subCategoryItemListDiv').empty();
+                    $.each(subCategoryItemListList.ShoppingCart, function() {
+                        appendShoppingCartItemsToList(this);
+                    });
+                } catch (e) {
+                    toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+                }
+            }
+        };
     })(ASDA_Project);
 });

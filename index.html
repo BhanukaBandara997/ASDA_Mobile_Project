@@ -1604,8 +1604,8 @@
             <div id="customerReviewBlock" class="customer-review-example-style"></div>
         </div>
         <div id="itemDetailsDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 746px;" data-tap-toggle="false">
-            <button id="add-to-cart-btn" class="add-to-cart-btn-style add-to-cart-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Add To Cart</button>
-            <button id="buy-now-btn" class="buy-now-btn-style buy-now-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Buy Now</button>
+            <button id="addToCartBtn" class="add-to-cart-btn-style add-to-cart-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Add To Cart</button>
+            <button id="buyNowBtn" class="buy-now-btn-style buy-now-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Buy Now</button>
         </div>
 
         <!-- Item Description Popup Dialog -->
@@ -1634,8 +1634,8 @@
     <div data-theme="a" id="pgAddNewReview" data-role="page" data-title="Add New Review Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="header-title-add-review" class="add-review-style">
-                <img id="back-icon-view-item" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="back-icon-profile-text" class="open-sans-font sub-category-style">Item View</span>
+                <img id="backIconViewItem" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconProfileText" class="open-sans-font sub-category-style">Item View</span>
             </div>
 
         </div>
@@ -1663,18 +1663,118 @@
     <!-- Customer Review -->
     <div data-theme="a" id="pgReview" data-role="page" data-title="Review Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
-            <div id="header-title-review" class="add-review-style">
-                <img id="back-icon-review-page" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="back-icon-review" class="open-sans-font sub-category-style">Customer Review</span>
+            <div id="headerTitleReview" class="add-review-style">
+                <img id="backIconReviewPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconReview" class="open-sans-font sub-category-style">Customer Review</span>
             </div>
-
         </div>
-        <div id="reviewDiv" data-role="main">
+        <div id="pgReviewDiv" data-role="main">
+            <div id="reviewDiv"></div>
             <button id="createReviewBtn2" class="ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button" style="position: absolute; display: block; right: 5%; width: 53px; top: 87%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;">
             <i class ="zmdi zmdi-plus zmd-2x" style="color: rgba(227, 9, 9, 0.9);"></i>
             </button>
         </div>
     </div>
+
+    <!-- Shopping Cart -->
+    <div data-theme="a" id="pgShoppingCart" data-role="page" data-title="Shopping Cart Page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerTitleShoppingCart" class="add-review-style">
+                <img id="backIconShoppingCartPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconShoppingCartText" class="open-sans-font sub-category-style">Shopping Cart</span>
+            </div>
+        </div>
+        <div id="pgCartDiv" data-role="main">
+            <div id="shoppingCartDiv"></div>
+        </div>
+        <div id="shoppingCartBtnDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 93%;" data-tap-toggle="false">
+            <div id="paymentNavBar" data-grid="d">
+                <ul style="margin-bottom: 1%;">
+                    <li class="navbar-align">
+                        <div id="totlaLebel" style="margin-left: -20%;">
+                            <span id="totalCostText" class="flash-deals-item-details" style="font-size: 13px; font-weight: 600;">Total > </span>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="totalCostLabel" style="margin-left: -10%;">
+                            <span id="totalCost" class="flash-deals-item-details" style="font-size: 17px; font-weight: 600;"></span>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="buyItmesBtn" style="margin-left: -15%;">
+                            <button class="favourites-delete-btn" style="left: 65%; margin-top: -10px;"> buy </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pay with PayPal -->
+
+    <!-- <div data-theme="a" id="frmPayPalForm" data-role="page" action="https://www.paypal.com/cgi-bin/webscr" method="post" data-title="Pay with PayPal">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerTitlePayPal" class="add-review-style">
+                <img id="backIconPayPalPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconPayPal" class="open-sans-font sub-category-style">Pay Now</span>
+            </div>
+        </div>
+        <input type="hidden" name="cmd" value="_xclick">
+        <div id="addressContainer">
+
+        </div>
+        <div id="itemDetails">
+
+        </div>
+        <input id="totalAmountTobepayed" type="text" name="amount">
+
+        <input type="hidden" name="no_shipping" value="0">
+        <input type="hidden" name="no_note" value="1">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="lc" value="US">
+        <input type="hidden" name="bn" value="PP-BuyNowBF">
+        <input type="hidden" name="return" value="http://localhost/ASDA_Project/index.html#pgHome">
+        <input type="submit" style="left: 65%; margin-top: -10px;" value="Pay with PayPal!">
+
+        <br/><br />
+        <div id="shoppingCartBtnDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 93%;" data-tap-toggle="false">
+            <div id="paymentPayPalNavBar" data-grid="d">
+                <ul style="margin-bottom: 1%;">
+                    <li class="navbar-align">
+                        <div id="totlaPayPalLebel" style="margin-left: -20%;">
+                            <span id="totalCostPayPalText" class="flash-deals-item-details" style="font-size: 13px; font-weight: 600;">Total > </span>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="totalCostPayPalLabel" style="margin-left: -10%;">
+                            <span id="totalPayPalCost" class="flash-deals-item-details" style="font-size: 17px; font-weight: 600;"></span>
+                        </div>
+                    </li>
+                    <li class="navbar-align">
+                        <div id="buyItmesPayPalBtn" style="margin-left: -15%;">
+                            <button type="submit" class="favourites-delete-btn" style="left: 65%; margin-top: -10px;" value="Pay with PayPal!">pay now</button>
+                            <input type="submit" class="favourites-delete-btn" style="left: 65%; margin-top: -10px;" value="Pay with PayPal!">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Sub Category Item List -->
+    <div data-theme="a" id="pgSubCategoryItemList" data-role="page" data-title="Sub Category Item List Page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerSubCategoryItemList" class="add-review-style">
+                <img id="backIconSubCategoryItemList" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconSubCategoryItemListText" class="open-sans-font sub-category-style">Shopping Cart</span>
+            </div>
+        </div>
+        <div id="pgCartDiv" data-role="main">
+            <div id="subCategoryItemListDiv"></div>
+        </div>
+    </div>
+
+
 </body>
 
 </html>
