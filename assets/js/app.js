@@ -3787,11 +3787,13 @@ $(function() {
         $('#priceExpander').on('click', function() {
             $('#summaryParentDiv').css('display', 'block');
             $('#priceExpander').css('transform', 'rotate(90deg)');
+            $('#paymentNavBar').css('border-top', '1px #C4C4C4 solid');
         });
 
         $('#closeBtn').on('click', function() {
             $('#summaryParentDiv').css('display', 'none');
             $('#priceExpander').css('transform', 'rotate(270deg)');
+            $('#paymentNavBar').css('border-top', 'none');
         });
 
         app.AddItemToTheShoppingCart = function(dataObj) {
@@ -3861,11 +3863,11 @@ $(function() {
                 'id': dataObj.Product_ID,
                 'border-bottom': '5px #C4C4C4 solid;',
                 'class': 'flashDealsRow',
-                'style': 'margin-bottom: 20px; margin-top: 15px;'
+                'style': 'margin-bottom: 20px; margin-top: 15px; padding-bottom: 10px; border-bottom: 0.5px #C4C4C4 solid;'
             });
 
             var cartItemImageParentDiv = $('<div>', {
-                'style': 'display: flex; margin-left: 10%;'
+                'style': 'display: flex; margin-left: 10%; margin-top: 10px;'
             });
 
             var cartItemMainImg = $('<img>', {
@@ -3880,7 +3882,8 @@ $(function() {
             });
 
             var cartItemName = $('<span>', {
-                'class': 'flash-deals-item-details'
+                'class': 'flash-deals-item-details',
+                'style': 'margin-bottom: 10px;'
             });
 
             cartItemName.text(dataObj.Product_Name);
@@ -3889,7 +3892,7 @@ $(function() {
                 'type': 'checkbox',
                 'class': 'edit-check-box',
                 'id': 'edit-check-box-' + dataObj.Product_ID,
-                'style': 'height: 66px; width: 20px; margin-left: -72%; margin-bottom: -15%;',
+                'style': 'height: 66px; width: 20px; margin-left: -73%; margin-bottom: -15%; margin-top: 5px;',
                 'checked': 'true'
             }).on('change', function(e) {
                 if ($(this).is(':checked')) {
@@ -3900,7 +3903,7 @@ $(function() {
             });
 
             var priceAndCountDiv = $('<div>', {
-                'style': 'display: flex; margin-top: 1px; margin-left: 1px;'
+                'style': 'display: flex; margin-top: 10px; margin-left: 1px;'
             });
 
             var cartItemPrice = $('<span>', {
@@ -3917,7 +3920,7 @@ $(function() {
 
             var itemCountInCartForProduct = $('<span>', {
                 'class': 'favourites-rating',
-                'style': 'margin-left: 10px;  margin-right: 6px;'
+                'style': 'margin-left: 10px;  margin-right: 6px; font-weight: 600 !important;'
             });
 
             itemCountInCartForProduct.text(dataObj.Item_Count);
@@ -4045,7 +4048,7 @@ $(function() {
 
                     });
                     var newFinalPrice = totalPrice.toFixed(2);
-                    $('#totalCost').text('US $' + newFinalPrice);
+                    $('#cartTotalAmount').text('US $' + newFinalPrice);
                 } catch (e) {
                     toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
                 }
