@@ -163,14 +163,14 @@ $(function() {
                 });
 
                 var favouriteListOptionParent = $('<option>', {
-                    'style': 'color: #333 !important; font-size: 9px !important;',
+                    'style': 'color: #333 !important; font-size: 11px !important;',
                     'value': 'MY_LISTS'
                 });
                 favouriteListOptionParent.text("MY LISTS");
                 $('#favSelect').append(favouriteListOptionParent);
 
                 var favouriteListOptionParent2 = $('<option>', {
-                    'style': 'color: #333 !important; font-size: 9px !important;',
+                    'style': 'color: #333 !important; font-size: 11px !important;',
                     'value': 'ALL_PRODUCTS'
                 });
                 favouriteListOptionParent2.text("ALL PRODUCTS");
@@ -1328,13 +1328,13 @@ $(function() {
                     });
 
                     var favouriteListOptionAllProducts = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 9px !important;',
+                        'style': 'color: #333 !important; font-size: 11px !important;',
                         'value': 'ALL_PRODUCTS'
                     });
                     favouriteListOptionAllProducts.text("ALL PRODUCTS");
 
                     var favouriteListOptionParent = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 9px !important;',
+                        'style': 'color: #333 !important; font-size: 11px !important;',
                         'value': 'MY_LISTS'
                     });
                     favouriteListOptionParent.text("MY LISTS");
@@ -1617,7 +1617,6 @@ $(function() {
             });
         }
 
-        ////// TODOD
         ////////////////////////// Delete Favourite List //////////////////////////////////////
 
         function deleteFavouriteList(deleteFavouriteListName) {
@@ -1801,7 +1800,7 @@ $(function() {
                     $('#favSelect').empty();
 
                     var favouriteListOptionParent = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 9px !important;',
+                        'style': 'color: #333 !important; font-size: 11px !important;',
                         'value': 'ALL_PRODUCTS'
                     });
                     favouriteListOptionParent.text("ALL PRODUCTS");
@@ -2019,13 +2018,13 @@ $(function() {
             });
 
             var favouriteListOptionAllProducts = $('<option>', {
-                'style': 'color: #333 !important; font-size: 9px !important;',
+                'style': 'color: #333 !important; font-size: 11px !important;',
                 'value': 'ALL_PRODUCTS'
             });
             favouriteListOptionAllProducts.text("ALL PRODUCTS");
 
             var favouriteListOptionParent = $('<option>', {
-                'style': 'color: #333 !important; font-size: 9px !important;',
+                'style': 'color: #333 !important; font-size: 11px !important;',
                 'value': 'MY_LISTS'
             });
             favouriteListOptionParent.text("MY LISTS");
@@ -2078,7 +2077,7 @@ $(function() {
         function appendToListNames(parent, listName) {
 
             var favouriteListOptionParent = $('<option>', {
-                'style': 'color: #333 !important; margin-right: 10px !important; padding-right: 20px !important; font-size: 9px !important;',
+                'style': 'color: #333 !important; margin-right: 10px !important; padding-right: 20px !important; font-size: 11px !important;',
                 'value': listName.replace(' ', /_/g)
             });
             favouriteListOptionParent.text(listName);
@@ -3717,22 +3716,6 @@ $(function() {
             var reviewContent = $('<span>', {
                 'class': 'review-text-card-text-font-style',
             });
-
-            // var createNewReviewBtn = $('<button>', {
-            //     'id': 'createReviewBtn',
-            //     'class': 'ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button',
-            //     'style': 'height: 53px; position: absolute; display: block; right: 5%; width: 53px; top: 87%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;'
-            // }).on('click', function() {
-            //     $("#selectedImageForReview").attr("src", objectValue.Path);
-            //     $("#selectedItemName").text(objectValue.Product_Name);
-            //     $.mobile.changePage('#pgAddNewReview', { transition: pgtransition });
-            // });
-
-            // var createNewReviewBtnIcon = $('<i>', {
-            //     'class': 'zmdi zmdi-plus zmd-2x',
-            //     'style': 'color: rgba(227, 9, 9, 0.9);'
-            // });
-
 
             reviewContent.text(dataObj.ReviewContent);
 
