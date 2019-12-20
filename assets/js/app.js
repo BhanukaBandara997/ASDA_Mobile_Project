@@ -4047,7 +4047,11 @@ $(function() {
                     var newFinalPrice = totalPrice.toFixed(2);
                     $('#totalCost').text('US $' + newFinalPrice);
                 } catch (e) {
+<<<<<<< HEAD
                     //toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+=======
+                    toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
+>>>>>>> a34c02fae47f0b076e3ccf2757f3e1a6ebc79d0d
                 }
             }
         };
@@ -4062,12 +4066,168 @@ $(function() {
 
                     $('#subCategoryItemListDiv').empty();
                     $.each(subCategoryItemListList.ShoppingCart, function() {
-                        appendShoppingCartItemsToList(this);
+                        appendSubCategoryItemsToList(this);
                     });
                 } catch (e) {
+<<<<<<< HEAD
                     //toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
+=======
+                    toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
+>>>>>>> a34c02fae47f0b076e3ccf2757f3e1a6ebc79d0d
                 }
             }
         };
+
+        function appendSubCategoryItemsToList(dataObj) {
+            var subCategoryItemListRow = $('<div>', {
+                'id': dataObj.Product_ID,
+                'border-bottom': '1px #C4C4C4 solid;',
+                'class': 'flashDealsRow',
+                'style': 'margin-bottom: 15px; margin-top: 15px;'
+            });
+
+            var subCategoryItemImageParentDiv = $('<div>', {
+                'style': 'display: flex; margin-left: 5%;'
+            }).on('click', function() {
+                // alert(dataObj.Product_ID + "ITEM CLICKED");
+                app.PopulateSelectedItemDetals(dataObj.Product_ID, "From_Favourite_List", dataObj);
+                $.mobile.changePage('#pgItemView', { transition: pgtransition });
+            });
+
+            var subCategoryItemImg = $('<img>', {
+                'style': 'height: 90px; width: 90px;',
+                'src': dataObj.Path
+            });
+
+            subCategoryItemImageParentDiv.append(subCategoryItemImg);
+
+            var itemFavouriteDetailsParentDiv = $('<div>', {
+                'style': 'display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px;'
+            });
+
+            var itemFavouriteName = $('<span>', {
+                'class': 'flash-deals-item-details'
+            });
+
+            itemFavouriteName.text(dataObj.Product_Name);
+
+            var itemFavouriteEditCheckBox = $('<input>', {
+                'type': 'checkbox',
+                'class': 'edit-check-box',
+                'id': 'edit-check-box-' + dataObj.Product_ID,
+                'style': ' height: 30px; width: 20px; display: none; margin-left: 90%; margin-bottom: -15%;'
+            }).on('change', function(e) {
+                if ($(this).is(':checked')) {
+                    var selectedId = this.id.split('-')[3];
+                    deleteFavouriteItemsList.push(selectedId);
+                    moveFavouriteItemsList.push(selectedId);
+                } else {
+                    var selectedId = this.id.split('-')[3];
+                    deleteFavouriteItemsList = jQuery.grep(deleteFavouriteItemsList, function(value) {
+                        return value != selectedId;
+                    });
+
+                    moveFavouriteItemsList = jQuery.grep(moveFavouriteItemsList, function(value) {
+                        return value != selectedId;
+                    });
+                }
+            });
+
+            var myVar = setInterval(myTimer, 5);
+
+            function myTimer() {
+                if ($('#fav-header').hasClass('ui-fixed-hidden')) {
+                    $('#fav-header').removeClass("ui-fixed-hidden");
+                    $('#fav-header').removeClass("slidedown");
+                }
+                if ($('#fav-footer').hasClass('ui-fixed-hidden')) {
+                    $('#fav-footer').removeClass("ui-fixed-hidden");
+                    $('#fav-footer').removeClass("slideup");
+                }
+            }
+
+            var itemFavouritePrice = $('<span>', {
+                'class': 'flash-deals-price'
+            });
+
+            itemFavouritePrice.text(dataObj.Price);
+
+            var itemFavouriteRatingParentDiv = $('<div>', {
+                'style': 'display: flex; margin-top: 7px; margin-left: 2px;'
+            });
+
+            var itemFavouriteRating = $('<span>', {
+                'class': 'favourites-rating'
+            });
+
+            itemFavouriteRating.text(dataObj.Product_Rating + ".0");
+
+            var itemFavouriteImgRating = $('<img>', {
+                'style': 'height: 15px; width: 15px; margin-left: 5px;',
+                'src': './assets/img/starRating.png'
+            });
+
+            itemFavouriteRatingParentDiv.append(itemFavouriteRating);
+            itemFavouriteRatingParentDiv.append(itemFavouriteImgRating);
+
+            var contextMenuParentDiv = $('<img>', {
+                'class': 'contextMenu iw-mTrigger',
+                'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
+                'src': ' ./assets/img/menu.png',
+                'id': 'context-menu-' + dataObj.Product_ID + "-" + dataObj.Product_Name,
+                'product-name': dataObj.Product_Name
+            }).on('click', function() {
+                selectedItemId = this.id.split('-')[2];
+                selectedItemName = this.id.split('-')[3].trim();
+            });
+
+            var menu = [{
+                name: 'Move to',
+                fun: function(data, event) {
+                    $('#movePopupDialog').popup('open');
+                    moveFavouriteItemsList.push(selectedItemId);
+                    getFavouriteListsForUser();
+                }
+            }, {
+                name: 'Delete',
+                fun: function(data, event) {
+                    deleteFavouriteItemsList.push(selectedItemId);
+                    $('#deletePopupDialog').popup('open');
+                }
+            }, {
+                name: 'Share via E-mail',
+                fun: function(data, event) {
+                    shareFavouriteItem = {
+                        'productId': selectedItemId,
+                        'productName': selectedItemName
+                    };
+                    $('#sharePopupDialog').popup('open');
+                    $('#cancelFavouriteBtn').removeClass('ui-shadow');
+                    $('#shareFavouriteBtn').removeClass('ui-shadow');
+
+                }
+            }];
+
+            $('.contextMenu').contextMenu(menu);
+
+            var itemFavouriteContextMenu = $('<div>', {
+                'style': 'text-align: end; margin-top: 10px; margin-right: 5px;',
+                'class': 'context-menu'
+            });
+
+            itemFavouriteContextMenu.append(contextMenuParentDiv);
+
+            itemFavouriteDetailsParentDiv.append(itemFavouriteName);
+            itemFavouriteDetailsParentDiv.append(itemFavouriteEditCheckBox);
+            itemFavouriteDetailsParentDiv.append(itemFavouritePrice);
+            itemFavouriteDetailsParentDiv.append(itemFavouriteRatingParentDiv);
+            itemFavouriteDetailsParentDiv.append(itemFavouriteContextMenu);
+
+            subCategoryItemListRow.append(subCategoryItemImageParentDiv);
+            subCategoryItemListRow.append(itemFavouriteDetailsParentDiv);
+
+            parent.append(subCategoryItemListRow);
+        }
+
     })(ASDA_Project);
 });
