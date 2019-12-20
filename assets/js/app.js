@@ -4047,11 +4047,7 @@ $(function() {
                     var newFinalPrice = totalPrice.toFixed(2);
                     $('#totalCost').text('US $' + newFinalPrice);
                 } catch (e) {
-<<<<<<< HEAD
-                    //toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
-=======
                     toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
->>>>>>> a34c02fae47f0b076e3ccf2757f3e1a6ebc79d0d
                 }
             }
         };
@@ -4069,11 +4065,7 @@ $(function() {
                         appendSubCategoryItemsToList(this);
                     });
                 } catch (e) {
-<<<<<<< HEAD
-                    //toastr.success('An Error Occurred While Retrieving Shopping Cart Item List');
-=======
                     toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
->>>>>>> a34c02fae47f0b076e3ccf2757f3e1a6ebc79d0d
                 }
             }
         };
