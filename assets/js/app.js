@@ -2528,7 +2528,7 @@ $(function() {
                 $('#itemAddedToFavouritesPopup').popup('open');
                 setTimeout(function() {
                     $('#itemAddedToFavouritesPopup').popup('close');
-                }, 600);
+                }, 700);
             }
 
         });
