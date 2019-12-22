@@ -6,15 +6,6 @@ $jsonRec = json_decode($record);
 $array = $jsonRec->ShoppingCart;
 
 $fileName = "ShoppingCart";
-$i=0;
-// foreach ($array as $value) {
-//    if (array_key_exists("ParentFileName",$value)){
-//        $fileName = $value->ParentFileName;
-//        unset($array[$i]);
-//  }
-//  $i++;
-//}
-
 $jsonRec->ShoppingCart = $array;
 $jsonUpdatedRec = json_encode($jsonRec);
 

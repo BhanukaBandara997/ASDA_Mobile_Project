@@ -1648,8 +1648,20 @@
                 <img id="navigateToIcon" class="navigate-to-customer-review-style" src="./assets/img/back_grey.png"></img>
             </div>
             <div id="customerReviewBlock" class="customer-review-example-style"></div>
+
+            <!-- Added To Favourite Popup Dialog -->
+            <div data-role="popup" id="itemAddedToFavouritesPopup" data-overlay-theme="a" data-theme="c" style="background: #C07C39; height: 185px; border-radius: 15px;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false"
+                data-shadow="true" data-corners="true" data-position-to="origin" data-transition="pop">
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="height: 330px !important;">
+                    <div style="display: grid;width: 185px;">
+                        <img src="./assets/img/Icons/check-mark-button.png" style="height: 70px; width: 70px; margin-left: 55px;">
+                        <span style="color: white; margin-top: 15px; font-size: 20px; text-align: center;">Added to Favourites List</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div id="itemDetailsDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 746px;" data-tap-toggle="false">
+        <div id="itemDetailsDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 741px;" data-tap-toggle="false">
             <button id="addToCartBtn" class="add-to-cart-btn-style add-to-cart-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Add To Cart</button>
             <button id="buyNowBtn" class="buy-now-btn-style buy-now-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Buy Now</button>
         </div>
@@ -1724,17 +1736,40 @@
 
     <!-- Shopping Cart -->
     <div data-theme="a" id="pgShoppingCart" data-role="page" data-title="Shopping Cart Page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+        <div id="shoppingCartHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="headerTitleShoppingCart" class="add-review-style">
                 <img id="backIconShoppingCartPage" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="backIconShoppingCartText" class="open-sans-font sub-category-style">Shopping Cart</span>
+                <span id="backIconShoppingCartText" class="open-sans-font sub-category-style" style="top: 12px !important;font-weight: 600 !important;">Shopping Cart</span>
+                <img id="cartDeleteItems" src="./assets/img/Icons/delete.png" class="cart-delete-item">
             </div>
         </div>
-        <div id="pgCartDiv" data-role="main">
+        <div id="pgCartDiv" data-role="main" data-tap-toggle="false">
             <div id="shoppingCartDiv"></div>
+            <!-- Remove Items Popup Dialog -->
+            <div data-role="popup" id="removeCartItemsPopup" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+                data-corners="true" data-transition="none" data-position-to="origin">
+                <div id="removeDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <span class="ui-title popup-header" role="heading" style="margin-left: 8%;">Remove</span>
+                </div>
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%; height: 95px;">
+                    <span class="popup-content" style="display: block; line-height: 20px; margin-left: 10px;">Are you sure you want to remove the items selected?</span>
+                    <a id="cancelCartItemsBtn" href="#pgShoppingCart" style="left: 46%; margin-top: 5%;margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <span class="ui-btn-inner ui-btn-corner-all">
+                                    <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                        </span>
+                    </a>
+                    <a id="removeCartItemsBtn" href="#" style="position: absolute; left: 70%; margin-top: 4.4%;;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all">
+                                    <span class="ui-btn-text popup-delete-btn">Remove</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div id="shoppingCartBtnDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px;">
-            <div id="summaryParentDiv" style="display: grid; display: none; margin: 10px; margin-bottom: 10px;">
+        <div id="shoppingCartFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px; border-top: 1.5px #C4C4C4 solid;">
+            <div id="summaryParentDiv" style="display: grid; display: none; margin: 10px; margin-bottom: 10px;" data-tap-toggle="false">
                 <div style="display: flex;">
                     <img id="closeBtn" src="./assets/img/Navbar_Images/close.png" style="height: 15px; width: 15px; margin-top: 5px;">
                     <span style="margin-left: 20px; font-size: 18px;">Summary</span>
@@ -1744,27 +1779,27 @@
                 </div>
                 <div style="display: flex; margin-bottom: 7px;">
                     <span style="font-size: 11px;font-weight: 500;">Subtotal:</span>
-                    <span id="subTotalSpan" style="font-size: 11px; position: absolute; right: 3%;font-weight: 500;">US $22.91</span>
+                    <span id="subTotalSpan" style="font-size: 11px; position: absolute; right: 3%;font-weight: 500;">US $0.00</span>
                 </div>
                 <div style="display: flex; margin-bottom: 7px;">
                     <span style="font-size: 11px;font-weight: 500;">Store Discount:</span>
-                    <span id="storeDiscountSpan" style="font-size: 11px; position: absolute; right: 3%;font-weight: 500;">-US $1.00</span>
+                    <span id="storeDiscountSpan" style="font-size: 11px; position: absolute; right: 3%;font-weight: 500;">- US $1.00</span>
                 </div>
                 <div style="display: flex; margin-bottom: 7px;">
                     <span style="font-size: 12px;">All Total:</span>
-                    <span id="allTotalSpan" style="font-size: 12px; position: absolute; right: 3%;">US $22.91</span>
+                    <span id="allTotalSpan" style="font-size: 12px; position: absolute; right: 3%;">US $0.00</span>
                 </div>
             </div>
-            <div id="paymentNavBar" style="display: flex; height: 55px;">
-                <div id="checkItems" style="display: flex; width: 20%;">
-                    <input type="checkbox">
+            <div id="paymentNavBar" style="display: flex; height: 55px;" data-tap-toggle="false">
+                <div id="checkItems" style="display: flex; width: 20%; margin-left: 5px;">
+                    <input type="checkbox" id="allSelectedCheckBox">
                     <span style="font-size: 12px; margin-left: 36px;  margin-top: 21px;">All</span>
                 </div>
                 <div style="display: flex; left: 35%; position: absolute;">
                     <div id="totalParent" style="display: grid; margin-top: 10px; margin-right: -10px;">
                         <span style="font-size: 11px;">Total</span>
                         <div style="display: flex; width: 130px;">
-                            <span id="cartTotalAmount">US $20.00</span>
+                            <span id="cartTotalAmount">US $0.00</span>
                             <img id="priceExpander" src="./assets/img/back_grey.png" style="height: 15px; width: 15px;transform: rotate(270deg);margin-left: 8px;">
                         </div>
                     </div>
