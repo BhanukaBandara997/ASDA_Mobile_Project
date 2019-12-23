@@ -734,25 +734,30 @@ $(function() {
         function subCategory(parentCategoryName) {
 
             var newParentCategoryName = parentCategoryName.replace(/ /g, '');
-            // toastr.error('Selected Sub category ' +newParentCategoryName);
-
-            var fileName = newParentCategoryName;
-            fileName += '.json';
-            var req = Ajax("./controllers/ajaxGetSubCategories.php?file=" + encodeURIComponent(fileName));
-            if (req.status == 200) {
-                // parse string to json object
-                $('#sub-category-background').empty();
-                try {
-                    var subCategoriesObj = JSON.parse(req.responseText);
-                    PopulateCategories(newParentCategoryName, subCategoriesObj);
-                } catch (e) {
-                    //user file is not found
-                    $('#pgLoginIn').data('success', 'false');
-                    toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+            if (parentCategoryName == "Home Backing" || parentCategoryName == "Biscuts, Chocolate & Sweets") {
+                PopulateSubCategoryItems(newParentCategoryName);
+            } else {
+                // toastr.error('Selected Sub category ' +newParentCategoryName);
+                var fileName = newParentCategoryName;
+                fileName += '.json';
+                var req = Ajax("./controllers/ajaxGetSubCategories.php?file=" + encodeURIComponent(fileName));
+                if (req.status == 200) {
+                    // parse string to json object
+                    $('#sub-category-background').empty();
+                    try {
+                        var subCategoriesObj = JSON.parse(req.responseText);
+                        PopulateCategories(newParentCategoryName, subCategoriesObj);
+                    } catch (e) {
+                        //user file is not found
+                        $('#pgLoginIn').data('success', 'false');
+                        toastr.error('This User - ' + userName.split('.')[0] + 'is NOT registered in this App!');
+                    }
                 }
+                $("#sub-category-name-text").text(parentCategoryName);
+                $.mobile.changePage('#pgSubCategory', { transition: pgtransition });
             }
-            $("#sub-category-name-text").text(parentCategoryName);
-            $.mobile.changePage('#pgSubCategory', { transition: pgtransition });
+
+
         }
 
         ///////////////////////////// Flash Deals Carousel Item Appending /////////////////////////////////////////////////////
@@ -4042,17 +4047,16 @@ $(function() {
             }
         };
 
-        app.PopulateSubCategoryItems = function() {
+        app.PopulateSubCategoryItems = function(parentCategory) {
             var fileName = "Items";
             fileName += '.json';
             var req = Ajax("./controllers/ajaxGetSubCategoryItemList.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
                     var subCategoryItemListList = JSON.parse(req.responseText);
-
                     $('#subCategoryItemListDiv').empty();
-                    $.each(subCategoryItemListList.ShoppingCart, function() {
-                        appendSubCategoryItemsToList(this);
+                    $.each(subCategoryItemListList.parentCategory, function() {
+                        appendSubCategoryItemsToList(this, parentCategory);
                     });
                 } catch (e) {
                     toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
@@ -4083,132 +4087,97 @@ $(function() {
 
             subCategoryItemImageParentDiv.append(subCategoryItemImg);
 
-            var itemFavouriteDetailsParentDiv = $('<div>', {
+            var subCategoryItemDetailsParentDiv = $('<div>', {
                 'style': 'display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px;'
             });
 
-            var itemFavouriteName = $('<span>', {
+            var subCategoryItemName = $('<span>', {
                 'class': 'flash-deals-item-details'
             });
 
-            itemFavouriteName.text(dataObj.Product_Name);
+            subCategoryItemName.text(dataObj.Product_Name);
 
-            var itemFavouriteEditCheckBox = $('<input>', {
-                'type': 'checkbox',
-                'class': 'edit-check-box',
-                'id': 'edit-check-box-' + dataObj.Product_ID,
-                'style': ' height: 30px; width: 20px; display: none; margin-left: 90%; margin-bottom: -15%;'
-            }).on('change', function(e) {
-                if ($(this).is(':checked')) {
-                    var selectedId = this.id.split('-')[3];
-                    deleteFavouriteItemsList.push(selectedId);
-                    moveFavouriteItemsList.push(selectedId);
-                } else {
-                    var selectedId = this.id.split('-')[3];
-                    deleteFavouriteItemsList = jQuery.grep(deleteFavouriteItemsList, function(value) {
-                        return value != selectedId;
-                    });
-
-                    moveFavouriteItemsList = jQuery.grep(moveFavouriteItemsList, function(value) {
-                        return value != selectedId;
-                    });
-                }
-            });
-
-            var myVar = setInterval(myTimer, 5);
-
-            function myTimer() {
-                if ($('#fav-header').hasClass('ui-fixed-hidden')) {
-                    $('#fav-header').removeClass("ui-fixed-hidden");
-                    $('#fav-header').removeClass("slidedown");
-                }
-                if ($('#fav-footer').hasClass('ui-fixed-hidden')) {
-                    $('#fav-footer').removeClass("ui-fixed-hidden");
-                    $('#fav-footer').removeClass("slideup");
-                }
-            }
-
-            var itemFavouritePrice = $('<span>', {
+            var subCategoryItemPrice = $('<span>', {
                 'class': 'flash-deals-price'
             });
 
-            itemFavouritePrice.text(dataObj.Price);
+            subCategoryItemPrice.text(dataObj.Price);
 
-            var itemFavouriteRatingParentDiv = $('<div>', {
+            var subCategoryItemRatingParentDiv = $('<div>', {
                 'style': 'display: flex; margin-top: 7px; margin-left: 2px;'
             });
 
-            var itemFavouriteRating = $('<span>', {
+            var subCategoryItemRating = $('<span>', {
                 'class': 'favourites-rating'
             });
 
-            itemFavouriteRating.text(dataObj.Product_Rating + ".0");
+            subCategoryItemRating.text(dataObj.Product_Rating + ".0");
 
-            var itemFavouriteImgRating = $('<img>', {
+            var subCategoryItemImgRating = $('<img>', {
                 'style': 'height: 15px; width: 15px; margin-left: 5px;',
                 'src': './assets/img/starRating.png'
             });
 
-            itemFavouriteRatingParentDiv.append(itemFavouriteRating);
-            itemFavouriteRatingParentDiv.append(itemFavouriteImgRating);
+            subCategoryItemRatingParentDiv.append(subCategoryItemRating);
+            subCategoryItemRatingParentDiv.append(subCategoryItemImgRating);
 
-            var contextMenuParentDiv = $('<img>', {
-                'class': 'contextMenu iw-mTrigger',
-                'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
-                'src': ' ./assets/img/menu.png',
-                'id': 'context-menu-' + dataObj.Product_ID + "-" + dataObj.Product_Name,
-                'product-name': dataObj.Product_Name
-            }).on('click', function() {
-                selectedItemId = this.id.split('-')[2];
-                selectedItemName = this.id.split('-')[3].trim();
-            });
+            // var contextMenuParentDiv = $('<img>', {
+            //     'class': 'contextMenu iw-mTrigger',
+            //     'style': 'height: 18px; width: 18px; transform: rotate(90deg);',
+            //     'src': ' ./assets/img/menu.png',
+            //     'id': 'context-menu-' + dataObj.Product_ID + "-" + dataObj.Product_Name,
+            //     'product-name': dataObj.Product_Name
+            // }).on('click', function() {
+            //     selectedItemId = this.id.split('-')[2];
+            //     selectedItemName = this.id.split('-')[3].trim();
+            // });
 
-            var menu = [{
-                name: 'Move to',
-                fun: function(data, event) {
-                    $('#movePopupDialog').popup('open');
-                    moveFavouriteItemsList.push(selectedItemId);
-                    getFavouriteListsForUser();
-                }
-            }, {
-                name: 'Delete',
-                fun: function(data, event) {
-                    deleteFavouriteItemsList.push(selectedItemId);
-                    $('#deletePopupDialog').popup('open');
-                }
-            }, {
-                name: 'Share via E-mail',
-                fun: function(data, event) {
-                    shareFavouriteItem = {
-                        'productId': selectedItemId,
-                        'productName': selectedItemName
-                    };
-                    $('#sharePopupDialog').popup('open');
-                    $('#cancelFavouriteBtn').removeClass('ui-shadow');
-                    $('#shareFavouriteBtn').removeClass('ui-shadow');
+            // var menu = [{
+            //     name: 'Move to',
+            //     fun: function(data, event) {
+            //         $('#movePopupDialog').popup('open');
+            //         moveFavouriteItemsList.push(selectedItemId);
+            //         getFavouriteListsForUser();
+            //     }
+            // }, {
+            //     name: 'Delete',
+            //     fun: function(data, event) {
+            //         deleteFavouriteItemsList.push(selectedItemId);
+            //         $('#deletePopupDialog').popup('open');
+            //     }
+            // }, {
+            //     name: 'Share via E-mail',
+            //     fun: function(data, event) {
+            //         shareFavouriteItem = {
+            //             'productId': selectedItemId,
+            //             'productName': selectedItemName
+            //         };
+            //         $('#sharePopupDialog').popup('open');
+            //         $('#cancelFavouriteBtn').removeClass('ui-shadow');
+            //         $('#shareFavouriteBtn').removeClass('ui-shadow');
 
-                }
-            }];
+            //     }
+            // }];
 
-            $('.contextMenu').contextMenu(menu);
+            // $('.contextMenu').contextMenu(menu);
 
-            var itemFavouriteContextMenu = $('<div>', {
-                'style': 'text-align: end; margin-top: 10px; margin-right: 5px;',
-                'class': 'context-menu'
-            });
+            // var subContentItemContextMenu = $('<div>', {
+            //     'style': 'text-align: end; margin-top: 10px; margin-right: 5px;',
+            //     'class': 'context-menu'
+            // });
 
-            itemFavouriteContextMenu.append(contextMenuParentDiv);
+            // itemFavouriteContextMenu.append(subContentItemContextMenu);
 
-            itemFavouriteDetailsParentDiv.append(itemFavouriteName);
-            itemFavouriteDetailsParentDiv.append(itemFavouriteEditCheckBox);
-            itemFavouriteDetailsParentDiv.append(itemFavouritePrice);
-            itemFavouriteDetailsParentDiv.append(itemFavouriteRatingParentDiv);
-            itemFavouriteDetailsParentDiv.append(itemFavouriteContextMenu);
+            subCategoryItemDetailsParentDiv.append(subCategoryItemName);
+            // subCategoryItemDetailsParentDiv.append(itemFavouriteEditCheckBox);
+            subCategoryItemDetailsParentDiv.append(subCategoryItemPrice);
+            subCategoryItemDetailsParentDiv.append(subCategoryItemRatingParentDiv);
+            // subCategoryItemDetailsParentDiv.append(itemFavouriteContextMenu);
 
             subCategoryItemListRow.append(subCategoryItemImageParentDiv);
-            subCategoryItemListRow.append(itemFavouriteDetailsParentDiv);
+            subCategoryItemListRow.append(subCategoryItemDetailsParentDiv);
 
-            parent.append(subCategoryItemListRow);
+            $('#subCategoryItemListDiv').append(subCategoryItemListRow);
         }
 
     })(ASDA_Project);
