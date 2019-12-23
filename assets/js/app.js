@@ -2901,9 +2901,7 @@ $(function() {
                         var recordJSON = JSON.stringify(userRec);
                         var req = Ajax("./controllers/ajaxSaveCustomer.php", "POST", recordJSON);
                         if (req.status == 200) {
-                            try {
-                                toastr.success('Shipping Details Updated Successfully');
-                            } catch (e) {
+                            try {} catch (e) {
                                 $('#pgAddShippingAddress').data('success', 'false');
                                 toastr.error('Updating Shipping Address Error Occured!');
                             }
@@ -4332,6 +4330,210 @@ $(function() {
 
             parent.append(subCategoryItemListRow);
         }
+
+        ////////////////////// Order Confirmation //////////////////////////////////
+
+        $('#buyShopping').on('click', function() {
+            $.mobile.changePage('#pgOrderConfirmation');
+            getOrderConfirmedList();
+        });
+
+        function getOrderConfirmedList() {
+            var totalAmount = 0;
+            var itemCount = 0;
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            var fileName = userName + '-ordered-item-list';
+            var req = Ajax("./controllers/ajaxGetOrderedItemList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var orderedItemList = JSON.parse(req.responseText);
+                    $('#orderConfirmationDiv').empty();
+                    $.each(orderedItemList.OrderedList, function() {
+                        appendOrderConfirmedList($('#orderConfirmationDiv'), this);
+                        totalAmount += this.Price;
+                        itemCount += 1;
+                    });
+                    $('#orderSummarySpan').text('Order Summary (' + itemCount + ' items)');
+                    $('#subTotalSpan').text(totalAmount.toFixed(2));
+                    var allTotalAfterDiscount = totalAmount.toFixed(2) - 1;
+                    $('#allTotalSpan').text(allTotalAfterDiscount.toFixed(2));
+                    $('#deliveryType').text(dataObj.DeliveryType);
+                } catch (e) {
+                    toastr.error("An Error Occured While Retrieving Ordered List");
+                }
+            }
+        }
+
+        function appendOrderConfirmedList(parent, datObj) {
+
+            var orderedListParentDiv = $('<div>', {
+                'id': dataObj.Product_ID + "-ordered-parent-div"
+            });
+
+            var orderedListItemDiv = $('<div>', {
+                'id': dataObj.Product_ID + "-ordered-item",
+                'class': 'flashDealsRow',
+                'style': 'margin-bottom: 5px; margin-top: 15px; padding-bottom: 5px; border-bottom: 0.5px #C4C4C4 solid;'
+            });
+
+            var orderedListItemImgDiv = $('<div>', {
+                'id': dataObj.Product_ID + "-ordered-item-image",
+                'style': 'display: flex; margin-left: 5%;'
+            });
+
+            var orderedListItemImg = $('<img>', {
+                'style': 'height: 90px; width: 90px; margin-bottom: 15px;',
+                'src': dataObj.Path
+            });
+
+            var orderedListItemDetailsDiv = $('<div>', {
+                'style': 'display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px; margin-top: 10px;'
+            });
+
+            var orderedListItemDetailsSpan = $('<span>', {
+                'id': dataObj.Product_ID + "-ordered-item-name",
+                'style': 'margin-bottom: 10px; margin-top: -15px;',
+                'class': 'flash-deals-item-details'
+            });
+            orderedListItemDetailsSpan.text(dataObj.Product_Name);
+
+            var orderedListItemPriceDiv = $('<div>', {
+                'style': 'display: flex; margin-left: 5%;'
+            });
+
+            var orderedListItemPriceSpan = $('<span>', {
+                'id': dataObj.Product_ID + "-ordered-item-price",
+                'style': 'width: 100px;',
+                'class': 'flash-deals-price'
+            });
+            orderedListItemPriceSpan.text(dataObj.Price);
+
+            var orderedListItemQuantityDiv = $('<div>', {
+                'style': 'display: flex; margin-left: 13%;'
+            });
+
+            var orderedListItemQuantityMinusImg = $('<img>', {
+                'style': 'height: 15px; width: 15px; margin-left: 5px;',
+                'src': './assets/img/Icons/minus.png'
+            });
+
+            var orderedListItemQuantitySpan = $('<span>', {
+                'id': dataObj.Item_Count + 'ordered-item-quantity',
+                'class': 'favourites-rating',
+                'style': 'margin-left: 10px;  margin-right: 6px; font-weight: 600 !important;'
+            });
+
+            var orderedListItemQuantityPlusImg = $('<img>', {
+                'style': 'height: 15px; width: 15px; margin-left: 5px;',
+                'src': './assets/img/Icons/plus.png'
+            });
+
+            orderedListItemQuantityDiv.append(orderedListItemQuantityMinusImg);
+            orderedListItemQuantityDiv.append(orderedListItemQuantitySpan);
+            orderedListItemQuantityDiv.append(orderedListItemQuantityPlusImg);
+
+            orderedListItemPriceDiv.append(orderedListItemPriceSpan);
+            orderedListItemPriceDiv.append(orderedListItemQuantityDiv);
+
+            orderedListItemDetailsDiv.append(orderedListItemDetailsSpan);
+            orderedListItemDetailsDiv.append(orderedListItemPriceDiv);
+
+            orderedListItemImgDiv.append(orderedListItemImg);
+
+            orderedListItemDiv.append(orderedListItemImgDiv);
+            orderedListItemDiv.append(orderedListItemDetailsDiv);
+
+            var orderedListItemNoteToSellerDiv = $('<div>', {
+                'style': 'display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;'
+            });
+
+            var orderedListItemNoteToSellerSpan = $('<span>', {
+                'style': 'margin-left: 10px; margin-top: 8px; font-size: 14px; margin-right: 15px; font-weight: 600;'
+            });
+            orderedListItemNoteToSellerSpan.text("Note to store");
+
+            var orderedListItemNoteToSellerInput = $('<input>', {
+                'id': dataObj.Product_ID + "note-to-store",
+                'style': 'width: 240px;',
+                'type': 'text',
+                'placeholder': 'Optional message here',
+                'autocomplete': 'off',
+                'data-clear-btn': 'true'
+            });
+
+            orderedListItemNoteToSellerDiv.append(orderedListItemNoteToSellerSpan);
+            orderedListItemNoteToSellerDiv.append(orderedListItemNoteToSellerInput);
+
+            orderedListParentDiv.append(orderedListItemDiv);
+            orderedListParentDiv.append(orderedListItemNoteToSellerDiv);
+
+            parent.append(orderedListParentDiv);
+
+
+            /*<div>
+                  <div id="ordered-item-P001" border-bottom="5px #C4C4C4 solid;" class="flashDealsRow" style="">
+                      <div id="orderedItemImage" style="display: flex; margin-left: 5%;">
+                      <img style="height: 90px; width: 90px; margin-bottom: 15px;" src="./assets/img/Item_Images/Nature-Cookies.jpg">
+                      </div>
+                      <div style="display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px; margin-top: 10px;">
+                          <span id="orderedItemName" class="flash-deals-item-details" style="margin-bottom: 10px; margin-top: -15px;">Nature Cookies, Non-GMO Chewy Chocolate Chunk</span>
+                          <div style="display: flex; margin-left: 5%;">
+                              <span id="orderedItemPrice" class="flash-deals-price" style="width: 100px;">$2.79</span>
+                              <div style="display: flex; margin-left: 13%;">
+                                  <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/Icons/minus.png">
+                                  <span id="orderedItemCount" class="favourites-rating" style="margin-left: 10px;  margin-right: 6px; font-weight: 600 !important;">2</span>
+                                  <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/Icons/plus.png">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div style="display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;">
+                      <span style="margin-left: 10px; margin-top: 8px; font-size: 14px; margin-right: 15px; font-weight: 600;">Note to store</span>
+                      <input id="noteToSeller" style="width: 240px;" type="text" placeholder="Optional message here" autocomplete="off" data-clear-btn="true"></input>
+                  </div>
+              </div> */
+        }
+
+        function appendPaymentMethod(dataObj) {
+            if (dataObj.PaymentMethod == "PayPal") {
+                $('#payment-method').css('display', 'block');
+                $('#payment-method').css('src', './assets/img/Payment/paypal.png');
+                $('#selectPaymentMethodDiv').css('display', 'none');
+                $('#payPalDetailsDiv').css('display', 'block');
+                $('#creditCardDetailsDiv').css('display', 'none');
+                $('#payPalEmail').text(dataObj.Email);
+                $('#payPalPaymentDetails').text('Bank ' + dataObj.CardNumber + ', ' + 'USD ' + allTotalAfterDiscount);
+            } else if (dataObj.PaymentMethod == "CreditCard") {
+                $('#payment-method').css('display', 'block');
+                $('#payment-method').css('src', './assets/img/Payment/credit-card.png');
+                $('#selectPaymentMethodDiv').css('display', 'none');
+                $('#creditCardDetailsDiv').css('display', 'block');
+                $('#payPalDetailsDiv').css('display', 'none');
+                $('#creditCardDetails').text(dataObj.CreditCardNumber);
+                $('#payPalPaymentDetails').text('USD ' + allTotalAfterDiscount);
+            }
+        }
+
+        $('#selectDeliveryMethodSpan, #selectDeliveryMethodImg').on('click', function() {
+            $.mobile.changePage('#pgDeliveryAndPickup');
+        });
+
+        function appendDeliveryMethod(dataObj) {
+            if (dataObj.DeliveryMethod == "InStorePickup") {
+                $('#selectDeliveryMethodSpan').css('display', 'none');
+                $('#deliveryType').css('display', 'block');
+                $('#deliveryType').text('In-Store Pickup');
+            } else if (dataObj.PaymentMethod == "StandardDelivery") {
+                $('#selectDeliveryMethodSpan').css('display', 'none');
+                $('#deliveryType').css('display', 'block');
+                $('#deliveryType').text('Standard Delivery');
+            }
+        }
+
+        $('#backIconOrderConfirmationPage').on('click', function() {
+            $.mobile.changePage('#pgShoppingCart');
+        });
 
     })(ASDA_Project);
 });
