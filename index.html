@@ -431,7 +431,7 @@
             <div class="nav-bar-fonts" style="width: 100%; height: 50px; border-bottom: 1.5px #C4C4C4 solid; position:fixed; top: 6.5%; margin-left: -2px;">
                 <form id="favouriteListSelectorDiv" style="margin-top: -11px; -webkit-box-shadow: none !important; box-shadow: none ; display: block;" class="nav-bar-fonts">
                     <div class="ui-field-contain" style=" display: flex; color: #333 !important; -webkit-box-shadow: none !important; box-shadow: none ;">
-                        <select id="favSelect" class="select2" style="width: 80%; padding: 15px; color: #333 !important; -webkit-box-shadow: none !important; box-shadow: none ;">
+                        <select id="favSelect" class="select2" style="width: 80%; padding: 20px; color: #333 !important; -webkit-box-shadow: none !important; box-shadow: none ;">
                             <option value="ALL_PRODUCTS" style="color: #333 !important; font-size: 10px !important;">ALL PRODUCTS</option>
                         </select>
                         <img id="edit-btn" src="./assets/img/Navbar_Images/edit-black.png" class="icon-header-nav" style="height: 20px !important; width: 20px !important; position: absolute; top: 34%; right: 5%;">
@@ -620,15 +620,15 @@
                 </ul>
             </div>
             <div id="favEditNavBar" data-grid="d" style="display: none">
-                <ul style="margin-bottom: 1%;">
+                <ul style="margin-bottom: 2%; margin-top: 5px;">
                     <li class="navbar-align">
                         <div id="favMoveToBtn" style="margin-left: -20%;">
-                            <button class="favourites-move-to-btn"> MOVE TO ANOTHER LIST </button>
+                            <button class="favourites-move-to-btn" style="margin-right: 12%;"> MOVE TO ANOTHER LIST </button>
                         </div>
                     </li>
                     <li class="navbar-align">
                         <div id="favDeleteItemsBtn" style="margin-left: -15%;">
-                            <button class="favourites-delete-btn"> DELETE </button>
+                            <button class="favourites-delete-btn" style="margin-right: 10%;"> DELETE </button>
                         </div>
                     </li>
                 </ul>
@@ -1305,30 +1305,30 @@
                         <img src="./assets/img/Account/member_levels.png" style="height: 35px;width: 35px;">
                         <span class="member-center-titles">Member Levels</span>
                     </div>
-                    <div style="display: flex;margin-top: 15px;">
+                    <div style="display: flex;margin-top: 20px;">
                         <div class="bullet"></div>
                         <span class="member-center-content">The first member level upgrade will occur on Dec 8, 2017 PT. Your Member Level is based on the number of reward points you have accumulated over the past 12 months, we calculate the points on the last day of each month. You can reach higher levels by collecting the number of points required by shopping, interacting and just visiting daily, and new points and level will be effective on 8th of next month. Remember that you must collect enough points each month to avoid dropping down a level!</span>
                     </div>
                 </div>
-                <div style="margin-top: 15px;">
+                <div style="margin-top: 20px;">
                     <div style="display: flex;">
                         <img src="./assets/img/Account/shopping_cart_points.png" style="height: 35px;width: 35px;">
                         <span class="member-center-titles">Shopping Points</span>
                     </div>
-                    <div style="display: flex;margin-top: 15px;">
+                    <div style="display: flex;margin-top: 20px;">
                         <div class="bullet" style="width: 25px !important;"></div>
                         <span class="member-center-content">Earn 5 points for each day that you buy items above or equal to US $2 (max 5 points per day)</span>
                     </div>
-                    <div style="display: flex;margin-top: 15px;">
+                    <div style="display: flex;margin-top: 20px; margin-bottom: 20px;">
                         <div class="bullet" style="width: 25px !important;"></div>
                         <span class="member-center-content">You can earn bonus points by shopping in multiple categories each day (up to 5 points per day)</span>
                     </div>
                 </div>
             </div>
             <div style="height:3px; background: #C4C4C4;"></div>
-            <div style="margin-top: 15px;">
+            <div style="margin-top: 20px;">
                 <span class="member-level-guide-title">Member Level Guide</span>
-                <div style="display: flex;margin-top: 15px;margin-left: 20px;">
+                <div style="display: flex;margin-top: 20px;margin-left: 20px;">
                     <div style="display: grid;position: absolute;left: 5%;">
                         <span class="member-level-guide">Member Levels</span>
                         <div style="display: flex;margin-top: 15px;">
@@ -1648,8 +1648,20 @@
                 <img id="navigateToIcon" class="navigate-to-customer-review-style" src="./assets/img/back_grey.png"></img>
             </div>
             <div id="customerReviewBlock" class="customer-review-example-style"></div>
+
+            <!-- Added To Favourite Popup Dialog -->
+            <div data-role="popup" id="itemAddedToFavouritesPopup" data-overlay-theme="a" data-theme="c" style="background: #C07C39; height: 185px; border-radius: 15px;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false"
+                data-shadow="true" data-corners="true" data-position-to="origin" data-transition="pop">
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="height: 330px !important;">
+                    <div style="display: grid;width: 185px;">
+                        <img src="./assets/img/Icons/check-mark-button.png" style="height: 70px; width: 70px; margin-left: 55px;">
+                        <span style="color: white; margin-top: 15px; font-size: 20px; text-align: center;">Added to Favourites List</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div id="itemDetailsDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 746px;" data-tap-toggle="false">
+        <div id="itemDetailsDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 741px;" data-tap-toggle="false">
             <button id="addToCartBtn" class="add-to-cart-btn-style add-to-cart-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Add To Cart</button>
             <button id="buyNowBtn" class="buy-now-btn-style buy-now-font-style" style="height: 45px; border-radius: 10px; text-transform: none !important;">Buy Now</button>
         </div>
@@ -1724,34 +1736,77 @@
 
     <!-- Shopping Cart -->
     <div data-theme="a" id="pgShoppingCart" data-role="page" data-title="Shopping Cart Page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+        <div id="shoppingCartHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="headerTitleShoppingCart" class="add-review-style">
                 <img id="backIconShoppingCartPage" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="backIconShoppingCartText" class="open-sans-font sub-category-style">Shopping Cart</span>
+                <span id="backIconShoppingCartText" class="open-sans-font sub-category-style" style="top: 12px !important;font-weight: 500 !important; font-size: 17px !important;">Shopping Cart</span>
+                <img id="cartDeleteItems" src="./assets/img/Icons/delete.png" class="cart-delete-item">
             </div>
         </div>
-        <div id="pgCartDiv" data-role="main">
+        <div id="pgCartDiv" data-role="main" data-tap-toggle="false">
             <div id="shoppingCartDiv"></div>
+            <!-- Remove Items Popup Dialog -->
+            <div data-role="popup" id="removeCartItemsPopup" data-overlay-theme="a" data-theme="c" style="max-width:400px; background: white;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true"
+                data-corners="true" data-transition="none" data-position-to="origin">
+                <div id="removeDialogHeader" data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner" style="background-color: white !important;box-shadow: none !important; border: none !important;">
+                    <span class="ui-title popup-header" role="heading" style="margin-left: 8%;">Remove</span>
+                </div>
+                <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content ui-body-d" role="main" style="margin-top: -5%; height: 95px;">
+                    <span class="popup-content" style="display: block; line-height: 20px; margin-left: 10px;">Are you sure you want to remove the items selected?</span>
+                    <a id="cancelCartItemsBtn" href="#pgShoppingCart" style="left: 46%; margin-top: 5%;margin-bottom: -2%;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+                        <span class="ui-btn-inner ui-btn-corner-all">
+                                    <span class="ui-btn-text popup-cancel-btn">Cancel</span>
+                        </span>
+                    </a>
+                    <a id="removeCartItemsBtn" href="#" style="position: absolute; left: 70%; margin-top: 4.4%;;" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+                        class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-b">
+                        <span class="ui-btn-inner ui-btn-corner-all">
+                                    <span class="ui-btn-text popup-delete-btn">Remove</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div id="shoppingCartBtnDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 93%;" data-tap-toggle="false">
-            <div id="paymentNavBar" data-grid="d">
-                <ul style="margin-bottom: 1%;">
-                    <li class="navbar-align">
-                        <div id="totlaLebel" style="margin-left: -20%;">
-                            <span id="totalCostText" class="flash-deals-item-details" style="font-size: 13px; font-weight: 600;">Total > </span>
+        <div id="shoppingCartFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px; border-top: 1.5px #C4C4C4 solid;">
+            <div id="summaryParentDiv" style="display: grid; display: none; margin: 10px; margin-bottom: 10px;" data-tap-toggle="false">
+                <div style="display: flex;">
+                    <img id="closeBtn" src="./assets/img/Navbar_Images/close.png" style="height: 15px; width: 15px; margin-top: 5px;">
+                    <span style="margin-left: 20px; font-size: 18px;">Summary</span>
+                </div>
+                <div style="margin-top: 20px; margin-bottom: 15px;">
+                    <span id="orderSummarySpan" style="font-size: 15px;">Order Summary (3 items)</span>
+                </div>
+                <div style="display: flex; margin-bottom: 7px;">
+                    <span style="font-size: 11px;font-weight: 500;">Subtotal:</span>
+                    <span id="subTotalSpan" style="font-size: 11px; position: absolute; right: 3%;font-weight: 500;">US $0.00</span>
+                </div>
+                <div style="display: flex; margin-bottom: 7px;">
+                    <span style="font-size: 11px;font-weight: 500;">Store Discount:</span>
+                    <span id="storeDiscountSpan" style="font-size: 11px; position: absolute; right: 3%;font-weight: 500;">- US $1.00</span>
+                </div>
+                <div style="display: flex; margin-bottom: 7px;">
+                    <span style="font-size: 12px;">All Total:</span>
+                    <span id="allTotalSpan" style="font-size: 12px; position: absolute; right: 3%;">US $0.00</span>
+                </div>
+            </div>
+            <div id="paymentNavBar" style="display: flex; height: 55px;" data-tap-toggle="false">
+                <div id="checkItems" style="display: flex; width: 20%; margin-left: 5px;">
+                    <input type="checkbox" id="allSelectedCheckBox">
+                    <span style="font-size: 12px; margin-left: 36px;  margin-top: 21px;">All</span>
+                </div>
+                <div style="display: flex; left: 35%; position: absolute;">
+                    <div id="totalParent" style="display: grid; margin-top: 10px; margin-right: -10px;">
+                        <span style="font-size: 11px;">Total</span>
+                        <div style="display: flex; width: 130px;">
+                            <span id="cartTotalAmount">US $0.00</span>
+                            <img id="priceExpander" src="./assets/img/back_grey.png" style="height: 15px; width: 15px;transform: rotate(270deg);margin-left: 8px;">
                         </div>
-                    </li>
-                    <li class="navbar-align">
-                        <div id="totalCostLabel" style="margin-left: -10%;">
-                            <span id="totalCost" class="flash-deals-item-details" style="font-size: 17px; font-weight: 600;"></span>
-                        </div>
-                    </li>
-                    <li class="navbar-align">
-                        <div id="buyItmesBtn" style="margin-left: -15%;">
-                            <button class="favourites-delete-btn" style="left: 65%; margin-top: -10px;"> buy </button>
-                        </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div id="buyItmesBtn">
+                        <button class="favourites-delete-btn" id="buyShopping">Buy</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1820,6 +1875,124 @@
         </div>
     </div>
 
+    <!-- Order Confirmation -->
+    <div data-theme="a" id="pgOrderConfirmation" data-role="page" data-title="Order Confirmation Page">
+        <div id="orderConfirmationHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerTitleOrderConfirmation" class="add-review-style">
+                <img id="backIconOrderConfirmationPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconOrderConfirmationText" class="open-sans-font sub-category-style" style="font-weight: 500 !important; top: 12px !important; font-size: 17px !important;">Order Confirmation</span>
+            </div>
+        </div>
+        <div id="pgOrderConfirmation" data-role="main" data-tap-toggle="false" class="open-sans-font">
+            <div id="orderConfirmationDiv">
+                <div>
+                    <div id="ordered-item-P001" border-bottom="5px #C4C4C4 solid;" class="flashDealsRow" style="margin-bottom: 5px; margin-top: 15px; padding-bottom: 5px; border-bottom: 0.5px #C4C4C4 solid;">
+                        <div id="orderedItemImage" style="display: flex; margin-left: 5%;"><img style="height: 90px; width: 90px; margin-bottom: 15px;" src="./assets/img/Item_Images/Nature-Cookies.jpg"></div>
+                        <div style="display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px; margin-top: 10px;">
+                            <span id="orderedItemName" class="flash-deals-item-details" style="margin-bottom: 10px; margin-top: -15px;">Nature Cookies, Non-GMO Chewy Chocolate Chunk</span>
+                            <div style="display: flex; margin-left: 5%;">
+                                <span id="orderedItemPrice" class="flash-deals-price" style="width: 100px;">$2.79</span>
+                                <div style="display: flex; margin-left: 13%;">
+                                    <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/Icons/minus.png">
+                                    <span id="orderedItemCount" class="favourites-rating" style="margin-left: 10px;  margin-right: 6px; font-weight: 600 !important;">2</span>
+                                    <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/Icons/plus.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;">
+                        <span style="margin-left: 10px; margin-top: 8px; font-size: 14px; margin-right: 15px; font-weight: 600;">Note to store</span>
+                        <input id="noteToSeller" style="width: 240px;" type="text" id="OptionalMessage" placeholder="Optional message here" autocomplete="off" data-clear-btn="true"></input>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="background: rgba(196, 196, 196, 0.8); height: 5px; width: 100%;"></div>
+                <div style="display: flex;height: 60px;">
+                    <span style="margin-left: 10px; margin-top: 18px; font-size: 14px; font-weight: 600;">Delivery and Pickup</span>
+                    <span id="selectDeliveryMethodSpan" style="color: rgba(237, 12, 12, 0.8); margin-top: 19px; font-size: 13px; margin-left: 5%;">Select Delivery Option</span>
+                    <span id="deliveryType" style="margin-top: 19px; font-size: 13px; margin-left: 5%; display: none;">In-Store Pickup</span>
+                    <img id="selectDeliveryMethodImg" src="./assets/img/Icons/back_button_blue.png" style="height: 20px; width: 15px; margin-left: 8px; margin-top: 18px; position: absolute; right: 10px;">
+                </div>
+                <div style="background: rgba(196, 196, 196, 0.8); height: 2px; width: 100%;"></div>
+                <div style="display: flex; height: 60px;">
+                    <span style="margin-left: 10px; margin-top: 20px; font-size: 14px; font-weight: 600;">Pay with</span>
+                    <div style="display: flex; margin-left: 25%; margin-top: 8px;">
+                        <img id="payment-method" src="./assets/img/Payment/paypal.png" style="height: 40px; width: 40px; display: none;">
+                        <div id="selectPaymentMethodDiv" style="display: block; margin-top: 9px;">
+                            <span style="font-size: 13px; color: rgba(237, 12, 12, 0.8);">Select Payment Option</span>
+                        </div>
+                        <div id="payPalDetailsDiv" style="display: none;">
+                            <div style="display: grid; margin-top: 8px;">
+                                <span id="payPalEmail" style="font-size: 9px; margin-left: 10%; margin-bottom: 4px;">JamesArthur@gmail.com</span>
+                                <span id="payPalPaymentDetails" style="font-size: 9px; margin-left: 10%; width: 110px;">Bank xx-0083, USD 14.96</span>
+                            </div>
+                        </div>
+                        <div id="creditCardDetailsDiv" style="display: none;">
+                            <div style="display: grid; margin-top: 17px;">
+                                <span id="creditCardDetails" style="font-size: 10px; margin-left: 10%; margin-top: -8px; width: 110px; margin-bottom: 4px;">xxxx-xxxx-xxxx-0083,</span>
+                                <span id="creditCardPaymentDetails" style="font-size: 10px; margin-left: 10%; width: 110px;">USD 14.96</span>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="./assets/img/Icons/back_button_blue.png" style="height: 20px; width: 15px; margin-left: 8px; margin-top: 18px; position: absolute; right: 10px;">
+                </div>
+                <div style="background: rgba(196, 196, 196, 0.8); height: 5px; width: 100%;"></div>
+                <div id="summaryParentDiv" style="display: grid; display: block; margin: 10px; margin-bottom: 10px;" data-tap-toggle="false">
+                    <div style="margin-top: 20px; margin-bottom: 15px;">
+                        <span id="orderSummarySpan" style="font-size: 15px; font-weight: 600;">Order Summary (3 items)</span>
+                    </div>
+                    <div style="display: flex; margin-bottom: 7px;">
+                        <span style="font-size: 10px;font-weight: 500;">Subtotal:</span>
+                        <span id="subTotalSpan" style="font-size: 10px; position: absolute; right: 3%;font-weight: 500;">US $0.00</span>
+                    </div>
+                    <div style="display: flex; margin-bottom: 7px;">
+                        <span style="font-size: 10px;font-weight: 500;">Store Discount:</span>
+                        <span id="storeDiscountSpan" style="font-size: 10px; position: absolute; right: 3%;font-weight: 500; color: rgba(39, 79, 185, 0.75);">- US $1.00</span>
+                    </div>
+                    <div style="display: flex; margin-bottom: 7px;">
+                        <span style="font-size: 11px; font-weight: 600;">All Total:</span>
+                        <span id="allTotalSpan" style="font-size: 11px; position: absolute; right: 3%;">US $0.00</span>
+                    </div>
+                </div>
+                <div style="background: rgba(196, 196, 196, 0.5); height: 45px; width: 95%; border-radius: 2px; margin-left: 10px; text-align: center; margin-top: 15px;">
+                    <span style="color: #000000; opacity: 0.6; font-size: 10px; margin-left: 2px;">Upon clicking ‘Pay Now’, I confirm I have read and acknowledge</span>
+                    <span style="color: #133794; font-size: 9px; margin-right: 10px;">all iterms and policies</span>
+                </div>
+            </div>
+        </div>
+        <div id="orderConfirmationFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px; border-top: 1.5px #C4C4C4 solid;">
+            <div id="orderConfirmationNavBar" style="display: flex; height: 55px;" data-tap-toggle="false">
+                <div style="display: flex; margin-left: 15px;">
+                    <div id="totalParent" style="display: grid; margin-top: 10px; position: absolute;">
+                        <span style="font-size: 11px;">Total</span>
+                        <div style="display: flex; width: 130px;">
+                            <span id="cartTotalAmount">US $0.00</span>
+                        </div>
+                    </div>
+                    <div id="buyItmesBtn" style="position: absolute; right: 10px; bottom: 18px;">
+                        <button class="favourites-delete-btn" id="buyShopping">Pay Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delivery and Pickup -->
+    <div data-theme="a" id="pgDeliveryAndPickup" data-role="page" data-title="Delivery and Pickup Page">
+        <div id="deliveryAndPickupHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerTitleDeliveryAndPickup" class="add-review-style">
+                <img id="backIconShoppingCartPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconShoppingCartText" class="open-sans-font sub-category-style" style="font-weight: 500 !important; top: 12px !important; font-size: 17px !important;">Order Confirmation</span>
+            </div>
+        </div>
+        <div id="pgDeliveryAndPickup" data-role="main" data-tap-toggle="false" class="open-sans-font">
+
+        </div>
+        <div id="deliveryAndPickupFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px;">
+
+        </div>
+    </div>
 
 </body>
 

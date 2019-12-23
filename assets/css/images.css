@@ -124,6 +124,14 @@
     opacity: 0.8;
 }
 
+.cart-delete-item {
+    position: absolute;
+    height: 25px;
+    width: 21px;
+    left: 340px;
+    top: 8px;
+}
+
 .profile-pic-2-style {
     position: absolute;
     width: 60px;
