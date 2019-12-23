@@ -166,14 +166,14 @@ $(function() {
                 });
 
                 var favouriteListOptionParent = $('<option>', {
-                    'style': 'color: #333 !important; font-size: 14px !important;  padding-right: 20px !important; width: 80%; ',
+                    'style': 'color: #333 !important; font-size: 11px !important;  padding-right: 20px !important; width: 80%; ',
                     'value': 'MY_LISTS'
                 });
                 favouriteListOptionParent.text("MY LISTS");
                 $('#favSelect').append(favouriteListOptionParent);
 
                 var favouriteListOptionParent2 = $('<option>', {
-                    'style': 'color: #333 !important; font-size: 14px !important;  padding-right: 20px !important; width: 80%;',
+                    'style': 'color: #333 !important; font-size: 11px !important;  padding-right: 20px !important; width: 80%;',
                     'value': 'ALL_PRODUCTS'
                 });
                 favouriteListOptionParent2.text("ALL PRODUCTS");
@@ -1324,13 +1324,13 @@ $(function() {
                     });
 
                     var favouriteListOptionAllProducts = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%; ',
+                        'style': 'color: #333 !important; font-size: 11px !important; padding-right: 20px !important; width: 80%; ',
                         'value': 'ALL_PRODUCTS'
                     });
                     favouriteListOptionAllProducts.text("ALL PRODUCTS");
 
                     var favouriteListOptionParent = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%;',
+                        'style': 'color: #333 !important; font-size: 11px !important; padding-right: 20px !important; width: 80%;',
                         'value': 'MY_LISTS'
                     });
                     favouriteListOptionParent.text("MY LISTS");
@@ -1796,7 +1796,7 @@ $(function() {
                     $('#favSelect').empty();
 
                     var favouriteListOptionParent = $('<option>', {
-                        'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%;',
+                        'style': 'color: #333 !important; font-size: 11px !important; padding-right: 20px !important; width: 80%;',
                         'value': 'ALL_PRODUCTS'
                     });
                     favouriteListOptionParent.text("ALL PRODUCTS");
@@ -2014,13 +2014,13 @@ $(function() {
             });
 
             var favouriteListOptionAllProducts = $('<option>', {
-                'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%;',
+                'style': 'color: #333 !important; font-size: 11px !important; padding-right: 20px !important; width: 80%;',
                 'value': 'ALL_PRODUCTS'
             });
             favouriteListOptionAllProducts.text("ALL PRODUCTS");
 
             var favouriteListOptionParent = $('<option>', {
-                'style': 'color: #333 !important; font-size: 14px !important; padding-right: 20px !important; width: 80%; ',
+                'style': 'color: #333 !important; font-size: 11px !important; padding-right: 20px !important; width: 80%; ',
                 'value': 'MY_LISTS'
             });
             favouriteListOptionParent.text("MY LISTS");
@@ -2073,7 +2073,7 @@ $(function() {
         function appendToListNames(parent, listName) {
 
             var favouriteListOptionParent = $('<option>', {
-                'style': 'color: #333 !important; margin-right: 10px !important; padding-right: 20px !important; font-size: 14px !important; width: 80%;',
+                'style': 'color: #333 !important; margin-right: 10px !important; padding-right: 20px !important; font-size: 11px !important; width: 80%;',
                 'value': listName.replace(' ', /_/g)
             });
             favouriteListOptionParent.text(listName);
