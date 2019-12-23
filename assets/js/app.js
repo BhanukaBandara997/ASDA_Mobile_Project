@@ -21,6 +21,7 @@ $(function() {
     var totalPrice = 0;
     var selectedItemCount = 0;
     var removeItemsList = [];
+    var selectedAddress, selectedDeliveryMethod, selectedVerificationType, nicOrPassportNumber, contactNumberForPickup = '';
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -3420,6 +3421,15 @@ $(function() {
             $.mobile.changePage('#pgShoppingCart', { transition: pgtransition });
         });
 
+        $('#backIconOrderConfirmationPage').on('click', function() {
+            $.mobile.changePage('#pgShoppingCart');
+            $('#shoppingCartDiv').empty();
+            totalPrice = 0;
+            $('#cartTotalAmount').text('US $' + 0 + '.00');
+            $('#allTotalSpan').text('US $' + 0 + '.00');
+            app.PopulateShoppingCart();
+        });
+
         $('#backIconShoppingCartPage').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -4531,8 +4541,150 @@ $(function() {
             }
         }
 
-        $('#backIconOrderConfirmationPage').on('click', function() {
-            $.mobile.changePage('#pgShoppingCart');
+        $('#inStorePickupBtn').on('change', function() {
+            if ($('#inStorePickupBtn').prop("checked")) {
+                $('#standardDeliveryBtn').prop("checked", false);
+                $('#inStorePickupParentDiv').css('display', 'block');
+                $('#standardDeliveryParentDiv').css('display', 'none');
+                selectedDeliveryMethod = "In-Store Pickup"
+                var myVar = setInterval(myTimer, 5);
+
+                function myTimer() {
+                    if ($('#deliveryAndPickupHeaderDiv').hasClass('ui-fixed-hidden')) {
+                        $('#deliveryAndPickupHeaderDiv').removeClass("ui-fixed-hidden");
+                        $('#deliveryAndPickupHeaderDiv').removeClass("slidedown");
+                    }
+                }
+            }
+            selectedAddress = '';
+        });
+
+        $('#standardDeliveryBtn').on('change', function() {
+            if ($('#standardDeliveryBtn').prop("checked")) {
+                $('#inStorePickupBtn').prop("checked", false);
+                $('#standardDeliveryParentDiv').css('display', 'block');
+                $('#inStorePickupParentDiv').css('display', 'none');
+                selectedDeliveryMethod = "Standard Delivery"
+                appendDeliveryAddressToParent();
+                var myVar = setInterval(myTimer, 5);
+
+                function myTimer() {
+                    if ($('#deliveryAndPickupHeaderDiv').hasClass('ui-fixed-hidden')) {
+                        $('#deliveryAndPickupHeaderDiv').removeClass("ui-fixed-hidden");
+                        $('#deliveryAndPickupHeaderDiv').removeClass("slidedown");
+                    }
+                }
+            }
+            contactNumberForPickup = '';
+        });
+
+        $('#deliveryAddressOneRadio').on('change', function() {
+            if ($('#deliveryAddressOneRadio').prop("checked")) {
+                selectedAddress = {
+                    "contactName": $('#deliveryAddressOneContactName').text(),
+                    "mobileNo": $('#deliveryAddressOneMobileNo').text(),
+                    "streetAddress": $('#deliveryAddressOneAddress').text() + "," + $('#deliveryAddressOneAddress2').text(),
+                    "postalCode": $('#deliveryAddressOnePostalCode').text()
+                }
+                $('#deliveryAddressTwoRadio').prop("checked", false);
+            }
+        });
+
+        $('#deliveryAddressTwoRadio').on('change', function() {
+            if ($('#deliveryAddressTwoRadio').prop("checked")) {
+                selectedAddress = {
+                    "contactName": $('#deliveryAddressTwoContactName').text(),
+                    "mobileNo": $('#deliveryAddressTwoMobileNo').text(),
+                    "streetAddress": $('#deliveryAddressTwoAddress').text() + "," + $('#deliveryAddressTwoAddress2').text(),
+                    "postalCode": $('#deliveryAddressTwoPostalCode').text()
+                }
+                $('#deliveryAddressOneRadio').prop("checked", false);
+            }
+        });
+
+        $('#deliveryNICBtn').on('change', function() {
+            if ($('#deliveryNICBtn').prop("checked")) {
+                selectedVerificationType = "NIC"
+                $('#deliveryPassportBtn').prop("checked", false);
+            }
+        });
+
+        $('#deliveryPassportBtn').on('change', function() {
+            if ($('#deliveryPassportBtn').prop("checked")) {
+                selectedVerificationType = "Passport"
+                $('#deliveryNICBtn').prop("checked", false);
+            }
+        });
+
+        function appendDeliveryAddressToParent() {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            var fileName = userName + '.json';
+            var req = Ajax("./controllers/ajaxGetCustomer.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var customerDetails = JSON.parse(req.responseText);
+                    if (customerDetails.AddressOne != null || customerDetails.AddressOne != '') {
+                        $('#deliveryAddressOneParentDiv').css('display', 'block');
+                        $('#deliveryAddressOneContactName').text(customerDetails.AddressOne.contactName);
+                        $('#deliveryAddressOneAddress').text(customerDetails.AddressOne.streetAddress.split(',')[0]);
+                        $('#deliveryAddressOneAddress2').text(customerDetails.AddressOne.streetAddress.split(',')[1]);
+                        $('#deliveryAddressOnePostalCode').text(customerDetails.AddressOne.postalCode);
+                        $('#deliveryAddressOneMobileNo').text(customerDetails.AddressOne.mobileNo);
+                    } else if (customerDetails.AddressTwo != null || customerDetails.AddressTwo != '') {
+                        $('#deliveryAddressTwoParentDiv').css('display', 'block');
+                        $('#deliveryAddressTwoContactName').text(customerDetails.AddressOne.contactName);
+                        $('#deliveryAddressTwoAddress').text(customerDetails.AddressOne.streetAddress.split(',')[0]);
+                        $('#deliveryAddressTwoAddress2').text(customerDetails.AddressOne.streetAddress.split(',')[1]);
+                        $('#deliveryAddressTwoPostalCode').text(customerDetails.AddressOne.postalCode);
+                        $('#deliveryAddressTwoMobileNo').text(customerDetails.AddressOne.mobileNo);
+                    }
+                } catch (e) {
+
+                }
+            }
+        }
+
+        $('#backIconDeliveryAndPickupPage').on('click', function() {
+            nicOrPassportNumber = $('#nicOrPassportInput').val();
+            contactNumberForPickup = $('#contactNumberInput').val();
+            var isValidated = true;
+            if (nicOrPassportNumber != null && nicOrPassportNumber != '') {
+                isValidated = true;
+                if (selectedDeliveryMethod == "In-Store Pickup") {
+                    if (contactNumberForPickup != null && contactNumberForPickup != '') {
+                        isValidated = true;
+                    } else {
+                        isValidated = false;
+                        toastr.error('Contact Number Required For In-Store Pickup');
+                    }
+                } else if (selectedDeliveryMethod == "Standard Delivery") {
+                    if (selectedAddress != null && selectedAddress != '') {
+                        isValidated = true;
+                    } else {
+                        isValidated = false;
+                        toastr.error('Shipping Address Required For Standard Delivery');
+                    }
+                }
+            } else {
+                isValidated = false;
+                toastr.error('NIC or Passport Number is Required');
+            }
+
+            if (isValidated) {
+                $.mobile.changePage('#pgOrderConfirmation');
+                getOrderConfirmedList();
+                if (selectedDeliveryMethod == "In-Store Pickup" || selectedDeliveryMethod == "Standard Delivery") {
+                    $('#selectDeliveryMethodSpan').css('display', 'none');
+                    $('#deliveryType').css('display', 'block');
+                    $('#deliveryType').text(selectedDeliveryMethod);
+                } else {
+                    $('#selectDeliveryMethodSpan').css('display', 'block');
+                }
+            }
+
+            /////// Update Ordered Item List Using /////////////////////////////////////////////////////////
+            //////////   NIC/Passport Number, Contact Number For Pickup, Verification Type, Selected Shipping Address ////////
         });
 
     })(ASDA_Project);
