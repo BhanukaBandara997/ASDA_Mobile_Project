@@ -801,7 +801,9 @@ $(function() {
         function callback(event) {
             var item = event.item.index; // Position of the current item
             if (item == 6) {
-                $.mobile.changePage('#pgWelcome');
+                setTimeout(function() {
+                    $.mobile.changePage('#pgWelcome');
+                }, 700);
             }
         }
 
