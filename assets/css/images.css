@@ -311,6 +311,10 @@
         height: 160px !important;
         border-radius: 25px !important;
     }
+    img.introductory-carousel-img {
+        height: 760px !important;
+        border: 3px solid #F2C141 !important;
+    }
     img.flash-deal-img {
         margin-top: 5px !important;
         height: 15px !important;
@@ -361,6 +365,12 @@
         position: absolute;
         top: 35%;
         left: 4%;
+    }
+    div.introductory-owl-carousel>div.owl-item {
+        width: 390px;
+    }
+    div.introductory-owl-carousel>div.owl-item active {
+        width: 390px;
     }
 }
 

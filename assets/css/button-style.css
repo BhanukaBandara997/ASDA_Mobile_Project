@@ -156,6 +156,15 @@
         width: 15px !important;
         height: 2px !important;
     }
+    .introductory-owl-carousel .owl-dots .owl-dot span {
+        width: 30px !important;
+        height: 5px !important;
+    }
+    .introductory-owl-carousel .owl-dots .owl-dot {
+        background-color: #F2C141;
+        box-shadow: none;
+        border: none;
+    }
     .owl-theme .owl-nav.disabled+.owl-dots {
         margin-top: -10px !important;
     }

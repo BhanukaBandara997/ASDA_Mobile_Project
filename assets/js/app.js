@@ -769,6 +769,11 @@ $(function() {
                 margin: 10,
             });
 
+            $('.introductory-owl-carousel').owlCarousel({
+                items: 1,
+                onDragged: callback
+            });
+
             $('.home-carousel').owlCarousel({
                 items: 2.5,
                 loop: true,
@@ -792,6 +797,13 @@ $(function() {
             $(".ui-rangeslider").rangeslider("disable");
 
         });
+
+        function callback(event) {
+            var item = event.item.index; // Position of the current item
+            if (item == 6) {
+                $.mobile.changePage('#pgWelcome');
+            }
+        }
 
         app.GetFlashDealsItems = function() {
             var fileName = "FlashDealItemList";
