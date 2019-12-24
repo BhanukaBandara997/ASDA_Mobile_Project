@@ -625,6 +625,14 @@ $(function() {
             $.mobile.changePage('#pgLoginIn', { transition: pgtransition });
         });
 
+        // Back button of sub category list
+        $('#backIconSubCategoryItemList').on('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $.mobile.changePage('#pgHome', { transition: pgtransition });
+        });
+
+
         app.GetCurrentUser = function() {
             var Email = localStorage.getItem("currentLoggedInUser");
             var userName = Email.split('@')[0];
@@ -736,8 +744,8 @@ $(function() {
         function subCategory(parentCategoryName) {
 
             var newParentCategoryName = parentCategoryName.replace(/ /g, '');
-            if (parentCategoryName == "Home Backing" || parentCategoryName == "Biscuts, Chocolate & Sweets") {
-                PopulateSubCategoryItems(newParentCategoryName);
+            if (parentCategoryName == "Home Baking" || parentCategoryName == "Biscuts, Chocolate & Sweets") {
+                app.PopulateSubCategoryItems(newParentCategoryName);
             } else {
                 // toastr.error('Selected Sub category ' +newParentCategoryName);
                 var fileName = newParentCategoryName;
@@ -3248,6 +3256,22 @@ $(function() {
                     $("#itemTypeIcon").attr("src", dataObj.Product_Type_Image);
                     $('#itemTypeIcon').css('display', 'block');
                 }
+
+                if (source == "Sub_Category_List") {
+                    if (dataObj.isFavourite) {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/favourites.png");
+                    } else {
+                        $("#favouriteHeart").attr("src", "./assets/img/Icons/not_favourite.png");
+                    }
+                    $("#productPriceValue").text("US " + dataObj.Price);
+                    $("#productNameValue").text(dataObj.Product_Name);
+                    $('#reducedProductPriceValue').css('display', 'none');
+                    $('#discountPersentage').css('display', 'none');
+                    $('#productNameValue2').css('display', 'none');
+                    $('#productNameValue').css('display', 'block');
+                    $("#itemTypeIcon").attr("src", 'none');
+                    $('#itemTypeIcon').css('display', 'block');
+                }
             }
 
             $("#productRating").text(dataObj.Product_Rating + ".0");
@@ -4168,16 +4192,19 @@ $(function() {
         };
 
         app.PopulateSubCategoryItems = function(parentCategory) {
-            var fileName = "Items";
+            var fileName = "ItemList";
             fileName += '.json';
             var req = Ajax("./controllers/ajaxGetSubCategoryItemList.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
                     var subCategoryItemListList = JSON.parse(req.responseText);
                     $('#subCategoryItemListDiv').empty();
-                    $.each(subCategoryItemListList.parentCategory, function() {
-                        appendSubCategoryItemsToList(this, parentCategory);
+                    $.each(subCategoryItemListList.FoodCupboard, function(index, val) {
+                        if (val.Sub_Category_Type == parentCategory) {
+                            appendSubCategoryItemsToList(this);
+                        }
                     });
+                    $.mobile.changePage('#pgSubCategoryItemList', { transition: pgtransition });
                 } catch (e) {
                     toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
                 }
@@ -4195,8 +4222,7 @@ $(function() {
             var subCategoryItemImageParentDiv = $('<div>', {
                 'style': 'display: flex; margin-left: 5%;'
             }).on('click', function() {
-                // alert(dataObj.Product_ID + "ITEM CLICKED");
-                app.PopulateSelectedItemDetals(dataObj.Product_ID, "From_Favourite_List", dataObj);
+                app.PopulateSelectedItemDetals(dataObj.Product_ID, "Sub_Category_List", dataObj);
                 $.mobile.changePage('#pgItemView', { transition: pgtransition });
             });
 

@@ -1,10 +1,11 @@
 {
-    "Food_Cupboard": {
-        "Biscuts,Chocolate&Sweets": [{
+    "FoodCupboard": [
+         {
                 "Product_ID": "P001",
                 "Product_Name": "Back to Nature Cookies, Non-GMO Chewy Chocolate Chunk, 8 Ounce (Packaging May Vary)",
                 "Price": "$2.79 ($0.29 / Ounce)",
                 "Product_Type": "Normal",
+                "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 4.0,
                 "Path": "./assets/img/Nature-Cookies.jpg",
                 "isFavourite": false,
@@ -15,6 +16,7 @@
                 "Product_Name": "Pepperidge Farm, Distinctive Golden Butter Crackers, 9.75 Ounce",
                 "Price": "$2.79 ($0.29 / Ounce)",
                 "Product_Type": "Flash Deals",
+                "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 5.0,
                 "Path": "./assets/img/Golden-Butter-Crackers.jpg",
                 "isFavourite": false,
@@ -25,6 +27,7 @@
                 "Product_Name": "SNICKERS, M&M'S & TWIX Fun Size Christmas Candy Variety Mix, 60 Pieces",
                 "Price": "$9.94 ($0.17 / Count)",
                 "Product_Type": "New Products",
+                "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 4.0,
                 "Path": "./assets/img/SNICKERS-M&M-TWIX-Fun-Size.jpg",
                 "isFavourite": false,
@@ -35,8 +38,9 @@
                 "Product_Name": "Innofoods Organic Dark Chocolate Nuggets with Coconut & Super Seeds",
                 "Price": "$12.95 ($0.72 / Ounce)",
                 "Product_Type": "Normal",
+                "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 3.0,
-                "Path": "./assets/img/Innofoods-Organic Dark-Chocolate-Nuggets.jpg",
+                "Path": "./assets/img/Innofoods-Organic_Dark-Chocolate-Nuggets.jpg",
                 "isFavourite": false,
                 "Description": "Innofoods Organic Dark Chocolate Nuggets with Coconut & Super Seeds,It all starts with a premium Belgium couverture dark chocolate. The difference? A quality, flavor and texture that has no comparison.Free from the additional of emulsifiers(soy lecithin, vegetable oils),our chocolate is as pure as the smile that comes with it."
             },
@@ -45,6 +49,7 @@
                 "Product_Name": "M&M'S Peanut Butter Chocolate Candy, Singles Size, 1.63 Ounce, Pack of 24",
                 "Price": "$17.76 ($0.45 / Ounce)",
                 "Product_Type": "Flash Deals",
+                "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 5.0,
                 "Path": "./assets/img/M&M-Peanut-Butter-Chocolate-Candy.jpg",
                 "isFavourite": false,
@@ -55,6 +60,7 @@
                 "Product_Name": "Kirkland Signature Milk Chocolate Roasted Almonds, 48 Ounce (Pack of 1)",
                 "Price": "$16.08",
                 "Product_Type": "New Products",
+                "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 4.0,
                 "Path": "./assets/img/Kirkland-Signature-Milk-Chocolate-Roasted-Almonds.jpg",
                 "isFavourite": false,
@@ -65,6 +71,7 @@
                 "Product_Name": "Hawaiian Host Alohamacs Milk Chocolate The Original Chocolate Covered Macadamia Nut, 42 Ounce",
                 "Price": "$32.08",
                 "Product_Type": "Top Selection",
+                "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 5.0,
                 "Path": "./assets/img/Hawaiian-Host-Alohamacs-Milk-Chocolate.jpg",
                 "isFavourite": false,
@@ -75,18 +82,20 @@
                 "Product_Name": "Russell Stover Sugar Free Peanut Butter Cups, 3 oz. Bag",
                 "Price": "$9.88",
                 "Product_Type": "Flash Deals",
+                "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 3.0,
                 "Path": "./assets/img/Russell-Stover.jpg",
                 "isFavourite": false,
                 "Description": "THE SWEET FREEDOM OF SUGAR-FREE: Whether you choose sugar-free treats because of diet restrictions or just want to avoid that sugar spike and inevitable crash, Russell Stover makes sure you can indulge in the comfort of delicious chocolate, with no sugar!THE PERFECT TREAT FOR ANY OCCASION: Russell Stover chocolates and candies are crafted in small batches unlike those bulk chocolates."
-            }
-        ]
-    },
-    "HomeBaking": [{
+            },
+        
+    
+{
             "Product_ID": "P009",
             "Product_Name": "Big Green Organic Food- Organic White Rice Flour, Gluten-Free, Kosher, Artisan Baking (1)",
             "Price": "$3.99 ($0.25 / Ounce)",
             "Product_Type": "Top Selection",
+            "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 4.0,
             "Path": "./assets/img/Big-Green-Organic-Food-Organic-White-Rice-Flour.jpg",
             "isFavourite": false,
@@ -97,6 +106,7 @@
             "Product_Name": "Big Green Organic Food- Organic Black Rice Flour, Gluten-Free, Kosher, Artisan Baking",
             "Price": "$3.99 ($0.25 / Ounce)",
             "Product_Type": "Normal",
+            "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 3.0,
             "Path": "./assets/img/Big-Green-Organic-Food-Organic-Black-Rice-Flour-Gluten-Free-Kosher-Artisan-Baking.jpg",
             "isFavourite": false,
@@ -107,6 +117,7 @@
             "Product_Name": "King Arthur Flour, Measure for Measure Flour, Gluten Free, 3 Pound (2 Pack(3 Pound))",
             "Price": "$25.47 ($0.25 / Ounce)",
             "Product_Type": "Flash Deals",
+            "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 4.0,
             "Path": "./assets/img/King-Arthur-Flour.jpg",
             "isFavourite": false,
@@ -117,6 +128,7 @@
             "Product_Name": "Good Dee’s Muffin Mix.",
             "Price": "$12.99 ($1.62 / Ounce)",
             "Product_Type": "Flash Deals",
+            "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 4.0,
             "Path": "./assets/img/Good-Dee-Muffin-Mix.jpg",
             "isFavourite": false,
@@ -127,6 +139,7 @@
             "Product_Name": "Betty Crocker Triple Berry Muffin Mix, 6.5 Ounce",
             "Price": "$0.92 ($0.14 / oz)",
             "Product_Type": "Normal",
+            "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 5.0,
             "Path": "./assets/img/Betty-Crocker-Triple-Berry-Muffin-Mix.jpg",
             "isFavourite": false,
@@ -137,6 +150,7 @@
             "Product_Name": "Keto Pancake & Waffle Mix by Keto and Co",
             "Price": "$9.99 ($1.07 / Ounce)",
             "Product_Type": "New Products",
+            "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 5.0,
             "Path": "./assets/img/Keto-Pancake-And-Waffle-Mix.jpg",
             "isFavourite": false,
@@ -147,10 +161,12 @@
             "Product_Name": "Wilton Meringue Powder Egg White Substitute, 4 oz",
             "Price": "$12.01",
             "Product_Type": "Top Selection",
+            "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 2.0,
             "Path": "./assets/img/Wilton-Meringue-Powder.jpg",
             "isFavourite": false,
             "Description": "Certified Kosher; made in a facility that also processes peanuts, tree nuts, fish, shellfish, milk and wheat products. Resealable top opens completely for easy measuring."
         }
     ]
+    
 }
