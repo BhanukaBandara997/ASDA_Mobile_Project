@@ -1069,7 +1069,7 @@
                                 <span id="addressOneMobileNo" class="address-mobile-number"></span>
                             </div>
                             <div id="addressOneRadioBtn" style="position: absolute; right: 15%; margin-top: 15%;">
-                                <input class="address-radio-btns" id="addressOneRadio" type="radio" style="width: 30px;height: 35px;">
+                                <input class="address-radio-btns" id="addressOneRadio" type="radio" style="width: 25px;height: 35px;">
                             </div>
                         </div>
                     </div>
@@ -1088,7 +1088,7 @@
                                 <span id="addressTwoMobileNo" class="address-mobile-number"></span>
                             </div>
                             <div id="addressTwoRadioBtn" style="position: absolute; right: 15%; margin-top: 15%;">
-                                <input class="address-radio-btns" id="addressTwoRadio" type="radio" style="width: 30px;height: 35px;">
+                                <input class="address-radio-btns" id="addressTwoRadio" type="radio" style="width: 25px;height: 35px;">
                             </div>
                         </div>
                     </div>
@@ -1982,15 +1982,75 @@
     <div data-theme="a" id="pgDeliveryAndPickup" data-role="page" data-title="Delivery and Pickup Page">
         <div id="deliveryAndPickupHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="headerTitleDeliveryAndPickup" class="add-review-style">
-                <img id="backIconShoppingCartPage" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="backIconShoppingCartText" class="open-sans-font sub-category-style" style="font-weight: 500 !important; top: 12px !important; font-size: 17px !important;">Order Confirmation</span>
+                <img id="backIconDeliveryAndPickupPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconDeliveryAndPickupText" class="open-sans-font sub-category-style" style="font-weight: 500 !important; top: 12px !important; font-size: 17px !important;">Delivery and Pickup</span>
             </div>
         </div>
         <div id="pgDeliveryAndPickup" data-role="main" data-tap-toggle="false" class="open-sans-font">
-
-        </div>
-        <div id="deliveryAndPickupFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px;">
-
+            <div>
+                <div style="display: flex;margin-left: 15px;margin-top: 10px;">
+                    <input class="delivery-type-radio-btns" id="inStorePickupBtn" type="radio" style="width: 20px;height: 30px;" data-cacheval="true">
+                    <span style="margin-left: 40px; margin-top: 7px; font-size: 14px; font-weight: 600;">In-Store Pickup</span>
+                </div>
+                <div id="inStorePickupParentDiv" style="display: none;margin-left: 55px;margin-top: 10px;">
+                    <span style="font-weight: 500; font-size: 12px; color: rgba(0, 0, 0, 0.8);">To identify the pickup location, please refer to your voucher for the address of the merchant’s store.</span>
+                    <div style="display: flex;margin-top: 15px;">
+                        <div style="display: grid">
+                            <span style="font-size: 12px; margin-bottom: 5px;">Contact Number</span>
+                            <input style="height: 30px; width: 170px; border: 0.2px solid rgba(0, 0, 0, 0.8);" required type="number" id="contactNumberInput" autocomplete="off" data-clear-btn="true"></input>
+                        </div>
+                        <span style="font-size: 10px; margin-top: 27px; margin-left: 7px;">(Ex: Format Mob-7XXXXXXXX)</span>
+                    </div>
+                </div>
+                <div style="display: flex;margin-left: 15px; margin-top: 20px;">
+                    <input class="delivery-type-radio-btns" id="standardDeliveryBtn" type="radio" style="width: 20px;height: 30px;">
+                    <span style="margin-left: 40px; font-size: 14px; font-weight: 600;">Standard Delivery</span>
+                </div>
+                <div id="standardDeliveryParentDiv" style="display: none;margin-top: 10px;">
+                    <span style=" margin-left: 55px; font-size: 12px; font-weight: 500;">Free Delivery To Your Doorstep</span>
+                    <div id="deliveryAddressOneParentDiv" style="display: none;margin-left: 25px;margin-top: 15px;margin-bottom: 10px;">
+                        <div style="display: flex;">
+                            <div style="display: grid;">
+                                <span id="deliveryAddressOneContactName" class="address-contact-name" style=" font-size: 13px; margin-bottom: 10px;"></span>
+                                <span id="deliveryAddressOneAddress" class="address-details" style="font-size: 12px;"></span>
+                                <span id="deliveryAddressOneAddress2" class="address-details" style="font-size: 12px;"></span>
+                                <span id="deliveryAddressOnePostalCode" class="address-postal-code" style="font-size: 12px;"></span>
+                                <span id="deliveryAddressOneMobileNo" class="address-mobile-number" style="font-size: 12px;"></span>
+                            </div>
+                            <div id="deliveryAddressOneRadioBtn" style="position: absolute;right: 15%;margin-top: 8%;">
+                                <input class="delivery-address-radio-btns" id="deliveryAddressOneRadio" type="radio" style="width: 20px;height: 30px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="deliveryAddressTwoParentDiv" style="display: none;margin-left: 25px;margin-top: 15px;margin-bottom: 10px;">
+                        <div style="display: flex;">
+                            <div style="display: grid;">
+                                <span id="deliveryAddressTwoContactName" class="address-contact-name" style=" font-size: 13px; margin-bottom: 10px;"></span>
+                                <span id="deliveryAddressTwoAddress" class="address-details" style="font-size: 12px;"></span>
+                                <span id="deliveryAddressTwoAddress2" class="address-details" style="font-size: 12px;"></span>
+                                <span id="deliveryAddressTwoPostalCode" class="address-postal-code" style="font-size: 12px;"></span>
+                                <span id="deliveryAddressTwoMobileNo" class="address-mobile-number" style="font-size: 12px;"></span>
+                            </div>
+                            <div id="deliveryAddressTwoRadioBtn" style="position: absolute;right: 15%;margin-top: 8%;">
+                                <input class="delivery-address-radio-btns" id="deliveryAddressTwoRadio" type="radio" style="width: 20px;height: 30px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex;margin-left: 15px;margin-top: 15px;">
+                    <input class="delivery-nic-radio-btns" id="deliveryNICBtn" type="radio" style="width: 20px;height: 30px;">
+                    <span style="margin-left: 40px; margin-top: 10px; font-size: 14px; font-weight: 600; margin-right: 20px;">NIC</span>
+                    <input class="delivery-passport-radio-btns" id="deliveryPassportBtn" type="radio" style="width: 25px;height: 35px;">
+                    <span style=" margin-left: 40px; margin-top: 10px; font-size: 14px; font-weight: 600;">Passport</span>
+                </div>
+                <div style="display: grid; margin-left: 20px;margin-top: 15px; width: 170px;">
+                    <input style="height: 30px; width: 170px; border: 0.2px solid rgba(0, 0, 0, 0.8);" required type="text" id="nicOrPassportInput" autocomplete="off" data-clear-btn="true"></input>
+                    <span style="font-size: 12px; margin-top: -5px;">Your NIC/Passport is required for verification</span>
+                </div>
+                <div style="margin-left: 20px; margin-top: 10px;">
+                    <span style="font-size: 12px;">Your NIC/Passport is required for verification. Please ensure this matches the NIC/Passport that you will need to provide during pickup.</span>
+                </div>
+            </div>
         </div>
     </div>
 
