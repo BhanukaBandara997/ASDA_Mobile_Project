@@ -4549,6 +4549,19 @@ $(function() {
 
             var orderedListItemNoteToSellerDiv = $('<div>', {
                 'style': 'display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 7px; height: 40px;'
+            }).on('click', function() {
+                var myVar = setInterval(myTimer, 5);
+
+                function myTimer() {
+                    if ($('#orderConfirmationHeaderDiv').hasClass('ui-fixed-hidden')) {
+                        $('#orderConfirmationHeaderDiv').removeClass("ui-fixed-hidden");
+                        $('#orderConfirmationHeaderDiv').removeClass("slidedown");
+                    }
+                    if ($('#orderConfirmationFooterDiv').hasClass('ui-fixed-hidden')) {
+                        $('#orderConfirmationFooterDiv').removeClass("ui-fixed-hidden");
+                        $('#orderConfirmationFooterDiv').removeClass("slidedown");
+                    }
+                }
             });
 
             var orderedListItemNoteToSellerSpan = $('<span>', {
@@ -4563,15 +4576,6 @@ $(function() {
                 'placeholder': 'Optional message here',
                 'autocomplete': 'off',
                 'data-clear-btn': 'true'
-            }).on('click', function() {
-                var myVar = setInterval(myTimer, 5);
-
-                function myTimer() {
-                    if ($('#orderConfirmationHeaderDiv').hasClass('ui-fixed-hidden')) {
-                        $('#orderConfirmationHeaderDiv').removeClass("ui-fixed-hidden");
-                        $('#orderConfirmationHeaderDiv').removeClass("slidedown");
-                    }
-                }
             });
 
             orderedListItemNoteToSellerDiv.append(orderedListItemNoteToSellerSpan);
@@ -4724,6 +4728,10 @@ $(function() {
         }
 
         $('#backIconDeliveryAndPickupPage').on('click', function() {
+            $.mobile.changePage('#pgOrderConfirmation');
+        });
+
+        $('#payNowBtn').on('click', function() {
             nicOrPassportNumber = $('#nicOrPassportInput').val();
             contactNumberForPickup = $('#contactNumberInput').val();
             var isValidated = true;

@@ -1,1 +1,1 @@
-{"ShoppingCart":[]}
+{ "ShoppingCart": [{ "Cart_Item_NO": 3, "Item_Count": 1, "Product_ID": "P008", "Product_Name": "Russell Stover Sugar Free Peanut Butter Cups", "Path": ".\/assets\/img\/Item_Images\/Russell-Stover.jpg", "Price": "$9.88", "PaymentStatus": "Pending", "PurchasedItems": "true" }] }
