@@ -21,6 +21,7 @@ $(function() {
     var totalPrice = 0;
     var selectedItemCount = 0;
     var removeItemsList = [];
+    var buyNowItemList = [];
     var selectedAddress, selectedDeliveryMethod, selectedVerificationType, nicOrPassportNumber, contactNumberForPickup = '';
     (function(app) {
 
@@ -4377,37 +4378,96 @@ $(function() {
             /////////////// Create Order Confimation List With the payment status unpaid if paid success then update the status to paid //////////
             ////////////// Remove Those Items From Shopping Cart JSON ///////////////////////////////
             $.mobile.changePage('#pgOrderConfirmation');
+            createOrderConfirmationList(removeItemsList);
             getOrderConfirmedList();
         });
+
+        function createOrderConfirmationList(purchsedItemsList) {
+            var fileName = "ShoppingCart.json";
+            var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var shoppingCartList = JSON.parse(req.responseText);
+                    var orderedItemList = shoppingCartList;
+                    $.each(orderedItemList.ShoppingCart, function(index, value) {
+                        $.each(purchsedItemsList, function(i, val) {
+                            if (val == value.Product_ID) {
+                                orderedItemList = jQuery.grep(orderedItemList.ShoppingCart, function(value) {
+                                    value.PaymentStatus = "Pending";
+                                    value.PurchasedItems = "true";
+                                    return value.Product_ID == val;
+                                });
+                            }
+                        });
+                    });
+                    // var Email = localStorage.getItem("currentLoggedInUser");
+                    // userName = Email.split('@')[0];
+                    var orderConfirmationItemList = {
+                        "OrderConfirmationItemList": orderedItemList
+                    }
+                    var userName = "User_001";
+                    var fileName = userName + '-ordered-item-list';
+                    var fileNameObj = { "FileName": fileName };
+                    var recordObj = $.extend(true, orderConfirmationItemList, fileNameObj);
+                    var recordJSON = JSON.stringify(recordObj);
+                    var req = Ajax("./controllers/ajaxSaveOrderConfirmationList.php?", "POST", recordJSON);
+                    if (req.status == 200) {
+                        try {
+                            $.each(orderedItemList, function(index, value) {
+                                shoppingCartList = jQuery.grep(shoppingCartList.ShoppingCart, function(val) {
+                                    return value.Product_ID != val.Product_ID;
+                                });
+                            });
+                            var shoppingCartItemList = {
+                                "ShoppingCart": shoppingCartList
+                            }
+                            var recordJSON = JSON.stringify(shoppingCartItemList);
+                            var req = Ajax("./controllers/ajaxUpdateShoppingCartList.php", "POST", recordJSON);
+                            if (req.status == 200) {} else {
+                                toastr.error('An Error Occurred While Upating Review Lists');
+                            }
+                        } catch (e) {
+                            toastr.error('An Error Occured While Upating Status of Item');
+                        }
+                    }
+                } catch (e) {
+                    toastr.error('An Error Occured Retrieving Shopping Cart Items');
+                }
+            }
+
+        }
 
         function getOrderConfirmedList() {
             var totalAmount = 0;
             var itemCount = 0;
-            var Email = localStorage.getItem("currentLoggedInUser");
-            userName = Email.split('@')[0];
-            var fileName = userName + '-ordered-item-list';
+            // var Email = localStorage.getItem("currentLoggedInUser");
+            // userName = Email.split('@')[0];
+            var userName = "User_001"
+            var fileName = userName + '-ordered-item-list.json';
             var req = Ajax("./controllers/ajaxGetOrderedItemList.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
                     var orderedItemList = JSON.parse(req.responseText);
                     $('#orderConfirmationDiv').empty();
-                    $.each(orderedItemList.OrderedList, function() {
+                    $.each(orderedItemList.OrderConfirmationItemList, function() {
                         appendOrderConfirmedList($('#orderConfirmationDiv'), this);
-                        totalAmount += this.Price;
+                        var priceStr = this.Price;
+                        var priceInt = priceStr.substr(priceStr.indexOf("$") + 1);
+                        totalAmount = totalAmount + JSON.parse(priceInt);
                         itemCount += 1;
                     });
-                    $('#orderSummarySpan').text('Order Summary (' + itemCount + ' items)');
-                    $('#subTotalSpan').text(totalAmount.toFixed(2));
+                    $('#orderConfirmedSummarySpan').text('Order Summary (' + itemCount + ' items)');
+                    $('#orderConfirmedSubTotalSpan').text(totalAmount.toFixed(2));
                     var allTotalAfterDiscount = totalAmount.toFixed(2) - 1;
-                    $('#allTotalSpan').text(allTotalAfterDiscount.toFixed(2));
-                    $('#deliveryType').text(dataObj.DeliveryType);
+                    $('#orderConfirmedAllTotalSpan').text(allTotalAfterDiscount.toFixed(2));
+                    $('#orderConfirmedCartTotalAmount').text("US $" + allTotalAfterDiscount.toFixed(2));
                 } catch (e) {
                     toastr.error("An Error Occured While Retrieving Ordered List");
                 }
             }
         }
 
-        function appendOrderConfirmedList(parent, datObj) {
+        function appendOrderConfirmedList(parent, dataObj) {
 
             var orderedListParentDiv = $('<div>', {
                 'id': dataObj.Product_ID + "-ordered-parent-div"
@@ -4456,7 +4516,7 @@ $(function() {
             });
 
             var orderedListItemQuantityMinusImg = $('<img>', {
-                'style': 'height: 15px; width: 15px; margin-left: 5px;',
+                'style': 'height: 15px; width: 15px; margin-left: 5px;  margin-top: 2px;',
                 'src': './assets/img/Icons/minus.png'
             });
 
@@ -4465,9 +4525,10 @@ $(function() {
                 'class': 'favourites-rating',
                 'style': 'margin-left: 10px;  margin-right: 6px; font-weight: 600 !important;'
             });
+            orderedListItemQuantitySpan.text(dataObj.Item_Count);
 
             var orderedListItemQuantityPlusImg = $('<img>', {
-                'style': 'height: 15px; width: 15px; margin-left: 5px;',
+                'style': 'height: 15px; width: 15px; margin-left: 5px; margin-top: 2px;',
                 'src': './assets/img/Icons/plus.png'
             });
 
@@ -4487,7 +4548,7 @@ $(function() {
             orderedListItemDiv.append(orderedListItemDetailsDiv);
 
             var orderedListItemNoteToSellerDiv = $('<div>', {
-                'style': 'display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;'
+                'style': 'display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 7px; height: 40px;'
             });
 
             var orderedListItemNoteToSellerSpan = $('<span>', {
@@ -4497,11 +4558,20 @@ $(function() {
 
             var orderedListItemNoteToSellerInput = $('<input>', {
                 'id': dataObj.Product_ID + "note-to-store",
-                'style': 'width: 240px;',
+                'style': 'width: 240px; border: none !important;',
                 'type': 'text',
                 'placeholder': 'Optional message here',
                 'autocomplete': 'off',
                 'data-clear-btn': 'true'
+            }).on('click', function() {
+                var myVar = setInterval(myTimer, 5);
+
+                function myTimer() {
+                    if ($('#orderConfirmationHeaderDiv').hasClass('ui-fixed-hidden')) {
+                        $('#orderConfirmationHeaderDiv').removeClass("ui-fixed-hidden");
+                        $('#orderConfirmationHeaderDiv').removeClass("slidedown");
+                    }
+                }
             });
 
             orderedListItemNoteToSellerDiv.append(orderedListItemNoteToSellerSpan);
@@ -4511,30 +4581,6 @@ $(function() {
             orderedListParentDiv.append(orderedListItemNoteToSellerDiv);
 
             parent.append(orderedListParentDiv);
-
-
-            /*<div>
-                  <div id="ordered-item-P001" border-bottom="5px #C4C4C4 solid;" class="flashDealsRow" style="">
-                      <div id="orderedItemImage" style="display: flex; margin-left: 5%;">
-                      <img style="height: 90px; width: 90px; margin-bottom: 15px;" src="./assets/img/Item_Images/Nature-Cookies.jpg">
-                      </div>
-                      <div style="display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px; margin-top: 10px;">
-                          <span id="orderedItemName" class="flash-deals-item-details" style="margin-bottom: 10px; margin-top: -15px;">Nature Cookies, Non-GMO Chewy Chocolate Chunk</span>
-                          <div style="display: flex; margin-left: 5%;">
-                              <span id="orderedItemPrice" class="flash-deals-price" style="width: 100px;">$2.79</span>
-                              <div style="display: flex; margin-left: 13%;">
-                                  <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/Icons/minus.png">
-                                  <span id="orderedItemCount" class="favourites-rating" style="margin-left: 10px;  margin-right: 6px; font-weight: 600 !important;">2</span>
-                                  <img style="height: 15px; width: 15px; margin-left: 5px;" src="./assets/img/Icons/plus.png">
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div style="display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;">
-                      <span style="margin-left: 10px; margin-top: 8px; font-size: 14px; margin-right: 15px; font-weight: 600;">Note to store</span>
-                      <input id="noteToSeller" style="width: 240px;" type="text" placeholder="Optional message here" autocomplete="off" data-clear-btn="true"></input>
-                  </div>
-              </div> */
         }
 
         function appendPaymentMethod(dataObj) {
