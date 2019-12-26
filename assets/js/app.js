@@ -3931,11 +3931,11 @@ $(function() {
             }).on('change', function(e) {
                 if ($(this).is(':checked')) {
                     selectedItemCount = selectedItemCount + 1;
-                    app.CalculateTheTotalAmount(dataObj.Product_ID, true);
+                    app.CalculateTheTotalAmount(dataObj.Product_ID, true, false, false);
                     removeItemsList.push(dataObj.Product_ID);
                 } else {
                     selectedItemCount = selectedItemCount - 1;
-                    app.CalculateTheTotalAmount(dataObj.Product_ID, false);
+                    app.CalculateTheTotalAmount(dataObj.Product_ID, false, false, false);
                     removeItemsList = jQuery.grep(removeItemsList, function(value) {
                         return value != dataObj.Product_ID;
                     });
@@ -3984,9 +3984,8 @@ $(function() {
                 'id': 'minus-' + dataObj.Product_ID,
             }).on('click', function(e) {
                 selectedProductId = this.id.split('-')[1];
-                totalPrice = 0;
                 var itemCountMinus = app.EditTheItemCountInCart(dataObj, false);
-                app.CalculateTheTotalAmount(dataObj.Product_ID, true);
+                app.CalculateTheTotalAmount(dataObj.Product_ID, true, false, true);
                 itemCountInCartForProduct.text(itemCountMinus);
             });
 
@@ -3996,9 +3995,8 @@ $(function() {
                 'id': 'plus-' + dataObj.Product_ID,
             }).on('click', function(e) {
                 selectedProductId = this.id.split('-')[1];
-                totalPrice = 0;
                 var itemCountPlus = app.EditTheItemCountInCart(dataObj, true);
-                app.CalculateTheTotalAmount(dataObj.Product_ID, true);
+                app.CalculateTheTotalAmount(dataObj.Product_ID, true, true, false);
                 itemCountInCartForProduct.text(itemCountPlus);
             });
 
@@ -4076,7 +4074,7 @@ $(function() {
                         $('.edit-check-box').prop("checked", false);
                         $.each(shoppingCartList.ShoppingCart, function(index, val) {
                             $("#shopping-cart-check-box-" + val.Product_ID).prop("checked", true);
-                            app.CalculateTheTotalAmount(val.Product_ID, true);
+                            app.CalculateTheTotalAmount(val.Product_ID, true, false, false);
                         });
                     } catch (e) {
 
@@ -4109,7 +4107,7 @@ $(function() {
                             return value.Product_ID != val;
                         });
                         $('#shoppingCartDiv').find('#cart-item' + val).remove();
-                        app.CalculateTheTotalAmount(val, false);
+                        app.CalculateTheTotalAmount(val, false, false, false);
                     });
                     var recordObj = {
                         "ShoppingCart": shoppingCartList
@@ -4125,7 +4123,7 @@ $(function() {
             }
         };
 
-        app.CalculateTheTotalAmount = function(productId, isChecked) {
+        app.CalculateTheTotalAmount = function(productId, isChecked, qtyIncreased, qtyDecreased) {
             var fileName = "ShoppingCart";
             fileName += '.json';
             var itemCount = 0;
@@ -4146,11 +4144,29 @@ $(function() {
                             totalPrice = totalPrice + tempPrice;
                         }
                         if (val.Product_ID == productId && isChecked == true) {
-                            price = val.Price;
-                            itemCount = val.Item_Count;
-                            priceInNumb = price.substr(price.indexOf("$") + 1);
-                            tempPrice = priceInNumb * itemCount;
-                            totalPrice = totalPrice + tempPrice;
+                            if (qtyIncreased) {
+                                price = val.Price;
+                                itemCount = val.Item_Count;
+                                priceInNumb = price.substr(price.indexOf("$") + 1);
+                                var reduceAmount = priceInNumb * (itemCount - 1);
+                                tempPrice = priceInNumb * itemCount;
+                                totalPrice = totalPrice - reduceAmount;
+                                totalPrice = totalPrice + tempPrice;
+                            } else if (qtyDecreased) {
+                                price = val.Price;
+                                itemCount = val.Item_Count;
+                                priceInNumb = price.substr(price.indexOf("$") + 1);
+                                var reduceAmount = priceInNumb * (itemCount - 1);
+                                tempPrice = priceInNumb * itemCount;
+                                totalPrice = totalPrice - reduceAmount;
+                                totalPrice = totalPrice - tempPrice;
+                            } else if (qtyIncreased != true && qtyDecreased != true) {
+                                price = val.Price;
+                                itemCount = val.Item_Count;
+                                priceInNumb = price.substr(price.indexOf("$") + 1);
+                                tempPrice = priceInNumb * itemCount;
+                                totalPrice = totalPrice + tempPrice;
+                            }
                         }
                         if (val.Product_ID == productId && isChecked == false) {
                             price = val.Price;
