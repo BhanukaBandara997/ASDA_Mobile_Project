@@ -4374,6 +4374,8 @@ $(function() {
         ////////////////////// Order Confirmation //////////////////////////////////
 
         $('#buyShopping').on('click', function() {
+            /////////////// Create Order Confimation List With the payment status unpaid if paid success then update the status to paid //////////
+            ////////////// Remove Those Items From Shopping Cart JSON ///////////////////////////////
             $.mobile.changePage('#pgOrderConfirmation');
             getOrderConfirmedList();
         });
