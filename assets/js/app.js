@@ -19,9 +19,11 @@ $(function() {
     var addDefaultAddress = false;
     var objectValue = null;
     var totalPrice = 0;
+    var finalCost = 0;
     var selectedItemCount = 0;
     var removeItemsList = [];
-    var selectedAddress, selectedDeliveryMethod, selectedVerificationType, nicOrPassportNumber, contactNumberForPickup = '';
+    var selectedAddress, selectedDeliveryMethod, selectedVerificationType, nicOrPassportNumber, contactNumberForPickup = '',
+        NoteToSeller;
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -3446,6 +3448,8 @@ $(function() {
             totalPrice = 0;
             $('#cartTotalAmount').text('US $' + 0 + '.00');
             $('#allTotalSpan').text('US $' + 0 + '.00');
+            // TODO uncheck all items in JSON file.
+            // updateCheckBoxState(false, true, objData);
             app.PopulateShoppingCart();
             $.mobile.changePage('#pgShoppingCart', { transition: pgtransition });
         });
@@ -3465,13 +3469,13 @@ $(function() {
             $.mobile.changePage('#pgHome', { transition: pgtransition });
         });
 
-        $('#buyItmesBtn').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            var totalPriceTemp = totalPrice.toFixed(2);
-            $('#totalPayPalCost').text(totalPriceTemp);
-            $.mobile.changePage('#frmPayPalForm', { transition: pgtransition });
-        });
+        // $('#buyItmesBtn').on('click', function(e) {
+        //     e.preventDefault();
+        //     e.stopImmediatePropagation();
+        //     var totalPriceTemp = totalPrice.toFixed(2);
+        //     $('#totalPayPalCost').text(totalPriceTemp);
+        //     $.mobile.changePage('#frmPayPalForm', { transition: pgtransition });
+        // });
 
         app.DisplayStars = function(rating) {
             if (rating == 1) {
@@ -3851,8 +3855,10 @@ $(function() {
             fileName += '.json';
             var cartItemNo = 0;
             var itemCount = 1;
-            var productAlreadyIntheCart = false;
+            var productAlreadyInTheCart = false;
             var productId = dataObj.Product_ID;
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
             var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
@@ -3860,21 +3866,23 @@ $(function() {
                     $.each(shoppingCartList.ShoppingCart, function(index, val) {
                         cartItemNo = val.Cart_Item_NO;
                         if (productId == val.Product_ID) {
-                            productAlreadyIntheCart = true;
+                            productAlreadyInTheCart = true;
                             itemCount = val.Item_Count;
                             itemCount += 1;
                             val.Item_Count = itemCount;
                         }
                     });
                     cartItemNo += 1;
-                    if (productAlreadyIntheCart == false) {
+                    if (productAlreadyInTheCart == false) {
                         var newCartObj = {
                             "Cart_Item_NO": cartItemNo,
                             "Item_Count": itemCount,
                             "Product_ID": dataObj.Product_ID,
                             "Product_Name": dataObj.Product_Name,
                             "Path": dataObj.Path,
-                            "Price": dataObj.Price
+                            "Price": dataObj.Price,
+                            "Is_Checked": false,
+                            "User": userName
                         }
                         shoppingCartList.ShoppingCart.push(newCartObj);
                     }
@@ -3890,6 +3898,8 @@ $(function() {
         };
 
         app.PopulateShoppingCart = function() {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
             var fileName = "ShoppingCart";
             fileName += '.json';
             var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
@@ -3898,8 +3908,10 @@ $(function() {
                     var shoppingListList = JSON.parse(req.responseText);
 
                     $('#ShoppingCartDiv').empty();
-                    $.each(shoppingListList.ShoppingCart, function() {
-                        appendShoppingCartItemsToList(this);
+                    $.each(shoppingListList.ShoppingCart, function(index, val) {
+                        if (val.User == userName) {
+                            appendShoppingCartItemsToList(this);
+                        }
                     });
                 } catch (e) {
                     toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
@@ -3947,10 +3959,12 @@ $(function() {
                 if ($(this).is(':checked')) {
                     selectedItemCount = selectedItemCount + 1;
                     app.CalculateTheTotalAmount(dataObj.Product_ID, true);
+                    updateCheckBoxState(true, false, dataObj);
                     removeItemsList.push(dataObj.Product_ID);
                 } else {
                     selectedItemCount = selectedItemCount - 1;
                     app.CalculateTheTotalAmount(dataObj.Product_ID, false);
+                    updateCheckBoxState(false, false, dataObj);
                     removeItemsList = jQuery.grep(removeItemsList, function(value) {
                         return value != dataObj.Product_ID;
                     });
@@ -4096,12 +4110,14 @@ $(function() {
                     } catch (e) {
 
                     }
+                    updateCheckBoxState(true, true, this);
                 }
             } else {
                 $('.edit-check-box').prop("checked", false);
                 totalPrice = 0;
                 $('#cartTotalAmount').text('US $' + 0 + '.00');
                 $('#allTotalSpan').text('US $' + 0 + '.00');
+                updateCheckBoxState(false, true, this);
             }
         });
 
@@ -4338,26 +4354,105 @@ $(function() {
 
         ////////////////////// Order Confirmation //////////////////////////////////
 
-        $('#buyShopping').on('click', function() {
-            $.mobile.changePage('#pgOrderConfirmation');
-            getOrderConfirmedList();
+        $('#document-icon').on('click', function() {
+            payPalButtons();
+            $.mobile.changePage('#pgCardDetails');
         });
+
+        // $('#buyShopping, #document-icon').on('click', function() {
+        //     var totalPriceTemp = totalPrice.toFixed(2);
+        //     $('#subTotalSpanOrder').text('US $' + totalPriceTemp);
+        //     var totalAfterDiscount = (totalPriceTemp - 1.00);
+        //     $('#allTotalSpan,#cartTotalAmount').text('US $' + totalAfterDiscount);
+        //     finalCost = 0;
+        //     finalCost = totalAfterDiscount;
+        //     $.mobile.changePage('#pgOrderConfirmation');
+        //     // createOrderItemList();
+        //     payPalButtons();
+        //     getOrderConfirmedList();
+        // });
+
+        // function createOrderItemList() {
+        //     var fileName = "ShoppingCart";
+        //     fileName += '.json';
+        //     var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
+        //     if (req.status == 200) {
+        //         var shoppingListList = JSON.parse(req.responseText);
+        //         $.each(shoppingListList.ShoppingCart, function(index, val) {
+        //             if (val.Is_Checked == true) {
+        //                 addToOrderItemList(this);
+        //             }
+        //         });
+        //         try {} catch (e) {
+
+        //         }
+        //     }
+        // }
+
+        // function addToOrderItemList(userRecObj) {
+        //     var recordJSON = JSON.stringify(userRecObj);
+        //     // save the data to a server file, use the post method as it has 8MB minimum data limitation
+        //     var Email = localStorage.getItem("currentLoggedInUser");
+        //     userName = Email.split('@')[0];
+        //     var fileName = userName + '-ordered-item-list';
+        //     var req = Ajax("./controllers/ajaxSaveOrderList.php", "POST", recordJSON);
+        //     if (req.status == 200) {
+        //         if (req.status == 200) {
+        //             // clear the edit page form fields
+        //             // pgSignUpInClear();
+        //             // return true;
+        //         } else {
+        //             //show a toast message that the record has not been saved
+        //             toastr.error('User Record Not Saved. Please Try Again.');
+        //         }
+        //     };
+        // }
+
+        function updateCheckBoxState(state, isAllChecked, objData) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            var fileName = "ShoppingCart";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var shoppingCartList = JSON.parse(req.responseText);
+                    $.each(shoppingCartList.ShoppingCart, function(index, val) {
+                        if (userName == val.User && isAllChecked == true) {
+                            val.Is_Checked = state;
+                        }
+                        if (userName == val.User && objData.Product_ID == val.Product_ID && isAllChecked == false) {
+                            val.Is_Checked = state;
+                        }
+                    });
+                    var recordJSON = JSON.stringify(shoppingCartList);
+                    var req = Ajax("./controllers/ajaxUpdateShoppingCartList.php", "POST", recordJSON);
+                    if (req.status == 200) {} else {
+                        toastr.error('An Error Occurred While Upating Shopping Cart Lists');
+                    }
+                } catch (e) {}
+            }
+        }
+
 
         function getOrderConfirmedList() {
             var totalAmount = 0;
             var itemCount = 0;
             var Email = localStorage.getItem("currentLoggedInUser");
             userName = Email.split('@')[0];
-            var fileName = userName + '-ordered-item-list';
-            var req = Ajax("./controllers/ajaxGetOrderedItemList.php?file=" + encodeURIComponent(fileName));
+            var fileName = "ShoppingCart";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
             if (req.status == 200) {
                 try {
                     var orderedItemList = JSON.parse(req.responseText);
                     $('#orderConfirmationDiv').empty();
-                    $.each(orderedItemList.OrderedList, function() {
-                        appendOrderConfirmedList($('#orderConfirmationDiv'), this);
-                        totalAmount += this.Price;
-                        itemCount += 1;
+                    $.each(orderedItemList.ShoppingCart, function(index, val) {
+                        if (val.User == userName && val.Is_Checked == true) {
+                            appendOrderConfirmedList($('#orderConfirmationDiv'), this);
+                            itemCount += 1;
+                        }
+                        // totalAmount += this.Price;
                     });
                     $('#orderSummarySpan').text('Order Summary (' + itemCount + ' items)');
                     $('#subTotalSpan').text(totalAmount.toFixed(2));
@@ -4370,7 +4465,7 @@ $(function() {
             }
         }
 
-        function appendOrderConfirmedList(parent, datObj) {
+        function appendOrderConfirmedList(parent, dataObj) {
 
             var orderedListParentDiv = $('<div>', {
                 'id': dataObj.Product_ID + "-ordered-parent-div"
@@ -4428,15 +4523,16 @@ $(function() {
                 'class': 'favourites-rating',
                 'style': 'margin-left: 10px;  margin-right: 6px; font-weight: 600 !important;'
             });
+            orderedListItemPriceSpan.text(dataObj.Item_Count);
 
             var orderedListItemQuantityPlusImg = $('<img>', {
                 'style': 'height: 15px; width: 15px; margin-left: 5px;',
                 'src': './assets/img/Icons/plus.png'
             });
 
-            orderedListItemQuantityDiv.append(orderedListItemQuantityMinusImg);
+            // orderedListItemQuantityDiv.append(orderedListItemQuantityMinusImg);
             orderedListItemQuantityDiv.append(orderedListItemQuantitySpan);
-            orderedListItemQuantityDiv.append(orderedListItemQuantityPlusImg);
+            // orderedListItemQuantityDiv.append(orderedListItemQuantityPlusImg);
 
             orderedListItemPriceDiv.append(orderedListItemPriceSpan);
             orderedListItemPriceDiv.append(orderedListItemQuantityDiv);
@@ -4449,29 +4545,29 @@ $(function() {
             orderedListItemDiv.append(orderedListItemImgDiv);
             orderedListItemDiv.append(orderedListItemDetailsDiv);
 
-            var orderedListItemNoteToSellerDiv = $('<div>', {
-                'style': 'display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;'
-            });
+            // var orderedListItemNoteToSellerDiv = $('<div>', {
+            //     'style': 'display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;'
+            // });
 
-            var orderedListItemNoteToSellerSpan = $('<span>', {
-                'style': 'margin-left: 10px; margin-top: 8px; font-size: 14px; margin-right: 15px; font-weight: 600;'
-            });
-            orderedListItemNoteToSellerSpan.text("Note to store");
+            // var orderedListItemNoteToSellerSpan = $('<span>', {
+            //     'style': 'margin-left: 10px; margin-top: 8px; font-size: 14px; margin-right: 15px; font-weight: 600;'
+            // });
+            // orderedListItemNoteToSellerSpan.text("Note to store");
 
-            var orderedListItemNoteToSellerInput = $('<input>', {
-                'id': dataObj.Product_ID + "note-to-store",
-                'style': 'width: 240px;',
-                'type': 'text',
-                'placeholder': 'Optional message here',
-                'autocomplete': 'off',
-                'data-clear-btn': 'true'
-            });
+            // var orderedListItemNoteToSellerInput = $('<input>', {
+            //     'id': dataObj.Product_ID + "note-to-store",
+            //     'style': 'width: 240px;',
+            //     'type': 'text',
+            //     'placeholder': 'Optional message here',
+            //     'autocomplete': 'off',
+            //     'data-clear-btn': 'true'
+            // });
 
-            orderedListItemNoteToSellerDiv.append(orderedListItemNoteToSellerSpan);
-            orderedListItemNoteToSellerDiv.append(orderedListItemNoteToSellerInput);
+            // orderedListItemNoteToSellerDiv.append(orderedListItemNoteToSellerSpan);
+            // orderedListItemNoteToSellerDiv.append(orderedListItemNoteToSellerInput);
 
             orderedListParentDiv.append(orderedListItemDiv);
-            orderedListParentDiv.append(orderedListItemNoteToSellerDiv);
+            // orderedListParentDiv.append(orderedListItemNoteToSellerDiv);
 
             parent.append(orderedListParentDiv);
 
@@ -4643,6 +4739,7 @@ $(function() {
         $('#backIconDeliveryAndPickupPage').on('click', function() {
             nicOrPassportNumber = $('#nicOrPassportInput').val();
             contactNumberForPickup = $('#contactNumberInput').val();
+            NoteToSeller = $('#noteToSeller').val();
             var isValidated = true;
             if (nicOrPassportNumber != null && nicOrPassportNumber != '') {
                 isValidated = true;
@@ -4681,6 +4778,82 @@ $(function() {
             /////// Update Ordered Item List Using /////////////////////////////////////////////////////////
             //////////   NIC/Passport Number, Contact Number For Pickup, Verification Type, Selected Shipping Address ////////
         });
+
+        function payPalButtons() {
+            paypal.Buttons({
+                onInit: function(data, actions) {
+                    // Disable the buttons
+                    // actions.disable();
+                    // if (cartItems != null) {
+                    actions.enable();
+                    // } else {
+                    //     actions.disable();
+                    // }
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: totalPrice,
+                                currency: 'USD'
+                            },
+                            payee: {
+                                email_address: 'asda@business.example.com'
+                            },
+
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        addToOrderedList('approved');
+                    });
+                },
+                onCancel: function(data) {
+                    addToOrderedList('cancel');
+                    alert("Payment got Canceled");
+                },
+                style: {
+                    size: 'responsive',
+                    color: 'gold',
+                }
+            }).render('#CardDetailsDiv');
+        }
+
+        function addToOrderedList(state) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            if (state == 'cancel') {
+                toastr.error('Order got cancelled');
+            } else {
+                var fileName = "CompletedOrders";
+                fileName += '.json';
+                var req = Ajax("./controllers/ajaxGetOrderedList.php?file=" + encodeURIComponent(fileName));
+                if (req.status == 200) {
+                    try {
+                        var completedOrdersList = JSON.parse(req.responseText);
+                        if (productAlreadyInTheCart == false) {
+                            var newOrderObj = {
+                                "NIC_Passport_Number": nicOrPassportNumber,
+                                "Contact_Number_For_Pickup": contactNumberForPickup,
+                                "Verification_Type": selectedDeliveryMethod,
+                                "Selected_Shipping_Address": selectedAddress,
+                                "Note_To_Seller": NoteToSeller,
+                                "User": userName
+                            }
+                            completedOrdersList.CompletedOrders.push(newOrderObj);
+                        }
+                        var recordJSON = JSON.stringify(completedOrdersList);
+                        var req = Ajax("./controllers/ajaxUpdateCompletedOrders.php", "POST", recordJSON);
+                        if (req.status == 200) {} else {
+                            toastr.error('An Error Occurred While Upating Review Lists');
+                        }
+                    } catch (e) {
+
+                    }
+                }
+            }
+        }
 
     })(ASDA_Project);
 });

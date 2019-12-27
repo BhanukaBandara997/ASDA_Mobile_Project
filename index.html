@@ -4,12 +4,13 @@
 <head>
     <title>Login Page</title>
     <meta charset='utf-8' />
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
+    <!-- <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" /> -->
     <meta name='apple-mobile-web-app-cabable' content='YES' />
     <meta name='mobile-web-app-capable' content='yes' />
     <meta name='apple-mobile-web-app-title' content='LoginPage' />
     <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent.' />
     <meta name='version' content='1.00' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./libs/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="./libs/toastr.min.css">
     <link rel="stylesheet" href="./libs/listview-grid.css">
@@ -56,6 +57,7 @@
     <script src="./libs/Game/JS/game.js"></script>
     <script src="./libs/Game/JS/board.js"></script>
     <script src="./libs/Game/JS/tile.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AUm_zp-NMOgYeOlWpGLLBBnkpqguQUeojdpqHZ5y3h4TQfWmqE49XUi9WEKRp0FDFS_AulnyprZZk4tQ"></script>
 
     <link rel="stylesheet" href="./assets/css/images.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -1820,15 +1822,14 @@
                 <span id="backIconPayPal" class="open-sans-font sub-category-style">Pay Now</span>
             </div>
         </div>
-        <input type="hidden" name="cmd" value="_xclick">
-        <div id="addressContainer">
 
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="sb-w5ctq791160@business.example.com">
+         <div id="addressContainer">
         </div>
         <div id="itemDetails">
-
-        </div>
+        </div> 
         <input id="totalAmountTobepayed" type="text" name="amount">
-
         <input type="hidden" name="no_shipping" value="0">
         <input type="hidden" name="no_note" value="1">
         <input type="hidden" name="currency_code" value="USD">
@@ -1862,6 +1863,21 @@
         </div>
     </div> -->
 
+    <!-- Card Details -->
+    <div id="pgCardDetails" data-role="page" data-title="Sub Category Item List Page">
+        <!-- <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerCardDetails" class="add-review-style">
+                <img id="backIconCardDetails" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconCardDetailsText" class="open-sans-font sub-category-style">Shopping Cart</span>
+            </div>
+        </div> -->
+        <div id="pgCardDetailsDiv" data-role="main">
+            <div id="CardDetailsDiv">
+
+            </div>
+        </div>
+    </div>
+
     <!-- Sub Category Item List -->
     <div data-theme="a" id="pgSubCategoryItemList" data-role="page" data-title="Sub Category Item List Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
@@ -1884,9 +1900,9 @@
             </div>
         </div>
         <div id="pgOrderConfirmation" data-role="main" data-tap-toggle="false" class="open-sans-font">
-            <div id="orderConfirmationDiv">
-                <div>
-                    <div id="ordered-item-P001" border-bottom="5px #C4C4C4 solid;" class="flashDealsRow" style="margin-bottom: 5px; margin-top: 15px; padding-bottom: 5px; border-bottom: 0.5px #C4C4C4 solid;">
+            <div id="orderConfirmationDiv"></div>
+
+            <!-- <div id="ordered-item-P001" border-bottom="5px #C4C4C4 solid;" class="flashDealsRow" style="margin-bottom: 5px; margin-top: 15px; padding-bottom: 5px; border-bottom: 0.5px #C4C4C4 solid;">
                         <div id="orderedItemImage" style="display: flex; margin-left: 5%;"><img style="height: 90px; width: 90px; margin-bottom: 15px;" src="./assets/img/Item_Images/Nature-Cookies.jpg"></div>
                         <div style="display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px; margin-top: 10px;">
                             <span id="orderedItemName" class="flash-deals-item-details" style="margin-bottom: 10px; margin-top: -15px;">Nature Cookies, Non-GMO Chewy Chocolate Chunk</span>
@@ -1899,12 +1915,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;">
-                        <span style="margin-left: 10px; margin-top: 8px; font-size: 14px; margin-right: 15px; font-weight: 600;">Note to store</span>
-                        <input id="noteToSeller" style="width: 240px;" type="text" id="OptionalMessage" placeholder="Optional message here" autocomplete="off" data-clear-btn="true"></input>
-                    </div>
-                </div>
+                    </div> -->
+            <div style="display: flex; border-bottom: 0.5px #C4C4C4 solid; margin-bottom: 5px; height: 40px;">
+                <span style="margin-left: 10px; margin-top: 8px; font-size: 14px; margin-right: 15px; font-weight: 600;">Note to store</span>
+                <input id="noteToSeller" style="width: 240px;" type="text" id="OptionalMessage" placeholder="Optional message here" autocomplete="off" data-clear-btn="true"></input>
             </div>
             <div>
                 <div style="background: rgba(196, 196, 196, 0.8); height: 5px; width: 100%;"></div>
@@ -1944,7 +1958,7 @@
                     </div>
                     <div style="display: flex; margin-bottom: 7px;">
                         <span style="font-size: 10px;font-weight: 500;">Subtotal:</span>
-                        <span id="subTotalSpan" style="font-size: 10px; position: absolute; right: 3%;font-weight: 500;">US $0.00</span>
+                        <span id="subTotalSpanOrder" style="font-size: 10px; position: absolute; right: 3%;font-weight: 500;">US $0.00</span>
                     </div>
                     <div style="display: flex; margin-bottom: 7px;">
                         <span style="font-size: 10px;font-weight: 500;">Store Discount:</span>
@@ -1959,7 +1973,9 @@
                     <span style="color: #000000; opacity: 0.6; font-size: 10px; margin-left: 2px;">Upon clicking ‘Pay Now’, I confirm I have read and acknowledge</span>
                     <span style="color: #133794; font-size: 9px; margin-right: 10px;">all iterms and policies</span>
                 </div>
+                <!-- <div id="paypal-button-container" style="margin-top: 10px; width: 100%; top: 300px; height: 200px;"> -->
             </div>
+            <div id="paypal-button-container" style="margin-top: 10px; width: 90%; margin-left: 5%;"> </div>
         </div>
         <div id="orderConfirmationFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px; border-top: 1.5px #C4C4C4 solid;">
             <div id="orderConfirmationNavBar" style="display: flex; height: 55px;" data-tap-toggle="false">
@@ -2054,6 +2070,71 @@
         </div>
     </div>
 
+    <!-- Add credit or debit card -->
+    <div data-theme="a" id="pgAddCreditCard" data-role="page" data-title="Delivery and Pickup Page">
+        <div id="AddCreditCardHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerTitleAddCreditCard" class="add-review-style">
+                <img id="backIconAddCreditCardPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconAddCreditCardText" class="open-sans-font sub-category-style" style="font-weight: 500 !important; top: 12px !important; font-size: 17px !important;">Delivery and Pickup</span>
+            </div>
+        </div>
+        <div id="pgAddCreditCard" data-role="main" data-tap-toggle="false" class="open-sans-font">
+            <div class="creditCardForm">
+                <div class="heading">
+                    <h1 style="margin-left: 10%; top: 8%;" class="open-sans-font sub-category-style">Confirm Purchase</h1>
+                </div>
+                <div class="payment">
+                    <form>
+                        <div class="form-group owner">
+                            <label for="owner">Owner</label>
+                            <input type="text" class="form-control" id="owner">
+                        </div>
+                        <div class="form-group CVV">
+                            <label for="cvv">CVV</label>
+                            <input type="text" class="form-control" id="cvv">
+                        </div>
+                        <div class="form-group" id="card-number-field">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber">
+                        </div>
+                        <div class="form-group" id="expiration-date">
+                            <label>Expiration Date</label>
+                            <select>
+                                <option value="01">January</option>
+                                <option value="02">February </option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                            <select>
+                                <option value="16"> 2016</option>
+                                <option value="17"> 2017</option>
+                                <option value="18"> 2018</option>
+                                <option value="19"> 2019</option>
+                                <option value="20"> 2020</option>
+                                <option value="21"> 2021</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="credit_cards">
+                            <img src="assets/img/Card/visa.jpg" id="visa" style="width: 15%;">
+                            <img src="assets/img/Card/mastercard.jpg" id="mastercard" style="width: 15%;">
+                            <img src="assets/img/Card/amex.jpg" id="amex" style="width: 15%;">
+                        </div>
+                        <div class="form-group" id="pay-now">
+                            <button type="submit" id="confirm-purchase">Select Card</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
