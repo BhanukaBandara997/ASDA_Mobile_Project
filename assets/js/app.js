@@ -4447,7 +4447,6 @@ $(function() {
                     toastr.error('An Error Occured Retrieving Shopping Cart Items');
                 }
             }
-
         }
 
         function getOrderConfirmedList() {
