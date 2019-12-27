@@ -588,6 +588,10 @@ input[type="checkbox"].ios8-switch:checked+label:before {
     display: none;
 }
 
+.introductory-owl-carousel>div.owl-dots {
+    background: #F2C141;
+}
+
 .flashDealsRow {
     display: flex;
     clear: both;
