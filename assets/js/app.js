@@ -3897,8 +3897,8 @@ $(function() {
                             "Product_Name": dataObj.Product_Name,
                             "Path": dataObj.Path,
                             "Price": dataObj.Price,
-                            "Is_Checked": false,
-                            "User": userName
+                            // "Is_Checked": false,
+                            // "User": userName
                         }
                         shoppingCartList.ShoppingCart.push(newCartObj);
                     }
@@ -3974,12 +3974,12 @@ $(function() {
             }).on('change', function(e) {
                 if ($(this).is(':checked')) {
                     selectedItemCount = selectedItemCount + 1;
-                    updateCheckBoxState(true, false, dataObj);
+                    // updateCheckBoxState(true, false, dataObj);
                     app.CalculateTheTotalAmount(dataObj.Product_ID, true, false, false);
                     removeItemsList.push(dataObj.Product_ID);
                 } else {
                     selectedItemCount = selectedItemCount - 1;
-                    updateCheckBoxState(false, false, dataObj);
+                    // updateCheckBoxState(false, false, dataObj);
                     app.CalculateTheTotalAmount(dataObj.Product_ID, false, false, false);
                     removeItemsList = jQuery.grep(removeItemsList, function(value) {
                         return value != dataObj.Product_ID;
@@ -4124,14 +4124,14 @@ $(function() {
                     } catch (e) {
 
                     }
-                    updateCheckBoxState(true, true, this);
+                    // updateCheckBoxState(true, true, this);
                 }
             } else {
                 $('.edit-check-box').prop("checked", false);
                 totalPrice = 0;
                 $('#cartTotalAmount').text('US $' + 0 + '.00');
                 $('#allTotalSpan').text('US $' + 0 + '.00');
-                updateCheckBoxState(false, true, this);
+                // updateCheckBoxState(false, true, this);
             }
         });
 
@@ -4392,6 +4392,7 @@ $(function() {
             $.mobile.changePage('#pgOrderConfirmation');
             createOrderConfirmationList(removeItemsList);
             getOrderConfirmedList();
+            payPalButtons();
         });
 
         function createOrderConfirmationList(purchsedItemsList) {
@@ -4859,6 +4860,32 @@ $(function() {
 
                     }
                 }
+            }
+        }
+
+        function updateCheckBoxState(state, isAllChecked, objData) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            var fileName = "ShoppingCart";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var shoppingCartList = JSON.parse(req.responseText);
+                    $.each(shoppingCartList.ShoppingCart, function(index, val) {
+                        if (userName == val.User && isAllChecked == true) {
+                            val.Is_Checked = state;
+                        }
+                        if (userName == val.User && objData.Product_ID == val.Product_ID && isAllChecked == false) {
+                            val.Is_Checked = state;
+                        }
+                    });
+                    var recordJSON = JSON.stringify(shoppingCartList);
+                    var req = Ajax("./controllers/ajaxUpdateShoppingCartList.php", "POST", recordJSON);
+                    if (req.status == 200) {} else {
+                        toastr.error('An Error Occurred While Upating Shopping Cart Lists');
+                    }
+                } catch (e) {}
             }
         }
 

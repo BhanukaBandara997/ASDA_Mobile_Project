@@ -1,1 +1,1 @@
-{"OrderConfirmationItemList":[{"Cart_Item_NO":3,"Item_Count":1,"Product_ID":"P008","Product_Name":"Russell Stover Sugar Free Peanut Butter Cups","Path":".\/assets\/img\/Item_Images\/Russell-Stover.jpg","Price":"$9.88","PaymentStatus":"Pending","PurchasedItems":"true"}]}
+{"OrderConfirmationItemList":{"ShoppingCart":[{"Cart_Item_NO":1,"Item_Count":1,"Product_ID":"P002","Product_Name":"Pepperidge Farm, Distinctive Golden Butter Crackers","Path":".\/assets\/img\/Item_Images\/Golden-Butter-Crackers.jpg","Price":"$2.79","Is_Checked":false,"User":"ish"}]}}
