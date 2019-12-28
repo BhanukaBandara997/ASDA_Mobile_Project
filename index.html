@@ -1452,7 +1452,7 @@
                 <span id="versionText" class="account-details-font-styles version-text-possition">Version</span>
                 <span id="version" class="settings-values-font version-value-possition">1.18</span>
 
-                <button type="submit" id="pgSignOutBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b" style="height: 27% !important; top: 210px; width: 300px; left: 37px;">SIGN OUT</button>
+                <button type="submit" id="pgSignOutBtn" class="form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b" style="height: 27% !important; top: 210px; width: 300px; left: -37px;">SIGN OUT</button>
                 <span id="asdaLogoAccountPage" class="asda-logo-settings-bottom header-title-color">ASDA</span>
                 <span id="versionTextBottom" class="version-text-possition-bottom">Version 1.18</span>
                 <span id="copyRightsText" class="copy-rights-text-possition">2018-2019 ASDA.com All Rights Reserved</span>
@@ -1784,6 +1784,22 @@
         </div>
     </div>
 
+    <!-- Purchased Orders -->
+    <div data-theme="a" id="pgOrders" data-role="page" data-title="Order Page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerTitleOrders" class="add-review-style">
+                <img id="backIconOrdersPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconOrders" class="open-sans-font sub-category-style">Orders</span>
+            </div>
+        </div>
+        <div id="pgOrdersDiv" data-role="main">
+            <div id="ordersDiv"></div>
+            <!-- <button id="createReviewBtn2" class="ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button" style="position: absolute; display: block; right: 5%; width: 53px; top: 87%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;">
+            <i class ="zmdi zmdi-plus zmd-2x" style="color: rgba(227, 9, 9, 0.9);"></i>
+            </button> -->
+        </div>
+    </div>
+
     <!-- Shopping Cart -->
     <div data-theme="a" id="pgShoppingCart" data-role="page" data-title="Shopping Cart Page">
         <div id="shoppingCartHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
@@ -1861,77 +1877,55 @@
         </div>
     </div>
 
-    <!-- Pay with PayPal -->
-
-    <!-- <div data-theme="a" id="frmPayPalForm" data-role="page" action="https://www.paypal.com/cgi-bin/webscr" method="post" data-title="Pay with PayPal">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
-            <div id="headerTitlePayPal" class="add-review-style">
-                <img id="backIconPayPalPage" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="backIconPayPal" class="open-sans-font sub-category-style">Pay Now</span>
-            </div>
-        </div>
-
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="sb-w5ctq791160@business.example.com">
-         <div id="addressContainer">
-        </div>
-        <div id="itemDetails">
-        </div>
-        <input id="totalAmountTobepayed" type="text" name="amount">
-        <input type="hidden" name="no_shipping" value="0">
-        <input type="hidden" name="no_note" value="1">
-        <input type="hidden" name="currency_code" value="USD">
-        <input type="hidden" name="lc" value="US">
-        <input type="hidden" name="bn" value="PP-BuyNowBF">
-        <input type="hidden" name="return" value="http://localhost/ASDA_Project/index.html#pgHome">
-        <input type="submit" style="left: 65%; margin-top: -10px;" value="Pay with PayPal!">
-
-        <br/><br />
-        <div id="shoppingCartBtnDiv" data-role="footer" data-position="fixed" style="visibility: visible; position: absolute; width: 375px; height: 49px; left: -1px; top: 93%;" data-tap-toggle="false">
-            <div id="paymentPayPalNavBar" data-grid="d">
-                <ul style="margin-bottom: 1%;">
-                    <li class="navbar-align">
-                        <div id="totlaPayPalLebel" style="margin-left: -20%;">
-                            <span id="totalCostPayPalText" class="flash-deals-item-details" style="font-size: 13px; font-weight: 600;">Total > </span>
-                        </div>
-                    </li>
-                    <li class="navbar-align">
-                        <div id="totalCostPayPalLabel" style="margin-left: -10%;">
-                            <span id="totalPayPalCost" class="flash-deals-item-details" style="font-size: 17px; font-weight: 600;"></span>
-                        </div>
-                    </li>
-                    <li class="navbar-align">
-                        <div id="buyItmesPayPalBtn" style="margin-left: -15%;">
-                            <button type="submit" class="favourites-delete-btn" style="left: 65%; margin-top: -10px;" value="Pay with PayPal!">pay now</button>
-                            <input type="submit" class="favourites-delete-btn" style="left: 65%; margin-top: -10px;" value="Pay with PayPal!">
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
-
     <!-- Card Details -->
     <div id="pgCardDetails" data-role="page" data-title="Sub Category Item List Page">
-        <!-- <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="headerCardDetails" class="add-review-style">
                 <img id="backIconCardDetails" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="backIconCardDetailsText" class="open-sans-font sub-category-style">Shopping Cart</span>
+                <span id="backIconCardDetailsText" class="open-sans-font sub-category-style">Pay With</span>
             </div>
-        </div> -->
-        <div id="pgCardDetailsDiv" data-role="main">
-            <div id="CardDetailsDiv">
+        </div>
 
+        <div id="pgCardDetailsDiv" data-role="main" style="background-color: rgba(196, 196, 196, 0.75);">
+
+            <div style="position: absolute; width: 100%; height: 43px; left: 0px;; background: rgba(196, 196, 196, 0.75);">
+                <span id="CardType" style="position: absolute; margin-top: 14px; font-size: 14px; margin-left: 5%;">Your credit and debit cards</span>
             </div>
+            <div id="CreditCardDetailsDiv">
+                <div style="display: flex;height: 60px; background-color: #FFFFFF;">
+                    <img id="creditCartImg" src="./assets/img/Payment/credit-card.png" style="height: 30px; width: 37px; margin-left: 15px; margin-top: 48px;">
+                    <span id="creditCardText" style=" margin-top: 54px; font-size: 13px; margin-left: 5%;">Add Card</span>
+                    <img id="selectCereditCartMethodImg" src="./assets/img/Icons/back_button_blue.png" style="height: 20px; width: 15px; margin-left: 8px; margin-top: 54px; position: absolute; right: 10px;">
+                </div>
+            </div>
+            <div style="position: absolute; width: 100%; height: 43px;; left: 0px; margin-top: 25px; background: rgba(196, 196, 196, 0.75);">
+                <span id="paypalCardText" style="position: absolute; margin-top: 14px; font-size: 14px; margin-left: 5%;">Other payment options</span>
+            </div>
+            <div id="PayPalDetailsDiv">
+                <div style="display: flex;height: 60px; background-color: #FFFFFF;">
+                    <img id="paypalImg" src="./assets/img/Payment/paypal.png" style="height: 30px; width: 37px; margin-left: 15px; margin-top: 73px;">
+                    <span id="CardTypePaypal" style=" margin-top: 79px; font-size: 13px; margin-left: 5%;">PayPal</span>
+                    <img id="selectPayPalMethodImg" src="./assets/img/Icons/back_button_blue.png" style="height: 20px; width: 15px; margin-left: 8px; margin-top: 79px; position: absolute; right: 10px;">
+                </div>
+            </div>
+            <div style="top: 221px; position: absolute; width: 100%; height: 588px; background: rgba(196, 196, 196, 0.75); border-bottom: 2px rgba(125, 101, 101, 0.34) solid;"></div>
+
         </div>
     </div>
 
     <!-- Sub Category Item List -->
     <div data-theme="a" id="pgSubCategoryItemList" data-role="page" data-title="Sub Category Item List Page">
-        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
-            <div id="headerSubCategoryItemList" class="add-review-style">
-                <img id="backIconSubCategoryItemList" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="backIconSubCategoryItemListText" class="open-sans-font sub-category-style">Shopping Cart</span>
+        <div id="fav-header" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF; height: 95px !important; box-shadow: none !important; border: none !important;" data-tap-toggle="false">
+            <div id="header-title" style="top: 11% !important;">
+                <h1 class="header-title-color" id="header-title">ASDA</h1>
+            </div>
+            <div id="header-" class="header-cart-navbar" style="top: 15% !important;">
+                <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
+            </div>
+            <div style="position: absolute; width: 100%; margin-top: 51px; margin-left: -5px; border-bottom: 2px rgba(125, 101, 101, 0.34) solid;"></div>
+            <div class="nav-bar-fonts" style="width: 100%; height: 50px; border-bottom: 1px #C4C4C4 solid; position:fixed; top: 6.5%; margin-left: -2px;">
+                <img id="backIconSubCategoryItemList" src="./assets/img/back_grey.png" class="back-icon-favourite-list"></img>
+                <span id="backIconSubCategoryItemListText" class="favourite-list-title-span" style="font-weight: 500 !important;"></span>
             </div>
         </div>
         <div id="pgSubCategoryItemListDiv" data-role="main">
@@ -1962,24 +1956,24 @@
                 <div style="display: flex; height: 60px;">
                     <span style="margin-left: 10px; margin-top: 20px; font-size: 14px; font-weight: 600;">Pay with</span>
                     <div style="display: flex; margin-left: 25%; margin-top: 8px;">
-                        <img id="payment-method" src="./assets/img/Payment/paypal.png" style="height: 40px; width: 40px; display: none;">
+                        <img id="payment-method" style="height: 40px; width: 40px; display: none; ">
                         <div id="selectPaymentMethodDiv" style="display: block; margin-top: 9px;">
                             <span style="font-size: 13px; color: rgba(237, 12, 12, 0.8);">Select Payment Option</span>
                         </div>
                         <div id="payPalDetailsDiv" style="display: none;">
                             <div style="display: grid; margin-top: 8px;">
-                                <span id="payPalEmail" style="font-size: 9px; margin-left: 10%; margin-bottom: 4px;">JamesArthur@gmail.com</span>
-                                <span id="payPalPaymentDetails" style="font-size: 9px; margin-left: 10%; width: 110px;">Bank xx-0083, USD 14.96</span>
+                                <span id="payPalEmail" style="font-size: 9px; margin-left: 10%; margin-bottom: 4px;"></span>
+                                <span id="payPalPaymentDetails" style="font-size: 9px; margin-left: 10%; width: 110px;"></span>
                             </div>
                         </div>
                         <div id="creditCardDetailsDiv" style="display: none;">
                             <div style="display: grid; margin-top: 17px;">
-                                <span id="creditCardDetails" style="font-size: 10px; margin-left: 10%; margin-top: -8px; width: 110px; margin-bottom: 4px;">xxxx-xxxx-xxxx-0083,</span>
-                                <span id="creditCardPaymentDetails" style="font-size: 10px; margin-left: 10%; width: 110px;">USD 14.96</span>
+                                <span id="creditCardDetails" style="font-size: 10px; margin-left: 10%; margin-top: -8px; width: 110px; margin-bottom: 4px;"></span>
+                                <span id="creditCardPaymentDetails" style="font-size: 10px; margin-left: 10%; width: 110px;"></span>
                             </div>
                         </div>
                     </div>
-                    <img src="./assets/img/Icons/back_button_blue.png" style="height: 20px; width: 15px; margin-left: 8px; margin-top: 18px; position: absolute; right: 10px;">
+                    <img id="payWithIcon" src="./assets/img/Icons/back_button_blue.png" style="height: 20px; width: 15px; margin-left: 8px; margin-top: 18px; position: absolute; right: 10px;">
                 </div>
                 <div style="background: rgba(196, 196, 196, 0.8); height: 5px; width: 100%;"></div>
                 <div id="summaryParentDiv" style="display: grid; display: block; margin: 10px; margin-bottom: 10px;" data-tap-toggle="false">
@@ -2004,9 +1998,10 @@
                     <span style="color: #133794; font-size: 11px; margin-right: 11px;">all iterms and policies</span>
                 </div>
             </div>
-            <div id="paypal-button-container" style="margin-top: 10px; width: 90%; margin-left: 5%;"> </div>
+
         </div>
         <div id="orderConfirmationFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px; border-top: 1.5px #C4C4C4 solid;">
+            <div id="paypal-button-container" style="margin-top: 10px; width: 90%; margin-left: 5%;"> </div>
             <div id="orderConfirmationNavBar" style="display: flex; height: 55px;" data-tap-toggle="false">
                 <div style="display: flex; margin-left: 15px;">
                     <div id="totalParent" style="display: grid; margin-top: 10px; position: absolute;">
@@ -2015,9 +2010,9 @@
                             <span id="orderConfirmedCartTotalAmount">US $0.00</span>
                         </div>
                     </div>
-                    <div id="buyItmesBtn" style="position: absolute; right: 10px; bottom: 18px;">
+                    <!-- <div id="buyItmesBtn" style="position: absolute; right: 10px; bottom: 18px;">
                         <button class="favourites-delete-btn" id="payNowBtn">Pay Now</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -2094,72 +2089,6 @@
                 </div>
                 <div style="margin-left: 20px; margin-top: 10px;">
                     <span style="font-size: 12px;">Your NIC/Passport is required for verification. Please ensure this matches the NIC/Passport that you will need to provide during pickup.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add credit or debit card -->
-    <div data-theme="a" id="pgAddCreditCard" data-role="page" data-title="Delivery and Pickup Page">
-        <div id="AddCreditCardHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
-            <div id="headerTitleAddCreditCard" class="add-review-style">
-                <img id="backIconAddCreditCardPage" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="backIconAddCreditCardText" class="open-sans-font sub-category-style" style="font-weight: 500 !important; top: 12px !important; font-size: 17px !important;">Delivery and Pickup</span>
-            </div>
-        </div>
-        <div id="pgAddCreditCard" data-role="main" data-tap-toggle="false" class="open-sans-font">
-            <div class="creditCardForm">
-                <div class="heading">
-                    <h1 style="margin-left: 10%; top: 8%;" class="open-sans-font sub-category-style">Confirm Purchase</h1>
-                </div>
-                <div class="payment">
-                    <form>
-                        <div class="form-group owner">
-                            <label for="owner">Owner</label>
-                            <input type="text" class="form-control" id="owner">
-                        </div>
-                        <div class="form-group CVV">
-                            <label for="cvv">CVV</label>
-                            <input type="text" class="form-control" id="cvv">
-                        </div>
-                        <div class="form-group" id="card-number-field">
-                            <label for="cardNumber">Card Number</label>
-                            <input type="text" class="form-control" id="cardNumber">
-                        </div>
-                        <div class="form-group" id="expiration-date">
-                            <label>Expiration Date</label>
-                            <select>
-                                <option value="01">January</option>
-                                <option value="02">February </option>
-                                <option value="03">March</option>
-                                <option value="04">April</option>
-                                <option value="05">May</option>
-                                <option value="06">June</option>
-                                <option value="07">July</option>
-                                <option value="08">August</option>
-                                <option value="09">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
-                            <select>
-                                <option value="16"> 2016</option>
-                                <option value="17"> 2017</option>
-                                <option value="18"> 2018</option>
-                                <option value="19"> 2019</option>
-                                <option value="20"> 2020</option>
-                                <option value="21"> 2021</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="credit_cards">
-                            <img src="assets/img/Card/visa.jpg" id="visa" style="width: 15%;">
-                            <img src="assets/img/Card/mastercard.jpg" id="mastercard" style="width: 15%;">
-                            <img src="assets/img/Card/amex.jpg" id="amex" style="width: 15%;">
-                        </div>
-                        <div class="form-group" id="pay-now">
-                            <button type="submit" id="confirm-purchase">Select Card</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
          {
                 "Product_ID": "P001",
                 "Product_Name": "Back to Nature Cookies, Non-GMO Chewy Chocolate Chunk, 8 Ounce (Packaging May Vary)",
-                "Price": "$2.79 ($0.29 / Ounce)",
+                "Price": "$2.79",
                 "Product_Type": "Normal",
                 "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 4.0,
@@ -14,7 +14,7 @@
             {
                 "Product_ID": "P002",
                 "Product_Name": "Pepperidge Farm, Distinctive Golden Butter Crackers, 9.75 Ounce",
-                "Price": "$2.79 ($0.29 / Ounce)",
+                "Price": "$2.79",
                 "Product_Type": "Flash Deals",
                 "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 5.0,
@@ -25,7 +25,7 @@
             {
                 "Product_ID": "P003",
                 "Product_Name": "SNICKERS, M&M'S & TWIX Fun Size Christmas Candy Variety Mix, 60 Pieces",
-                "Price": "$9.94 ($0.17 / Count)",
+                "Price": "$9.94",
                 "Product_Type": "New Products",
                 "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 4.0,
@@ -36,7 +36,7 @@
             {
                 "Product_ID": "P004",
                 "Product_Name": "Innofoods Organic Dark Chocolate Nuggets with Coconut & Super Seeds",
-                "Price": "$12.95 ($0.72 / Ounce)",
+                "Price": "$12.95",
                 "Product_Type": "Normal",
                 "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 3.0,
@@ -47,7 +47,7 @@
             {
                 "Product_ID": "P005",
                 "Product_Name": "M&M'S Peanut Butter Chocolate Candy, Singles Size, 1.63 Ounce, Pack of 24",
-                "Price": "$17.76 ($0.45 / Ounce)",
+                "Price": "$17.76",
                 "Product_Type": "Flash Deals",
                 "Sub_Category_Type": "Biscuts,Chocolate&Sweets",
                 "Product_Rating": 5.0,
@@ -93,7 +93,7 @@
 {
             "Product_ID": "P009",
             "Product_Name": "Big Green Organic Food- Organic White Rice Flour, Gluten-Free, Kosher, Artisan Baking (1)",
-            "Price": "$3.99 ($0.25 / Ounce)",
+            "Price": "$3.99",
             "Product_Type": "Top Selection",
             "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 4.0,
@@ -104,7 +104,7 @@
         {
             "Product_ID": "P010",
             "Product_Name": "Big Green Organic Food- Organic Black Rice Flour, Gluten-Free, Kosher, Artisan Baking",
-            "Price": "$3.99 ($0.25 / Ounce)",
+            "Price": "$3.99",
             "Product_Type": "Normal",
             "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 3.0,
@@ -115,7 +115,7 @@
         {
             "Product_ID": "P011",
             "Product_Name": "King Arthur Flour, Measure for Measure Flour, Gluten Free, 3 Pound (2 Pack(3 Pound))",
-            "Price": "$25.47 ($0.25 / Ounce)",
+            "Price": "$25.47",
             "Product_Type": "Flash Deals",
             "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 4.0,
@@ -126,7 +126,7 @@
         {
             "Product_ID": "P012",
             "Product_Name": "Good Dee’s Muffin Mix.",
-            "Price": "$12.99 ($1.62 / Ounce)",
+            "Price": "$12.99",
             "Product_Type": "Flash Deals",
             "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 4.0,
@@ -137,7 +137,7 @@
         {
             "Product_ID": "P013",
             "Product_Name": "Betty Crocker Triple Berry Muffin Mix, 6.5 Ounce",
-            "Price": "$0.92 ($0.14 / oz)",
+            "Price": "$0.92",
             "Product_Type": "Normal",
             "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 5.0,
@@ -148,7 +148,7 @@
         {
             "Product_ID": "P014",
             "Product_Name": "Keto Pancake & Waffle Mix by Keto and Co",
-            "Price": "$9.99 ($1.07 / Ounce)",
+            "Price": "$9.99",
             "Product_Type": "New Products",
             "Sub_Category_Type": "HomeBaking",
             "Product_Rating": 5.0,

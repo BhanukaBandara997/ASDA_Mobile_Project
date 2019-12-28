@@ -95,7 +95,7 @@ $(function() {
             $.mobile.changePage('#pgHome');
         });
 
-        $('#back-icon-member-center').on('click', function(e) {
+        $('#back-icon-member-center, #backIconOrdersPage').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             $.mobile.changePage('#pgAccount');
@@ -747,10 +747,10 @@ $(function() {
         }
 
         function subCategory(parentCategoryName) {
-
             var newParentCategoryName = parentCategoryName.replace(/ /g, '');
             if (parentCategoryName == "Home Baking" || parentCategoryName == "Biscuts, Chocolate & Sweets") {
-                app.PopulateSubCategoryItems(newParentCategoryName);
+
+                app.PopulateSubCategoryItems(parentCategoryName);
             } else {
                 // toastr.error('Selected Sub category ' +newParentCategoryName);
                 var fileName = newParentCategoryName;
@@ -3289,7 +3289,7 @@ $(function() {
                     $('#productNameValue2').css('display', 'none');
                     $('#productNameValue').css('display', 'block');
                     $("#itemTypeIcon").attr("src", 'none');
-                    $('#itemTypeIcon').css('display', 'block');
+                    $('#itemTypeIcon').css('display', 'none');
                 }
             }
 
@@ -3925,9 +3925,9 @@ $(function() {
 
                     $('#ShoppingCartDiv').empty();
                     $.each(shoppingListList.ShoppingCart, function(index, val) {
-                        if (val.User == userName) {
-                            appendShoppingCartItemsToList(this);
-                        }
+                        // if (val.User == userName) {
+                        appendShoppingCartItemsToList(this);
+                        // }
                     });
                 } catch (e) {
                     toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
@@ -4250,6 +4250,8 @@ $(function() {
         };
 
         app.PopulateSubCategoryItems = function(parentCategory) {
+            var newParentCategoryName = parentCategory.replace(/ /g, '');
+
             var fileName = "ItemList";
             fileName += '.json';
             var req = Ajax("./controllers/ajaxGetSubCategoryItemList.php?file=" + encodeURIComponent(fileName));
@@ -4257,8 +4259,9 @@ $(function() {
                 try {
                     var subCategoryItemListList = JSON.parse(req.responseText);
                     $('#subCategoryItemListDiv').empty();
+                    $("#backIconSubCategoryItemListText").text(parentCategory);
                     $.each(subCategoryItemListList.FoodCupboard, function(index, val) {
-                        if (val.Sub_Category_Type == parentCategory) {
+                        if (val.Sub_Category_Type == newParentCategoryName) {
                             appendSubCategoryItemsToList(this);
                         }
                     });
@@ -4392,7 +4395,7 @@ $(function() {
             $.mobile.changePage('#pgOrderConfirmation');
             createOrderConfirmationList(removeItemsList);
             getOrderConfirmedList();
-            payPalButtons();
+
         });
 
         function createOrderConfirmationList(purchsedItemsList) {
@@ -4599,23 +4602,23 @@ $(function() {
             parent.append(orderedListParentDiv);
         }
 
-        function appendPaymentMethod(dataObj) {
-            if (dataObj.PaymentMethod == "PayPal") {
+        function appendPaymentMethod(PaymentMethod) {
+            if (PaymentMethod == "PayPal") {
                 $('#payment-method').css('display', 'block');
-                $('#payment-method').css('src', './assets/img/Payment/paypal.png');
+                $('#payment-method').attr("src", "./assets/img/Payment/paypal.png");
                 $('#selectPaymentMethodDiv').css('display', 'none');
                 $('#payPalDetailsDiv').css('display', 'block');
                 $('#creditCardDetailsDiv').css('display', 'none');
-                $('#payPalEmail').text(dataObj.Email);
-                $('#payPalPaymentDetails').text('Bank ' + dataObj.CardNumber + ', ' + 'USD ' + allTotalAfterDiscount);
-            } else if (dataObj.PaymentMethod == "CreditCard") {
+                // $('#payPalEmail').text(dataObj.Email);
+                $('#payPalPaymentDetails').text('Pay using PayPal');
+            } else if (PaymentMethod == "CreditCard") {
                 $('#payment-method').css('display', 'block');
-                $('#payment-method').css('src', './assets/img/Payment/credit-card.png');
+                $('#payment-method').attr("src", "./assets/img/Payment/credit-card.png");
                 $('#selectPaymentMethodDiv').css('display', 'none');
                 $('#creditCardDetailsDiv').css('display', 'block');
                 $('#payPalDetailsDiv').css('display', 'none');
-                $('#creditCardDetails').text(dataObj.CreditCardNumber);
-                $('#payPalPaymentDetails').text('USD ' + allTotalAfterDiscount);
+                // $('#creditCardDetails').text(dataObj.CreditCardNumber);
+                $('#payPalPaymentDetails').text('Pay Debit card');
             }
         }
 
@@ -4738,12 +4741,33 @@ $(function() {
                 }
             }
         }
-
-        $('#backIconDeliveryAndPickupPage').on('click', function() {
+        $('#payWithIcon').on('click', function() {
+            $.mobile.changePage('#pgCardDetails');
+        });
+        $('#selectCereditCartMethodImg').on('click', function() {
+            appendPaymentMethod('CreditCard');
+            $('#paypal-button-container').empty();
+            payPalButtons('CreditCard');
+            $.mobile.changePage('#pgOrderConfirmation');
+        });
+        $('#selectPayPalMethodImg').on('click', function() {
+            appendPaymentMethod('PayPal');
+            $('#paypal-button-container').empty();
+            payPalButtons('PayPal');
             $.mobile.changePage('#pgOrderConfirmation');
         });
 
-        $('#payNowBtn').on('click', function() {
+        $('#backIconCardDetails').on('click', function() {
+            $.mobile.changePage('#pgOrderConfirmation');
+        });
+
+        $('#backIconDeliveryAndPickupPage').on('click', function() {
+            payNowButtonClick();
+            $.mobile.changePage('#pgOrderConfirmation');
+        });
+
+
+        function payNowButtonClick() {
             nicOrPassportNumber = $('#nicOrPassportInput').val();
             contactNumberForPickup = $('#contactNumberInput').val();
             NoteToSeller = $('#noteToSeller').val();
@@ -4781,85 +4805,345 @@ $(function() {
                     $('#selectDeliveryMethodSpan').css('display', 'block');
                 }
             }
-
-            /////// Update Ordered Item List Using /////////////////////////////////////////////////////////
-            //////////   NIC/Passport Number, Contact Number For Pickup, Verification Type, Selected Shipping Address ////////
-        });
-
-        function payPalButtons() {
-            paypal.Buttons({
-                onInit: function(data, actions) {
-                    // Disable the buttons
-                    // actions.disable();
-                    // if (cartItems != null) {
-                    actions.enable();
-                    // } else {
-                    //     actions.disable();
-                    // }
-                },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: totalPrice,
-                                currency: 'USD'
-                            },
-                            payee: {
-                                email_address: 'asda@business.example.com'
-                            },
-
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        addToOrderedList('approved');
-                    });
-                },
-                onCancel: function(data) {
-                    addToOrderedList('cancel');
-                    alert("Payment got Canceled");
-                },
-                style: {
-                    size: 'responsive',
-                    color: 'gold',
-                }
-            }).render('#CardDetailsDiv');
         }
+
+
+        function payPalButtons(buttonType) {
+            if (buttonType == "CreditCard") {
+                paypal.Buttons({
+                    onInit: function(data, actions) {
+                        actions.enable();
+                        payNowButtonClick();
+                    },
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: totalPrice,
+                                    currency: 'USD'
+                                },
+                                payee: {
+                                    email_address: 'asda@business.example.com'
+                                },
+
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            addToOrderedList('approved');
+                            getPurchsedItemList();
+                        });
+                    },
+                    onCancel: function(data) {
+                        addToOrderedList('cancel');
+                        alert("Payment got Canceled");
+                    },
+                    style: {
+                        layout: 'vertical',
+                        color: 'gold',
+                    }
+                }).render('#paypal-button-container');
+
+            } else if (buttonType == "PayPal") {
+                paypal.Buttons({
+                    onInit: function(data, actions) {
+                        actions.enable();
+                        payNowButtonClick();
+                    },
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: totalPrice,
+                                    currency: 'USD'
+                                },
+                                payee: {
+                                    email_address: 'asda@business.example.com'
+                                },
+
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            addToOrderedList('approved');
+                            getPurchsedItemList();
+                        });
+                    },
+                    onCancel: function(data) {
+                        addToOrderedList('cancel');
+                        alert("Payment got Canceled");
+                    },
+                    style: {
+                        layout: 'horizontal',
+                    }
+                }).render('#paypal-button-container');
+            }
+        }
+
 
         function addToOrderedList(state) {
             var Email = localStorage.getItem("currentLoggedInUser");
-            userName = Email.split('@')[0];
+            userNameCurrent = Email.split('@')[0];
+            var currentdate = new Date();
+            var dateTime = currentdate.getDate() + "/" +
+                (currentdate.getMonth() + 1) + "/" +
+                currentdate.getFullYear() + "  " +
+                currentdate.getHours() + ":" +
+                currentdate.getMinutes() + ":" +
+                currentdate.getSeconds();
+            var itemId = 0;
             if (state == 'cancel') {
                 toastr.error('Order got cancelled');
             } else {
-                var fileName = "CompletedOrders";
-                fileName += '.json';
-                var req = Ajax("./controllers/ajaxGetOrderedList.php?file=" + encodeURIComponent(fileName));
+                var userName = "User_001";
+                var fileName = userName + '-ordered-item-list.json';
+                var req = Ajax("./controllers/ajaxGetOrderedItemList.php?file=" + encodeURIComponent(fileName));
                 if (req.status == 200) {
                     try {
-                        var completedOrdersList = JSON.parse(req.responseText);
-                        if (productAlreadyInTheCart == false) {
-                            var newOrderObj = {
-                                "NIC_Passport_Number": nicOrPassportNumber,
-                                "Contact_Number_For_Pickup": contactNumberForPickup,
-                                "Verification_Type": selectedDeliveryMethod,
-                                "Selected_Shipping_Address": selectedAddress,
-                                "Note_To_Seller": NoteToSeller,
-                                "User": userName
+                        var orderedItemList = JSON.parse(req.responseText);
+                        var fileName = "CompletedOrders";
+                        fileName += '.json';
+                        var req2 = Ajax("./controllers/ajaxGetOrderedList.php?file=" + encodeURIComponent(fileName));
+                        if (req2.status == 200) {
+                            try {
+                                var completedOrderItemList = JSON.parse(req2.responseText);
+                                $.each(completedOrderItemList.CompletedOrders, function(index, value) {
+                                    itemId += 1;
+                                });
+                                itemId += 1;
+                                $.each(orderedItemList.OrderConfirmationItemList, function(index, value) {
+                                    var newCartObj = null;
+                                    newCartObj = {
+                                        "Item_Id": itemId,
+                                        "Item_Count": value.Item_Count,
+                                        "Date_Time": dateTime,
+                                        "Product_ID": value.Product_ID,
+                                        "Product_Name": value.Product_Name,
+                                        "Path": value.Path,
+                                        "Price": value.Price,
+                                        "User": userNameCurrent,
+                                        "Item_Received": false,
+                                        "Purchased_Items": "true",
+                                        "Payment_Status": "Compleated",
+                                        "Nic_Or_Passport_Number": nicOrPassportNumber,
+                                        "Pickup_Contact_Number": contactNumberForPickup,
+                                        "Verification_Type": selectedDeliveryMethod,
+                                        "Selected_Shipping_Address": selectedAddress
+                                    }
+                                    completedOrderItemList.CompletedOrders.push(newCartObj);
+                                    var recordJSON = JSON.stringify(completedOrderItemList);
+                                    var req3 = Ajax("./controllers/ajaxUpdateCompletedOrders.php", "POST", recordJSON);
+                                    if (req3.status == 200) {} else {
+                                        toastr.error('An Error Occurred While Upating Completed Order Item List');
+                                    }
+                                });
+
+                            } catch (e) {
+
                             }
-                            completedOrdersList.CompletedOrders.push(newOrderObj);
-                        }
-                        var recordJSON = JSON.stringify(completedOrdersList);
-                        var req = Ajax("./controllers/ajaxUpdateCompletedOrders.php", "POST", recordJSON);
-                        if (req.status == 200) {} else {
-                            toastr.error('An Error Occurred While Upating Review Lists');
                         }
                     } catch (e) {
 
                     }
                 }
             }
+        }
+
+        $('#document-icon').on('click', function() {
+            getPurchsedItemList();
+            $.mobile.changePage('#pgOrders');
+        });
+
+        function changeItemReceivedState(itemNo) {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            var fileName = "CompletedOrders";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetOrderedList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var purchsedtemListList = JSON.parse(req.responseText);
+                    $.each(purchsedtemListList.CompletedOrders, function(index, val) {
+                        if (val.Item_Id == itemNo) {
+                            // populatePurchsedItemList(this);
+                            val.Item_Received = true;
+                        }
+                    });
+                    var recordJSON = JSON.stringify(purchsedtemListList);
+                    var req = Ajax("./controllers/ajaxUpdateCompletedOrders.php", "POST", recordJSON);
+                    if (req.status == 200) {} else {
+                        toastr.error('An Error Occurred While Retrieving Completed Orders Item List');
+                    }
+                    getPurchsedItemList();
+                } catch (e) {
+                    toastr.error('An Error Occurred While Retrieving Completed Orders Item List');
+                }
+            }
+        }
+
+        function getPurchsedItemList() {
+            var Email = localStorage.getItem("currentLoggedInUser");
+            userName = Email.split('@')[0];
+            var fileName = "CompletedOrders";
+            fileName += '.json';
+            var req = Ajax("./controllers/ajaxGetOrderedList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var purchsedtemListList = JSON.parse(req.responseText);
+                    $('#ordersDiv').empty();
+                    $.each(purchsedtemListList.CompletedOrders, function(index, val) {
+                        if (val.User == userName && val.Item_Received == false) {
+                            populatePurchsedItemList(this);
+                        }
+                    });
+                    $.mobile.changePage('#pgOrders', { transition: pgtransition });
+                } catch (e) {
+                    toastr.error('An Error Occurred While Retrieving Shopping Cart Item List');
+                }
+            }
+        }
+
+        function populatePurchsedItemList(dataObj) {
+            var orderedItemListTopRow = $('<div>', {
+                'id': 'orderedItemListTopRow-' + dataObj.Item_Id,
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'margin-bottom: 15px; margin-top: 15px;'
+            });
+
+            var orderedItemListRow = $('<div>', {
+                'id': 'orderedItemListRow-' + dataObj.Item_Id,
+                'border-bottom': '1px #C4C4C4 solid;',
+                'class': 'flashDealsRow'
+            });
+
+            var orederIdAndDateParentDiv = $('<div>', {
+                'style': 'display: grid; padding: 10px; margin-bottom: 5px; margin-left: 5px;'
+            });
+
+            var orederId = $('<span>', {
+                'class': 'flash-deals-item-details'
+            });
+
+            orederId.text('Order ID: ' + dataObj.Payment_Status);
+
+            var orederedDate = $('<span>', {
+                'class': 'flash-deals-item-details'
+            });
+
+            orederedDate.text('Order Time: ' + dataObj.Date_Time);
+
+            var subCategoryItemImageParentDiv = $('<div>', {
+                'style': 'display: flex; margin-left: 5%;'
+            });
+
+            var subCategoryItemImg = $('<img>', {
+                'style': 'height: 90px; width: 90px;',
+                'src': dataObj.Path
+            });
+
+            var subCategoryItemDetailsParentDiv = $('<div>', {
+                'style': 'display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px;'
+            });
+
+            var subCategoryItemName = $('<span>', {
+                'class': 'flash-deals-item-details'
+            });
+
+            subCategoryItemName.text(dataObj.Product_Name);
+
+            var subCategoryItemPrice = $('<span>', {
+                'class': 'flash-deals-price'
+            });
+
+            var orderedItemCountAndPriceParentDiv = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'display: grid; margin-bottom: 5px; margin-top: 5px; margin-left: 5px; padding: 10px',
+                'class': 'flash-deals-item-details'
+            });
+
+            var QuantityParentDiv = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'display: flex;',
+                'class': 'flash-deals-item-details'
+            });
+
+            var QuantityText = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;'
+            });
+            QuantityText.text('Quantity: ');
+
+            var QuantityCount = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'margin-left: 220px'
+            });
+            QuantityCount.text(dataObj.Item_Count);
+
+            QuantityParentDiv.append(QuantityText);
+            QuantityParentDiv.append(QuantityCount);
+
+
+            var TotalAmountParentDiv = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'display: flex;',
+                'class': 'flash-deals-item-details'
+            });
+
+            var TotalAmountText = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;'
+            });
+            TotalAmountText.text('Total Amount: ');
+
+            var TotalAmount = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': ' margin-left: 193px'
+            });
+            // var price = (dataObj.Item_Count * dataObj.Price);
+            TotalAmount.text(dataObj.Price);
+
+            TotalAmountParentDiv.append(TotalAmountText);
+            TotalAmountParentDiv.append(TotalAmount);
+
+            var ItemReceivedBtn = $('<button>', {
+                'id': 'itemResived-' + dataObj.Item_Id,
+                'class': 'form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b',
+                'style': 'margin-bottom: 10px;',
+                //  'style': 'position: absolute; display: block; right: 3%; width: 40px; top: -100%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;'
+            }).on('click', function() {
+                changeItemReceivedState(dataObj.Item_Id);
+            });
+
+            var ItemReceivedBtnText = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;'
+            });
+            ItemReceivedBtnText.text('Confirm Item Received');
+            ItemReceivedBtn.append(ItemReceivedBtnText);
+
+            orderedItemCountAndPriceParentDiv.append(QuantityParentDiv);
+            orderedItemCountAndPriceParentDiv.append(TotalAmountParentDiv);
+
+            subCategoryItemPrice.text(dataObj.Price);
+
+            orederIdAndDateParentDiv.append(orederId);
+            orederIdAndDateParentDiv.append(orederedDate);
+
+            subCategoryItemImageParentDiv.append(subCategoryItemImg);
+
+            subCategoryItemDetailsParentDiv.append(subCategoryItemName);
+            subCategoryItemDetailsParentDiv.append(subCategoryItemPrice);
+
+            orderedItemListRow.append(orederIdAndDateParentDiv);
+            orderedItemListRow.append(subCategoryItemImageParentDiv);
+            orderedItemListRow.append(subCategoryItemDetailsParentDiv);
+
+            orderedItemListTopRow.append(orederIdAndDateParentDiv);
+            orderedItemListTopRow.append(orderedItemListRow);
+            orderedItemListTopRow.append(orderedItemCountAndPriceParentDiv);
+            orderedItemListTopRow.append(ItemReceivedBtn);
+
+            $('#ordersDiv').append(orderedItemListTopRow);
+
         }
 
         function updateCheckBoxState(state, isAllChecked, objData) {
