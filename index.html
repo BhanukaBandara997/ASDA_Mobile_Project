@@ -821,11 +821,11 @@
             <div id="order-state-block">
                 <div>
                     <img id="document-icon" class="document-icon-style" src="./assets/img/Icons/document.png"></img>
-                    <span class="orders-text-style">Orders</span>
-                    <span class="order-type-view-all-text">View
+                    <span class="orders-text-style" id="orders-btn">Orders</span>
+                    <span class="order-type-view-all-text" id="view-order-all">View
                         all</span>
                 </div>
-                <span class="shipping-type-details unpaid-shipping-type">Unpaid</span>
+                <span class="shipping-type-details unpaid-shipping-type" id="unpaid-btn">Unpaid</span>
                 <span class="shipping-type-details shipped-shipping-type">Shipped</span>
                 <span class="shipping-type-details to-be-collected-shippig-type">To be collected</span>
                 <div class="order-state-divider">
@@ -1800,6 +1800,19 @@
         </div>
     </div>
 
+    <!-- Unpaid Orders -->
+    <div data-theme="a" id="pgUnpaidOrders" data-role="page" data-title="Unpaid Page">
+        <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
+            <div id="headerTitleUnpaidOrders" class="add-review-style">
+                <img id="backIconUnpaidOrdersPage" src="./assets/img/back_grey.png" class="back-icon"></img>
+                <span id="backIconUnpaidOrders" class="open-sans-font sub-category-style">Unpaid Orders</span>
+            </div>
+        </div>
+        <div id="pgUnpaidOrdersDiv" data-role="main">
+            <div id="unpaidOrdersDiv" style="display: grid; margin-top: 15px;"></div>
+        </div>
+    </div>
+
     <!-- Shopping Cart -->
     <div data-theme="a" id="pgShoppingCart" data-role="page" data-title="Shopping Cart Page">
         <div id="shoppingCartHeaderDiv" data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
@@ -1977,7 +1990,7 @@
             </div>
 
         </div>
-        <div id="orderConfirmationFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px; border-top: 1.5px #C4C4C4 solid;">
+        <div id="orderConfirmationFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; border-top: 1.5px #C4C4C4 solid;">
             <div id="orderConfirmationNavBar" style="display: flex; height: 55px;" data-tap-toggle="false">
                 <div style="display: flex; margin-left: 15px;">
                     <div id="totalParent" style="display: grid; margin-top: 10px; position: absolute;">

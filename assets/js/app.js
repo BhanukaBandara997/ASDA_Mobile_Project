@@ -4400,6 +4400,27 @@ $(function() {
 
         });
 
+        function addToOrderedItemList(fileName, nowOrderedItemList) {
+            var updatedOrderedItemList = '';
+            var req = Ajax("./controllers/ajaxGetOrderedItemList.php?file=" + encodeURIComponent(fileName + '.json'));
+            if (req.status == 200) {
+                try {
+                    var orderedItemList = JSON.parse(req.responseText);
+                    $.each(nowOrderedItemList, function(index, val) {
+                        if (orderedItemList.OrderConfirmationItemList != null && orderedItemList.OrderConfirmationItemList != '') {
+                            orderedItemList.OrderConfirmationItemList.push(val);
+                        } else {
+                            orderedItemList.OrderConfirmationItemList.push(val);
+                        }
+                    });
+                    updatedOrderedItemList = orderedItemList.OrderConfirmationItemList;
+                } catch (e) {
+                    toastr.error("An Error Occured While Retrieving Ordered Item List");
+                }
+            }
+            return updatedOrderedItemList;
+        }
+
         function createOrderConfirmationList(purchsedItemsList) {
             var fileName = "ShoppingCart.json";
             var req = Ajax("./controllers/ajaxGetShoppingCartList.php?file=" + encodeURIComponent(fileName));
@@ -4421,11 +4442,12 @@ $(function() {
                     });
                     // var Email = localStorage.getItem("currentLoggedInUser");
                     // userName = Email.split('@')[0];
-                    var orderConfirmationItemList = {
-                        "OrderConfirmationItemList": orderedItemList.ShoppingCart
-                    }
                     var userName = "User_001";
                     var fileName = userName + '-ordered-item-list';
+                    var updatedOrderedItemList = addToOrderedItemList(fileName, orderedItemList.ShoppingCart);
+                    var orderConfirmationItemList = {
+                        "OrderConfirmationItemList": updatedOrderedItemList
+                    }
                     var fileNameObj = { "FileName": fileName };
                     var recordObj = $.extend(true, orderConfirmationItemList, fileNameObj);
                     var recordJSON = JSON.stringify(recordObj);
@@ -4454,6 +4476,39 @@ $(function() {
                 }
             }
         }
+
+        function getPayNowItems(payNowProductId) {
+            var totalAmount = 0;
+            var itemCount = 0;
+            // var Email = localStorage.getItem("currentLoggedInUser");
+            // userName = Email.split('@')[0];
+            var userName = "User_001"
+            var fileName = userName + '-ordered-item-list.json';
+            var req = Ajax("./controllers/ajaxGetOrderedItemList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var orderedItemList = JSON.parse(req.responseText);
+                    $('#orderConfirmationDiv').empty();
+                    $.each(orderedItemList.OrderConfirmationItemList, function() {
+                        if (this.Product_ID == payNowProductId) {
+                            appendOrderConfirmedList($('#orderConfirmationDiv'), this);
+                            var priceStr = this.Price;
+                            var priceInt = priceStr.substr(priceStr.indexOf("$") + 1);
+                            totalAmount = totalAmount + JSON.parse(priceInt);
+                            itemCount += 1;
+                        }
+                    });
+                    $('#orderConfirmedSummarySpan').text('Order Summary (' + itemCount + ' items)');
+                    $('#orderConfirmedSubTotalSpan').text(totalAmount.toFixed(2));
+                    var allTotalAfterDiscount = totalAmount.toFixed(2) - 1;
+                    $('#orderConfirmedAllTotalSpan').text(allTotalAfterDiscount.toFixed(2));
+                    $('#orderConfirmedCartTotalAmount').text("US $" + allTotalAfterDiscount.toFixed(2));
+                } catch (e) {
+                    toastr.error("An Error Occured While Retrieving Ordered List");
+                }
+            }
+        }
+
 
         function getOrderConfirmedList() {
             var totalAmount = 0;
@@ -4954,9 +5009,14 @@ $(function() {
             }
         }
 
-        $('#document-icon').on('click', function() {
+        $('#document-icon, #orders-btn, #view-order-all').on('click', function() {
             getPurchsedItemList();
             $.mobile.changePage('#pgOrders');
+        });
+
+        $('#unpaid-btn').on('click', function() {
+            getUnpaidItemList();
+            $.mobile.changePage('#pgUnpaidOrders');
         });
 
         function changeItemReceivedState(itemNo) {
@@ -4996,7 +5056,7 @@ $(function() {
                     var purchsedtemListList = JSON.parse(req.responseText);
                     $('#ordersDiv').empty();
                     $.each(purchsedtemListList.CompletedOrders, function(index, val) {
-                        if (val.User == userName && val.Item_Received == false) {
+                        if (val.User == userName) {
                             populatePurchsedItemList(this);
                         }
                     });
@@ -5119,7 +5179,11 @@ $(function() {
             var ItemReceivedBtnText = $('<span>', {
                 'border-bottom': '1px #C4C4C4 solid; font-size: 14px !important;'
             });
-            ItemReceivedBtnText.text('CONFIRM ORDER RECEIVED');
+            if (dataObj.Item_Received) {
+                ItemReceivedBtnText.text('LEAVE ADDITIONAL FEEDBACK');
+            } else {
+                ItemReceivedBtnText.text('CONFIRM ORDER RECEIVED');
+            }
             ItemReceivedBtn.append(ItemReceivedBtnText);
 
             orderedItemCountAndPriceParentDiv.append(QuantityParentDiv);
@@ -5145,6 +5209,152 @@ $(function() {
             orderedItemListTopRow.append(ItemReceivedBtn);
 
             $('#ordersDiv').append(orderedItemListTopRow);
+
+        }
+
+        $('#backIconUnpaidOrdersPage').on('click', function() {
+            $.mobile.changePage('#pgAccount');
+        });
+
+        function getUnpaidItemList() {
+            // var Email = localStorage.getItem("currentLoggedInUser");
+            // userName = Email.split('@')[0];
+            var userName = "User_001"
+            var fileName = userName + '-ordered-item-list.json';
+            var req = Ajax("./controllers/ajaxGetOrderedItemList.php?file=" + encodeURIComponent(fileName));
+            if (req.status == 200) {
+                try {
+                    var orderedItemList = JSON.parse(req.responseText);
+                    $('#unpaidOrdersDiv').empty();
+                    $.each(orderedItemList.OrderConfirmationItemList, function() {
+                        if (this.PaymentStatus == "Pending" && this.PurchasedItems == "true") {
+                            appendUnpaidItemList(this);
+                        }
+                    });
+                } catch (e) {
+                    toastr.error("An Error Occured While Retrieving Ordered List");
+                }
+            }
+        }
+
+        function appendUnpaidItemList(dataObj) {
+            var orderedItemListTopRow = $('<div>', {
+                'id': 'orderedItemListTopRow-' + dataObj.Product_ID,
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'margin-bottom: 15px;'
+            });
+
+            var orderedItemListRow = $('<div>', {
+                'id': 'orderedItemListRow-' + dataObj.Product_ID,
+                'border-bottom': '1px #C4C4C4 solid;',
+                'class': 'flashDealsRow'
+            });
+
+            var subCategoryItemImageParentDiv = $('<div>', {
+                'style': 'display: flex; margin-left: 5%;'
+            });
+
+            var subCategoryItemImg = $('<img>', {
+                'style': 'height: 90px; width: 90px;',
+                'src': dataObj.Path
+            });
+
+            var subCategoryItemDetailsParentDiv = $('<div>', {
+                'style': 'display: grid; padding: 15px; margin-bottom: 5px; margin-left: 10px;'
+            });
+
+            var subCategoryItemName = $('<span>', {
+                'class': 'flash-deals-item-details'
+            });
+
+            subCategoryItemName.text(dataObj.Product_Name);
+
+            var subCategoryItemPrice = $('<span>', {
+                'class': 'flash-deals-price'
+            });
+
+            var orderedItemCountAndPriceParentDiv = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'display: grid; margin-bottom: 5px; margin-top: 5px; margin-left: 5px; padding: 10px; font-size: 14px;',
+                'class': 'flash-deals-item-details'
+            });
+
+            var QuantityParentDiv = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'display: flex;',
+                'class': 'flash-deals-item-details'
+            });
+
+            var QuantityText = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;'
+            });
+            QuantityText.text('Quantity: ');
+
+            var QuantityCount = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'position: absolute; right: 5%;'
+            });
+            QuantityCount.text(dataObj.Item_Count);
+
+            QuantityParentDiv.append(QuantityText);
+            QuantityParentDiv.append(QuantityCount);
+
+
+            var TotalAmountParentDiv = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'display: flex;',
+                'class': 'flash-deals-item-details'
+            });
+
+            var TotalAmountText = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;'
+            });
+            TotalAmountText.text('Total Amount: ');
+
+            var TotalAmount = $('<div>', {
+                'border-bottom': '1px #C4C4C4 solid;',
+                'style': 'position: absolute; right: 5%; color: rgba(227, 9, 9, 0.9)'
+            });
+            var priceNew = dataObj.Price.substr(dataObj.Price.indexOf("$") + 1);
+            var totalAmount = dataObj.Item_Count * priceNew;
+            TotalAmount.text('US $ ' + totalAmount);
+
+            TotalAmountParentDiv.append(TotalAmountText);
+            TotalAmountParentDiv.append(TotalAmount);
+
+            var payNowBtn = $('<button>', {
+                'id': 'itemResived-' + dataObj.Product_ID,
+                'class': 'form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b',
+                'style': 'width: 320px; margin-bottom: 10px; margin-right: 27px; font-size: 14px !important; border-radius: 5px !important; padding: 12px;',
+            }).on('click', function() {
+                getPayNowItems(dataObj.Product_ID);
+                $.mobile.changePage('#pgOrderConfirmation');
+            });
+
+            var payNowBtnText = $('<span>', {
+                'border-bottom': '1px #C4C4C4 solid; font-size: 14px !important;'
+            });
+            payNowBtnText.text('Pay Now');
+            payNowBtn.append(payNowBtnText);
+
+            orderedItemCountAndPriceParentDiv.append(QuantityParentDiv);
+            orderedItemCountAndPriceParentDiv.append(TotalAmountParentDiv);
+
+            subCategoryItemPrice.text(dataObj.Price);
+
+            subCategoryItemImageParentDiv.append(subCategoryItemImg);
+
+            subCategoryItemDetailsParentDiv.append(subCategoryItemName);
+            subCategoryItemDetailsParentDiv.append(subCategoryItemPrice);
+
+            orderedItemListRow.append(subCategoryItemImageParentDiv);
+            orderedItemListRow.append(subCategoryItemDetailsParentDiv);
+
+            orderedItemListTopRow.append(orderedItemListRow);
+            orderedItemListTopRow.append(orderedItemCountAndPriceParentDiv);
+            orderedItemListTopRow.append(payNowBtn);
+
+            $('#unpaidOrdersDiv').append(orderedItemListTopRow);
 
         }
 
