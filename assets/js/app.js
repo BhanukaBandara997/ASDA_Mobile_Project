@@ -3579,6 +3579,10 @@ $(function() {
                     var recordJSON = JSON.stringify(reviewList);
                     var req = Ajax("./controllers/ajaxUpdateReviewsList.php", "POST", recordJSON);
                     if (req.status == 200) {
+                        var dataObj = {
+                            'Product_ID': productId
+                        };
+                        app.PopulateCustomerReviews(dataObj);
                         $.mobile.changePage('#pgReview');
                     } else {
                         toastr.error('An Error Occurred While Upating Review Lists');
@@ -5383,6 +5387,12 @@ $(function() {
                 } catch (e) {}
             }
         }
+
+        $('#buyNowBtn').on('click', function() {
+            var productId = $('#itemMainDetails').attr('productid');
+            getPayNowItems(productId);
+            $.mobile.changePage('#pgOrderConfirmation');
+        });
 
     })(ASDA_Project);
 });
