@@ -3452,8 +3452,6 @@ $(function() {
         });
 
         $('#addToCartBtn').on('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
             app.AddItemToTheShoppingCart(objectValue);
         });
 
@@ -3467,6 +3465,7 @@ $(function() {
             // TODO uncheck all items in JSON file.
             // updateCheckBoxState(false, true, objData);
             app.PopulateShoppingCart();
+
             $.mobile.changePage('#pgShoppingCart', { transition: pgtransition });
         });
 
@@ -4119,6 +4118,7 @@ $(function() {
                         $('.edit-check-box').prop("checked", false);
                         $.each(shoppingCartList.ShoppingCart, function(index, val) {
                             $("#shopping-cart-check-box-" + val.Product_ID).prop("checked", true);
+                            removeItemsList.push(val.Product_ID);
                             app.CalculateTheTotalAmount(val.Product_ID, true, false, false);
                         });
                     } catch (e) {
@@ -4405,10 +4405,11 @@ $(function() {
                 try {
                     var shoppingCartList = JSON.parse(req.responseText);
                     var orderedItemList = shoppingCartList;
+                    var orderedItemsList = null;
                     $.each(orderedItemList.ShoppingCart, function(index, value) {
                         $.each(purchsedItemsList, function(i, val) {
                             if (val == value.Product_ID) {
-                                orderedItemList = jQuery.grep(orderedItemList.ShoppingCart, function(value) {
+                                orderedItemsList = jQuery.grep(orderedItemList.ShoppingCart, function(value) {
                                     value.PaymentStatus = "Pending";
                                     value.PurchasedItems = "true";
                                     return value.Product_ID == val;
@@ -4419,7 +4420,7 @@ $(function() {
                     // var Email = localStorage.getItem("currentLoggedInUser");
                     // userName = Email.split('@')[0];
                     var orderConfirmationItemList = {
-                        "OrderConfirmationItemList": orderedItemList
+                        "OrderConfirmationItemList": orderedItemList.ShoppingCart
                     }
                     var userName = "User_001";
                     var fileName = userName + '-ordered-item-list';
