@@ -23,9 +23,8 @@ $(function() {
     var selectedItemCount = 0;
     var removeItemsList = [];
     var buyNowItemList = [];
-    var selectedAddress, selectedDeliveryMethod, selectedVerificationType, nicOrPassportNumber, contactNumberForPickup = '';
-    var selectedAddress, selectedDeliveryMethod, selectedVerificationType, nicOrPassportNumber, contactNumberForPickup = '',
-        NoteToSeller;
+    var selectedAddress, selectedDeliveryMethod, selectedVerificationType, nicOrPassportNumber, contactNumberForPickup, NoteToSeller = '';
+    var paymentCancelled = true;
     (function(app) {
 
         $(".ui-field-contain").css({ 'border-bottom-style': 'none' });
@@ -703,7 +702,7 @@ $(function() {
         function appendCategoryParent(categoryState, previousCategoryObj, newCategoryObj) {
 
             var parentDiv = $('<div>', {
-                'style': 'display: flex; margin-top: 15px;'
+                'style': 'display: flex; margin-bottom: 15px;'
             });
 
             parentDiv.append(previousCategoryObj);
@@ -749,10 +748,8 @@ $(function() {
         function subCategory(parentCategoryName) {
             var newParentCategoryName = parentCategoryName.replace(/ /g, '');
             if (parentCategoryName == "Home Baking" || parentCategoryName == "Biscuts, Chocolate & Sweets") {
-
                 app.PopulateSubCategoryItems(parentCategoryName);
             } else {
-                // toastr.error('Selected Sub category ' +newParentCategoryName);
                 var fileName = newParentCategoryName;
                 fileName += '.json';
                 var req = Ajax("./controllers/ajaxGetSubCategories.php?file=" + encodeURIComponent(fileName));
@@ -838,7 +835,6 @@ $(function() {
                     toastr.success('An Error Occurred While Retrieving Flash Deals Item List');
                 }
             }
-
         };
 
         function appendFlashDealItems(parent, dataObj) {
@@ -1421,10 +1417,12 @@ $(function() {
         }
 
         $('#edit-btn').on('click', function() {
-            if ($('#edit-btn').attr('src') == './assets/img/Navbar_Images/correct-signal.png') {
-                editBtnFunctionalities();
-            } else {
-                correctBtnFunctionalities();
+            if ($('#favSelect').val() == 'ALL_PRODUCTS') {
+                if ($('#edit-btn').attr('src') == './assets/img/Navbar_Images/correct-signal.png') {
+                    editBtnFunctionalities();
+                } else {
+                    correctBtnFunctionalities();
+                }
             }
         });
 
@@ -1453,7 +1451,7 @@ $(function() {
                         appendFavouriteItemsToList($('#favouriteItemListDiv'), this);
                     });
                 } catch (e) {
-                    toastr.success('An Error Occurred While Retrieving Favourite Item List');
+
                 }
             }
 
@@ -1780,7 +1778,6 @@ $(function() {
                 var req = Ajax("./controllers/ajaxShareItem.php", "POST", recordJSON);
                 if (req.status == 200) {
                     try {
-                        toastr.success('Item Shared To Your - ' + sEmail + ' Address');
                         $('#sharePopupDialog').popup('close');
                     } catch (e) {
                         toastr.error('An Error Occured While Sharing Item');
@@ -1920,8 +1917,8 @@ $(function() {
         $('#moveFavouriteBtn').on('click', function() {
             if (moveFavouriteItemsList.length > 0) {
                 var favouriteListName = selectedFavouriteListName.replace(/ /g, '_');
-                //var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
-                var currentLoggedUser = "User_001";
+                var currentLoggedUser = localStorage.getItem('currentLoggedInUser').split('@')[0];
+                //var currentLoggedUser = "User_001";
                 var fileName = currentLoggedUser + "-favouriteLists";
                 fileName += '.json';
                 var validFavouriteListName = true;
@@ -3481,6 +3478,11 @@ $(function() {
         $('#backIconShoppingCartPage').on('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            $('#summaryParentDiv').css('display', 'none');
+            $('#subTotalSpan').text('US $ 0.00');
+            $('#allTotalSpan').text('- US $ 0.00');
+            $('#priceExpander').css('transform', 'rotate(270deg)');
+            $('#allSelectedCheckBox').prop("checked", false);
             $.mobile.changePage('#pgHome', { transition: pgtransition });
         });
 
@@ -4431,7 +4433,7 @@ $(function() {
                     if (req.status == 200) {
                         try {
                             $.each(orderedItemList, function(index, value) {
-                                shoppingCartList = jQuery.grep(shoppingCartList.ShoppingCart, function(val) {
+                                shoppingCartList = jQuery.grep(shoppingCartList, function(val) {
                                     return value.Product_ID != val.Product_ID;
                                 });
                             });
@@ -4742,19 +4744,13 @@ $(function() {
                 }
             }
         }
-        $('#payWithIcon').on('click', function() {
+        $('#payWithIcon, #selectPaymentMethodDiv').on('click', function() {
             $.mobile.changePage('#pgCardDetails');
-        });
-        $('#selectCereditCartMethodImg').on('click', function() {
-            appendPaymentMethod('CreditCard');
             $('#paypal-button-container').empty();
             payPalButtons('CreditCard');
-            $.mobile.changePage('#pgOrderConfirmation');
         });
-        $('#selectPayPalMethodImg').on('click', function() {
-            appendPaymentMethod('PayPal');
-            $('#paypal-button-container').empty();
-            payPalButtons('PayPal');
+
+        $('#backIconPaymentView').on('click', function() {
             $.mobile.changePage('#pgOrderConfirmation');
         });
 
@@ -4792,9 +4788,7 @@ $(function() {
                 }
             } else {
                 isValidated = false;
-                toastr.error('NIC or Passport Number is Required');
             }
-
             if (isValidated) {
                 $.mobile.changePage('#pgOrderConfirmation');
                 getOrderConfirmedList();
@@ -4808,19 +4802,20 @@ $(function() {
             }
         }
 
-
         function payPalButtons(buttonType) {
+            var discountedValue = totalPrice - 1.00;
             if (buttonType == "CreditCard") {
                 paypal.Buttons({
                     onInit: function(data, actions) {
                         actions.enable();
                         payNowButtonClick();
+                        appendPaymentMethod('PayPal');
                     },
                     createOrder: function(data, actions) {
                         return actions.order.create({
                             purchase_units: [{
                                 amount: {
-                                    value: totalPrice,
+                                    value: discountedValue,
                                     currency: 'USD'
                                 },
                                 payee: {
@@ -4833,7 +4828,7 @@ $(function() {
                     onApprove: function(data, actions) {
                         return actions.order.capture().then(function(details) {
                             addToOrderedList('approved');
-                            getPurchsedItemList();
+                            paymentCancelled = false;
                         });
                     },
                     onCancel: function(data) {
@@ -4845,18 +4840,18 @@ $(function() {
                         color: 'gold',
                     }
                 }).render('#paypal-button-container');
-
             } else if (buttonType == "PayPal") {
                 paypal.Buttons({
                     onInit: function(data, actions) {
                         actions.enable();
                         payNowButtonClick();
+                        appendPaymentMethod('PayPal');
                     },
                     createOrder: function(data, actions) {
                         return actions.order.create({
                             purchase_units: [{
                                 amount: {
-                                    value: totalPrice,
+                                    value: discountedValue,
                                     currency: 'USD'
                                 },
                                 payee: {
@@ -4869,7 +4864,7 @@ $(function() {
                     onApprove: function(data, actions) {
                         return actions.order.capture().then(function(details) {
                             addToOrderedList('approved');
-                            getPurchsedItemList();
+                            paymentCancelled = false;
                         });
                     },
                     onCancel: function(data) {
@@ -4883,6 +4878,13 @@ $(function() {
             }
         }
 
+        $('#payNowBtn').on('click', function() {
+            if (paymentCancelled && isValidated) {
+                toastr.error('Pay The Amount To Complete Your Order');
+            } else {
+                getPurchsedItemList();
+            }
+        });
 
         function addToOrderedList(state) {
             var Email = localStorage.getItem("currentLoggedInUser");
@@ -4927,7 +4929,7 @@ $(function() {
                                         "User": userNameCurrent,
                                         "Item_Received": false,
                                         "Purchased_Items": "true",
-                                        "Payment_Status": "Compleated",
+                                        "Payment_Status": "Completed",
                                         "Nic_Or_Passport_Number": nicOrPassportNumber,
                                         "Pickup_Contact_Number": contactNumberForPickup,
                                         "Verification_Type": selectedDeliveryMethod,
@@ -4968,7 +4970,6 @@ $(function() {
                     var purchsedtemListList = JSON.parse(req.responseText);
                     $.each(purchsedtemListList.CompletedOrders, function(index, val) {
                         if (val.Item_Id == itemNo) {
-                            // populatePurchsedItemList(this);
                             val.Item_Received = true;
                         }
                     });
@@ -5010,7 +5011,7 @@ $(function() {
             var orderedItemListTopRow = $('<div>', {
                 'id': 'orderedItemListTopRow-' + dataObj.Item_Id,
                 'border-bottom': '1px #C4C4C4 solid;',
-                'style': 'margin-bottom: 15px; margin-top: 15px;'
+                'style': 'margin-bottom: 15px;'
             });
 
             var orderedItemListRow = $('<div>', {
@@ -5060,7 +5061,7 @@ $(function() {
 
             var orderedItemCountAndPriceParentDiv = $('<div>', {
                 'border-bottom': '1px #C4C4C4 solid;',
-                'style': 'display: grid; margin-bottom: 5px; margin-top: 5px; margin-left: 5px; padding: 10px',
+                'style': 'display: grid; margin-bottom: 5px; margin-top: 5px; margin-left: 5px; padding: 10px; font-size: 14px;',
                 'class': 'flash-deals-item-details'
             });
 
@@ -5077,7 +5078,7 @@ $(function() {
 
             var QuantityCount = $('<div>', {
                 'border-bottom': '1px #C4C4C4 solid;',
-                'style': 'margin-left: 220px'
+                'style': 'position: absolute; right: 5%;'
             });
             QuantityCount.text(dataObj.Item_Count);
 
@@ -5098,10 +5099,11 @@ $(function() {
 
             var TotalAmount = $('<div>', {
                 'border-bottom': '1px #C4C4C4 solid;',
-                'style': ' margin-left: 193px'
+                'style': 'position: absolute; right: 5%; color: rgba(227, 9, 9, 0.9)'
             });
-            // var price = (dataObj.Item_Count * dataObj.Price);
-            TotalAmount.text(dataObj.Price);
+            var priceNew = dataObj.Price.substr(dataObj.Price.indexOf("$") + 1);
+            var totalAmount = dataObj.Item_Count * priceNew;
+            TotalAmount.text('US $ ' + totalAmount);
 
             TotalAmountParentDiv.append(TotalAmountText);
             TotalAmountParentDiv.append(TotalAmount);
@@ -5109,16 +5111,15 @@ $(function() {
             var ItemReceivedBtn = $('<button>', {
                 'id': 'itemResived-' + dataObj.Item_Id,
                 'class': 'form-buttons open-sans-font ui-btn ui-corner-all ui-shadow ui-btn-b',
-                'style': 'margin-bottom: 10px;',
-                //  'style': 'position: absolute; display: block; right: 3%; width: 40px; top: -100%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;'
+                'style': 'width: 320px; margin-bottom: 10px; margin-right: 27px; font-size: 14px !important; border-radius: 5px !important; padding: 12px;',
             }).on('click', function() {
                 changeItemReceivedState(dataObj.Item_Id);
             });
 
-            var ItemReceivedBtnText = $('<div>', {
-                'border-bottom': '1px #C4C4C4 solid;'
+            var ItemReceivedBtnText = $('<span>', {
+                'border-bottom': '1px #C4C4C4 solid; font-size: 14px !important;'
             });
-            ItemReceivedBtnText.text('Confirm Item Received');
+            ItemReceivedBtnText.text('CONFIRM ORDER RECEIVED');
             ItemReceivedBtn.append(ItemReceivedBtnText);
 
             orderedItemCountAndPriceParentDiv.append(QuantityParentDiv);

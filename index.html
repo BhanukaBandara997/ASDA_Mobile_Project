@@ -112,6 +112,9 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <button>SKIP</button>
+            </div>
         </div>
     </div>
 
@@ -697,7 +700,7 @@
                 <img id="cart-img" src="./assets/img/Navbar_Images/cart-color.png" class="icon-header-nav">
             </div>
         </div>
-        <div id="pgShopContent" data-role="main">
+        <div id="pgShopContent" data-role="main" style="background: rgba(219, 219, 219, 0.9); height: 691px; padding-top: 15px;">
         </div>
         <div data-role="footer" data-position="fixed" style="padding-top: 7px;" data-tap-toggle="false">
             <div data-role="navbar" data-grid="d">
@@ -754,7 +757,7 @@
             </div>
         </div>
         <div id="pgSubCategoryContent" data-role="main">
-            <div id="sub-category-background" class="sub-category-background-content open-sans-font"></div>
+            <div id="sub-category-background" class="sub-category-background-content open-sans-font" style="padding-top: 15px;"></div>
         </div>
         <div data-role="footer" data-position="fixed" style="padding-top: 7px;" data-tap-toggle="false">
             <div data-role="navbar" data-grid="d">
@@ -1789,14 +1792,11 @@
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="headerTitleOrders" class="add-review-style">
                 <img id="backIconOrdersPage" src="./assets/img/back_grey.png" class="back-icon"></img>
-                <span id="backIconOrders" class="open-sans-font sub-category-style">Orders</span>
+                <span id="backIconOrders" class="open-sans-font sub-category-style">My Orders</span>
             </div>
         </div>
         <div id="pgOrdersDiv" data-role="main">
-            <div id="ordersDiv"></div>
-            <!-- <button id="createReviewBtn2" class="ui-btn-fab ui-btn-raised ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button" style="position: absolute; display: block; right: 5%; width: 53px; top: 87%; border: 0.2px solid rgba(0, 0, 0, 0.8); box-sizing: border-box !important; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) !important;">
-            <i class ="zmdi zmdi-plus zmd-2x" style="color: rgba(227, 9, 9, 0.9);"></i>
-            </button> -->
+            <div id="ordersDiv" style="display: grid;"></div>
         </div>
     </div>
 
@@ -1877,7 +1877,7 @@
         </div>
     </div>
 
-    <!-- Card Details -->
+    <!-- PayWith -->
     <div id="pgCardDetails" data-role="page" data-title="Sub Category Item List Page">
         <div data-role="header" data-position="fixed" class="header-navbar" style="background-color: #FFFFFF;" data-tap-toggle="false">
             <div id="headerCardDetails" class="add-review-style">
@@ -1885,31 +1885,8 @@
                 <span id="backIconCardDetailsText" class="open-sans-font sub-category-style">Pay With</span>
             </div>
         </div>
-
-        <div id="pgCardDetailsDiv" data-role="main" style="background-color: rgba(196, 196, 196, 0.75);">
-
-            <div style="position: absolute; width: 100%; height: 43px; left: 0px;; background: rgba(196, 196, 196, 0.75);">
-                <span id="CardType" style="position: absolute; margin-top: 14px; font-size: 14px; margin-left: 5%;">Your credit and debit cards</span>
-            </div>
-            <div id="CreditCardDetailsDiv">
-                <div style="display: flex;height: 60px; background-color: #FFFFFF;">
-                    <img id="creditCartImg" src="./assets/img/Payment/credit-card.png" style="height: 30px; width: 37px; margin-left: 15px; margin-top: 48px;">
-                    <span id="creditCardText" style=" margin-top: 54px; font-size: 13px; margin-left: 5%;">Add Card</span>
-                    <img id="selectCereditCartMethodImg" src="./assets/img/Icons/back_button_blue.png" style="height: 20px; width: 15px; margin-left: 8px; margin-top: 54px; position: absolute; right: 10px;">
-                </div>
-            </div>
-            <div style="position: absolute; width: 100%; height: 43px;; left: 0px; margin-top: 25px; background: rgba(196, 196, 196, 0.75);">
-                <span id="paypalCardText" style="position: absolute; margin-top: 14px; font-size: 14px; margin-left: 5%;">Other payment options</span>
-            </div>
-            <div id="PayPalDetailsDiv">
-                <div style="display: flex;height: 60px; background-color: #FFFFFF;">
-                    <img id="paypalImg" src="./assets/img/Payment/paypal.png" style="height: 30px; width: 37px; margin-left: 15px; margin-top: 73px;">
-                    <span id="CardTypePaypal" style=" margin-top: 79px; font-size: 13px; margin-left: 5%;">PayPal</span>
-                    <img id="selectPayPalMethodImg" src="./assets/img/Icons/back_button_blue.png" style="height: 20px; width: 15px; margin-left: 8px; margin-top: 79px; position: absolute; right: 10px;">
-                </div>
-            </div>
-            <div style="top: 221px; position: absolute; width: 100%; height: 588px; background: rgba(196, 196, 196, 0.75); border-bottom: 2px rgba(125, 101, 101, 0.34) solid;"></div>
-
+        <div id="pgCardDetailsDiv" data-role="main">
+            <div id="paypal-button-container" style="margin-top: 10px; width: 90%; margin-left: 5%;"> </div>
         </div>
     </div>
 
@@ -1963,13 +1940,13 @@
                         <div id="payPalDetailsDiv" style="display: none;">
                             <div style="display: grid; margin-top: 8px;">
                                 <span id="payPalEmail" style="font-size: 9px; margin-left: 10%; margin-bottom: 4px;"></span>
-                                <span id="payPalPaymentDetails" style="font-size: 9px; margin-left: 10%; width: 110px;"></span>
+                                <span id="payPalPaymentDetails" style="font-size: 9px; margin-left: 10%; width: 110px; margin-top: 3px;"></span>
                             </div>
                         </div>
                         <div id="creditCardDetailsDiv" style="display: none;">
                             <div style="display: grid; margin-top: 17px;">
                                 <span id="creditCardDetails" style="font-size: 10px; margin-left: 10%; margin-top: -8px; width: 110px; margin-bottom: 4px;"></span>
-                                <span id="creditCardPaymentDetails" style="font-size: 10px; margin-left: 10%; width: 110px;"></span>
+                                <span id="creditCardPaymentDetails" style="font-size: 10px; margin-left: 10%; width: 110px; margin-top: -3px;">Credit Card</span>
                             </div>
                         </div>
                     </div>
@@ -2001,7 +1978,6 @@
 
         </div>
         <div id="orderConfirmationFooterDiv" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding-top: 5px; margin-bottom: 2px; border-top: 1.5px #C4C4C4 solid;">
-            <div id="paypal-button-container" style="margin-top: 10px; width: 90%; margin-left: 5%;"> </div>
             <div id="orderConfirmationNavBar" style="display: flex; height: 55px;" data-tap-toggle="false">
                 <div style="display: flex; margin-left: 15px;">
                     <div id="totalParent" style="display: grid; margin-top: 10px; position: absolute;">
@@ -2010,9 +1986,9 @@
                             <span id="orderConfirmedCartTotalAmount">US $0.00</span>
                         </div>
                     </div>
-                    <!-- <div id="buyItmesBtn" style="position: absolute; right: 10px; bottom: 18px;">
+                    <div id="buyItmesBtn" style="position: absolute; right: 10px; bottom: 18px;">
                         <button class="favourites-delete-btn" id="payNowBtn">Pay Now</button>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>

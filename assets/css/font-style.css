@@ -1,6 +1,6 @@
 .card-text-font-style {
     text-align: center;
-    height: 14px;
+    margin-top: 5px;
     font-family: Open Sans;
     font-weight: 600;
     font-size: 12px;
@@ -13,11 +13,10 @@
     width: 180px;
     height: 20px;
     left: 50px;
-    top: 10px;
+    top: 12px;
     font-family: Open Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
+    font-weight: 600;
+    font-size: 16px;
     line-height: 20px;
     color: rgba(0, 0, 0, 0.8);
 }
@@ -906,7 +905,7 @@
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 10px;
     color: #C56018;
 }
@@ -915,7 +914,7 @@
     font-family: Open Sans;
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 11px;
     color: #000000;
     margin-bottom: 15px;
@@ -925,7 +924,7 @@
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 11px;
     color: rgba(0, 0, 0, 0.8);
     margin-bottom: 8px;
@@ -935,7 +934,7 @@
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 11px;
     color: rgba(0, 0, 0, 0.8);
     margin-bottom: 8px;
@@ -945,7 +944,7 @@
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 11px;
     color: rgba(0, 0, 0, 0.8);
     margin-bottom: 8px;
